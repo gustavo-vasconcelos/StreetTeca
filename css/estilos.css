@@ -1,0 +1,25 @@
+.inicio {
+    display: table;
+    width: 100%;
+    height: auto;
+    padding: 360px 0;
+    text-align: center;
+    color: #fff;
+    background: url(../img/bg.jpg) no-repeat bottom center scroll;
+    background-color: #000;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    border-right: 2px solid black;
+    border-left: 2px solid black;
+}
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
