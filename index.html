@@ -1,187 +1,483 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-pt">
 
 <head>
-    <title>Title</title>
+    <title>StreetTeca - Gestão de Bibliotecas de Rua</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <!-- Fonts awesome-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- CSS -->
     <link rel="stylesheet" href="css/estilos.css">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body>
-    <div class="container" id="main-container">
-        <header class="inicio">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <h1 class="brand-heading">Grayscale</h1>
-                        <p class="intro-text">A free, responsive, one page Bootstrap theme.
-                            <br>Created by Start Bootstrap.</p>
-                        <a href="#about" class="btn btn-circle js-scroll-trigger">
-                            <i class="fa fa-angle-double-down animated"></i>
-                        </a>
+<body class="bg-teca2">
+    <!-- Início navbar -->
+    <nav class="navbar navbar-expand-md navbar-light bg-teca4 fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="img/marca.png" alt="StreetTeca" id="marca" class="zoom-hover">
+            </a>
+            <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline btn-primary px-4 text-light" href="#sobre">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline btn-primary px-4 text-light" href="#catalogo">Catálogo</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle btn btn-outline btn-info px-3" href="#" id="areaUtilizador" data-toggle="dropdown"></a>
+                        <div class="dropdown-menu text-center bg-primary">
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalAdicionar" id="btnAdicionarViagem">Adicionar viagem</a>
+                            <button type="button dropdown-item" class="w-100 btn btn-danger btn-danger-outline" id="btnLogout">Logout</button>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline btn-info px-3" data-toggle="modal" data-target="#modalLogin" id="btnLogin">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Fim navbar -->
+    <!-- Background image-->
+    <div class="bg">
+        <img src="img/logo.png" alt="StreetTeca" class="img-fluid">
+    </div>
+    <!-- Fim background image-->
+    <!-- Início main container -->
+    <div class="container py-5" id="main-container">
+        <!-- recentes -->
+        <section id="recentes" class="px-2">
+            <h1 class="display-3 text-white text-center">Recentes</h1>
+            <div class="row mt-1 justify-content-center">
+                <div class="col-lg-4 col-md-6 col-sm-10 col-10 mt-4">
+                    <figure class="livro-card">
+                        <img class="img-fluid" src="https://img.wook.pt/images/os-100-kass-morgan/MXwxNjU5MTM3MHwxMjIwMTAzNXwxNDk0OTc1NjAwMDAw/502x"
+                            alt="">
+                    </figure>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-10 col-10 mt-4">
+                    <figure class="livro-card">
+                        <img class="img-fluid" src="https://img.wook.pt/images/rendimento-social-de-idiotas-santiago-xande/MXwyMTYwODc5NnwxNzQ2MDAzNHwxNTIxNzYzMjAwMDAw/502x"
+                            alt="">
+                    </figure>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-10 col-10 mt-4">
+                    <figure class="livro-card">
+                        <img class="img-fluid" src="https://img.wook.pt/images/o-homem-de-giz-c-j-tudor/MXwyMTI5MTk1MnwxNzE2Nzc4M3wxNTE0NTA1NjAwMDAw/502x"
+                            alt="">
+                    </figure>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-10 col-10 mt-4">
+                    <figure class="livro-card">
+                        <img class="img-fluid" src="https://img.wook.pt/images/android-ricardo-queiros/MXwxNzQzNjI0OXwxMzA2OTY4MHwxNDU2MTg1NjAwMDAw/502x"
+                            alt="">
+                    </figure>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-10 col-10 mt-4">
+                    <figure class="livro-card">
+                        <img class="img-fluid" src="https://img.wook.pt/images/a-volta-ao-mundo-em-80-dias-julio-verne/MXwzNzM3OTIzfDI3MjM0Mzd8MTM4MzUyMzIwMDAwMA==/502x"
+                            alt="">
+                    </figure>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-10 col-10 mt-4">
+                    <figure class="livro-card">
+                        <img class="img-fluid" src="https://img.wook.pt/images/a-doenca-o-sofrimento-e-a-morte-entram-num-bar-ricardo-araujo-pereira/MXwxODk1NTI5N3wxNDcwNjQxN3wxNDc5MjU0NDAwMDAw/502x"
+                            alt="">
+                    </figure>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-10 col-10 mt-4">
+                    <figure class="livro-card">
+                        <img class="img-fluid" src="https://img.wook.pt/images/o-ultimo-folego-robert-bryndza/MXwyMTYwMjY1OXwxNzQ1MzMyMXwxNTIxNTkwNDAwMDAw/502x"
+                            alt="">
+                    </figure>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-10 col-10 mt-4">
+                    <figure class="livro-card">
+                        <img class="img-fluid" src="https://img.wook.pt/images/ready-player-one-ernest-cline/MXwxNzk1MDYwN3wxMzU5NTIyOHwxNTIwMjA4MDAwMDAw/502x"
+                            alt="">
+                    </figure>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-10 col-10 mt-4">
+                    <figure class="livro-card">
+                        <img class="img-fluid" src="https://img.wook.pt/images/felizmente-ha-luar-luis-de-sttau-monteiro/MXwxMjUzMzZ8MTUxNDgxODJ8MTQ5NDg4OTIwMDAwMA==/502x"
+                            alt="">
+                    </figure>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-10 col-10 mt-4">
+                    <figure class="livro-card">
+                        <img class="img-fluid" src="https://img.wook.pt/images/a-sombra-da-noite-robert-bryndza/MXwyMDA2NjM1OHwxNTkxMTkxN3wxNTA1Njg5MjAwMDAw/502x"
+                            alt="">
+                    </figure>
+                </div>
+
+
+            </div>
+        </section>
+        <!-- /recentes -->
+
+        <!-- Início catálogo -->
+        <section id="pontuados">
+            <h1 class="display-3 text-white text-center mt-5">Mais pontuados</h1>
+            <div class="row mt-1 d-flex justify-content-center">
+                <div class="col-lg-4 col-md-6 col-sm-10 col-10 mt-4">
+                    <div class="d-flex flex-row livro-card">
+                        <div class="bg-teca3 px-3 ranking-div">
+                            <h1 class="display-4 text-white numero-ranking">1</h1>
+                        </div>
+                        <div>
+                            <img class="img-fluid" src="https://img.wook.pt/images/a-guerra-dos-tronos-george-r-r-martin/MXwxOTY1MTF8MjQ3OTIzfDEzODM1MjMyMDAwMDA=/502x"
+                                alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-10 col-10 mt-4">
+                    <div class="d-flex flex-row livro-card">
+                        <div class="bg-teca3 px-3 ranking-div">
+                            <h1 class="display-4 text-white numero-ranking">1</h1>
+                        </div>
+                        <div>
+                            <img class="img-fluid" src="https://img.wook.pt/images/o-ultimo-folego-robert-bryndza/MXwyMTYwMjY1OXwxNzQ1MzMyMXwxNTIxNTkwNDAwMDAw/502x"
+                                alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-10 col-10 mt-4">
+                    <div class="d-flex flex-row livro-card">
+                        <div class="bg-teca3 px-3 ranking-div">
+                            <h1 class="display-4 text-white numero-ranking">1</h1>
+                        </div>
+                        <div>
+                            <img class="img-fluid" src="https://img.wook.pt/images/o-ultimo-folego-robert-bryndza/MXwyMTYwMjY1OXwxNzQ1MzMyMXwxNTIxNTkwNDAwMDAw/502x"
+                                alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-10 col-10 mt-4">
+                    <div class="d-flex flex-row livro-card">
+                        <div class="bg-teca3 px-3 ranking-div">
+                            <h1 class="display-4 text-white numero-ranking">1</h1>
+                        </div>
+                        <div>
+                            <img class="img-fluid" src="https://img.wook.pt/images/o-ultimo-folego-robert-bryndza/MXwyMTYwMjY1OXwxNzQ1MzMyMXwxNTIxNTkwNDAwMDAw/502x"
+                                alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-10 col-10 mt-4">
+                    <div class="d-flex flex-row livro-card">
+                        <div class="bg-teca3 px-3 ranking-div">
+                            <h1 class="display-4 text-white numero-ranking">1</h1>
+                        </div>
+                        <div>
+                            <img class="img-fluid" src="https://img.wook.pt/images/o-ultimo-folego-robert-bryndza/MXwyMTYwMjY1OXwxNzQ1MzMyMXwxNTIxNTkwNDAwMDAw/502x"
+                                alt="">
+                        </div>
+                    </div>
+                </div>
+        </section>
+        <!-- Fim catálogo -->
+        </div>
+
+    </div>
+    <!-- Fim main container -->
+
+    <!-- Início modal login-->
+    <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Efetuar login</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <form id="formLogin" autocomplete="on">
+                            <!-- email -->
+                            <div class="form-group">
+                                <label for="loginInputEmail">Email:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-at" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <input required autofocus type="email" class="form-control" id="loginInputEmail">
+                                </div>
+                            </div>
+                            <!-- /email -->
+
+                            <!-- password -->
+                            <div class="form-group">
+                                <label for="loginInputPassword">Password:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-key" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <input required type="password" class="form-control" id="loginInputPassword">
+                                </div>
+                            </div>
+                            <!-- /password -->
+                            <div class="text-center">
+                                <input type="submit" class="form-control btn btn-info col-6" id="loginBtnSubmit" value="Login">
+                            </div>
+                        </form>
+                        <br>
+                        <small>Sem conta? Registe-se
+                            <a href="#" id="btnRegistar" data-dismiss="modal" data-toggle="modal" data-target="#modalRegisto">aqui</a>.</small>
                     </div>
                 </div>
             </div>
-        </header>
-        <nav class="navbar navbar-expand-md navbar-dark" id="navbar" style="background-color: black;">
-            <a class="navbar-brand" href="#">StreetTeca</a>
-            <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-                aria-expanded="false" aria-label="Toggle navigation">Menu</button>
-            <div class="collapse navbar-collapse" id="collapsibleNavId">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownId">
-                            <a class="dropdown-item" href="#">Action 1</a>
-                            <a class="dropdown-item" href="#">Action 2</a>
-                        </div>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+        </div>
+    </div>
+    <!-- Fim modal login-->
+
+    <!-- Início modal registo-->
+    <div class="modal" id="modalRegisto" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Efetuar registo</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <form id="formRegisto" autocomplete="on">
+                            <!-- nome -->
+                            <div class="form-group">
+                                <label for="registoInputNome">Nome:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-id-card" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <input required autofocus type="text" class="form-control" id="registoInputNome">
+                                </div>
+                            </div>
+                            <!-- /nome -->
+
+                            <!-- email -->
+                            <div class="form-group">
+                                <label for="registoInputEmail">Email:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-at" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <input required autofocus type="email" class="form-control" id="registoInputEmail" placeholder="alguem@exemplo.pt">
+                                </div>
+                            </div>
+                            <!-- /email -->
+
+                            <div class="form-row">
+                                <!-- password -->
+                                <div class="form-group col-6">
+                                    <label for="registoInputPassword">Password:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-key" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                        <input required type="password" class="form-control" id="registoInputPassword">
+                                    </div>
+                                </div>
+                                <!-- /password -->
+
+                                <!-- confirmar password -->
+                                <div class="form-group col-6">
+                                    <label for="registoInputConfirmarPassword">Confimar password:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-key" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                        <input required type="password" class="form-control" id="registoInputConfirmarPassword">
+                                    </div>
+                                </div>
+                                <!-- /confirmar password -->
+                            </div>
+
+                            <div class="text-center">
+                                <input type="submit" class="form-control btn btn-info col-6" id="registoBtnSubmit" value="Registar">
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </nav>
-        <p>O que é o Lorem Ipsum? O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão. O Lorem Ipsum tem
-            vindo a ser o texto padrão usado por estas indústrias desde o ano de 1500, quando uma misturou os caracteres
-            de um texto para criar um espécime de livro. Este texto não só sobreviveu 5 séculos, mas também o salto para
-            a tipografia electrónica, mantendo-se essencialmente inalterada. Foi popularizada nos anos 60 com a disponibilização
-            das folhas de Letraset, que continham passagens com Lorem Ipsum, e mais recentemente com os programas de publicação
-            como o Aldus PageMaker que incluem versões do Lorem Ipsum. Porque é que o usamos? É um facto estabelecido de
-            que um leitor é distraído pelo conteúdo legível de uma página quando analisa a sua mancha gráfica. Logo, o uso
-            de Lorem Ipsum leva a uma distribuição mais ou menos normal de letras, ao contrário do uso de "Conteúdo aqui,
-            conteúdo aqui", tornando-o texto legível. Muitas ferramentas de publicação electrónica e editores de páginas
-            web usam actualmente o Lorem Ipsum como o modelo de texto usado por omissão, e uma pesquisa por "lorem ipsum"
-            irá encontrar muitos websites ainda na sua infância. Várias versões têm evoluído ao longo dos anos, por vezes
-            por acidente, por vezes propositadamente (como no caso do humor). De onde é que ele vem? Ao contrário da crença
-            popular, o Lorem Ipsum não é simplesmente texto aleatório. Tem raízes numa peça de literatura clássica em Latim,
-            de 45 AC, tornando-o com mais de 2000 anos. Richard McClintock, um professor de Latim no Colégio Hampden-Sydney,
-            na Virgínia, procurou uma das palavras em Latim mais obscuras (consectetur) numa passagem Lorem Ipsum, e atravessando
-            as cidades do mundo na literatura clássica, descobriu a sua origem. Lorem Ipsum vem das secções 1.10.32 e 1.10.33
-            do "de Finibus Bonorum et Malorum" (Os Extremos do Bem e do Mal), por Cícero, escrito a 45AC. Este livro é um
-            tratado na teoria da ética, muito popular durante a Renascença. A primeira linha de Lorem Ipsum, "Lorem ipsum
-            dolor sit amet..." aparece de uma linha na secção 1.10.32. O pedaço mais habitual do Lorem Ipsum usado desde
-            os anos 1500 é reproduzido abaixo para os interessados. As secções 1.10.32 e 1.10.33 do "de Finibus Bonorum et
-            Malorum" do Cícero também estão reproduzidos na sua forma original, acompanhados pela sua tradução em Inglês,
-            versões da tradução de 1914 por H. Rackham. Onde posso arranjar algum? Existem muitas variações das passagens
-            do Lorem Ipsum disponíveis, mas a maior parte sofreu alterações de alguma forma, pela injecção de humor, ou de
-            palavras aleatórias que nem sequer parecem suficientemente credíveis. Se vai usar uma passagem do Lorem Ipsum,
-            deve ter a certeza que não contém nada de embaraçoso escondido no meio do texto. Todos os geradores de Lorem
-            Ipsum na Internet acabam por repetir porções de texto pré-definido, como necessário, fazendo com que este seja
-            o primeiro verdadeiro gerador na Internet. Usa um dicionário de 200 palavras em Latim, combinado com uma dúzia
-            de modelos de frases, para gerar Lorem Ipsum que pareçam razoáveis. Desta forma, o Lorem Ipsum gerado é sempre
-            livre de repetição, ou de injecção humorística, etc.</p>
-        <p>O que é o Lorem Ipsum? O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão. O Lorem Ipsum tem
-            vindo a ser o texto padrão usado por estas indústrias desde o ano de 1500, quando uma misturou os caracteres
-            de um texto para criar um espécime de livro. Este texto não só sobreviveu 5 séculos, mas também o salto para
-            a tipografia electrónica, mantendo-se essencialmente inalterada. Foi popularizada nos anos 60 com a disponibilização
-            das folhas de Letraset, que continham passagens com Lorem Ipsum, e mais recentemente com os programas de publicação
-            como o Aldus PageMaker que incluem versões do Lorem Ipsum. Porque é que o usamos? É um facto estabelecido de
-            que um leitor é distraído pelo conteúdo legível de uma página quando analisa a sua mancha gráfica. Logo, o uso
-            de Lorem Ipsum leva a uma distribuição mais ou menos normal de letras, ao contrário do uso de "Conteúdo aqui,
-            conteúdo aqui", tornando-o texto legível. Muitas ferramentas de publicação electrónica e editores de páginas
-            web usam actualmente o Lorem Ipsum como o modelo de texto usado por omissão, e uma pesquisa por "lorem ipsum"
-            irá encontrar muitos websites ainda na sua infância. Várias versões têm evoluído ao longo dos anos, por vezes
-            por acidente, por vezes propositadamente (como no caso do humor). De onde é que ele vem? Ao contrário da crença
-            popular, o Lorem Ipsum não é simplesmente texto aleatório. Tem raízes numa peça de literatura clássica em Latim,
-            de 45 AC, tornando-o com mais de 2000 anos. Richard McClintock, um professor de Latim no Colégio Hampden-Sydney,
-            na Virgínia, procurou uma das palavras em Latim mais obscuras (consectetur) numa passagem Lorem Ipsum, e atravessando
-            as cidades do mundo na literatura clássica, descobriu a sua origem. Lorem Ipsum vem das secções 1.10.32 e 1.10.33
-            do "de Finibus Bonorum et Malorum" (Os Extremos do Bem e do Mal), por Cícero, escrito a 45AC. Este livro é um
-            tratado na teoria da ética, muito popular durante a Renascença. A primeira linha de Lorem Ipsum, "Lorem ipsum
-            dolor sit amet..." aparece de uma linha na secção 1.10.32. O pedaço mais habitual do Lorem Ipsum usado desde
-            os anos 1500 é reproduzido abaixo para os interessados. As secções 1.10.32 e 1.10.33 do "de Finibus Bonorum et
-            Malorum" do Cícero também estão reproduzidos na sua forma original, acompanhados pela sua tradução em Inglês,
-            versões da tradução de 1914 por H. Rackham. Onde posso arranjar algum? Existem muitas variações das passagens
-            do Lorem Ipsum disponíveis, mas a maior parte sofreu alterações de alguma forma, pela injecção de humor, ou de
-            palavras aleatórias que nem sequer parecem suficientemente credíveis. Se vai usar uma passagem do Lorem Ipsum,
-            deve ter a certeza que não contém nada de embaraçoso escondido no meio do texto. Todos os geradores de Lorem
-            Ipsum na Internet acabam por repetir porções de texto pré-definido, como necessário, fazendo com que este seja
-            o primeiro verdadeiro gerador na Internet. Usa um dicionário de 200 palavras em Latim, combinado com uma dúzia
-            de modelos de frases, para gerar Lorem Ipsum que pareçam razoáveis. Desta forma, o Lorem Ipsum gerado é sempre
-            livre de repetição, ou de injecção humorística, etc.</p>
-        <p>O que é o Lorem Ipsum? O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão. O Lorem Ipsum tem
-            vindo a ser o texto padrão usado por estas indústrias desde o ano de 1500, quando uma misturou os caracteres
-            de um texto para criar um espécime de livro. Este texto não só sobreviveu 5 séculos, mas também o salto para
-            a tipografia electrónica, mantendo-se essencialmente inalterada. Foi popularizada nos anos 60 com a disponibilização
-            das folhas de Letraset, que continham passagens com Lorem Ipsum, e mais recentemente com os programas de publicação
-            como o Aldus PageMaker que incluem versões do Lorem Ipsum. Porque é que o usamos? É um facto estabelecido de
-            que um leitor é distraído pelo conteúdo legível de uma página quando analisa a sua mancha gráfica. Logo, o uso
-            de Lorem Ipsum leva a uma distribuição mais ou menos normal de letras, ao contrário do uso de "Conteúdo aqui,
-            conteúdo aqui", tornando-o texto legível. Muitas ferramentas de publicação electrónica e editores de páginas
-            web usam actualmente o Lorem Ipsum como o modelo de texto usado por omissão, e uma pesquisa por "lorem ipsum"
-            irá encontrar muitos websites ainda na sua infância. Várias versões têm evoluído ao longo dos anos, por vezes
-            por acidente, por vezes propositadamente (como no caso do humor). De onde é que ele vem? Ao contrário da crença
-            popular, o Lorem Ipsum não é simplesmente texto aleatório. Tem raízes numa peça de literatura clássica em Latim,
-            de 45 AC, tornando-o com mais de 2000 anos. Richard McClintock, um professor de Latim no Colégio Hampden-Sydney,
-            na Virgínia, procurou uma das palavras em Latim mais obscuras (consectetur) numa passagem Lorem Ipsum, e atravessando
-            as cidades do mundo na literatura clássica, descobriu a sua origem. Lorem Ipsum vem das secções 1.10.32 e 1.10.33
-            do "de Finibus Bonorum et Malorum" (Os Extremos do Bem e do Mal), por Cícero, escrito a 45AC. Este livro é um
-            tratado na teoria da ética, muito popular durante a Renascença. A primeira linha de Lorem Ipsum, "Lorem ipsum
-            dolor sit amet..." aparece de uma linha na secção 1.10.32. O pedaço mais habitual do Lorem Ipsum usado desde
-            os anos 1500 é reproduzido abaixo para os interessados. As secções 1.10.32 e 1.10.33 do "de Finibus Bonorum et
-            Malorum" do Cícero também estão reproduzidos na sua forma original, acompanhados pela sua tradução em Inglês,
-            versões da tradução de 1914 por H. Rackham. Onde posso arranjar algum? Existem muitas variações das passagens
-            do Lorem Ipsum disponíveis, mas a maior parte sofreu alterações de alguma forma, pela injecção de humor, ou de
-            palavras aleatórias que nem sequer parecem suficientemente credíveis. Se vai usar uma passagem do Lorem Ipsum,
-            deve ter a certeza que não contém nada de embaraçoso escondido no meio do texto. Todos os geradores de Lorem
-            Ipsum na Internet acabam por repetir porções de texto pré-definido, como necessário, fazendo com que este seja
-            o primeiro verdadeiro gerador na Internet. Usa um dicionário de 200 palavras em Latim, combinado com uma dúzia
-            de modelos de frases, para gerar Lorem Ipsum que pareçam razoáveis. Desta forma, o Lorem Ipsum gerado é sempre
-            livre de repetição, ou de injecção humorística, etc.</p>
-        <p>O que é o Lorem Ipsum? O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão. O Lorem Ipsum tem
-            vindo a ser o texto padrão usado por estas indústrias desde o ano de 1500, quando uma misturou os caracteres
-            de um texto para criar um espécime de livro. Este texto não só sobreviveu 5 séculos, mas também o salto para
-            a tipografia electrónica, mantendo-se essencialmente inalterada. Foi popularizada nos anos 60 com a disponibilização
-            das folhas de Letraset, que continham passagens com Lorem Ipsum, e mais recentemente com os programas de publicação
-            como o Aldus PageMaker que incluem versões do Lorem Ipsum. Porque é que o usamos? É um facto estabelecido de
-            que um leitor é distraído pelo conteúdo legível de uma página quando analisa a sua mancha gráfica. Logo, o uso
-            de Lorem Ipsum leva a uma distribuição mais ou menos normal de letras, ao contrário do uso de "Conteúdo aqui,
-            conteúdo aqui", tornando-o texto legível. Muitas ferramentas de publicação electrónica e editores de páginas
-            web usam actualmente o Lorem Ipsum como o modelo de texto usado por omissão, e uma pesquisa por "lorem ipsum"
-            irá encontrar muitos websites ainda na sua infância. Várias versões têm evoluído ao longo dos anos, por vezes
-            por acidente, por vezes propositadamente (como no caso do humor). De onde é que ele vem? Ao contrário da crença
-            popular, o Lorem Ipsum não é simplesmente texto aleatório. Tem raízes numa peça de literatura clássica em Latim,
-            de 45 AC, tornando-o com mais de 2000 anos. Richard McClintock, um professor de Latim no Colégio Hampden-Sydney,
-            na Virgínia, procurou uma das palavras em Latim mais obscuras (consectetur) numa passagem Lorem Ipsum, e atravessando
-            as cidades do mundo na literatura clássica, descobriu a sua origem. Lorem Ipsum vem das secções 1.10.32 e 1.10.33
-            do "de Finibus Bonorum et Malorum" (Os Extremos do Bem e do Mal), por Cícero, escrito a 45AC. Este livro é um
-            tratado na teoria da ética, muito popular durante a Renascença. A primeira linha de Lorem Ipsum, "Lorem ipsum
-            dolor sit amet..." aparece de uma linha na secção 1.10.32. O pedaço mais habitual do Lorem Ipsum usado desde
-            os anos 1500 é reproduzido abaixo para os interessados. As secções 1.10.32 e 1.10.33 do "de Finibus Bonorum et
-            Malorum" do Cícero também estão reproduzidos na sua forma original, acompanhados pela sua tradução em Inglês,
-            versões da tradução de 1914 por H. Rackham. Onde posso arranjar algum? Existem muitas variações das passagens
-            do Lorem Ipsum disponíveis, mas a maior parte sofreu alterações de alguma forma, pela injecção de humor, ou de
-            palavras aleatórias que nem sequer parecem suficientemente credíveis. Se vai usar uma passagem do Lorem Ipsum,
-            deve ter a certeza que não contém nada de embaraçoso escondido no meio do texto. Todos os geradores de Lorem
-            Ipsum na Internet acabam por repetir porções de texto pré-definido, como necessário, fazendo com que este seja
-            o primeiro verdadeiro gerador na Internet. Usa um dicionário de 200 palavras em Latim, combinado com uma dúzia
-            de modelos de frases, para gerar Lorem Ipsum que pareçam razoáveis. Desta forma, o Lorem Ipsum gerado é sempre
-            livre de repetição, ou de injecção humorística, etc.</p>
+        </div>
+    </div>
+    <!-- Fim modal registo-->
+
+    <!-- Início modal adicionar viagem-->
+    <div class="modal fade" id="modalAdicionar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Adicionar viagem</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <form id="formAdicionar" autocomplete="on">
+                            <!-- título -->
+                            <div class="form-group">
+                                <label for="adicionarInputTitulo">Título:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-plane" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <input required autofocus type="text" class="form-control" maxlength="30" id="adicionarInputTitulo">
+                                </div>
+                            </div>
+                            <!-- /título -->
+
+                            <div class="form-row">
+                                <!-- país -->
+                                <div class="form-group col-6">
+                                    <label for="adicionarInputPais">País:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-map-marker"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /país -->
+
+                                <!-- data -->
+                                <div class="form-group col-6">
+                                    <label for="adicionarInputData">Data:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                        <input required type="date" class="form-control" id="adicionarInputData">
+                                    </div>
+                                </div>
+                                <!-- /data -->
+                            </div>
+
+                            <div class="form-row">
+                                <!-- urlFoto -->
+                                <div class="form-group col-6">
+                                    <label for="adicionarInputUrlFoto">Link para foto:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-globe" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                        <input required type="url" class="form-control" id="adicionarInputUrlFoto">
+                                    </div>
+                                </div>
+                                <!-- /urlFoto -->
+
+                                <!-- pontuação -->
+                                <div class="form-group col-6">
+                                    <label for="adicionarInputPontuacao">Pontuação:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                        <input required type="number" min="1" max="10" class="form-control" id="adicionarInputPontuacao" placeholder="1-10">
+                                    </div>
+                                </div>
+                                <!-- /pontuação -->
+                            </div>
+
+                            <!-- descrição -->
+                            <div class="form-group">
+                                <label for="adicionarInputDescricao">Descrição:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-plane" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <textarea required id="adicionarInputDescricao" class="form-control" cols="30" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <!-- /descrição -->
+
+                            <div class="text-center">
+                                <input type="submit" class="form-control btn btn-info col-6" id="adicionarBtnSubmit" value="Adicionar">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fim modal adicionar viagem -->
+
+    <!-- Modal remover viagem -->
+    <div class="modal fade" id="modalRemover" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modelTitleId">Deseja mesmo remover?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalRemoverBody"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger confirmarRemover" data-dismiss="modal">Confirmar</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 
+    <!-- Início footer-->
+    <footer class="page-footer font-small bg-teca1">
+        <div class="footer-copyright py-3 text-center text-light">
+            Todos os direitos reservados - StreetTeca © 2018
+        </div>
+    </footer>
+    <!-- Fim footer-->
+
     <!-- Optional JavaScript -->
+    <script src="js/index.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

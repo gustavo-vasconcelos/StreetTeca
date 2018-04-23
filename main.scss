@@ -1,0 +1,12 @@
+$theme-colors: (
+    "teca1": #1C1D21,
+    "teca2": #31353D,
+    "teca3": #445878,
+    "teca4": #92CDCF,
+    "teca5": #EEEFF7
+);
+
+$grid-columns: 20;
+
+
+@import "node_modules/bootstrap/scss/bootstrap";

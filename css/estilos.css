@@ -1,18 +1,94 @@
-.inicio {
+#marca {
+    width: 50px;
+}
+
+#logo {
+    margin: 100px 0 100px 0;
+    width: 40%;
+}
+
+body, html {
+    height: 100%;
+}
+
+.bg {
     display: table;
     width: 100%;
-    height: auto;
-    padding: 360px 0;
+    height: 100%;
     text-align: center;
     color: #fff;
-    background: url(../img/bg.jpg) no-repeat bottom center scroll;
-    background-color: #000;
+    /*background: url(../img/bg.jpg) no-repeat bottom center scroll;*/
+    background: url(../img/bg.jpg) no-repeat;
+    background-position: center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    border-right: 2px solid black;
-    border-left: 2px solid black;
+}
+
+.bg img {
+    margin-top: 150px;
+    padding: 20px;
+}
+
+/* imagens responsivas */
+
+/* quando a largura é maior ou igual a 1200 */
+@media only screen and (min-width: 1200px) {
+    #main-container #recentes img{
+        height: 300px;
+        width: 100%;
+    }
+}
+
+/* quando a largura é menor ou igual a 1199 */
+@media only screen and (max-width: 1199px) {
+    #main-container #recentes img{
+        height: 100%;
+        width: 220px;
+    }
+}
+
+/* quando a largura é menor ou igual a 991 */
+@media only screen and (max-width: 991px) {
+    #main-container #recentes img{
+        height: 270px;
+        width: 100%;
+    }
+}
+
+/* quando a largura é menor ou igual a 769 */
+@media only screen and (max-width: 769px) {
+    #main-container #recentes img{
+        height: 100%;
+        width: 260px;
+    }
+}
+
+@media only screen and (max-width: 541px) {
+    #main-container #recentes img{
+        height: 100%;
+        width: 220px;
+    }
+}
+
+
+.zoom-hover:hover {
+    -webkit-transform:scale(1.15); /* Safari and Chrome */
+    -moz-transform:scale(1.15); /* Firefox */
+    -ms-transform:scale(1.15); /* IE 9 */
+    -o-transform:scale(1.15); /* Opera */
+    transform:scale(1.15);
+    transition: all .3s ease-in-out;
+}
+
+.zoom-hover:not(hover) {
+    -webkit-transform:scale(1); /* Safari and Chrome */
+    -moz-transform:scale(1); /* Firefox */
+    -ms-transform:scale(1); /* IE 9 */
+    -o-transform:scale(1); /* Opera */
+    transform:scale(1);
+    transition: all .3s ease-out;
 }
 
 #navbar {
@@ -20,4 +96,27 @@
     top: 0px;
     position: sticky;
     width: 100%;
+}
+
+.livro-card {
+    -webkit-box-shadow: 3px 1px 22px -2px rgba(0,0,0,0.42);
+    -moz-box-shadow: 3px 1px 22px -2px rgba(0,0,0,0.42);
+    box-shadow: 3px 1px 22px -2px rgba(0,0,0,0.42);
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.livro-card:hover {
+    border: 5px solid #1C1D21;
+    -webkit-transform:scale(1.04); /* Safari and Chrome */
+    -moz-transform:scale(1.04); /* Firefox */
+    -ms-transform:scale(1.04); /* IE 9 */
+    -o-transform:scale(1.04); /* Opera */
+    transform:scale(1.04);
+    transition: all .3s ease-in-out;
+}
+
+.livro-card:not(hover) {
+    border: 5px solid #EEEFF7;
+    transition: all .5s ease-out;
 }
