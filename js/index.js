@@ -1,5 +1,5 @@
 window.onload = function() {
-    window.addEventListener("resize", function () {
+    /*window.addEventListener("resize", function () {
         let rankingDiv = document.getElementsByClassName("ranking-div")
         let ranking = document.getElementsByClassName("numero-ranking")
         for (let i = 0; i < rankingDiv.length; i++) {
@@ -16,5 +16,5 @@ window.onload = function() {
             }
             
         }
-    })
+    })*/
 }

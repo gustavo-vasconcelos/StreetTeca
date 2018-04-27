@@ -98,25 +98,61 @@ body, html {
     width: 100%;
 }
 
-.livro-card {
-    -webkit-box-shadow: 3px 1px 22px -2px rgba(0,0,0,0.42);
-    -moz-box-shadow: 3px 1px 22px -2px rgba(0,0,0,0.42);
-    box-shadow: 3px 1px 22px -2px rgba(0,0,0,0.42);
-    box-sizing: border-box;
-    border-radius: 5px;
-}
-
-.livro-card:hover {
-    border: 5px solid #1C1D21;
-    -webkit-transform:scale(1.04); /* Safari and Chrome */
-    -moz-transform:scale(1.04); /* Firefox */
-    -ms-transform:scale(1.04); /* IE 9 */
-    -o-transform:scale(1.04); /* Opera */
+/*
+.livro-hover:hover {
+    -webkit-transform:scale(1.04);
+    -moz-transform:scale(1.04);
+    -ms-transform:scale(1.04); 
+    -o-transform:scale(1.04); 
     transform:scale(1.04);
     transition: all .3s ease-in-out;
 }
 
-.livro-card:not(hover) {
-    border: 5px solid #EEEFF7;
+.livro-hover:not(hover) {
     transition: all .5s ease-out;
+}*/
+
+a {
+    text-decoration: none !important;
+}
+
+.livro-hover figure img{
+    box-sizing: border-box;
+    border: 5px solid white;
+    border-radius: 5px;
+}
+
+.livro-hover figure img:hover {
+    border-color: #92CDCF;
+}
+
+.livro-hover figure img:hover  .livro-autor a {
+    color: #92CDCF !important;
+    transition: all .2s ease-in-out;
+}
+
+.livro-hover figcaption .livro-titulo{
+    color:white;
+    font-weight: bold;
+}
+
+.livro-hover figcaption .livro-autor{
+    color: #b3b3b3;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.livro-pontuado img {
+    box-sizing: border-box;
+    border-radius: 0 5px 5px 0;
+    border: 5px solid white;
+}
+
+.livro-pontuado img:hover {
+    border-color: #92CDCF;
+}
+
+.ranking-div {
+    box-sizing: border-box;
+    border-radius: 5px 0 0 5px;
 }
