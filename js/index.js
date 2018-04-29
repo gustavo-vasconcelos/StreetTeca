@@ -46,8 +46,8 @@ window.onload = function () {
         var marca = function () {
             if ($(window).width() > 992) {
                 if ($("#mainNav").offset().top > 846) {
-                    $("#marca").addClass("mr-5");                        
-                    $("#marca").attr('src', 'img/marca.png')                        
+                    $("#marca").addClass("mr-5");
+                    $("#marca").attr('src', 'img/marca.png')
                 } else {
                     $("#marca").attr("src", "");
                     $("#marca").removeClass("mr-5");
@@ -114,7 +114,7 @@ window.onload = function () {
         var trigger = document.getElementsByClassName('menu-icon-trigger'),
             toCloseIcon = true;
 
-        var animar = function () {
+        let animar = function () {
             if ($(window).width() < 992) {
                 for (let i = 0; i < trigger.length; i++) {
                     trigger[i].addEventListener("click", function () {
@@ -142,11 +142,14 @@ window.onload = function () {
 
 
         //centrar mais pontuados quando a largura é menor ou igual a 575
-        var centrar = function () {
-            if ($(window).width() <= 575) {
+        let wrapped = false        
+        let centrar = function () {
+            if ($(window).width() <= 575 && !wrapped) {
                 $(".livro-pontuado").wrap("<div class='text-center livro-centrar'></div>");
+                wrapped = true
             }
-            else {
+            if ($(window).width() > 575 && wrapped) {
+                wrapped = false
                 $(".livro-centrar").contents().unwrap();
             }
         }
