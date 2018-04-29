@@ -46,8 +46,8 @@ window.onload = function () {
         var marca = function () {
             if ($(window).width() > 992) {
                 if ($("#mainNav").offset().top > 846) {
-                    $("#marca").addClass("mr-5");
-                    $("#marca").attr('src', 'img/marca.png')
+                    $("#marca").addClass("mr-5");                        
+                    $("#marca").attr('src', 'img/marca.png')                        
                 } else {
                     $("#marca").attr("src", "");
                     $("#marca").removeClass("mr-5");
