@@ -280,3 +280,19 @@ a {
     padding-left: 3.3rem !important;
 }
 
+/* testemunhos */
+
+.foto-testemunho img{
+    height: 200px !important;
+    width: 200px !important;
+    border-radius: 50%;
+}
+
+.texto-testemunho {
+    border-top-left-radius: 3em;
+    border-bottom-right-radius: 3em;
+}
+
+.texto-corpo {
+    font-style: italic;
+}
