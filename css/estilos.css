@@ -124,14 +124,19 @@ a {
     text-decoration: none !important;
 }
 
-.livro-hover img{
+/* livros recentes */
+
+.livro-recente img{
     box-sizing: border-box;
     border: 5px solid white;
     border-radius: 5px;
 }
 
-.livro-hover img:hover {
+.livro-recente:hover img {
     border-color: #92CDCF;
+}
+.livro-recente:hover .livro-titulo {
+    color: #92CDCF;
 }
 
 .livro-titulo{
@@ -158,8 +163,14 @@ a {
     border: 5px solid white;
 }
 
-.livro-pontuado img:hover {
+/* livros mais pontuados */
+
+.livro-pontuado:hover img {
     border-color: #92CDCF;
+}
+
+.livro-pontuado:hover .livro-titulo {
+    color: #92CDCF;
 }
 
 .ranking-div {
