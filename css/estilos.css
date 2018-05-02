@@ -81,7 +81,7 @@ section {
 }
 
 @media only screen and (max-width: 575px) {
-    #main-container img{
+    #main-container #recentes img, #main-container #recentes img{
         height: 260px !important;
         width: 181px !important;
     }
@@ -288,6 +288,14 @@ a {
     border-radius: 50%;
 }
 
+/* quando a largura é menor ou igual a 769 */
+@media only screen and (max-width: 769px) {
+    .foto-testemunho img{
+        height: 189px;
+        width: 132px;
+    }
+}
+
 .texto-testemunho {
     border-top-left-radius: 3em;
     border-bottom-right-radius: 3em;
@@ -296,3 +304,4 @@ a {
 .texto-corpo {
     font-style: italic;
 }
+

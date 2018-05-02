@@ -22,6 +22,44 @@ window.onload = function () {
     (function ($) {
         "use strict"; // Start of use strict
 
+        //adicionar um scroll mais suave quando clicamos em alguma opção da navbar
+        // Select all links with hashes
+        $('a[href*="#"]')
+            // Remove links that don't actually link to anything
+            .not('[href="#"]')
+            .not('[href="#0"]')
+            .click(function (event) {
+                // On-page links
+                if (
+                    location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
+                    &&
+                    location.hostname == this.hostname
+                ) {
+                    // Figure out element to scroll to
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    // Does a scroll target exist?
+                    if (target.length) {
+                        // Only prevent default if animation is actually gonna happen
+                        event.preventDefault();
+                        $('html, body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000, function () {
+                            // Callback after animation
+                            // Must change focus!
+                            var $target = $(target);
+                            $target.focus();
+                            if ($target.is(":focus")) { // Checking if the target was focused
+                                return false;
+                            } else {
+                                $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
+                                $target.focus(); // Set focus again
+                            };
+                        });
+                    }
+                }
+            });
+
         // Closes responsive menu when a scroll trigger link is clicked
         $('.js-scroll-trigger').click(function () {
             $('.navbar-collapse').collapse('hide');
@@ -58,7 +96,7 @@ window.onload = function () {
             }
 
         };
-        
+
         // Collapse now if page is not at top
         navbarCollapse();
 
@@ -142,7 +180,7 @@ window.onload = function () {
 
 
         //centrar mais pontuados quando a largura é menor ou igual a 575
-        let wrapped = false        
+        let wrapped = false
         let centrar = function () {
             if ($(window).width() <= 575 && !wrapped) {
                 $(".livro-pontuado").wrap("<div class='text-center livro-centrar'></div>");
@@ -156,7 +194,6 @@ window.onload = function () {
 
         $(window).resize(centrar)
         $(document).ready(centrar)
-
 
     })(jQuery); // End of use strict
 
