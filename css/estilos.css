@@ -134,6 +134,9 @@ a {
 
 .livro-recente:hover img {
     border-color: #92CDCF;
+    -webkit-box-shadow: 0px 0px 50px 4px rgba(0,0,0,0.61);
+    -moz-box-shadow: 0px 0px 50px 4px rgba(0,0,0,0.61);
+    box-shadow: 0px 0px 50px 4px rgba(0,0,0,0.61);
 }
 .livro-recente:hover .livro-titulo {
     color: #92CDCF;
@@ -167,6 +170,9 @@ a {
 
 .livro-pontuado:hover img {
     border-color: #92CDCF;
+    -webkit-box-shadow: 0px 0px 50px 4px rgba(0,0,0,0.61);
+    -moz-box-shadow: 0px 0px 50px 4px rgba(0,0,0,0.61);
+    box-shadow: 0px 0px 50px 4px rgba(0,0,0,0.61);
 }
 
 .livro-pontuado:hover .livro-titulo {
@@ -277,14 +283,14 @@ a {
 /*pontuados*/
 
 #livro-dados {
-    padding-left: 3.3rem !important;
+    padding-left: 3.5rem !important;
 }
 
 /* testemunhos */
 
 .foto-testemunho img{
-    height: 200px !important;
-    width: 200px !important;
+    height: 150px !important;
+    width: 150px !important;
     border-radius: 50%;
 }
 
