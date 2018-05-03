@@ -150,36 +150,36 @@
 							<fieldset>
 								<!-- nome-->
 								<div class="form-group">
-									<label class="col-md-3 control-label" for="inputAdmUtilizador">Nome *</label>
+									<label class="col-md-3 control-label" for="inputAdmUtilizadorNome">Nome *</label>
 									<div class="col-md-9">
-										<input id="inputAdmUtilizador" type="text" class="form-control" required>
+										<input id="inputAdmUtilizadorNome" type="text" class="form-control" required>
 									</div>
 								</div>
 								<!-- /nome-->
 
 								<!-- email -->
 								<div class="form-group">
-									<label class="col-md-3 control-label" for="inputAdmEmail">Email *</label>
+									<label class="col-md-3 control-label" for="inputAdmUtilizadorEmail">Email *</label>
 									<div class="col-md-9">
-										<input id="inputAdmEmail" type="email" placeholder="alguem@exemplo.pt" class="form-control" required>
+										<input id="inputAdmUtilizadorEmail" type="email" placeholder="alguem@exemplo.pt" class="form-control" required>
 									</div>
 								</div>
 								<!-- /email -->
 
 								<!-- email -->
 								<div class="form-group">
-									<label class="col-md-3 control-label" for="inputAdmPassword">Password *</label>
+									<label class="col-md-3 control-label" for="inputAdmUtilizadorPassword">Password *</label>
 									<div class="col-md-9">
-										<input id="inputAdmPassword" type="password" placeholder="••••••••••" class="form-control" required>
+										<input id="inputAdmUtilizadorPassword" type="password" placeholder="••••••••••" class="form-control" required>
 									</div>
 								</div>
 								<!-- /email -->
 
 								<!-- foto -->
 								<div class="form-group">
-									<label class="col-md-3 control-label" for="inputAdmFoto">URL foto</label>
+									<label class="col-md-3 control-label" for="inputAdmUtilizadorFoto">URL foto</label>
 									<div class="col-md-9">
-										<input id="inputAdmFoto" type="url" class="form-control">
+										<input id="inputAdmUtilizadorFoto" type="url" class="form-control">
 									</div>
 								</div>
 								<!-- /foto -->
@@ -188,13 +188,13 @@
 								<div class="form-group">
 									<label class="col-md-3 control-label">Tipo de acesso *</label>
 									<label class="radio-inline col-xl-1 col-lg-2 col-12">
-										<input type="radio" name="optradio" checked>Utilizador
+										<input type="radio" value="2" checked>Utilizador
 									</label>
 									<label class="radio-inline col-xl-1 col-lg-2 col-12">
-										<input type="radio" name="optradio">Operador
+										<input type="radio" value="1">Operador
 									</label>
 									<label class="radio-inline col-xl-1 col-lg-2 col-12">
-										<input type="radio" name="optradio">Administrador
+										<input type="radio" value="0">Administrador
 									</label>
 								</div>
 								<!-- /tipo de acesso-->
@@ -224,7 +224,7 @@
 							<em class="fa fa-toggle-up"></em>
 						</span>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body" id="tabelaUtilizadores">
 					</div>
 				</div>
 				<!-- /tabela utilizadores -->
