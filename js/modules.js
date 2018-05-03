@@ -1,11 +1,11 @@
 class Utilizador {
-    constructor(nome, email, password, urlFoto) {
+    constructor(nome, email, password, urlFoto, tipoAcesso = 2) {
         this._id = Utilizador.getUltimoId() + 1
         this.nome = nome
         this.email = email
         this.password = password
         this.urlFoto = urlFoto
-        this.requisicoes = 0
+        this.tipoAcesso = tipoAcesso
         this.multa = 0
     }
 
@@ -27,28 +27,85 @@ class Utilizador {
         return this._nome
     }
     set nome(valor) {
-        this.nome = valor
+        this._nome = valor
     }
 
     get email() {
         return this._email
     }
     set email(valor) {
-        this.email = valor
+        this._email = valor
     }
 
     get password() {
         return this._password
     }
     set password(valor) {
-        this.password = valor
+        this._password = valor
     }
 
     get urlFoto() {
         return this._urlFoto
     }
     set urlFoto(valor) {
-        this.urlFoto = valor
+        valor.trim()
+        valor = (valor === "") ? "../img/perfil.png" : valor
+        this._urlFoto = valor
+    }
+
+    get tipoAcesso() {
+        return this._tipoAcesso
+    }
+    set tipoAcesso(valor) {
+        this._tipoAcesso = valor
+    }
+
+    static tipoAcessoToString(tipoAcesso) {
+        switch (tipoAcesso) {
+            case 0:
+                return "Admin"
+                break;
+            case 1:
+                return "Operador"
+                break;
+            case 2:
+                return "Utilizador"
+                break;
+        }
+    }
+
+    static getIdByEmail(email) {
+        let id = -1
+        for (let i in utilizadores) {
+            if (utilizadores[i].email === email) {
+                id = utilizadores[i].id
+            }
+        }
+        return id
+    }
+
+    static getNomeById(id) {
+        for (let i in utilizadores) {
+            if (utilizadores[i].id === id) {
+                return utilizadores[i].nome
+            }
+        }
+    }
+
+    static removerUtilizadorById(id) {
+        for (let i in utilizadores) {
+            if (utilizadores[i].id === id) {
+                utilizadores.splice(i, 1)
+            }
+        }
+    }
+
+    static getTipoAcessoById(id) {
+        for (let i in utilizadores) {
+            if (utilizadores[i].id === id) {
+                return utilizadores[i].tipoAcesso
+            }
+        }
     }
 }
 
@@ -86,77 +143,85 @@ class Livro {
         return this._titulo
     }
     set titulo(valor) {
-        this.titulo = valor
+        this._titulo = valor
     }
 
     get autor() {
         return this._autor
     }
     set autor(valor) {
-        this.autor = valor
+        this._autor = valor
     }
 
     get ano() {
         return this._ano
     }
     set ano(valor) {
-        this.ano = valor
+        this._ano = valor
     }
 
     get idGenero() {
         return this._idGenero
     }
     set idGenero(valor) {
-        this.idGenero = valor
+        this._idGenero = valor
     }
 
     get tags() {
         return this._tags
     }
     set tags(valor) {
-        this.tags = valor
+        this._tags = valor
     }
 
     get editora() {
         return this._editora
     }
     set editora(valor) {
-        this.editora = valor
+        this._editora = valor
     }
 
     get paginas() {
         return this._paginas
     }
     set paginas(valor) {
-        this.paginas = valor
+        this._paginas = valor
     }
 
     get estado() {
         return this._estado
     }
     set estado(valor) {
-        this.estado = valor
+        this._estado = valor
     }
 
     get dataDoacao() {
         return this._dataDoacao
     }
     set dataDoacao(valor) {
-        this.dataDoacao = valor
+        this._dataDoacao = valor
     }
 
     get codigoBiblioteca() {
         return this._codigoBiblioteca
     }
     set codigoBiblioteca(valor) {
-        this.codigoBiblioteca = valor
+        this._codigoBiblioteca = valor
     }
 
     get idDoador() {
         return this._idDoador
     }
     set idDoador(valor) {
-        this.idDoador = valor
+        this._idDoador = valor
+    }
+
+    static idLivroToTitulo(id) {
+        for (let i in livros) {
+            if (livros[i].id === id) {
+                return livros[i].titulo
+            }
+        }
     }
 
 }
@@ -187,28 +252,28 @@ class Biblioteca {
         return this._freguesia
     }
     set freguesia(valor) {
-        this.freguesia = valor
+        this._freguesia = valor
     }
 
     get morada() {
         return this._morada
     }
     set morada(valor) {
-        this.morada = valor
+        this._morada = valor
     }
 
     get coordenadas() {
         return this._coordenadas
     }
     set coordenadas(valor) {
-        this.coordenadas = valor
+        this._coordenadas = valor
     }
 
     get capacidade() {
         return this._capacidade
     }
     set capacidade(valor) {
-        this.capacidade = valor
+        this._capacidade = valor
     }
 
 }
@@ -241,21 +306,41 @@ class Requisicao {
         return this._idUtilizador
     }
     set idUtilizador(valor) {
-        this.idUtilizador = valor
+        this._idUtilizador = valor
     }
 
     get idLivro() {
         return this._idLivro
     }
     set idLivro(valor) {
-        this.idLivro = valor
+        this._idLivro = valor
     }
 
     get dataRequisicao() {
         return this._dataRequisicao
     }
     set dataRequisicao(valor) {
-        this.dataRequisicao = valor
+        this._dataRequisicao = valor
+    }
+
+    static quantidadeRequisicoesByIdUtilizador(id) {
+        let quantidade = 0
+        for (let i in requisicoes) {
+            if (requisicoes[i].idUtilizador === id) {
+                quantidade++
+            }
+        }
+        return quantidade
+    }
+
+    static livrosRequisitadosByIdUtilizador(id) {
+        let listaLivros = []
+        for (let i in requisicoes) {
+            if (requisicoes[i].idUtilizador === id) {
+                listaLivros.push(Livro.idLivroToTitulo(requisicoes[i].idLivro))
+            }
+        }
+        return listaLivros
     }
 }
 
@@ -286,52 +371,27 @@ class Comentario {
         return this._idUtilizador
     }
     set idUtilizador(valor) {
-        this.idUtilizador = valor
+        this._idUtilizador = valor
     }
 
     get idLivro() {
         return this._idLivro
     }
     set idLivro(valor) {
-        this.idLivro = valor
+        this._idLivro = valor
     }
 
     get comentario() {
         return this._comentario
     }
     set comentario(valor) {
-        this.comentario = valor
+        this._comentario = valor
     }
 
     get pontuacao() {
         return this._pontuacao
     }
     set pontuacao(valor) {
-        this.pontuacao = valor
+        this._pontuacao = valor
     }
-}
-
-let utilizadores = []
-
-window.onload = function() {
-    //form adicionar utilizador
-    let frmAdmUtilizador = document.getElementById("frmAdmUtilizador")
-    let inputAdmUtilizadorNome = document.getElementById("inputAdmUtilizadorNome")
-    let inputAdmUtilizadorEmail = document.getElementById("inputAdmUtilizadorEmail")
-    let inputAdmUtilizadorPassword = document.getElementById("inputAdmUtilizadorPassword")
-    let inputAdmUtilizadorFoto = document.getElementById("inputAdmUtilizadorFoto")
-
-    frmAdmUtilizador.addEventListener("submit", function(event) {
-        
-
-
-        event.preventDefault()
-    })
-
-}
-
-function gerarTabelaUtilizadores() {
-    str = ""
-
-    document.getElementById("tabelaUtilizadores").innerHTML = str
 }

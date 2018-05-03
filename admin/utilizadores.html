@@ -102,7 +102,7 @@
 			<div class="col-md-12">
 				<div class="panel panel-default ">
 					<div class="panel-heading">
-						Total de utilizadores - 100
+						<div class="pull-left" id="totalUtilizadores"></div>
 						<span class="pull-right clickable panel-toggle panel-button-tab-left">
 							<em class="fa fa-toggle-up"></em>
 						</span>
@@ -111,27 +111,27 @@
 						<div class="col-md-12 no-padding">
 							<div class="row progress-labels">
 								<div class="col-sm-6">Utilizadores</div>
-								<div class="col-sm-6" style="text-align: right;">80%</div>
+								<div class="col-sm-6" style="text-align: right;" id="utilizadoresPercentagem"></div>
 							</div>
 							<div class="progress">
-								<div data-percentage="0%" style="width: 80%;" class="progress-bar progress-bar-blue" role="progressbar" aria-valuemin="0"
-								 aria-valuemax="100"></div>
+								<div data-percentage="0%" class="progress-bar progress-bar-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+								 id="utilizadoresBarraPercentagem"></div>
 							</div>
 							<div class="row progress-labels">
 								<div class="col-sm-6">Operadores</div>
-								<div class="col-sm-6" style="text-align: right;">15%</div>
+								<div class="col-sm-6" style="text-align: right;" id="operadoresPercentagem"></div>
 							</div>
 							<div class="progress">
-								<div data-percentage="0%" style="width: 15%;" class="progress-bar progress-bar-orange" role="progressbar" aria-valuemin="0"
-								 aria-valuemax="100"></div>
+								<div data-percentage="0%" class="progress-bar progress-bar-orange" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+								 id="operadoresBarraPercentagem"></div>
 							</div>
 							<div class="row progress-labels">
 								<div class="col-sm-6">Administradores</div>
-								<div class="col-sm-6" style="text-align: right;">5%</div>
+								<div class="col-sm-6" style="text-align: right;" id="administradoresPercentagem"></div>
 							</div>
 							<div class="progress">
-								<div data-percentage="0%" style="width: 5%;" class="progress-bar progress-bar-danger" role="progressbar" aria-valuemin="0"
-								 aria-valuemax="100"></div>
+								<div data-percentage="0%" class="progress-bar progress-bar-danger" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+								 id="administradoresBarraPercentagem"></div>
 							</div>
 						</div>
 					</div>
@@ -188,13 +188,13 @@
 								<div class="form-group">
 									<label class="col-md-3 control-label">Tipo de acesso *</label>
 									<label class="radio-inline col-xl-1 col-lg-2 col-12">
-										<input type="radio" class="radio-inline-input" value="2" checked>Utilizador
+										<input type="radio" class="radio-inline-input" name="optradio" value="2" checked>Utilizador
 									</label>
 									<label class="radio-inline col-xl-1 col-lg-2 col-12">
-										<input type="radio" class="radio-inline-input" value="1">Operador
+										<input type="radio" class="radio-inline-input" name="optradio" value="1">Operador
 									</label>
 									<label class="radio-inline col-xl-1 col-lg-2 col-12">
-										<input type="radio" class="radio-inline-input" value="0">Administrador
+										<input type="radio" class="radio-inline-input" name="optradio" value="0">Administrador
 									</label>
 								</div>
 								<!-- /tipo de acesso-->
@@ -207,7 +207,7 @@
 								<div class="form-group">
 									<div class="col-md-12 widget-right">
 										<input type="submit" class="col-lg-2 btn btn-primary btn-md pull-right">
-										<input type="reset" class="col-lg-2 btn btn-default btn-md pull-right" style="margin-right:10px;">										
+										<input type="reset" class="col-lg-2 btn btn-default btn-md pull-right" style="margin-right:10px;" id="btnResetUtilizadores">
 									</div>
 								</div>
 							</fieldset>
@@ -224,7 +224,10 @@
 							<em class="fa fa-toggle-up"></em>
 						</span>
 					</div>
-					<div class="panel-body" id="tabelaUtilizadores">
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table class="table table-hover" id="tabelaUtilizadores"></table>
+						</div>
 					</div>
 				</div>
 				<!-- /tabela utilizadores -->
@@ -239,8 +242,25 @@
 		<!--/.row-->
 	</div>
 	<!--/.main-->
+	<!-- Modal -->
+	<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title pull-left" id="modalTitulo"></h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="modalBody"></div>
+				<div class="modal-footer" id="modalFooter"></div>
+			</div>
+		</div>
+	</div>
 
-
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="../js/modules.js"></script>
+	<script src="../js/admin.js"></script>
 	<script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/chart.min.js"></script>
