@@ -279,8 +279,8 @@ function gerarTabelaUtilizadores() {
 
                                     //radio btns tipo de acesso                           
                                     for (let l = 0; l < editarTipoAcesso.length; l++) {
-                                        if (editarTipoAcesso[i].checked) {
-                                            utilizadores[k].tipoAcesso = parseInt(editarTipoAcesso[i].value)
+                                        if (editarTipoAcesso[l].checked) {
+                                            utilizadores[k].tipoAcesso = parseInt(editarTipoAcesso[l].value)
                                         }
                                     }
 
