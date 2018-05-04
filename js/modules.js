@@ -468,7 +468,12 @@ requisicoes.push(new Requisicao(1, 2, "2018-05-02"))
 livros.push(new Livro("A Guerra dos Tronos", "George R.R. Martin", 2008, 0, "daenerys", "Teca Editora", 503, 1, "2018-05-02", 0, 0))
 livros.push(new Livro("Os 100", "Kass Morgan", 2008, 0, "daenerys", "Teca Editora", 503, 1, "2018-05-02", 0, 0))
 
-let idUtilizadorLogado = -1
+let idUtilizadorLogado
+
+if(localStorage.getItem(idUtilizadorLogado)) {
+    
+}
+
 localStorage.setItem("idUtilizadorLogado", idUtilizadorLogado)
 
 function transformarEmInstanciaUtilizador(arrayUtilizadores) {

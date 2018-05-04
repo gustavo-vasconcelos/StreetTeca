@@ -1,4 +1,14 @@
 window.onload = function () {
+    //importar variáveis do sessionStorage
+    utilizadores = JSON.parse(localStorage.getItem("utilizadores"))
+    transformarEmInstanciaUtilizador(utilizadores)
+    console.log("antes",idUtilizadorLogado)
+    idUtilizadorLogado = parseInt(localStorage.getItem("idUtilizadorLogado"))
+    console.log("depois", idUtilizadorLogado)
+    //nome utilizador logado
+    let utilizadorLogado = document.getElementById("utilizadorLogado")
+    utilizadorLogado.innerHTML = Utilizador.getNomeById(idUtilizadorLogado)
+
     //atualiza as percentagens de utilizadores
     atualizarPercentagens()
 
