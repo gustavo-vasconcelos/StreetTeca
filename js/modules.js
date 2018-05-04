@@ -48,7 +48,6 @@ class Utilizador {
         return this._urlFoto
     }
     set urlFoto(valor) {
-        valor.trim()
         valor = (valor === "") ? "../img/perfil.png" : valor
         this._urlFoto = valor
     }
@@ -58,6 +57,13 @@ class Utilizador {
     }
     set tipoAcesso(valor) {
         this._tipoAcesso = valor
+    }
+
+    get multa() {
+        return this._multa
+    }
+    set multa(valor) {
+        this._multa = valor
     }
 
     static tipoAcessoToString(tipoAcesso) {
@@ -104,7 +110,7 @@ class Utilizador {
         for (let i in utilizadores) {
             if (utilizadores[i].id === id) {
                 let nome = utilizadores[i].nome
-                if(nome.indexOf(" ") !== -1) {
+                if (nome.indexOf(" ") !== -1) {
                     return nome.substr(0, nome.indexOf(" "))
                 } else {
                     return nome
@@ -119,7 +125,7 @@ class Utilizador {
                 let nome = utilizadores[i].nome
                 let primeiro = ""
                 let ultimo = ""
-                if(nome.indexOf(" ") !== -1) {
+                if (nome.indexOf(" ") !== -1) {
                     primeiro = nome.substr(0, nome.indexOf(" "))
                     ultimo = nome.substr(nome.lastIndexOf(" ") + 1, nome.length - nome.lastIndexOf(" "))
                     return primeiro + " " + ultimo
@@ -454,6 +460,7 @@ utilizadores.push(new Utilizador("João", "teste3@teste.pt", "123", "", 1))
 utilizadores.push(new Utilizador("Guilherme", "teste4@teste.pt", "123", "", 1))
 
 localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
+utilizadores = JSON.parse(localStorage.getItem("utilizadores"))
 
 requisicoes.push(new Requisicao(1, 1, "2018-05-02"))
 requisicoes.push(new Requisicao(1, 2, "2018-05-02"))
@@ -462,3 +469,13 @@ livros.push(new Livro("A Guerra dos Tronos", "George R.R. Martin", 2008, 0, "dae
 livros.push(new Livro("Os 100", "Kass Morgan", 2008, 0, "daenerys", "Teca Editora", 503, 1, "2018-05-02", 0, 0))
 
 let idUtilizadorLogado = -1
+localStorage.setItem("idUtilizadorLogado", idUtilizadorLogado)
+
+function transformarEmInstanciaUtilizador(arrayUtilizadores) {
+    let utilizadoresTemporario = []
+    //transformar os objetos em instâncias da classe Utilizador
+    for (let i in arrayUtilizadores) {
+        utilizadoresTemporario.push(Object.assign(new Utilizador(), arrayUtilizadores[i]))
+    }
+    utilizadores = utilizadoresTemporario
+}
