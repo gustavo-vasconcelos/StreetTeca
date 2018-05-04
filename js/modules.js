@@ -74,6 +74,14 @@ class Utilizador {
         }
     }
 
+    static getTipoAcessoById(id) {
+        for (let i in utilizadores) {
+            if (utilizadores[i].id === id) {
+                return utilizadores[i].tipoAcesso
+            }
+        }
+    }
+
     static getIdByEmail(email) {
         let id = -1
         for (let i in utilizadores) {
@@ -88,6 +96,44 @@ class Utilizador {
         for (let i in utilizadores) {
             if (utilizadores[i].id === id) {
                 return utilizadores[i].nome
+            }
+        }
+    }
+
+    static getPrimeiroNomeById(id) {
+        for (let i in utilizadores) {
+            if (utilizadores[i].id === id) {
+                let nome = utilizadores[i].nome
+                if(nome.indexOf(" ") !== -1) {
+                    return nome.substr(0, nome.indexOf(" "))
+                } else {
+                    return nome
+                }
+            }
+        }
+    }
+
+    static getPrimeiroUltimoNomeById(id) {
+        for (let i in utilizadores) {
+            if (utilizadores[i].id === id) {
+                let nome = utilizadores[i].nome
+                let primeiro = ""
+                let ultimo = ""
+                if(nome.indexOf(" ") !== -1) {
+                    primeiro = nome.substr(0, nome.indexOf(" "))
+                    ultimo = nome.substr(nome.lastIndexOf(" ") + 1, nome.length - nome.lastIndexOf(" "))
+                    return primeiro + " " + ultimo
+                } else {
+                    return nome
+                }
+            }
+        }
+    }
+
+    static getPasswordById(id) {
+        for (let i in utilizadores) {
+            if (utilizadores[i].id === id) {
+                return utilizadores[i].password
             }
         }
     }
@@ -395,3 +441,24 @@ class Comentario {
         this._pontuacao = valor
     }
 }
+
+let utilizadores = []
+let livros = []
+let bibliotecas = []
+let requisicoes = []
+let comentarios = []
+
+utilizadores.push(new Utilizador("Teste", "teste@teste.pt", "123", "", 0))
+utilizadores.push(new Utilizador("Gustavo", "teste2@teste.pt", "123", "", 2))
+utilizadores.push(new Utilizador("João", "teste3@teste.pt", "123", "", 1))
+utilizadores.push(new Utilizador("Guilherme", "teste4@teste.pt", "123", "", 1))
+
+localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
+
+requisicoes.push(new Requisicao(1, 1, "2018-05-02"))
+requisicoes.push(new Requisicao(1, 2, "2018-05-02"))
+
+livros.push(new Livro("A Guerra dos Tronos", "George R.R. Martin", 2008, 0, "daenerys", "Teca Editora", 503, 1, "2018-05-02", 0, 0))
+livros.push(new Livro("Os 100", "Kass Morgan", 2008, 0, "daenerys", "Teca Editora", 503, 1, "2018-05-02", 0, 0))
+
+let idUtilizadorLogado = -1

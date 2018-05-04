@@ -1,17 +1,3 @@
-let utilizadores = []
-utilizadores.push(new Utilizador("Teste", "teste@teste.pt", "123", "", 0))
-utilizadores.push(new Utilizador("Gustavo", "teste2@teste.pt", "123", "", 2))
-utilizadores.push(new Utilizador("João", "teste3@teste.pt", "123", "", 1))
-utilizadores.push(new Utilizador("Guilherme", "teste4@teste.pt", "123", "", 1))
-
-let requisicoes = []
-requisicoes.push(new Requisicao(1, 1, "2018-05-02"))
-requisicoes.push(new Requisicao(1, 2, "2018-05-02"))
-
-let livros = []
-livros.push(new Livro("A Guerra dos Tronos", "George R.R. Martin", 2008, 0, "daenerys", "Teca Editora", 503, 1, "2018-05-02", 0, 0))
-livros.push(new Livro("Os 100", "Kass Morgan", 2008, 0, "daenerys", "Teca Editora", 503, 1, "2018-05-02", 0, 0))
-
 window.onload = function () {
     //atualiza as percentagens de utilizadores
     atualizarPercentagens()

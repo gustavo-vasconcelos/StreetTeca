@@ -210,6 +210,7 @@ a {
 
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
     color: #92CDCF;
+    transition: all 0s;
 }
 
 @media (min-width: 992px) {
@@ -277,6 +278,14 @@ a {
     border: none;
     margin: 0;
     padding: 0;
+}
+
+
+#areaUtilizador {
+    background-color:transparent !important;
+    text-shadow: 2px 2px 3px rgba(33, 37, 41, 1);
+    color: white;
+    border: 0;
 }
 
 
