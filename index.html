@@ -56,7 +56,7 @@
                     <li class="nav-item">
                         <div class="dropdown open">
                             <button class="nav-link btn dropdown-toggle text-uppercase" type="button" id="areaUtilizador"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ÁREA DE UTILIZADOR</button>
                             <div class="dropdown-menu" aria-labelledby="triggerId">
                                 <button class="dropdown-item btn btn-teca3" onclick="window.location.href='admin/index.html'" id="btnPainelAdmin">Painel de controlo</button>
                                 <button class="dropdown-item btn btn-teca3" href="#" id="btnLogout">Logout</button>
@@ -481,7 +481,7 @@
                         <form id="formRegisto" autocomplete="on">
                             <!-- nome -->
                             <div class="form-group">
-                                <label for="registoInputNome">Nome:</label>
+                                <label for="registoInputNome">Nome *</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
@@ -495,14 +495,14 @@
 
                             <!-- email -->
                             <div class="form-group">
-                                <label for="registoInputEmail">Email:</label>
+                                <label for="registoInputEmail">Email *</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <i class="fa fa-at" aria-hidden="true"></i>
                                         </span>
                                     </div>
-                                    <input required autofocus type="email" class="form-control" id="registoInputEmail" placeholder="alguem@exemplo.pt">
+                                    <input required type="email" class="form-control" id="registoInputEmail" placeholder="alguem@exemplo.pt">
                                 </div>
                             </div>
                             <!-- /email -->
@@ -510,7 +510,7 @@
                             <div class="form-row">
                                 <!-- password -->
                                 <div class="form-group col-10">
-                                    <label for="registoInputPassword">Password:</label>
+                                    <label for="registoInputPassword">Password *</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
@@ -524,7 +524,7 @@
 
                                 <!-- confirmar password -->
                                 <div class="form-group col-10">
-                                    <label for="registoInputConfirmarPassword">Confimar password:</label>
+                                    <label for="registoInputConfirmarPassword">Confimar password *</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
@@ -537,8 +537,28 @@
                                 <!-- /confirmar password -->
                             </div>
 
+                            <div class="form-row">
+                                <!-- url foto -->
+                                <div class="form-group col-20">
+                                    <label for="registoInputUrlFoto">URL foto</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-link" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                        <input type="url" class="form-control" id="registoInputUrlFoto">
+                                    </div>
+                                </div>
+                                <!-- /url foto -->
+                            </div>
+
+                            <div class="form-row">
+                                <small class="form-control" style="border: none; font-size: .8em;">Nota: (*) campos obrigatórios.</small>
+                            </div>
+                            <br>
                             <div class="text-center">
-                                <input type="submit" class="form-control btn btn-info col-10" id="registoBtnSubmit" value="Registar">
+                                <input type="submit" class="form-control btn btn-teca3 col-10" id="registoBtnSubmit" value="Registar-se">
                             </div>
                         </form>
                     </div>
@@ -687,9 +707,8 @@
     <!-- Fim footer-->
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="js/aparencia.js"></script>
     <script src="js/modules.js"></script>
-    <script src="js/main.js"></script>    
+    <script src="js/index.js"></script>  
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"

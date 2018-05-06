@@ -127,7 +127,7 @@ class Utilizador {
                 let ultimo = ""
                 if (nome.indexOf(" ") !== -1) {
                     primeiro = nome.substr(0, nome.indexOf(" "))
-                    ultimo = nome.substr(nome.lastIndexOf(" ") + 1, nome.length - nome.lastIndexOf(" "))
+                    ultimo = nome.substr(nome.lastIndexOf(" ") + 1, 1) + "."
                     return primeiro + " " + ultimo
                 } else {
                     return nome
@@ -156,6 +156,14 @@ class Utilizador {
         for (let i in utilizadores) {
             if (utilizadores[i].id === id) {
                 return utilizadores[i].tipoAcesso
+            }
+        }
+    }
+
+    static getUrlFotoById(id) {
+        for (let i in utilizadores) {
+            if (utilizadores[i].id === id) {
+                return utilizadores[i].urlFoto
             }
         }
     }
@@ -448,19 +456,63 @@ class Comentario {
     }
 }
 
+class Genero {
+    constructor(nome) {
+        this._id = Genero.getUltimoId() + 1
+        this.nome = nome
+    }
+
+    get nome() {
+        return this._nome
+    }
+    set nome(valor) {
+        this._nome = valor
+    }
+
+    get id() {
+        return this._id
+    }
+
+    static getUltimoId() {
+        let id = 0
+        if (generos.length > 0) {
+            for (let i in generos) {
+                id = generos[i].id
+            }
+        }
+        return id
+    }
+
+    static getIdByNome(nome) {
+        let id = -1
+        for (let i in generos) {
+            if (generos[i].nome === nome) {
+                id = generos[i].id
+            }
+        }
+        return id
+    }
+}
+
+
 let utilizadores = []
 let livros = []
 let bibliotecas = []
 let requisicoes = []
 let comentarios = []
+let generos = []
 
 utilizadores.push(new Utilizador("Teste", "teste@teste.pt", "123", "", 0))
-utilizadores.push(new Utilizador("Gustavo", "teste2@teste.pt", "123", "", 2))
+utilizadores.push(new Utilizador("Gustavo Henrique", "teste2@teste.pt", "123", "", 2))
 utilizadores.push(new Utilizador("João", "teste3@teste.pt", "123", "", 1))
 utilizadores.push(new Utilizador("Guilherme", "teste4@teste.pt", "123", "", 1))
 
-localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
-utilizadores = JSON.parse(localStorage.getItem("utilizadores"))
+if (!localStorage.getItem("utilizadores")) {
+    localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
+    utilizadores = JSON.parse(localStorage.getItem("utilizadores"))
+}
+
+
 
 requisicoes.push(new Requisicao(1, 1, "2018-05-02"))
 requisicoes.push(new Requisicao(1, 2, "2018-05-02"))
@@ -468,11 +520,7 @@ requisicoes.push(new Requisicao(1, 2, "2018-05-02"))
 livros.push(new Livro("A Guerra dos Tronos", "George R.R. Martin", 2008, 0, "daenerys", "Teca Editora", 503, 1, "2018-05-02", 0, 0))
 livros.push(new Livro("Os 100", "Kass Morgan", 2008, 0, "daenerys", "Teca Editora", 503, 1, "2018-05-02", 0, 0))
 
-let idUtilizadorLogado
-
-if(localStorage.getItem(idUtilizadorLogado)) {
-    
-}
+let idUtilizadorLogado = (localStorage.getItem("idUtilizadorLogado")) ? localStorage.getItem("idUtilizadorLogado") : -1
 
 localStorage.setItem("idUtilizadorLogado", idUtilizadorLogado)
 
@@ -483,4 +531,27 @@ function transformarEmInstanciaUtilizador(arrayUtilizadores) {
         utilizadoresTemporario.push(Object.assign(new Utilizador(), arrayUtilizadores[i]))
     }
     utilizadores = utilizadoresTemporario
+}
+
+function transformarEmInstanciaGenero(arrayGeneros) {
+    let generosTemporarios = []
+    //transformar os objetos em instâncias da classe Utilizador
+    for (let i in arrayGeneros) {
+        generosTemporarios.push(Object.assign(new Utilizador(), arrayGeneros[i]))
+    }
+    generos = generosTemporarios
+}
+
+
+/*
+    PAINEL ADMIN
+*/
+function atualizarFotoNome() {
+    //nome utilizador logado
+    let nomeUtilizadorLogado = document.getElementById("nomeUtilizadorLogado")
+    nomeUtilizadorLogado.innerHTML = Utilizador.getPrimeiroUltimoNomeById(idUtilizadorLogado)
+
+    //foto utilizador logado
+    let fotoUtilizadorLogado = document.getElementById("fotoUtilizadorLogado")
+    fotoUtilizadorLogado.src = Utilizador.getUrlFotoById(idUtilizadorLogado)
 }
