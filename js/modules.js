@@ -91,7 +91,7 @@ class Utilizador {
     static getIdByEmail(email) {
         let id = -1
         for (let i in utilizadores) {
-            if (utilizadores[i].email === email) {
+            if (utilizadores[i].email.toLowerCase() === email.toLowerCase()) {
                 id = utilizadores[i].id
             }
         }
@@ -486,11 +486,82 @@ class Genero {
     static getIdByNome(nome) {
         let id = -1
         for (let i in generos) {
-            if (generos[i].nome === nome) {
+            if (generos[i].nome.toLowerCase() === nome.toLowerCase()) {
                 id = generos[i].id
             }
         }
         return id
+    }
+
+    static getNomeById(id) {
+        for (let i in generos) {
+            if (generos[i].id === id) {
+                return generos[i].nome
+            }
+        }
+    }
+
+    static removerGeneroById(id) {
+        for (let i in generos) {
+            if (generos[i].id === id) {
+                generos.splice(i, 1)
+            }
+        }
+    }
+}
+
+class Tag {
+    constructor(nome) {
+        this._id = Tag.getUltimoId() + 1
+        this.nome = nome
+    }
+
+    get nome() {
+        return this._nome
+    }
+    set nome(valor) {
+        valor = (valor) ? valor.toLowerCase() : valor
+        this._nome = valor
+    }
+
+    get id() {
+        return this._id
+    }
+
+    static getUltimoId() {
+        let id = 0
+        if (tags.length > 0) {
+            for (let i in tags) {
+                id = tags[i].id
+            }
+        }
+        return id
+    }
+
+    static getIdByNome(nome) {
+        let id = -1
+        for (let i in tags) {
+            if (tags[i].nome.toLowerCase() === nome.toLowerCase()) {
+                id = tags[i].id
+            }
+        }
+        return id
+    }
+
+    static getNomeById(id) {
+        for (let i in tags) {
+            if (tags[i].id === id) {
+                return tags[i].nome
+            }
+        }
+    }
+
+    static removerTagById(id) {
+        for (let i in tags) {
+            if (tags[i].id === id) {
+                tags.splice(i, 1)
+            }
+        }
     }
 }
 
@@ -501,7 +572,10 @@ let bibliotecas = []
 let requisicoes = []
 let comentarios = []
 let generos = []
+let tags = []
 
+
+//utilizadores predefinidos
 utilizadores.push(new Utilizador("Teste", "teste@teste.pt", "123", "", 0))
 utilizadores.push(new Utilizador("Gustavo Henrique", "teste2@teste.pt", "123", "", 2))
 utilizadores.push(new Utilizador("João", "teste3@teste.pt", "123", "", 1))
@@ -511,6 +585,30 @@ if (!localStorage.getItem("utilizadores")) {
     localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
     utilizadores = JSON.parse(localStorage.getItem("utilizadores"))
 }
+
+//géneros predefinidos
+generos.push(new Genero("Ficção científica"))
+generos.push(new Genero("Fantasia"))
+generos.push(new Genero("Humor"))
+generos.push(new Genero("Romance"))
+
+if (!localStorage.getItem("generos")) {
+    localStorage.setItem("generos", JSON.stringify(generos))
+    generos = JSON.parse(localStorage.getItem("generos"))
+}
+
+//tags predefinidas
+tags.push(new Tag("guerra"))
+tags.push(new Tag("armas"))
+tags.push(new Tag("televisão"))
+tags.push(new Tag("dragões"))
+tags.push(new Tag("zombies"))
+
+if (!localStorage.getItem("tags")) {
+    localStorage.setItem("tags", JSON.stringify(tags))
+    tags = JSON.parse(localStorage.getItem("tags"))
+}
+
 
 
 
@@ -535,11 +633,20 @@ function transformarEmInstanciaUtilizador(arrayUtilizadores) {
 
 function transformarEmInstanciaGenero(arrayGeneros) {
     let generosTemporarios = []
-    //transformar os objetos em instâncias da classe Utilizador
+    //transformar os objetos em instâncias da classe Genero
     for (let i in arrayGeneros) {
-        generosTemporarios.push(Object.assign(new Utilizador(), arrayGeneros[i]))
+        generosTemporarios.push(Object.assign(new Genero(), arrayGeneros[i]))
     }
     generos = generosTemporarios
+}
+
+function transformarEmInstanciaTag(arrayTags) {
+    let tagsTemporarias = []
+    //transformar os objetos em instâncias da classe Tag
+    for (let i in arrayTags) {
+        tagsTemporarias.push(Object.assign(new Tag(), arrayTags[i]))
+    }
+    tags = tagsTemporarias
 }
 
 

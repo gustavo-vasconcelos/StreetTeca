@@ -145,6 +145,55 @@
                     </div>
                 </div>
                 <!-- /tabela utilizadores -->
+
+                <!-- adicionar tag -->
+                <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Adicionar tag
+                            <span class="pull-right clickable panel-toggle panel-button-tab-left">
+                                <em class="fa fa-toggle-up"></em>
+                            </span>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" id="formTag">
+                                <fieldset>
+                                    <!-- nome-->
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label" for="inputTagNome">Nome</label>
+                                        <div class="col-md-9">
+                                            <input id="inputTagNome" type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <!-- /nome-->
+                                    <br>
+                                    <!-- Form actions -->
+                                    <div class="form-group">
+                                        <div class="col-md-12 widget-right">
+                                            <input type="submit" class="col-lg-2 btn btn-primary btn-md pull-right">
+                                            <input type="reset" class="col-lg-2 btn btn-default btn-md pull-right" style="margin-right:10px;" id="btnResetTags">
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /adicionar tag -->
+    
+                    <!-- tabela tags -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="pull-left" id="totalTags"></div>
+                            <span class="pull-right clickable panel-toggle panel-button-tab-left">
+                                <em class="fa fa-toggle-up"></em>
+                            </span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="tabelaTags"></table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /tabela tags -->
             </div>
             <!--/.col-->
             <div class="col-sm-12">
