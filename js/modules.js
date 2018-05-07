@@ -170,10 +170,11 @@ class Utilizador {
 }
 
 class Livro {
-    constructor(titulo, autor, ano, idGenero, tags, editora, paginas, estado, dataDoacao, codigoBiblioteca, idDoador = -1) {
+    constructor(titulo, autor, descricao, ano, idGenero, tags, editora, paginas, estado, dataDoacao, codigoBiblioteca, idDoador = -1) {
         this._id = Livro.getUltimoId() + 1
         this.titulo = titulo
         this.autor = autor
+        this.descricao = descricao
         this.ano = ano
         this.idGenero = idGenero
         this.tags = tags
@@ -211,6 +212,13 @@ class Livro {
     }
     set autor(valor) {
         this._autor = valor
+    }
+
+    get descricao() {
+        return this._descricao
+    }
+    set descricao(valor) {
+        this._descricao = valor
     }
 
     get ano() {
@@ -287,10 +295,12 @@ class Livro {
 }
 
 class Biblioteca {
-    constructor(freguesia, morada, coordenadas, capacidade) {
+    constructor(concelho, freguesia, morada, descricao, coordenadas, capacidade) {
         this._id = Biblioteca.getUltimoId() + 1
+        this.concelho = concelho
         this.freguesia = freguesia
         this.morada = morada
+        this.descricao = descricao
         this.coordenas = coordenadas
         this.capacidade = capacidade
     }
@@ -308,6 +318,13 @@ class Biblioteca {
         return id
     }
 
+    get concelho() {
+        return this._concelho
+    }
+    set concelho(valor) {
+        this._concelho = valor
+    }
+
     get freguesia() {
         return this._freguesia
     }
@@ -320,6 +337,13 @@ class Biblioteca {
     }
     set morada(valor) {
         this._morada = valor
+    }
+
+    get descricao() {
+        return this._descricao
+    }
+    set descricao(valor) {
+        this._descricao = valor
     }
 
     get coordenadas() {
@@ -565,6 +589,83 @@ class Tag {
     }
 }
 
+class Concelho {
+    constructor(concelho, freguesias) {
+        this._id = Concelho.getUltimoId() + 1
+        this.concelho = concelho
+        this.freguesias = freguesias
+    }
+
+    get concelho() {
+        return this._concelho
+    }
+    set concelho(valor) {
+        this._concelho = valor
+    }
+
+    get freguesias() {
+        return this._freguesias
+    }
+    set freguesias(valor) {
+        //transforma a string em array
+        valor = (valor) ? valor.split(",") : valor
+        //remove valores vazios do array
+        if (valor && valor.length > 1) {
+            for (let i = valor.length; i >= 0; i--) {
+                if (!valor[i]) {
+                    valor.splice(i, 1)
+                } else {
+                    if (valor[i].indexOf(" ") === 0) {
+                        valor[i] = valor[i].slice(1, valor[i].length)
+                    }
+                }
+
+            }
+        }
+        this._freguesias = valor
+    }
+
+    get id() {
+        return this._id
+    }
+
+    static getUltimoId() {
+        let id = 0
+        if (concelhos.length > 0) {
+            for (let i in concelhos) {
+                id = concelhos[i].id
+            }
+        }
+        return id
+    }
+
+    static getIdByConcelho(concelho) {
+        let id = -1
+        for (let i in concelhos) {
+            if (concelhos[i].concelho.toLowerCase() === concelho.toLowerCase()) {
+                id = concelhos[i].id
+            }
+        }
+        return id
+    }
+
+    static getConcelhoById(id) {
+        for (let i in concelhos) {
+            if (concelhos[i].id === id) {
+                return concelhos[i].concelho
+            }
+        }
+    }
+
+    static removerConcelhoById(id) {
+        for (let i in concelhos) {
+            if (concelhos[i].id === id) {
+                concelhos.splice(i, 1)
+            }
+        }
+    }
+}
+
 
 let utilizadores = []
 let livros = []
@@ -573,6 +674,7 @@ let requisicoes = []
 let comentarios = []
 let generos = []
 let tags = []
+let concelhos = []
 
 
 //utilizadores predefinidos
@@ -647,6 +749,15 @@ function transformarEmInstanciaTag(arrayTags) {
         tagsTemporarias.push(Object.assign(new Tag(), arrayTags[i]))
     }
     tags = tagsTemporarias
+}
+
+function transformarEmInstanciaConcelho(arrayConcelhos) {
+    let concelhosTemporarios = []
+    //transformar os objetos em instâncias da classe Concelho
+    for (let i in arrayConcelhos) {
+        concelhosTemporarios.push(Object.assign(new Concelho(), arrayConcelhos[i]))
+    }
+    concelhos = concelhosTemporarios
 }
 
 
