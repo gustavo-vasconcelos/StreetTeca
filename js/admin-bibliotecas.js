@@ -306,7 +306,7 @@ function gerarTabelaFreguesias() {
 													<div class="form-group">
 														<label class="col-md-3 control-label" for="inputFreguesiaEditarConcelho">Concelho</label>
 														<div class="col-md-9">
-															<select id="inputFreguesiaEditarConcelho" class="form-control comboboxConcelho" required></select>
+															<select id="inputFreguesiaEditarConcelho" class="form-control" required></select>
 														</div>
 													</div>
 													<div class="form-group">
@@ -443,7 +443,7 @@ function gerarMapaBibliotecas() {
 
 	let map
 	let mapaBibliotecas = document.getElementById("mapaBibliotecas")
-	mapaBibliotecas.style.height = "500px"
+	mapaBibliotecas.style.height = "650px"
 
 	let mapProp = {
 		center: new google.maps.LatLng(41.366174, -8.7396931),
@@ -891,7 +891,7 @@ function gerarComboboxConcelhosEditarFreguesia(idFreguesia) {
 	let inputFreguesiaEditarConcelho = document.getElementById("inputFreguesiaEditarConcelho")
 	let str = ""
 	for (let i in concelhos) {
-		str += `<option value="${Concelho.getConcelhoById(freguesias[i].idConcelho)}"`
+		str += `<option value="${Concelho.getConcelhoById(concelhos[i].id)}"`
 		if (Concelho.getConcelhoById(Freguesia.getIdConcelhoById(idFreguesia)) === concelhos[i].concelho) {
 			str += ` selected>${concelhos[i].concelho}</option>`
 		} else {
