@@ -110,26 +110,18 @@
                             <fieldset>
                                 <!-- nome-->
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="inputConcelho">Concelho</label>
+                                    <label class="col-md-3 control-label" for="inputConcelhoConcelho">Concelho</label>
                                     <div class="col-md-9">
-                                        <input id="inputConcelho" type="text" class="form-control" required>
+                                        <input id="inputConcelhoConcelho" type="text" class="form-control" required>
                                     </div>
                                 </div>
                                 <!-- /nome-->
-                                <!-- freguesias-->
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="inputFreguesias">Freguesias (separadas por vírgula)</label>
-                                    <div class="col-md-9">
-                                        <input id="inputFreguesias" type="text" class="form-control" required>
-                                    </div>
-                                </div>
-                                <!-- /freguesias-->
                                 <br>
                                 <!-- Form actions -->
                                 <div class="form-group">
                                     <div class="col-md-12 widget-right">
                                         <input type="submit" class="col-lg-2 btn btn-primary btn-md pull-right">
-                                        <input type="reset" class="col-lg-2 btn btn-default btn-md pull-right" style="margin-right:10px;" id="btnResetConcelhos">
+                                        <input type="reset" class="col-lg-2 btn btn-default btn-md pull-right" style="margin-right:10px;" id="btnResetConcelho">
                                     </div>
                                 </div>
                             </fieldset>
@@ -154,6 +146,63 @@
                 </div>
                 <!-- /tabela concelhos -->
 
+                <!-- adicionar freguesia -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Adicionar freguesia
+                        <span class="pull-right clickable panel-toggle panel-button-tab-left">
+                            <em class="fa fa-toggle-up"></em>
+                        </span>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" id="formFreguesia">
+                            <fieldset>
+                                <!-- concelho -->
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="inputFreguesiaConcelho">Concelho</label>
+                                    <div class="col-md-9">
+                                        <select id="inputFreguesiaConcelho" class="form-control comboboxConcelho" required></select>
+                                    </div>
+                                </div>
+                                <!-- /concelho-->
+                                <!-- freguesia-->
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="inputFreguesiaFreguesia">Freguesia</label>
+                                    <div class="col-md-9">
+                                        <input id="inputFreguesiaFreguesia" type="text" class="form-control" required>
+                                    </div>
+                                </div>
+                                <!-- /freguesias-->
+                                <br>
+                                <!-- Form actions -->
+                                <div class="form-group">
+                                    <div class="col-md-12 widget-right">
+                                        <input type="submit" class="col-lg-2 btn btn-primary btn-md pull-right">
+                                        <input type="reset" class="col-lg-2 btn btn-default btn-md pull-right" style="margin-right:10px;" id="btnResetFreguesia">
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <!-- /adicionar freguesia -->
+
+                <!-- tabela freguesias -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="pull-left" id="totalFreguesias"></div>
+                        <span class="pull-right clickable panel-toggle panel-button-tab-left">
+                            <em class="fa fa-toggle-up"></em>
+                        </span>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="tabelaFreguesias"></table>
+                        </div>
+                    </div>
+                </div>
+                <!-- /tabela freguesias -->
+
                 <!-- adicionar biblioteca -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -169,7 +218,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="inputBibliotecaConcelho">Concelho</label>
                                     <div class="col-md-9">
-                                        <select class="form-control" id="inputBibliotecaConcelho" required></select>
+                                        <select class="form-control comboboxConcelho" id="inputBibliotecaConcelho" required></select>
                                     </div>
                                 </div>
                                 <!-- /nome-->
@@ -219,7 +268,7 @@
                     </div>
                 </div>
                 <!-- /adicionar biblioteca -->
-                
+
                 <!-- mapa bibliotecas -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -230,7 +279,7 @@
                     </div>
                     <div class="panel-body" id="mapaBibliotecas"></div>
                 </div>
-            <!-- /mapa bibliotecas -->
+                <!-- /mapa bibliotecas -->
             </div>
             <!--/.col-->
             <div class="col-sm-12">

@@ -384,6 +384,7 @@ class Biblioteca {
         this._capacidade = valor
     }
 
+    /*
     static getIdByConcelhoFreguesia(concelho, freguesia) {
         let id = -1
         for (let i in bibliotecas) {
@@ -392,12 +393,12 @@ class Biblioteca {
             }
         }
         return id
-    }
+    }*/
 
     static getConcelhoFreguesiaById(id) {
         for (let i in bibliotecas) {
             if (bibliotecas[i].id === id) {
-                return [bibliotecas[i].concelho, bibliotecas[i].freguesia]
+                return [Concelho.getConcelhoById(bibliotecas[i].idConcelho), Freguesia.getFreguesiaById(bibliotecas[i].idFreguesia)]
             }
         }
     }
@@ -417,6 +418,26 @@ class Biblioteca {
         for (let i in bibliotecas) {
             if (bibliotecas[i].id === id) {
                 bibliotecas.splice(i, 1)
+            }
+        }
+    }
+
+    static removerBibliotecaByIdConcelho(idConcelho) {
+        if (bibliotecas.length > 0) {
+            for (let i = bibliotecas.length - 1; i >= 0; i--) {
+                if (bibliotecas[i].idConcelho === idConcelho) {
+                    bibliotecas.splice(i, 1)
+                }
+            }
+        }
+    }
+
+    static removerBibliotecaByIdFreguesia(idFreguesia) {
+        if (bibliotecas.length > 0) {
+            for (let i = bibliotecas.length - 1; i >= 0; i--) {
+                if (bibliotecas[i].idFreguesia === idFreguesia) {
+                    bibliotecas.splice(i, 1)
+                }
             }
         }
     }
@@ -650,10 +671,9 @@ class Tag {
 }
 
 class Concelho {
-    constructor(concelho, freguesias) {
+    constructor(concelho) {
         this._id = Concelho.getUltimoId() + 1
         this.concelho = concelho
-        this.freguesias = freguesias
     }
 
     get concelho() {
@@ -661,27 +681,6 @@ class Concelho {
     }
     set concelho(valor) {
         this._concelho = valor
-    }
-
-    get freguesias() {
-        return this._freguesias
-    }
-    set freguesias(valor) {
-        //transforma a string em array
-        valor = (valor) ? valor.split(",") : valor
-        //remove valores vazios do array
-        if (valor && valor.length > 1) {
-            for (let i = valor.length; i >= 0; i--) {
-                if (!valor[i]) {
-                    valor.splice(i, 1)
-                } else {
-                    if (valor[i].indexOf(" ") === 0) {
-                        valor[i] = valor[i].slice(1, valor[i].length)
-                    }
-                }
-            }
-        }
-        this._freguesias = valor
     }
 
     get id() {
@@ -727,6 +726,7 @@ class Concelho {
 
 class Freguesia {
     constructor(idConcelho, freguesia) {
+        this._id = Freguesia.getUltimoId() + 1
         this.idConcelho = idConcelho
         this.freguesia = freguesia
     }
@@ -744,8 +744,97 @@ class Freguesia {
     set freguesia(valor) {
         this._freguesia = valor
     }
-}
 
+    get id() {
+        return this._id
+    }
+
+    static getIdByIdConcelhoFreguesia(idConcelho, freguesia) {
+        let id = -1
+        if (freguesia.length > 0) {
+            for (let i in freguesias) {
+                if (freguesias[i].idConcelho === idConcelho && freguesias[i].freguesia.toLowerCase() === freguesia.toLowerCase()) {
+                    id = freguesias[i].id
+                }
+            }
+        }
+        return id
+    }
+
+    static getIdByFreguesia(freguesia) {
+        let id = -1
+        for (let i in freguesias) {
+            if (freguesias[i].freguesia.toLowerCase() === freguesia.toLowerCase()) {
+                id = freguesias[i].id
+            }
+        }
+        return id
+    }
+
+    static getUltimoId() {
+        let id = 0
+        if (freguesias.length > 0) {
+            for (let i in freguesias) {
+                id = freguesias[i].id
+            }
+        }
+        return id
+    }
+
+    static getQuantidadeFreguesiaByIdConcelho(idConcelho) {
+        let quantidade = 0
+        for (let i in freguesias) {
+            if (freguesias[i].idConcelho === idConcelho) {
+                quantidade++
+            }
+        }
+        return quantidade
+    }
+
+    static getFreguesiasByIdConcelho(idConcelho) {
+        let listaFreguesias = []
+        for (let i in freguesias) {
+            if (freguesias[i].idConcelho === idConcelho) {
+                listaFreguesias.push(freguesias[i].freguesia)
+            }
+        }
+        return listaFreguesias
+    }
+
+    static removerFreguesiasByIdConcelho(idConcelho) {
+        if (freguesias.length > 0) {
+            for (let i = freguesias.length - 1; i >= 0; i--) {
+                if (freguesias[i].idConcelho === idConcelho) {
+                    freguesias.splice(i, 1)
+                }
+            }
+        }
+    }
+
+    static getFreguesiaById(id) {
+        for (let i in freguesias) {
+            if (freguesias[i].id === id) {
+                return freguesias[i].freguesia
+            }
+        }
+    }
+
+    static removerFreguesiaById(id) {
+        for (let i in freguesias) {
+            if (freguesias[i].id === id) {
+                freguesias.splice(i, 1)
+            }
+        }
+    }
+
+    static getIdConcelhoById(id) {
+        for (let i in freguesias) {
+            if (freguesias[i].id === id) {
+                return freguesias[i].idConcelho
+            }
+        }
+    }
+}
 
 let utilizadores = []
 let livros = []
@@ -755,7 +844,7 @@ let comentarios = []
 let generos = []
 let tags = []
 let concelhos = []
-
+let freguesias = []
 
 //utilizadores predefinidos
 utilizadores.push(new Utilizador("Teste", "teste@teste.pt", "123", "", 0))
@@ -792,16 +881,31 @@ if (!localStorage.getItem("tags")) {
 }
 
 //concelhos predefinidos
-concelhos.push(new Concelho("Vila do Conde", "Vila do Conde"))
+concelhos.push(new Concelho("Vila do Conde"))
+concelhos.push(new Concelho("Póvoa de Varzim"))
 
 if (!localStorage.getItem("concelhos")) {
     localStorage.setItem("concelhos", JSON.stringify(concelhos))
     concelhos = JSON.parse(localStorage.getItem("concelhos"))
 }
 
-//bibliotecas predefinidas
-bibliotecas.push(new Biblioteca(""))
+//freguesias predefinidas
+freguesias.push(new Freguesia(1, "Vila do Conde"))
+freguesias.push(new Freguesia(1, "Azurara"))
+freguesias.push(new Freguesia(2, "Póvoa de Varzim"))
 
+if (!localStorage.getItem("freguesias")) {
+    localStorage.setItem("freguesias", JSON.stringify(freguesias))
+    freguesias = JSON.parse(localStorage.getItem("freguesias"))
+}
+
+//bibliotecas predefinidas
+bibliotecas.push(new Biblioteca(2, 3, "R. Dom Sancho I 1, 4490 Argivai, Portugal", 300, "Top", { lat: 41.36615219999999, lng: -8.7394442 }))
+
+if (!localStorage.getItem("bibliotecas")) {
+    localStorage.setItem("bibliotecas", JSON.stringify(bibliotecas))
+    bibliotecas = JSON.parse(localStorage.getItem("bibliotecas"))
+}
 
 //livros predefinidos
 livros.push(new Livro("A Guerra dos Tronos", "George R.R. Martin", `Quando Eddard Stark, lorde do castelo de Winterfell, recebe a visita do velho amigo, o rei Robert Baratheon,
@@ -864,6 +968,15 @@ function transformarEmInstanciaConcelho(arrayConcelhos) {
     concelhos = concelhosTemporarios
 }
 
+function transformarEmInstanciaFreguesia(arrayFreguesias) {
+    let freguesiasTemporarias = []
+    //transformar os objetos em instâncias da classe Freguesia
+    for (let i in arrayFreguesias) {
+        freguesiasTemporarias.push(Object.assign(new Freguesia(), arrayFreguesias[i]))
+    }
+    freguesias = freguesiasTemporarias
+}
+
 function transformarEmInstanciaBiblioteca(arrayBibliotecas) {
     let bibliotecasTemporarias = []
     //transformar os objetos em instâncias da classe Biblioteca
@@ -875,7 +988,7 @@ function transformarEmInstanciaBiblioteca(arrayBibliotecas) {
 
 function transformarEmInstanciaLivro(arrayLivros) {
     let livrosTemporarios = []
-    //transformar os objetos em instâncias da classe Biblioteca
+    //transformar os objetos em instâncias da classe Livro
     for (let i in arrayLivros) {
         livrosTemporarios.push(Object.assign(new Livro(), arrayLivros[i]))
     }
