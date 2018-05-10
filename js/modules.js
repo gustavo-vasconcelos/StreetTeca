@@ -167,17 +167,31 @@ class Utilizador {
             }
         }
     }
+
+    static getPercUtilizadoresPorTipoAcesso(tipoAcesso) {
+        let quantidade = 0
+        if (utilizadores.length > 0) {
+            for (let i in utilizadores) {
+                if (utilizadores[i].tipoAcesso === tipoAcesso) {
+                    quantidade++
+                }
+            }
+            return Math.floor((quantidade * 100) / utilizadores.length)
+        } else {
+            return 0
+        }
+    }
 }
 
 class Livro {
-    constructor(titulo, autor, descricao, ano, idGenero, tags, editora, paginas, estado, dataDoacao, codigoBiblioteca, idDoador = -1) {
+    constructor(titulo, autor, descricao, ano, idGenero, idTags, editora, paginas, estado, dataDoacao, codigoBiblioteca, idDoador = -1) {
         this._id = Livro.getUltimoId() + 1
         this.titulo = titulo
         this.autor = autor
         this.descricao = descricao
         this.ano = ano
         this.idGenero = idGenero
-        this.tags = tags
+        this.idTags = idTags
         this.editora = editora
         this.paginas = paginas
         this.estado = estado
@@ -235,11 +249,11 @@ class Livro {
         this._idGenero = valor
     }
 
-    get tags() {
-        return this._tags
+    get idTags() {
+        return this._idTags
     }
-    set tags(valor) {
-        this._tags = valor
+    set idTags(valor) {
+        this._idTags = valor
     }
 
     get editora() {
@@ -292,15 +306,25 @@ class Livro {
         }
     }
 
+    static getGeneros() {
+        let generosLivros = []
+        for (let i in livros) {
+            if (generosLivros.indexOf(Genero.getNomeById(livros[i].idGenero)) === -1) {
+                generosLivros.push(Genero.getNomeById(livros[i].idGenero))
+            }
+        }
+        return generosLivros
+    }
+
 }
 
 class Biblioteca {
-    constructor(concelho, freguesia, morada, capacidade, descricao, coordenadas) {
+    constructor(idConcelho, idFreguesia, morada, capacidade, descricao, coordenadas) {
         this._id = Biblioteca.getUltimoId() + 1
-        this.concelho = concelho
-        this.freguesia = freguesia
+        this.idConcelho = idConcelho
+        this.idFreguesia = idFreguesia
         this.morada = morada
-        this.capacidade = capacidade        
+        this.capacidade = capacidade
         this.descricao = descricao
         this.coordenadas = coordenadas
     }
@@ -318,18 +342,18 @@ class Biblioteca {
         return id
     }
 
-    get concelho() {
-        return this._concelho
+    get idConcelho() {
+        return this._idConcelho
     }
-    set concelho(valor) {
-        this._concelho = valor
+    set idConcelho(valor) {
+        this._idConcelho = valor
     }
 
-    get freguesia() {
-        return this._freguesia
+    get idFreguesia() {
+        return this._idFreguesia
     }
-    set freguesia(valor) {
-        this._freguesia = valor
+    set idFreguesia(valor) {
+        this._idFreguesia = valor
     }
 
     get morada() {
@@ -362,8 +386,8 @@ class Biblioteca {
 
     static getIdByConcelhoFreguesia(concelho, freguesia) {
         let id = -1
-        for(let i in bibliotecas) {
-            if(bibliotecas[i].concelho === concelho && bibliotecas[i].freguesia === freguesia) {
+        for (let i in bibliotecas) {
+            if (bibliotecas[i].idConcelho === concelho && bibliotecas[i].idFreguesia === freguesia) {
                 id = bibliotecas[i].id
             }
         }
@@ -371,8 +395,8 @@ class Biblioteca {
     }
 
     static getConcelhoFreguesiaById(id) {
-        for(let i in bibliotecas) {
-            if(bibliotecas[i].id === id) {
+        for (let i in bibliotecas) {
+            if (bibliotecas[i].id === id) {
                 return [bibliotecas[i].concelho, bibliotecas[i].freguesia]
             }
         }
@@ -380,7 +404,7 @@ class Biblioteca {
 
     //https://stackoverflow.com/questions/247483/http-get-request-in-javascript
     static getCoordenadasByMorada(morada) {
-        let url = `https://maps.google.com/maps/api/geocode/json?address=${morada}&key=AIzaSyBwpPEcOyiz4v8GA9Hwo4W_LYlYQmfArS0`    
+        let url = `https://maps.google.com/maps/api/geocode/json?address=${morada}&key=AIzaSyBwpPEcOyiz4v8GA9Hwo4W_LYlYQmfArS0`
         var xmlHttp = new XMLHttpRequest()
         xmlHttp.open("GET", url, false)
         xmlHttp.send(null)
@@ -655,7 +679,6 @@ class Concelho {
                         valor[i] = valor[i].slice(1, valor[i].length)
                     }
                 }
-
             }
         }
         this._freguesias = valor
@@ -699,6 +722,27 @@ class Concelho {
                 concelhos.splice(i, 1)
             }
         }
+    }
+}
+
+class Freguesia {
+    constructor(idConcelho, freguesia) {
+        this.idConcelho = idConcelho
+        this.freguesia = freguesia
+    }
+
+    get idConcelho() {
+        return this._idConcelho
+    }
+    set idConcelho(valor) {
+        this._idConcelho = valor
+    }
+
+    get freguesia() {
+        return this._freguesia
+    }
+    set freguesia(valor) {
+        this._freguesia = valor
     }
 }
 
@@ -747,14 +791,38 @@ if (!localStorage.getItem("tags")) {
     tags = JSON.parse(localStorage.getItem("tags"))
 }
 
+//concelhos predefinidos
+concelhos.push(new Concelho("Vila do Conde", "Vila do Conde"))
 
+if (!localStorage.getItem("concelhos")) {
+    localStorage.setItem("concelhos", JSON.stringify(concelhos))
+    concelhos = JSON.parse(localStorage.getItem("concelhos"))
+}
+
+//bibliotecas predefinidas
+bibliotecas.push(new Biblioteca(""))
+
+
+//livros predefinidos
+livros.push(new Livro("A Guerra dos Tronos", "George R.R. Martin", `Quando Eddard Stark, lorde do castelo de Winterfell, recebe a visita do velho amigo, o rei Robert Baratheon,
+está longe de adivinhar que a sua vida,e a da sua família, está prestes a entrar numa espiral de tragédia, conspiração e morte. Durante a estadia,
+o rei convida Eddard a mudar-se para a corte e a assumir a prestigiada posição de Mão do Rei. Este aceita,
+mas apenas porque desconfia que o anterior detentor desse título foi envenenado pela própria rainha: uma cruel manipuladora do clã Lannister.
+Assim, perto do rei, Eddard tem esperança de o proteger da rainha.
+Mas ter os Lannister como inimigos é fatal: a ambição dessa família não tem limites e o rei corre um perigo muito maior do que Eddard temia! Sozinho na corte,
+Eddard também se apercebe que a sua vida nada vale. E até a sua família, longe no norte, pode estar em perigo. Uma galeria de personagens brilhantes dá vida a esta saga: o anão Tyrion,
+ovelha negra do clã Lannister; Jon Snow, bastardo de Eddard Stark que decide juntar-se à Patrulha da Noite, e a princesa Daenerys Targaryen,
+da dinastia que reinou antes de Robert, que pretende ressuscitar os dragões do passado para recuperar o trono, custe o que custar.`, 2008, 2, [4, 5], "Saída de Emergência", 400, 1, "2018-05-02", 1, -1))
+
+if (!localStorage.getItem("livros")) {
+    localStorage.setItem("livros", JSON.stringify(livros))
+    livros = JSON.parse(localStorage.getItem("livros"))
+}
 
 
 requisicoes.push(new Requisicao(1, 1, "2018-05-02"))
 requisicoes.push(new Requisicao(1, 2, "2018-05-02"))
 
-livros.push(new Livro("A Guerra dos Tronos", "George R.R. Martin", 2008, 0, "daenerys", "Teca Editora", 503, 1, "2018-05-02", 0, 0))
-livros.push(new Livro("Os 100", "Kass Morgan", 2008, 0, "daenerys", "Teca Editora", 503, 1, "2018-05-02", 0, 0))
 
 let idUtilizadorLogado = (localStorage.getItem("idUtilizadorLogado")) ? localStorage.getItem("idUtilizadorLogado") : -1
 
@@ -803,6 +871,15 @@ function transformarEmInstanciaBiblioteca(arrayBibliotecas) {
         bibliotecasTemporarias.push(Object.assign(new Biblioteca(), arrayBibliotecas[i]))
     }
     bibliotecas = bibliotecasTemporarias
+}
+
+function transformarEmInstanciaLivro(arrayLivros) {
+    let livrosTemporarios = []
+    //transformar os objetos em instâncias da classe Biblioteca
+    for (let i in arrayLivros) {
+        livrosTemporarios.push(Object.assign(new Livro(), arrayLivros[i]))
+    }
+    livros = livrosTemporarios
 }
 
 

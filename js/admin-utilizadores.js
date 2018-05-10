@@ -58,21 +58,6 @@ window.onload = function () {
     gerarTabelaUtilizadores()
 } //fim window.onload
 
-function getPercentagemUtilizadores(tipoAcesso) {
-    let quantidade = 0
-    if (utilizadores.length > 0) {
-        for (let i in utilizadores) {
-            if (utilizadores[i].tipoAcesso === tipoAcesso) {
-                quantidade++
-            }
-        }
-        return Math.floor((quantidade * 100) / utilizadores.length)
-    } else {
-        return 0
-    }
-
-}
-
 function atualizarPercentagens() {
     //total utilizadores
     let totalUtilizadores = document.getElementById("totalUtilizadores")
@@ -82,20 +67,20 @@ function atualizarPercentagens() {
     let utilizadoresPercentagem = document.getElementById("utilizadoresPercentagem")
     let utilizadoresBarraPercentagem = document.getElementById("utilizadoresBarraPercentagem")
 
-    utilizadoresPercentagem.innerHTML = getPercentagemUtilizadores(2) + "%"
-    utilizadoresBarraPercentagem.style.width = getPercentagemUtilizadores(2) + "%"
+    utilizadoresPercentagem.innerHTML = Utilizador.getPercUtilizadoresPorTipoAcesso(2) + "%"
+    utilizadoresBarraPercentagem.style.width = Utilizador.getPercUtilizadoresPorTipoAcesso(2) + "%"
 
     let operadoresPercentagem = document.getElementById("operadoresPercentagem")
     let operadoresBarraPercentagem = document.getElementById("operadoresBarraPercentagem")
 
-    operadoresPercentagem.innerHTML = getPercentagemUtilizadores(1) + "%"
-    operadoresBarraPercentagem.style.width = getPercentagemUtilizadores(1) + "%"
+    operadoresPercentagem.innerHTML = Utilizador.getPercUtilizadoresPorTipoAcesso(1) + "%"
+    operadoresBarraPercentagem.style.width = Utilizador.getPercUtilizadoresPorTipoAcesso(1) + "%"
 
     let administradoresPercentagem = document.getElementById("administradoresPercentagem")
     let administradoresBarraPercentagem = document.getElementById("administradoresBarraPercentagem")
 
-    administradoresPercentagem.innerHTML = getPercentagemUtilizadores(0) + "%"
-    administradoresBarraPercentagem.style.width = getPercentagemUtilizadores(0) + "%"
+    administradoresPercentagem.innerHTML = Utilizador.getPercUtilizadoresPorTipoAcesso(0) + "%"
+    administradoresBarraPercentagem.style.width = Utilizador.getPercUtilizadoresPorTipoAcesso(0) + "%"
 }
 
 function gerarTabelaUtilizadores() {

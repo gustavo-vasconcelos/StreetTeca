@@ -54,7 +54,7 @@
                 <a href="utilizadores.html">
                     <em class="fa fa-user">&nbsp;</em> Utilizadores</a>
             </li>
-            <li class="active">
+            <li>
                 <a href="bibliotecas.html">
                     <em class="fa fa-map-marker">&nbsp;</em> Bibliotecas</a>
             </li>
@@ -63,7 +63,7 @@
                     <em class="fa fa-list-alt">&nbsp;</em> Géneros &nbsp; & &nbsp;&nbsp;
                     <em class="fa fa-tags">&nbsp;</em> Tags</a>
             </li>
-            <li>
+            <li class="active">
                 <a href="livros.html">
                     <em class="fa fa-book">&nbsp;</em> Livros</a>
             </li>
@@ -97,6 +97,16 @@
 
         <div class="row">
             <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="pull-left" id="totalLivros"></div>
+                        <span class="pull-right clickable panel-toggle panel-button-tab-left">
+                            <em class="fa fa-toggle-up"></em>
+                        </span>
+                    </div>
+                    <div class="totalLivrosGenero"></div>
+                </div>
+
                 <!-- adicionar concelho -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -138,99 +148,21 @@
                 </div>
                 <!-- /adicionar concelho -->
 
-                <!-- tabela concelhos -->
+                <!-- tabela livros -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="pull-left" id="totalConcelhos"></div>
+                        <div class="pull-left">Lista de livros</div>
                         <span class="pull-right clickable panel-toggle panel-button-tab-left">
                             <em class="fa fa-toggle-up"></em>
                         </span>
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">
-                            <table class="table table-hover" id="tabelaConcelhos"></table>
+                            <table class="table table-hover" id="tabelaLivros"></table>
                         </div>
                     </div>
                 </div>
-                <!-- /tabela concelhos -->
-
-                <!-- adicionar biblioteca -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Adicionar biblioteca
-                        <span class="pull-right clickable panel-toggle panel-button-tab-left">
-                            <em class="fa fa-toggle-up"></em>
-                        </span>
-                    </div>
-                    <div class="panel-body">
-                        <form class="form-horizontal" id="formBiblioteca">
-                            <fieldset>
-                                <!-- nome-->
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="inputBibliotecaConcelho">Concelho</label>
-                                    <div class="col-md-9">
-                                        <select class="form-control" id="inputBibliotecaConcelho" required></select>
-                                    </div>
-                                </div>
-                                <!-- /nome-->
-                                <!-- freguesias-->
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="inputBibliotecaFreguesia">Freguesia</label>
-                                    <div class="col-md-9">
-                                        <select class="form-control" id="inputBibliotecaFreguesia" required></select>
-                                    </div>
-                                </div>
-                                <!-- /freguesias-->
-                                <!-- morada -->
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="inputBibliotecaMorada">Morada</label>
-                                    <div class="col-md-9">
-                                        <input id="inputBibliotecaMorada" type="text" maxlength="50" class="form-control" placeholder="R. Dom Sancho I, 981, 4480-876"
-                                            required>
-                                    </div>
-                                </div>
-                                <!-- /morada -->
-                                <!-- capacidade -->
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="inputBibliotecaCapacidade">Capacidade</label>
-                                    <div class="col-md-9">
-                                        <input id="inputBibliotecaCapacidade" type="number" min="1" max="999" class="form-control" required>
-                                    </div>
-                                </div>
-                                <!-- /capacidade -->
-                                <!-- descrição -->
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="inputBibliotecaDescricao">Descrição</label>
-                                    <div class="col-md-9">
-                                        <textarea id="inputBibliotecaDescricao" class="form-control" rows="5" required></textarea>
-                                    </div>
-                                </div>
-                                <!-- /descrição -->
-                                <br>
-                                <!-- Form actions -->
-                                <div class="form-group">
-                                    <div class="col-md-12 widget-right">
-                                        <input type="submit" class="col-lg-2 btn btn-primary btn-md pull-right">
-                                        <input type="reset" class="col-lg-2 btn btn-default btn-md pull-right" style="margin-right:10px;" id="btnResetBibliotecas">
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-                <!-- /adicionar biblioteca -->
-                
-                <!-- mapa bibliotecas -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="pull-left" id="totalBibliotecas"></div>
-                        <span class="pull-right clickable panel-toggle panel-button-tab-left">
-                            <em class="fa fa-toggle-up"></em>
-                        </span>
-                    </div>
-                    <div class="panel-body" id="mapaBibliotecas"></div>
-                </div>
-            <!-- /mapa bibliotecas -->
+                <!-- /tabela livros -->
             </div>
             <!--/.col-->
             <div class="col-sm-12">
@@ -261,7 +193,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwpPEcOyiz4v8GA9Hwo4W_LYlYQmfArS0"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../js/modules.js"></script>
-    <script src="../js/admin-bibliotecas.js"></script>
+    <script src="../js/admin-livros.js"></script>
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/chart.min.js"></script>
