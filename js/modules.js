@@ -295,14 +295,14 @@ class Livro {
 }
 
 class Biblioteca {
-    constructor(concelho, freguesia, morada, descricao, coordenadas, capacidade) {
+    constructor(concelho, freguesia, morada, capacidade, descricao, coordenadas) {
         this._id = Biblioteca.getUltimoId() + 1
         this.concelho = concelho
         this.freguesia = freguesia
         this.morada = morada
+        this.capacidade = capacidade        
         this.descricao = descricao
-        this.coordenas = coordenadas
-        this.capacidade = capacidade
+        this.coordenadas = coordenadas
     }
     get id() {
         return this._id
@@ -360,6 +360,42 @@ class Biblioteca {
         this._capacidade = valor
     }
 
+    static getIdByConcelhoFreguesia(concelho, freguesia) {
+        let id = -1
+        for(let i in bibliotecas) {
+            if(bibliotecas[i].concelho === concelho && bibliotecas[i].freguesia === freguesia) {
+                id = bibliotecas[i].id
+            }
+        }
+        return id
+    }
+
+    static getConcelhoFreguesiaById(id) {
+        for(let i in bibliotecas) {
+            if(bibliotecas[i].id === id) {
+                return [bibliotecas[i].concelho, bibliotecas[i].freguesia]
+            }
+        }
+    }
+
+    //https://stackoverflow.com/questions/247483/http-get-request-in-javascript
+    static getCoordenadasByMorada(morada) {
+        let url = `https://maps.google.com/maps/api/geocode/json?address=${morada}&key=AIzaSyBwpPEcOyiz4v8GA9Hwo4W_LYlYQmfArS0`    
+        var xmlHttp = new XMLHttpRequest()
+        xmlHttp.open("GET", url, false)
+        xmlHttp.send(null)
+        let resposta = JSON.parse(xmlHttp.responseText)
+        //devolve um array com a morada (índice 0) e coordenadas (índice 1)
+        return [resposta.results[0].formatted_address, resposta.results[0].geometry.location]
+    }
+
+    static removerBibliotecaById(id) {
+        for (let i in bibliotecas) {
+            if (bibliotecas[i].id === id) {
+                bibliotecas.splice(i, 1)
+            }
+        }
+    }
 }
 
 class Requisicao {
@@ -758,6 +794,15 @@ function transformarEmInstanciaConcelho(arrayConcelhos) {
         concelhosTemporarios.push(Object.assign(new Concelho(), arrayConcelhos[i]))
     }
     concelhos = concelhosTemporarios
+}
+
+function transformarEmInstanciaBiblioteca(arrayBibliotecas) {
+    let bibliotecasTemporarias = []
+    //transformar os objetos em instâncias da classe Biblioteca
+    for (let i in arrayBibliotecas) {
+        bibliotecasTemporarias.push(Object.assign(new Biblioteca(), arrayBibliotecas[i]))
+    }
+    bibliotecas = bibliotecasTemporarias
 }
 
 
