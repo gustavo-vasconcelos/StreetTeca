@@ -618,7 +618,6 @@ function gerarTabelaLivros() {
                             })
                         }
                     }
-
                 })
             }
         })
