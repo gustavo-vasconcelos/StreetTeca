@@ -984,7 +984,7 @@ if (!localStorage.getItem("bibliotecas")) {
 
 //livros predefinidos
 livros.push(new Livro("https://img.wook.pt/images/a-guerra-dos-tronos-george-r-r-martin/MXwxOTY1MTF8MjQ3OTIzfDEzODM1MjMyMDAwMDA=/502x", "A Guerra dos Tronos", ["George R.R. Martin"], `Quando Eddard Stark, lorde do castelo de Winterfell, recebe a visita do velho amigo, o rei Robert Baratheon,
-está longe de adivinhar que a sua vida,e a da sua família, está prestes a entrar numa espiral de tragédia, conspiração e morte.`, 2008, 1, [4, 5], "Saída de Emergência", 400, 1, "2018-05-02", 1, -1))
+está longe de adivinhar que a sua vida,e a da sua família, está prestes a entrar numa espiral de tragédia, conspiração e morte.`, 2008, 2, [3, 4, 5], "Saída de Emergência", 400, 1, "2018-05-02", 1, 2))
 
 if (!localStorage.getItem("livros")) {
     localStorage.setItem("livros", JSON.stringify(livros))
