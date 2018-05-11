@@ -90,7 +90,7 @@
     <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Bibliotecas</h1>
+                <h1 class="page-header">Livros</h1>
             </div>
         </div>
         <!--/.row-->
@@ -104,49 +104,144 @@
                             <em class="fa fa-toggle-up"></em>
                         </span>
                     </div>
-                    <div class="totalLivrosGenero"></div>
+                    <div class="panel-body">
+                        <div class="col-md-12 no-padding" id="percentagemLivrosPorGenero"></div>
+                    </div>
                 </div>
 
-                <!-- adicionar concelho -->
+                <!-- adicionar livro -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Adicionar concelho
+                        Adicionar livro
                         <span class="pull-right clickable panel-toggle panel-button-tab-left">
                             <em class="fa fa-toggle-up"></em>
                         </span>
                     </div>
                     <div class="panel-body">
-                        <form class="form-horizontal" id="formConcelho">
+                        <form class="form-horizontal" id="formLivro">
                             <fieldset>
-                                <!-- nome-->
+                                <!-- título-->
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="inputConcelho">Concelho</label>
+                                    <label class="col-md-3 control-label" for="inputLivroUrlCapa">URL capa</label>
                                     <div class="col-md-9">
-                                        <input id="inputConcelho" type="text" class="form-control" required>
+                                        <input id="inputLivroUrlCapa" type="url" class="form-control" required>
                                     </div>
                                 </div>
-                                <!-- /nome-->
-                                <!-- freguesias-->
+                                <!-- /título-->
+                                <!-- título-->
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="inputFreguesias">Freguesias (separadas por vírgula)</label>
+                                    <label class="col-md-3 control-label" for="inputLivroTitulo">Título</label>
                                     <div class="col-md-9">
-                                        <input id="inputFreguesias" type="text" class="form-control" required>
+                                        <input id="inputLivroTitulo" type="text" class="form-control" required>
                                     </div>
                                 </div>
-                                <!-- /freguesias-->
+                                <!-- /título-->
+                                <!-- autor -->
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="inputLivroAutor">Autor</label>
+                                    <div class="col-md-9">
+                                        <input id="inputLivroAutor" type="text" class="form-control" required>
+                                        <small>Separar por vírgulas caso seja mais que um.</small>
+                                    </div>
+                                </div>
+                                <!-- /autor -->
+                                <!-- descrição -->
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="inputLivroDescricao">Descrição</label>
+                                    <div class="col-md-9">
+                                        <textarea id="inputLivroDescricao" class="form-control" rows="5" required></textarea>
+                                    </div>
+                                </div>
+                                <!-- /descrição -->
+                                <!-- ano -->
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="inputLivroAno">Ano</label>
+                                    <div class="col-md-9">
+                                        <input id="inputLivroAno" type="number" min="1000" class="form-control" required>
+                                    </div>
+                                </div>
+                                <!-- /ano -->
+                                <!-- género -->
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="inputLivroGenero">Género</label>
+                                    <div class="col-md-9">
+                                        <select id="inputLivroGenero" class="form-control" required></select>
+                                    </div>
+                                </div>
+                                <!-- /género -->
+                                <!-- tags -->
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Tags</label>
+                                    <div class="col-md-9" id="inputLivroTags"></div>
+                                </div>
+                                <!-- /tags -->
+                                <!-- editora -->
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="inputLivroEditora">Editora</label>
+                                    <div class="col-md-9">
+                                        <input id="inputLivroEditora" type="text" class="form-control" required>
+                                    </div>
+                                </div>
+                                <!-- /editora -->
+                                <!-- páginas -->
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="inputLivroPaginas">Páginas</label>
+                                    <div class="col-md-9">
+                                        <input id="inputLivroPaginas" type="number" min="1" class="form-control" required>
+                                    </div>
+                                </div>
+                                <!-- /páginas -->
+                                <!-- estado -->
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Estado *</label>
+                                    <div class="col-md-9" id="inputLivroEstado">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="inputLivroEstado" class="inputLivroEstadoRadio" value="2">Bom
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="inputLivroEstado" class="inputLivroEstadoRadio" value="1">Aceitável
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="inputLivroEstado" class="inputLivroEstadoRadio" value="0">Fraco
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /estado -->
+                                <!-- biblioteca -->
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="inputLivroBiblioteca">ID biblioteca</label>
+                                    <div class="col-md-9">
+                                        <select name="inputLivroBiblioteca" id="inputLivroBiblioteca" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <!-- /biblioteca -->
+                                <!-- biblioteca -->
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="inputLivroDoador">Nome doador</label>
+                                    <div class="col-md-9">
+                                        <select id="inputLivroDoador" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <!-- /biblioteca -->
                                 <br>
                                 <!-- Form actions -->
                                 <div class="form-group">
                                     <div class="col-md-12 widget-right">
                                         <input type="submit" class="col-lg-2 btn btn-primary btn-md pull-right">
-                                        <input type="reset" class="col-lg-2 btn btn-default btn-md pull-right" style="margin-right:10px;" id="btnResetConcelhos">
+                                        <input type="reset" class="col-lg-2 btn btn-default btn-md pull-right" style="margin-right:10px;" id="btnResetLivro">
                                     </div>
                                 </div>
                             </fieldset>
                         </form>
                     </div>
                 </div>
-                <!-- /adicionar concelho -->
+                <!-- /adicionar livro -->
 
                 <!-- tabela livros -->
                 <div class="panel panel-default">

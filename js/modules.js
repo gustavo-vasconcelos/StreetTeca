@@ -184,8 +184,9 @@ class Utilizador {
 }
 
 class Livro {
-    constructor(titulo, autor, descricao, ano, idGenero, idTags, editora, paginas, estado, dataDoacao, codigoBiblioteca, idDoador = -1) {
+    constructor(urlCapa, titulo, autor, descricao, ano, idGenero, idTags, editora, paginas, estado, dataDoacao, idBiblioteca, idDoador = -1) {
         this._id = Livro.getUltimoId() + 1
+        this.urlCapa = urlCapa
         this.titulo = titulo
         this.autor = autor
         this.descricao = descricao
@@ -196,7 +197,7 @@ class Livro {
         this.paginas = paginas
         this.estado = estado
         this.dataDoacao = dataDoacao
-        this.codigoBiblioteca = codigoBiblioteca
+        this.idBiblioteca = idBiblioteca
         this.idDoador = idDoador
     }
 
@@ -212,6 +213,14 @@ class Livro {
             }
         }
         return id
+    }
+
+    get urlCapa() {
+        return this._urlCapa
+    }
+    set urlCapa(valor) {
+        valor = (valor === "") ? "../img/capaLivro.jpg" : valor
+        this._urlCapa = valor
     }
 
     get titulo() {
@@ -284,11 +293,11 @@ class Livro {
         this._dataDoacao = valor
     }
 
-    get codigoBiblioteca() {
-        return this._codigoBiblioteca
+    get idBiblioteca() {
+        return this._idBiblioteca
     }
-    set codigoBiblioteca(valor) {
-        this._codigoBiblioteca = valor
+    set idBiblioteca(valor) {
+        this._idBiblioteca = valor
     }
 
     get idDoador() {
@@ -296,6 +305,20 @@ class Livro {
     }
     set idDoador(valor) {
         this._idDoador = valor
+    }
+
+    estadoToString() {
+        switch (this.estado) {
+            case 0:
+                return "Fraco"
+                break;
+            case 1:
+                return "Aceitável"
+                break;
+            case 2:
+                return "Bom"
+                break;
+        }
     }
 
     static idLivroToTitulo(id) {
@@ -316,6 +339,35 @@ class Livro {
         return generosLivros
     }
 
+    static getPercLivrosPorGenero(idGenero) {
+        let quantidade = 0
+        if (livros.length > 0) {
+            for (let i in livros) {
+                if (livros[i].idGenero === idGenero) {
+                    quantidade++
+                }
+            }
+            return Math.floor((quantidade * 100) / livros.length)
+        } else {
+            return 0
+        }
+    }
+
+    static getTituloById(id) {
+        for (let i in livros) {
+            if (livros[i].id === id) {
+                return livros[i].titulo
+            }
+        }
+    }
+
+    static removerLivroById(id) {
+        for (let i in livros) {
+            if (livros[i].id === id) {
+                livros.splice(i, 1)
+            }
+        }
+    }
 }
 
 class Biblioteca {
@@ -384,16 +436,15 @@ class Biblioteca {
         this._capacidade = valor
     }
 
-    /*
-    static getIdByConcelhoFreguesia(concelho, freguesia) {
-        let id = -1
-        for (let i in bibliotecas) {
-            if (bibliotecas[i].idConcelho === concelho && bibliotecas[i].idFreguesia === freguesia) {
-                id = bibliotecas[i].id
+    getCapacidadeAtual() {
+        let livrosNaBiblioteca = 0
+        for (let i in livros) {
+            if (livros[i].idBiblioteca === this.id) {
+                livrosNaBiblioteca++
             }
         }
-        return id
-    }*/
+        return this.capacidade - livrosNaBiblioteca
+    }
 
     static getConcelhoFreguesiaById(id) {
         for (let i in bibliotecas) {
@@ -653,12 +704,36 @@ class Tag {
         return id
     }
 
+    static getIdsByNomes(nomes) {
+        let ids = []
+        for (let i in tags) {
+            for (let j in nomes) {
+                if (tags[i].nome.toLowerCase() === nomes[j]) {
+                    ids.push(tags[i].id)
+                }
+            }
+        }
+        return ids
+    }
+
     static getNomeById(id) {
         for (let i in tags) {
             if (tags[i].id === id) {
                 return tags[i].nome
             }
         }
+    }
+
+    static getNomesByIds(ids) {
+        let nomes = []
+        for (let i in tags) {
+            for (let j in ids) {
+                if (tags[i].id === ids[j]) {
+                    nomes.push(Tag.getNomeById(tags[i].id))
+                }
+            }
+        }
+        return nomes
     }
 
     static removerTagById(id) {
@@ -908,15 +983,8 @@ if (!localStorage.getItem("bibliotecas")) {
 }
 
 //livros predefinidos
-livros.push(new Livro("A Guerra dos Tronos", "George R.R. Martin", `Quando Eddard Stark, lorde do castelo de Winterfell, recebe a visita do velho amigo, o rei Robert Baratheon,
-está longe de adivinhar que a sua vida,e a da sua família, está prestes a entrar numa espiral de tragédia, conspiração e morte. Durante a estadia,
-o rei convida Eddard a mudar-se para a corte e a assumir a prestigiada posição de Mão do Rei. Este aceita,
-mas apenas porque desconfia que o anterior detentor desse título foi envenenado pela própria rainha: uma cruel manipuladora do clã Lannister.
-Assim, perto do rei, Eddard tem esperança de o proteger da rainha.
-Mas ter os Lannister como inimigos é fatal: a ambição dessa família não tem limites e o rei corre um perigo muito maior do que Eddard temia! Sozinho na corte,
-Eddard também se apercebe que a sua vida nada vale. E até a sua família, longe no norte, pode estar em perigo. Uma galeria de personagens brilhantes dá vida a esta saga: o anão Tyrion,
-ovelha negra do clã Lannister; Jon Snow, bastardo de Eddard Stark que decide juntar-se à Patrulha da Noite, e a princesa Daenerys Targaryen,
-da dinastia que reinou antes de Robert, que pretende ressuscitar os dragões do passado para recuperar o trono, custe o que custar.`, 2008, 2, [4, 5], "Saída de Emergência", 400, 1, "2018-05-02", 1, -1))
+livros.push(new Livro("https://img.wook.pt/images/a-guerra-dos-tronos-george-r-r-martin/MXwxOTY1MTF8MjQ3OTIzfDEzODM1MjMyMDAwMDA=/502x", "A Guerra dos Tronos", ["George R.R. Martin"], `Quando Eddard Stark, lorde do castelo de Winterfell, recebe a visita do velho amigo, o rei Robert Baratheon,
+está longe de adivinhar que a sua vida,e a da sua família, está prestes a entrar numa espiral de tragédia, conspiração e morte.`, 2008, 1, [4, 5], "Saída de Emergência", 400, 1, "2018-05-02", 1, -1))
 
 if (!localStorage.getItem("livros")) {
     localStorage.setItem("livros", JSON.stringify(livros))
