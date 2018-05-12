@@ -1,5 +1,5 @@
 #marca {
-    width: 50px;
+    width: 40px;
 }
 
 body, html {
@@ -291,7 +291,7 @@ a {
 
 /*pontuados*/
 
-#livro-dados {
+.livro-dados {
     padding-left: 3.5rem !important;
 }
 

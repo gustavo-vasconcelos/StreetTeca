@@ -188,6 +188,12 @@ window.onload = function () {
     utilizadores = JSON.parse(localStorage.getItem("utilizadores"))
     transformarEmInstanciaUtilizador(utilizadores)
 
+    livros = JSON.parse(localStorage.getItem("livros"))
+    transformarEmInstanciaLivro(livros)
+
+    comentarios = JSON.parse(localStorage.getItem("comentarios"))
+    transformarEmInstanciaComentario(comentarios)
+
     idUtilizadorLogado = parseInt(localStorage.getItem("idUtilizadorLogado"))
 
     //variáveis área de utilizador e login
@@ -304,5 +310,68 @@ window.onload = function () {
         areaUtilizador.style.display = "none"
         btnLogin.style.display = "inline"
     })
+
+
+    //livros recentes e pontuados
+    gerarLivrosRecentes()
+    gerarLivrosMaisPontuados()
 }
 
+function gerarLivrosRecentes() {
+    let recentesDiv = document.getElementById("recentesDiv")
+    let str = ""
+    let livrosRecentes = Livro.getLivrosRecentes()
+
+    for(let i in livrosRecentes) {
+        str += `<div class="col-xl-4 col-lg-5 col-sm-6 col-10 mt-4 livro-recente">
+                    <figure>
+                        <div class="livro-card">
+                            <img class="img-fluid" src="${livrosRecentes[i].urlCapa}" title="${livrosRecentes[i].titulo}">
+                        </div>
+                        <figcaption class="px-2">
+                            <div>
+                                <a href="#" class="livro-titulo">${livrosRecentes[i].titulo}</a>
+                            </div>
+                            <div>
+                                <a href="#" class="livro-autor">${livrosRecentes[i].autor.join(", ")}</a>
+                            </div>
+                        </figcaption>
+                    </figure>
+                </div>`
+    }
+    recentesDiv.innerHTML = str
+}
+
+function gerarLivrosMaisPontuados() {
+    let maisPontuadosDiv = document.getElementById("maisPontuadosDiv")
+    let str = ""
+    let livrosMaisPontuados = Comentario.getIdsLivrosMaisPontuados()
+    let count = 1
+
+    for(let i in livrosMaisPontuados) {
+        for(let j in livros) {
+            if(livrosMaisPontuados[i] === livros[j].id) {
+                str += `<div class="col-lg-6 col-md-6 col-sm-10 col-20 mt-4 livro-pontuado">
+                            <div class="d-flex flex-row">
+                                <div class="bg-teca3 px-3 ranking-div">
+                                    <h1>${count}</h1>
+                                </div>
+                                <div>
+                                    <img class="img-fluid" src="${livros[j].urlCapa}" title="${livros[j].titulo}">
+                                </div>
+                            </div>
+                            <div class="livro-dados">
+                                <div>
+                                    <a href="#" class="livro-titulo">${livros[j].titulo}</a>
+                                </div>
+                                <div>
+                                    <a href="#" class="livro-autor">${livros[j].autor.join(", ")}</a>
+                                </div>
+                            </div>
+                        </div>`
+                count++
+            }
+        }   
+    }
+    maisPontuadosDiv.innerHTML = str
+}

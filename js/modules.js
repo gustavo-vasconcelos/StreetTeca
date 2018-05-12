@@ -368,6 +368,24 @@ class Livro {
             }
         }
     }
+
+    static getLivrosRecentes() {
+        let livrosRecentes = []
+        for (let i = livros.length - 1; i >= livros.length - 11; i--) {
+            try {
+                if (livros[i].id) {
+                    livrosRecentes.push(livros[i])
+                }
+            } catch (err) {
+
+            }
+        }
+        return livrosRecentes
+    }
+
+    getPontuacao() {
+        return Comentario.getPontuacaoByIdLivro(this.id)
+    }
 }
 
 class Biblioteca {
@@ -609,6 +627,51 @@ class Comentario {
     }
     set pontuacao(valor) {
         this._pontuacao = valor
+    }
+
+    static getPontuacaoByIdLivro(idLivro) {
+        let pontuacao = 0
+        for (let i in comentarios) {
+            if (comentarios[i].idLivro === idLivro) {
+                pontuacao += comentarios[i].pontuacao
+            }
+        }
+        return pontuacao
+    }
+
+    static getIdsLivrosMaisPontuados() {
+        let ids = []
+        let pontuacoes = []
+        for (let i in comentarios) {
+            if (ids.indexOf(comentarios[i].idLivro) === -1) {
+                ids.push(comentarios[i].idLivro)
+                pontuacoes.push([Comentario.getPontuacaoByIdLivro(comentarios[i].idLivro), comentarios[i].idLivro])
+            }
+        }
+
+        function comparar(a, b) {
+            if (a[0] > b[0]) {
+                return -1;
+            }
+            if (a[0] < b[0]) {
+                return 1;
+            }
+            return 0;
+        }
+
+        pontuacoes.sort(comparar)
+
+        if(pontuacoes.length > 5) {
+            pontuacoes.length = 5
+        }
+
+        ids = []
+
+        for(let i in pontuacoes) {
+            ids.push(pontuacoes[i][1])
+        }
+
+        return ids
     }
 }
 
@@ -984,13 +1047,44 @@ if (!localStorage.getItem("bibliotecas")) {
 
 //livros predefinidos
 livros.push(new Livro("https://img.wook.pt/images/a-guerra-dos-tronos-george-r-r-martin/MXwxOTY1MTF8MjQ3OTIzfDEzODM1MjMyMDAwMDA=/502x", "A Guerra dos Tronos", ["George R.R. Martin"], `Quando Eddard Stark, lorde do castelo de Winterfell, recebe a visita do velho amigo, o rei Robert Baratheon,
-está longe de adivinhar que a sua vida,e a da sua família, está prestes a entrar numa espiral de tragédia, conspiração e morte.`, 2008, 2, [3, 4, 5], "Saída de Emergência", 400, 1, "2018-05-02", 1, 2))
+está longe de adivinhar que a sua vida,e a da sua família, está prestes a entrar numa espiral de tragédia, conspiração e morte.`, 2008, 2, [3, 4, 5], "Saída de Emergência", 400, 1, "2018-05-02", 1, -1))
+livros.push(new Livro("https://img.wook.pt/images/os-100-kass-morgan/MXwxNjU5MTM3MHwxMjIwMTAzNXwxNDk0OTc1NjAwMDAw/502x", "Os 100", ["Kass Morgan"], `Há muito tempo, a superfície da Terra foi arrasada por uma guerra nuclear.
+Os poucos sortudos que conseguiram sobreviver refugiaram-se a bordo da Colónia, uma estação espacial que orbita o planeta.`, 2015, 1, [3, 4, 5], "TopSeller", 288, 1, "2018-05-02", 1, -1))
+livros.push(new Livro("https://img.wook.pt/images/os-jogos-da-fome-suzanne-collins/MXwyODQzMTU2fDIzOTc5MTJ8MTQ0NzExMzYwMDAwMA==/502x", "Os Jogos da Fome", ["Suzanne Collins"], `Num futuro pós-apocalíptico, surge das cinzas do que foi a América do Norte Panem,
+uma nova nação governada por um regime totalitário que a partir da megalópole, Capitol, governa os doze Distritos com mão de ferro.`, 2009, 3, [3, 4, 5], "Editorial Presença", 268, 1, "2018-05-02", 1, -1))
+livros.push(new Livro("https://img.wook.pt/images/o-rapaz-do-pijama-as-riscas-john-boyne/MXwyMDAzOTB8MjU4MTk2fDEzODM1MjMyMDAwMDA=/502x", "O Rapaz do Pijama às Riscas", ["John Boyne"], `Ao regressar da escola um dia, Bruno constata que as suas coisas estão a ser empacotadas.
+O seu pai tinha sido promovido no trabalho e toda a família tem de deixar a luxuosa casa onde vivia e mudar-se para outra cidade, onde Bruno não encontra ninguém com quem brincar nem nada para fazer.`, 2008, 3, [3, 4, 5], "Edições Asa", 176, 1, "2018-05-02", 1, -1))
+livros.push(new Livro("https://img.wook.pt/images/o-marciano-andy-weir/MXwxNTc1ODc5MXwxMTI1Mzg4NXwxNDQxMTQ4NDAwMDAw/502x", "O Marciano", ["Andy Weir"], `Há exatamente seis dias, o astronauta Mark Watney tornou-se uma das primeiras pessoas a caminhar em Marte.
+Agora, ele tem a certeza de que vai ser a primeira pessoa a morrer ali.`, 2014, 3, [3, 4, 5], "TopSeller", 384, 1, "2018-05-02", 1, -1))
+livros.push(new Livro("https://img.wook.pt/images/o-nome-do-vento-patrick-rothfuss/MXwyMTQ1MjAwfDE4ODMyOTN8MTUxNzc4ODgwMDAwMA==/502x", "O Nome do Vento", ["Patrick Rothfuss"], `Da infância como membro de uma família unida de nómadas Edema Ruh até à provação dos primeiros dias como aluno de magia numa universidade prestigiada,
+o humilde estalajadeiro Kvothe relata a história de como um rapaz desfavorecido pelo destino se torna um herói, um bardo, um mago e uma lenda.`, 2009, 3, [3, 4, 5], "Edições Gailivro", 976, 1, "2018-05-02", 1, -1))
+livros.push(new Livro("https://img.wook.pt/images/o-tatuador-de-auschwitz-heather-morris/MXwyMTM3MDQwNnwxNzI1MjkwM3wxNTE2NzUyMDAwMDAw/502x", "O Tatuador de Auschwitz", ["Heather Morris"], `Em 1942, Lale Sokolov chega a Auschwitz-Birkenau.
+Ali é incumbido da tarefa de tatuar os prisioneiros marcados para sobreviver - gravando uma sequência de números no braço de outras vítimas como ele - com uma tinta indelével.`, 2018, 3, [3, 4, 5], "Editorial Presença", 232, 1, "2018-05-02", 1, -1))
+
 
 if (!localStorage.getItem("livros")) {
     localStorage.setItem("livros", JSON.stringify(livros))
     livros = JSON.parse(localStorage.getItem("livros"))
 }
 
+//comentários predefinidos
+comentarios.push(new Comentario(1, 1, "Top.", 5))
+comentarios.push(new Comentario(1, 2, "Top.", 5))
+comentarios.push(new Comentario(2, 3, "Top.", 2))
+comentarios.push(new Comentario(2, 4, "Top.", 3))
+comentarios.push(new Comentario(3, 1, "Top.", 5))
+comentarios.push(new Comentario(3, 2, "Top.", 2))
+comentarios.push(new Comentario(4, 1, "Top.", 4))
+comentarios.push(new Comentario(4, 2, "Top.", 3))
+comentarios.push(new Comentario(4, 3, "Top.", 3))
+comentarios.push(new Comentario(4, 4, "Top.", 4))
+comentarios.push(new Comentario(4, 5, "Top.", 5))
+comentarios.push(new Comentario(4, 6, "Top.", 4))
+
+if (!localStorage.getItem("comentarios")) {
+    localStorage.setItem("comentarios", JSON.stringify(comentarios))
+    comentarios = JSON.parse(localStorage.getItem("comentarios"))
+}
 
 requisicoes.push(new Requisicao(1, 1, "2018-05-02"))
 requisicoes.push(new Requisicao(1, 2, "2018-05-02"))
@@ -1061,6 +1155,15 @@ function transformarEmInstanciaLivro(arrayLivros) {
         livrosTemporarios.push(Object.assign(new Livro(), arrayLivros[i]))
     }
     livros = livrosTemporarios
+}
+
+function transformarEmInstanciaComentario(arrayComentarios) {
+    let comentariosTemporarios = []
+    //transformar os objetos em instâncias da classe Comentario
+    for (let i in arrayComentarios) {
+        comentariosTemporarios.push(Object.assign(new Comentario(), arrayComentarios[i]))
+    }
+    comentarios = comentariosTemporarios
 }
 
 
