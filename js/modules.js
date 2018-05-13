@@ -321,6 +321,15 @@ class Livro {
         }
     }
 
+    getPontuacaoTotal() {
+        return Comentario.getPontuacaoByIdLivro(this.id)
+    }
+
+    getPontuacaoMedia() {
+        return (Comentario.getQuantidadePontuacoesByIdLivro(this.id) !== 0) ?
+        (Comentario.getPontuacaoByIdLivro(this.id) / Comentario.getQuantidadePontuacoesByIdLivro(this.id)).toFixed(1) : 0
+    }
+
     static idLivroToTitulo(id) {
         for (let i in livros) {
             if (livros[i].id === id) {
@@ -381,10 +390,6 @@ class Livro {
             }
         }
         return livrosRecentes
-    }
-
-    getPontuacao() {
-        return Comentario.getPontuacaoByIdLivro(this.id)
     }
 }
 
@@ -637,6 +642,16 @@ class Comentario {
             }
         }
         return pontuacao
+    }
+
+    static getQuantidadePontuacoesByIdLivro(idLivro) {
+        let quantidade = 0
+        for (let i in comentarios) {
+            if (comentarios[i].idLivro === idLivro) {
+                quantidade++
+            }
+        }
+        return quantidade
     }
 
     static getIdsLivrosMaisPontuados() {
@@ -983,6 +998,7 @@ let generos = []
 let tags = []
 let concelhos = []
 let freguesias = []
+let testemunhos = []
 
 //utilizadores predefinidos
 utilizadores.push(new Utilizador("Teste", "teste@teste.pt", "123", "", 0))
@@ -1164,6 +1180,15 @@ function transformarEmInstanciaComentario(arrayComentarios) {
         comentariosTemporarios.push(Object.assign(new Comentario(), arrayComentarios[i]))
     }
     comentarios = comentariosTemporarios
+}
+
+function transformarEmInstanciaTestemunho(arrayTestemunhos) {
+    let testemunhosTemporarios = []
+    //transformar os objetos em instâncias da classe Testemunho
+    for (let i in arrayTestemunhos) {
+        testemunhosTemporarios.push(Object.assign(new Testemunho(), arrayTestemunhos[i]))
+    }
+    testemunhos = testemunhosTemporarios
 }
 
 

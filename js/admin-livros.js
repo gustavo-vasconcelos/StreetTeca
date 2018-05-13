@@ -356,6 +356,7 @@ function gerarTabelaLivros() {
                                                 <p><b>Data de doação:</b> ${livros[j].dataDoacao}</p>
                                                 <p><b>ID biblioteca:</b> ${livros[j].idBiblioteca}</p>
                                                 <p><b>Doador:</b> ${doador}</p>
+                                                <p><b>Pontuação média:</b> ${livros[j].getPontuacaoMedia()}</p>
                                             </div>`
                     modalFooter.innerHTML = `<button type="button" class="btn btn-danger remover">Remover</button>
                                              <button type="button" class="btn btn-warning editar">Editar</button>
@@ -492,6 +493,12 @@ function gerarTabelaLivros() {
                                                                 <label class="col-md-3 control-label" for="inputLivroDoadorEditar">Nome doador</label>
                                                                 <div class="col-md-9">
                                                                     <select id="inputLivroDoadorEditar" class="form-control"></select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 control-label" for="inputLivroPontuacaoEditar">Pontuação média</label>
+                                                                <div class="col-md-9">
+                                                                    <input id="inputLivroPontuacaoEditar" type="number" class="form-control" readonly value="${livros[k].getPontuacaoMedia()}">
                                                                 </div>
                                                             </div>
                                                             <input type="submit" class="col-lg-2 btn btn-warning btn-md pull-right" style="margin-left:10px;" value="Confirmar">
