@@ -194,6 +194,9 @@ window.onload = function () {
     comentarios = JSON.parse(localStorage.getItem("comentarios"))
     transformarEmInstanciaComentario(comentarios)
 
+    testemunhos = JSON.parse(localStorage.getItem("testemunhos"))
+    transformarEmInstanciaTestemunho(testemunhos)
+
     idUtilizadorLogado = parseInt(localStorage.getItem("idUtilizadorLogado"))
 
     //variáveis área de utilizador e login
@@ -217,21 +220,21 @@ window.onload = function () {
     let registoInputConfirmarPassword = document.getElementById("registoInputConfirmarPassword")
     let registoInputUrlFoto = document.getElementById("registoInputUrlFoto")
 
-    formRegisto.addEventListener("submit", function(event) {
+    formRegisto.addEventListener("submit", function (event) {
         let erro = false
         let strErro = ""
-        if(Utilizador.getIdByEmail(registoInputEmail.value) !== -1) {
+        if (Utilizador.getIdByEmail(registoInputEmail.value) !== -1) {
             erro = true
             strErro = "Já existe um utilizador registado com o mesmo email."
         }
-        if(registoInputPassword.value !== registoInputConfirmarPassword.value) {
+        if (registoInputPassword.value !== registoInputConfirmarPassword.value) {
             erro = true
             //para que apenas adicione uma quebra de linha caso a variável strErro não esteja vazia
             strErro = (strErro) ? (strErro + "\n") : strErro
             strErro += "\nAs passwords não coincidem."
         }
-        
-        if(erro) {
+
+        if (erro) {
             swal("Erro!", strErro, "error")
         } else {
             utilizadores.push(new Utilizador(registoInputNome.value, registoInputEmail.value, registoInputPassword.value, registoInputUrlFoto.value))
@@ -239,7 +242,7 @@ window.onload = function () {
             $("#modalRegisto").modal("hide")
             swal("Registo efetuado!", "Faça login com as suas credenciais.", "success")
         }
-        
+
         event.preventDefault()
     })
 
@@ -312,9 +315,10 @@ window.onload = function () {
     })
 
 
-    //livros recentes e pontuados
+    //livros recentes e pontuados e testemunhos
     gerarLivrosRecentes()
     gerarLivrosMaisPontuados()
+    gerarTestemunhos()
 } //fim onload
 
 function gerarLivrosRecentes() {
@@ -322,7 +326,7 @@ function gerarLivrosRecentes() {
     let str = ""
     let livrosRecentes = Livro.getLivrosRecentes()
 
-    for(let i in livrosRecentes) {
+    for (let i in livrosRecentes) {
         str += `<div class="col-xl-4 col-lg-5 col-sm-6 col-10 mt-4 livro-recente">
                     <figure>
                         <div class="livro-card">
@@ -348,9 +352,9 @@ function gerarLivrosMaisPontuados() {
     let livrosMaisPontuados = Comentario.getIdsLivrosMaisPontuados()
     let count = 1
 
-    for(let i in livrosMaisPontuados) {
-        for(let j in livros) {
-            if(livrosMaisPontuados[i] === livros[j].id) {
+    for (let i in livrosMaisPontuados) {
+        for (let j in livros) {
+            if (livrosMaisPontuados[i] === livros[j].id) {
                 str += `<div class="col-lg-6 col-md-6 col-sm-10 col-20 mt-4 livro-pontuado">
                             <div class="d-flex flex-row">
                                 <div class="bg-teca3 px-3 ranking-div">
@@ -371,7 +375,52 @@ function gerarLivrosMaisPontuados() {
                         </div>`
                 count++
             }
-        }   
+        }
     }
     maisPontuadosDiv.innerHTML = str
+}
+
+function gerarTestemunhos() {
+    let testemunhosDiv = document.getElementById("testemunhosDiv")
+    let str = ""
+    let idsAleatorios = Testemunho.getIdTestemunhosAleatorios(4)
+    let count = 1
+
+    if (idsAleatorios.length >= 4) {
+        for (let i in idsAleatorios) {
+            for (let j in testemunhos) {
+                if (testemunhos[j].id === idsAleatorios[i]) {
+                    str += `<div class="container px-4 testemunho mt-5 col-xl-5 col-lg-10 col-md-10">
+                                <div class="foto-testemunho text-center">
+                                    <img class="img-thumbnail" src="${Utilizador.getUrlFotoById(testemunhos[j].idUtilizador)}" title="${Utilizador.getNomeById(testemunhos[j].id)}">
+                                </div>
+                                <div class="texto-testemunho bg-teca3 py-3 px-5 text-white mt-3">
+                                    <div class="texto-corpo">${testemunhos[j].testemunho}</div>
+                                    <br>
+                                    <div class="text-right">${Utilizador.getNomeById(testemunhos[j].id)}</div>
+                                </div>
+                            </div>`
+                    count++
+                }
+            }
+        }
+    } else {
+        for(let i in testemunhos) {
+            if(testemunhos[i].estado === 1) {
+                str += `<div class="container px-4 testemunho mt-5 col-xl-5 col-lg-10 col-md-10">
+                            <div class="foto-testemunho text-center">
+                                <img class="img-thumbnail" src="${Utilizador.getUrlFotoById(testemunhos[i].idUtilizador)}" title="${Utilizador.getNomeById(testemunhos[i].id)}">
+                            </div>
+                            <div class="texto-testemunho bg-teca3 py-3 px-5 text-white mt-3">
+                                <div class="texto-corpo">${testemunhos[i].testemunho}</div>
+                                <br>
+                                <div class="text-right">${Utilizador.getNomeById(testemunhos[i].id)}</div>
+                            </div>
+                        </div>`
+                count++
+            }
+        }
+    }
+
+    testemunhosDiv.innerHTML = str
 }

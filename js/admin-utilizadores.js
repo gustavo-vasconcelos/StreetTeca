@@ -126,7 +126,7 @@ function gerarTabelaUtilizadores() {
                     modalTitulo.innerHTML = "Informações sobre o utilizador"
                     modalBody.innerHTML = `<div class="container-fluid">
                                                 <div class="text-center">
-                                                    <img src="${utilizadores[j].urlFoto}" alt="${utilizadores[j].nome}" class="img-fluid img-thumbnail" style="width: 150px; height: 150px; border-radius: 50%;">                            
+                                                    <img src="../${utilizadores[j].urlFoto}" title="${utilizadores[j].nome}" class="img-fluid img-thumbnail" style="width: 150px; height: 150px; border-radius: 50%;">                            
                                                 </div>
                                                 <br>
                                                 <p><b>ID:</b> ${utilizadores[j].id}</p>

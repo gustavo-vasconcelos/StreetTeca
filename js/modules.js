@@ -48,7 +48,7 @@ class Utilizador {
         return this._urlFoto
     }
     set urlFoto(valor) {
-        valor = (valor === "") ? "../img/perfil.png" : valor
+        valor = (valor === "") ? "img/perfil.png" : valor
         this._urlFoto = valor
     }
 
@@ -1057,6 +1057,21 @@ class Testemunho {
             }
         }
     }
+
+    static getIdTestemunhosAleatorios(quantidade) {
+        let ids = []
+        if(Testemunho.getIdsByEstado(1).length >= quantidade) {
+            let count = 0
+            do {
+                let id = Math.floor(Math.random() * Testemunho.getIdsByEstado(1).length) + 1
+                if(ids.indexOf(id) === -1) {
+                    ids.push(id)
+                    count++
+                }
+            } while(count < quantidade)
+        }
+        return ids
+    }
 }
 
 let utilizadores = []
@@ -1284,5 +1299,5 @@ function atualizarFotoNome() {
 
     //foto utilizador logado
     let fotoUtilizadorLogado = document.getElementById("fotoUtilizadorLogado")
-    fotoUtilizadorLogado.src = Utilizador.getUrlFotoById(idUtilizadorLogado)
+    fotoUtilizadorLogado.src = "../" + Utilizador.getUrlFotoById(idUtilizadorLogado)
 }
