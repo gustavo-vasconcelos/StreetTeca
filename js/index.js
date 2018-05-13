@@ -315,7 +315,7 @@ window.onload = function () {
     //livros recentes e pontuados
     gerarLivrosRecentes()
     gerarLivrosMaisPontuados()
-}
+} //fim onload
 
 function gerarLivrosRecentes() {
     let recentesDiv = document.getElementById("recentesDiv")
@@ -354,7 +354,7 @@ function gerarLivrosMaisPontuados() {
                 str += `<div class="col-lg-6 col-md-6 col-sm-10 col-20 mt-4 livro-pontuado">
                             <div class="d-flex flex-row">
                                 <div class="bg-teca3 px-3 ranking-div">
-                                    <h1>${count}</h1>
+                                    <h1 class="text-center text-white">${count}</h1>
                                 </div>
                                 <div>
                                     <img class="img-fluid" src="${livros[j].urlCapa}" title="${livros[j].titulo}">

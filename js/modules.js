@@ -327,7 +327,7 @@ class Livro {
 
     getPontuacaoMedia() {
         return (Comentario.getQuantidadePontuacoesByIdLivro(this.id) !== 0) ?
-        (Comentario.getPontuacaoByIdLivro(this.id) / Comentario.getQuantidadePontuacoesByIdLivro(this.id)).toFixed(1) : 0
+            (Comentario.getPontuacaoByIdLivro(this.id) / Comentario.getQuantidadePontuacoesByIdLivro(this.id)).toFixed(1) : 0
     }
 
     static idLivroToTitulo(id) {
@@ -676,13 +676,13 @@ class Comentario {
 
         pontuacoes.sort(comparar)
 
-        if(pontuacoes.length > 5) {
+        if (pontuacoes.length > 5) {
             pontuacoes.length = 5
         }
 
         ids = []
 
-        for(let i in pontuacoes) {
+        for (let i in pontuacoes) {
             ids.push(pontuacoes[i][1])
         }
 
@@ -989,6 +989,76 @@ class Freguesia {
     }
 }
 
+class Testemunho {
+    constructor(testemunho, idUtilizador, estado) {
+        this._id = Testemunho.getUltimoId() + 1
+        this.testemunho = testemunho
+        this.idUtilizador = idUtilizador
+        this.estado = estado
+    }
+
+    get id() {
+        return this._id
+    }
+
+    get testemunho() {
+        return this._testemunho
+    }
+    set testemunho(valor) {
+        this._testemunho = valor
+    }
+
+    get idUtilizador() {
+        return this._idUtilizador
+    }
+    set idUtilizador(valor) {
+        this._idUtilizador = valor
+    }
+
+    get estado() {
+        return this._estado
+    }
+    set estado(valor) {
+        this._estado = valor
+    }
+
+    static getUltimoId() {
+        let id = 0
+        if (testemunhos.length > 0) {
+            for (let i in testemunhos) {
+                id = testemunhos[i].id
+            }
+        }
+        return id
+    }
+
+    static getIdsByEstado(estado) {
+        let ids = []
+        for (let i in testemunhos) {
+            if (testemunhos[i].estado === estado) {
+                ids.push(testemunhos[i].id)
+            }
+        }
+        return ids
+    }
+
+    static getIdUtilizadorById(id) {
+        for (let i in testemunhos) {
+            if (testemunhos[i].id === id) {
+                return testemunhos[i].idUtilizador
+            }
+        }
+    }
+
+    static removerTestemunhoById(id) {
+        for (let i in testemunhos) {
+            if (testemunhos[i].id === id) {
+                testemunhos.splice(i, 1)
+            }
+        }
+    }
+}
+
 let utilizadores = []
 let livros = []
 let bibliotecas = []
@@ -1100,6 +1170,18 @@ comentarios.push(new Comentario(4, 6, "Top.", 4))
 if (!localStorage.getItem("comentarios")) {
     localStorage.setItem("comentarios", JSON.stringify(comentarios))
     comentarios = JSON.parse(localStorage.getItem("comentarios"))
+}
+
+//testemunhos predefinidos
+testemunhos.push(new Testemunho("Top.", 1, 0))
+testemunhos.push(new Testemunho("Top.", 2, 0))
+testemunhos.push(new Testemunho("Top.", 3, 0))
+testemunhos.push(new Testemunho(`Quando Eddard Stark, lorde do castelo de Winterfell, recebe a visita do velho amigo, o rei Robert Baratheon,
+está longe de adivinhar que a sua vida,e a da sua família, está prestes a entrar numa espiral de tragédia, conspiração e morte.`, 4, 1))
+
+if (!localStorage.getItem("testemunhos")) {
+    localStorage.setItem("testemunhos", JSON.stringify(testemunhos))
+    testemunhos = JSON.parse(localStorage.getItem("testemunhos"))
 }
 
 requisicoes.push(new Requisicao(1, 1, "2018-05-02"))
