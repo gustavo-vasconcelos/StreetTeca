@@ -448,7 +448,7 @@ function gerarMapaBibliotecas() {
 	let mapProp = {
 		center: new google.maps.LatLng(41.366174, -8.7396931),
 		zoom: 10,
-		styles: [
+		/*styles: [
 			{
 				"elementType": "geometry",
 				"stylers": [
@@ -723,7 +723,7 @@ function gerarMapaBibliotecas() {
 					}
 				]
 			}
-		]
+		]*/
 	}
 	map = new google.maps.Map(mapaBibliotecas, mapProp)
 

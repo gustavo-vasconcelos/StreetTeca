@@ -23,6 +23,9 @@ window.onload = function () {
         configuracoes.diasRequisicao = parseInt(inputDiasRequisicaoEditar.value)
         configuracoes.valorMultaDiaria = parseInt(inputValorMultaEditar.value)
         configuracoes.valorMultaLimite = parseInt(inputValorLimiteMultaEditar.value)
+
+        localStorage.setItem("configuracoes", JSON.stringify(configuracoes))
+
         atualizarValores()
         swal("Configurações editadas!", "", "success")
         $("#modal").modal('hide')
