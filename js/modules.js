@@ -219,7 +219,7 @@ class Livro {
         return this._urlCapa
     }
     set urlCapa(valor) {
-        valor = (valor === "") ? "../img/capaLivro.jpg" : valor
+        valor = (valor === "") ? "img/capaLivro.jpg" : valor
         this._urlCapa = valor
     }
 
@@ -327,7 +327,7 @@ class Livro {
 
     getPontuacaoMedia() {
         return (Comentario.getQuantidadePontuacoesByIdLivro(this.id) !== 0) ?
-            (Comentario.getPontuacaoByIdLivro(this.id) / Comentario.getQuantidadePontuacoesByIdLivro(this.id)).toFixed(1) : 0
+            parseFloat((Comentario.getPontuacaoByIdLivro(this.id) / Comentario.getQuantidadePontuacoesByIdLivro(this.id)).toFixed(1)) : 0
     }
 
     static idLivroToTitulo(id) {
@@ -390,6 +390,14 @@ class Livro {
             }
         }
         return livrosRecentes
+    }
+
+    static getUrlCapaById(id) {
+        for (let i in livros) {
+            if (livros[i].id === id) {
+                return livros[i].urlCapa
+            }
+        }
     }
 }
 
@@ -1068,15 +1076,15 @@ class Testemunho {
 
     static getIdTestemunhosAleatorios(quantidade) {
         let ids = []
-        if(Testemunho.getIdsByEstado(1).length >= quantidade) {
+        if (Testemunho.getIdsByEstado(1).length >= quantidade) {
             let count = 0
             do {
                 let id = Math.floor(Math.random() * Testemunho.getIdsByEstado(1).length) + 1
-                if(ids.indexOf(id) === -1) {
+                if (ids.indexOf(id) === -1) {
                     ids.push(id)
                     count++
                 }
-            } while(count < quantidade)
+            } while (count < quantidade)
         }
         return ids
     }
@@ -1097,6 +1105,12 @@ let configuracoes = {
     diasRequisicao: 0,
     valorMultaDiaria: 0,
     valorMultaLimite: 1
+}
+
+let idLivroClicado = 1
+
+if (!localStorage.getItem("idLivroClicado")) {
+    localStorage.setItem("idLivroClicado", idLivroClicado)
 }
 
 if (!localStorage.getItem("configuracoes")) {
@@ -1197,7 +1211,17 @@ if (!localStorage.getItem("bibliotecas")) {
 
 //livros predefinidos
 livros.push(new Livro("https://img.wook.pt/images/a-guerra-dos-tronos-george-r-r-martin/MXwxOTY1MTF8MjQ3OTIzfDEzODM1MjMyMDAwMDA=/502x", "A Guerra dos Tronos", ["George R.R. Martin"], `Quando Eddard Stark, lorde do castelo de Winterfell, recebe a visita do velho amigo, o rei Robert Baratheon,
-está longe de adivinhar que a sua vida,e a da sua família, está prestes a entrar numa espiral de tragédia, conspiração e morte.`, 2008, 2, [3, 4, 5], "Saída de Emergência", 400, 1, "2018-05-02", 1, -1))
+está longe de adivinhar que a sua vida, e a da sua família, está prestes a entrar numa espiral de
+tragédia, conspiração e morte. Durante a estadia, o rei convida Eddard a mudar-se para a corte e
+a assumir a prestigiada posição de Mão do Rei. Este aceita, mas apenas porque desconfia que o anterior
+detentor desse título foi envenenado pela própria rainha: uma cruel manipuladora do clã Lannister.
+Assim, perto do rei, Eddard tem esperança de o proteger da rainha. Mas ter os Lannister como inimigos
+é fatal: a ambição dessa família não tem limites e o rei corre um perigo muito maior do que Eddard
+temia! Sozinho na corte, Eddard também se apercebe que a sua vida nada vale. E até a sua família,
+longe no norte, pode estar em perigo. Uma galeria de personagens brilhantes dá vida a esta saga:
+o anão Tyrion, ovelha negra do clã Lannister; Jon Snow, bastardo de Eddard Stark que decide juntar-se
+à Patrulha da Noite, e a princesa Daenerys Targaryen, da dinastia que reinou antes de Robert, que
+pretende ressuscitar os dragões do passado para recuperar o trono, custe o que custar.`, 2008, 2, [3, 4, 5], "Saída de Emergência", 400, 1, "2018-05-02", 1, -1))
 livros.push(new Livro("https://img.wook.pt/images/os-100-kass-morgan/MXwxNjU5MTM3MHwxMjIwMTAzNXwxNDk0OTc1NjAwMDAw/502x", "Os 100", ["Kass Morgan"], `Há muito tempo, a superfície da Terra foi arrasada por uma guerra nuclear.
 Os poucos sortudos que conseguiram sobreviver refugiaram-se a bordo da Colónia, uma estação espacial que orbita o planeta.`, 2015, 1, [3, 4, 5], "TopSeller", 288, 1, "2018-05-02", 1, -1))
 livros.push(new Livro("https://img.wook.pt/images/os-jogos-da-fome-suzanne-collins/MXwyODQzMTU2fDIzOTc5MTJ8MTQ0NzExMzYwMDAwMA==/502x", "Os Jogos da Fome", ["Suzanne Collins"], `Num futuro pós-apocalíptico, surge das cinzas do que foi a América do Norte Panem,
@@ -1336,6 +1360,156 @@ function transformarEmInstanciaTestemunho(arrayTestemunhos) {
     }
     testemunhos = testemunhosTemporarios
 }
+
+
+
+/*
+    NAVBAR
+*/
+function navbar() {
+    //variáveis área de utilizador e login
+    let areaUtilizador = document.getElementById("areaUtilizador")
+    let btnPainelAdmin = document.getElementById("btnPainelAdmin")
+    let btnLogin = document.getElementById("btnLogin")
+
+    if (idUtilizadorLogado === -1) {
+        //esconde área utilizador
+        areaUtilizador.style.display = "none"
+        btnPainelAdmin.style.display = "none"
+    } else {
+        btnLogin.style.display = "none"
+    }
+}
+
+/*
+    smooth scroll
+*/
+function smoothScroll() {
+    //bar um scroll mais suave quando clicamos em alguma opção da navbar
+    // Select all links with hashes
+    $('a[href*="#"]')
+        // Remove links that don't actually link to anything
+        .not('[href="#"]')
+        .not('[href="#0"]')
+        .click(function (event) {
+            // On-page links
+            if (
+                location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
+                &&
+                location.hostname == this.hostname
+            ) {
+                // Figure out element to scroll to
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                // Does a scroll target exist?
+                if (target.length) {
+                    // Only prevent default if animation is actually gonna happen
+                    event.preventDefault();
+                    $('html, body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000, function () {
+                        // Callback after animation
+                        // Must change focus!
+                        var $target = $(target);
+                        $target.focus();
+                        if ($target.is(":focus")) { // Checking if the target was focused
+                            return false;
+                        } else {
+                            $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
+                            $target.focus(); // Set focus again
+                        };
+                    });
+                }
+            }
+        });
+
+    // Closes responsive menu when a scroll trigger link is clicked
+    $('.js-scroll-trigger').click(function () {
+        $('.navbar-collapse').collapse('hide');
+    });
+
+    // Activate scrollspy to add active class to navbar items on scroll
+    $('body').scrollspy({
+        target: '#mainNav',
+        offset: 10
+    });
+}
+
+
+/*
+    Button menu
+*/
+function btnMenu() {
+    var pathA = document.getElementById('pathA'),
+        pathC = document.getElementById('pathC'),
+        segmentA = new Segment(pathA, 8, 32),
+        segmentC = new Segment(pathC, 8, 32);
+
+    // Linear section, with a callback to the next
+    function inAC(s) { s.draw('80% - 24', '80%', 0.3, { delay: 0.1, callback: function () { inAC2(s) } }); }
+
+    // Elastic section, using elastic-out easing function
+    function inAC2(s) { s.draw('100% - 54.5', '100% - 30.5', 0.6, { easing: ease.ease('elastic-out', 1, 0.3) }); }
+
+    // Running the animations
+    inAC(segmentA); // top bar
+    inAC(segmentC); // bottom bar
+
+    // Initialize
+    var pathB = document.getElementById('pathB'),
+        segmentB = new Segment(pathB, 8, 32);
+
+    // Expand the bar a bit
+    function inB(s) { s.draw(8 - 6, 32 + 6, 0.1, { callback: function () { inB2(s) } }); }
+
+    // Reduce with a bounce effect
+    function inB2(s) { s.draw(8 + 12, 32 - 12, 0.3, { easing: ease.ease('bounce-out', 1, 0.3) }); }
+
+    // Run the animation
+    inB(segmentB);
+
+    function outAC(s) { s.draw('90% - 24', '90%', 0.1, { easing: ease.ease('elastic-in', 1, 0.3), callback: function () { outAC2(s) } }); }
+    function outAC2(s) { s.draw('20% - 24', '20%', 0.3, { callback: function () { outAC3(s) } }); }
+    function outAC3(s) { s.draw(8, 32, 0.7, { easing: ease.ease('elastic-out', 1, 0.3) }); }
+
+    function outB(s) { s.draw(8, 32, 0.7, { delay: 0.1, easing: ease.ease('elastic-out', 2, 0.4) }); }
+
+    // Run the animations
+    outAC(segmentA);
+    outB(segmentB);
+    outAC(segmentC);
+
+
+    var trigger = document.getElementsByClassName('menu-icon-trigger'),
+        toCloseIcon = true;
+
+    let animar = function () {
+        if ($(window).width() < 992) {
+            for (let i = 0; i < trigger.length; i++) {
+                trigger[i].addEventListener("click", function () {
+                    if (toCloseIcon) {
+                        inAC(segmentA);
+                        inB(segmentB);
+                        inAC(segmentC);
+                    } else {
+                        outAC(segmentA);
+                        outB(segmentB);
+                        outAC(segmentC);
+                    }
+                    toCloseIcon = !toCloseIcon;
+                });
+            }
+        } else {
+            outAC(segmentA);
+            outB(segmentB);
+            outAC(segmentC);
+        }
+    }
+
+    $(window).resize(animar)
+    $(document).ready(animar)
+}
+
 
 
 /*

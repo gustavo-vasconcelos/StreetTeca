@@ -99,12 +99,21 @@ function gerarTabelaUtilizadores() {
     let count = 1
 
     for (let i in utilizadores) {
+
+        let password = function() {
+            let resultado = ""
+            for(let j in utilizadores[i].password) {
+                resultado += "•"
+            }
+            return resultado
+        }
+
         let tipoAcesso = Utilizador.tipoAcessoToString(utilizadores[i].tipoAcesso)
         str += `<tr id="${utilizadores[i].id}">
                     <td>${count}</td>
                     <td>${utilizadores[i].nome}</td>
                     <td>${utilizadores[i].email}</td>
-                    <td>${utilizadores[i].password}</td>
+                    <td>${password()}</td>
                     <td>${utilizadores[i].multa}</td>                    
                     <td>${tipoAcesso}</td>
                     <td>
@@ -124,9 +133,12 @@ function gerarTabelaUtilizadores() {
             for (let j in utilizadores) {
                 if (utilizadores[j].id === idUtilizador) {
                     modalTitulo.innerHTML = "Informações sobre o utilizador"
+
+                    let foto = (utilizadores[j].urlFoto === "img/perfil.png") ? "../img/perfil.png" : utilizadores[j].urlFoto
+
                     modalBody.innerHTML = `<div class="container-fluid">
                                                 <div class="text-center">
-                                                    <img src="../${utilizadores[j].urlFoto}" title="${utilizadores[j].nome}" class="img-fluid img-thumbnail" style="width: 150px; height: 150px; border-radius: 50%;">                            
+                                                    <img src="${foto}" title="${utilizadores[j].nome}" class="img-fluid img-thumbnail" style="width: 150px; height: 150px; border-radius: 50%;">                            
                                                 </div>
                                                 <br>
                                                 <p><b>ID:</b> ${utilizadores[j].id}</p>
@@ -184,9 +196,12 @@ function gerarTabelaUtilizadores() {
                         for (let k in utilizadores) {
                             if (utilizadores[k].id === idUtilizador) {
                                 modalTitulo.innerHTML = "A editar " + utilizadores[k].nome
+
+                                let foto = (utilizadores[k].urlFoto === "img/perfil.png") ? "../img/perfil.png" : utilizadores[k].urlFoto
+
                                 modalBody.innerHTML = `<div class="container-fluid">
                                                             <div class="text-center">
-                                                                <img src="${utilizadores[k].urlFoto}" alt="${utilizadores[k].nome}" class="img-fluid img-thumbnail" style="width: 150px; height: 150px; border-radius: 50%;">                            
+                                                                <img src="${foto}" alt="${utilizadores[k].nome}" class="img-fluid img-thumbnail" style="width: 150px; height: 150px; border-radius: 50%;">                            
                                                             </div>
                                                             <br>
                                                             <form class="form-horizontal" id="formAdmEditarUtilizador">

@@ -5,54 +5,7 @@ window.onload = function () {
     (function ($) {
         "use strict"; // Start of use strict
 
-        //bar um scroll mais suave quando clicamos em alguma opção da navbar
-        // Select all links with hashes
-        $('a[href*="#"]')
-            // Remove links that don't actually link to anything
-            .not('[href="#"]')
-            .not('[href="#0"]')
-            .click(function (event) {
-                // On-page links
-                if (
-                    location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
-                    &&
-                    location.hostname == this.hostname
-                ) {
-                    // Figure out element to scroll to
-                    var target = $(this.hash);
-                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-                    // Does a scroll target exist?
-                    if (target.length) {
-                        // Only prevent default if animation is actually gonna happen
-                        event.preventDefault();
-                        $('html, body').animate({
-                            scrollTop: target.offset().top
-                        }, 1000, function () {
-                            // Callback after animation
-                            // Must change focus!
-                            var $target = $(target);
-                            $target.focus();
-                            if ($target.is(":focus")) { // Checking if the target was focused
-                                return false;
-                            } else {
-                                $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
-                                $target.focus(); // Set focus again
-                            };
-                        });
-                    }
-                }
-            });
-
-        // Closes responsive menu when a scroll trigger link is clicked
-        $('.js-scroll-trigger').click(function () {
-            $('.navbar-collapse').collapse('hide');
-        });
-
-        // Activate scrollspy to add active class to navbar items on scroll
-        $('body').scrollspy({
-            target: '#mainNav',
-            offset: 10
-        });
+        smoothScroll()
 
         // Collapse Navbar
         var navbarCollapse = function () {
@@ -92,74 +45,7 @@ window.onload = function () {
 
 
 
-        var pathA = document.getElementById('pathA'),
-            pathC = document.getElementById('pathC'),
-            segmentA = new Segment(pathA, 8, 32),
-            segmentC = new Segment(pathC, 8, 32);
-
-        // Linear section, with a callback to the next
-        function inAC(s) { s.draw('80% - 24', '80%', 0.3, { delay: 0.1, callback: function () { inAC2(s) } }); }
-
-        // Elastic section, using elastic-out easing function
-        function inAC2(s) { s.draw('100% - 54.5', '100% - 30.5', 0.6, { easing: ease.ease('elastic-out', 1, 0.3) }); }
-
-        // Running the animations
-        inAC(segmentA); // top bar
-        inAC(segmentC); // bottom bar
-
-        // Initialize
-        var pathB = document.getElementById('pathB'),
-            segmentB = new Segment(pathB, 8, 32);
-
-        // Expand the bar a bit
-        function inB(s) { s.draw(8 - 6, 32 + 6, 0.1, { callback: function () { inB2(s) } }); }
-
-        // Reduce with a bounce effect
-        function inB2(s) { s.draw(8 + 12, 32 - 12, 0.3, { easing: ease.ease('bounce-out', 1, 0.3) }); }
-
-        // Run the animation
-        inB(segmentB);
-
-        function outAC(s) { s.draw('90% - 24', '90%', 0.1, { easing: ease.ease('elastic-in', 1, 0.3), callback: function () { outAC2(s) } }); }
-        function outAC2(s) { s.draw('20% - 24', '20%', 0.3, { callback: function () { outAC3(s) } }); }
-        function outAC3(s) { s.draw(8, 32, 0.7, { easing: ease.ease('elastic-out', 1, 0.3) }); }
-
-        function outB(s) { s.draw(8, 32, 0.7, { delay: 0.1, easing: ease.ease('elastic-out', 2, 0.4) }); }
-
-        // Run the animations
-        outAC(segmentA);
-        outB(segmentB);
-        outAC(segmentC);
-
-
-        var trigger = document.getElementsByClassName('menu-icon-trigger'),
-            toCloseIcon = true;
-
-        let animar = function () {
-            if ($(window).width() < 992) {
-                for (let i = 0; i < trigger.length; i++) {
-                    trigger[i].addEventListener("click", function () {
-                        if (toCloseIcon) {
-                            inAC(segmentA);
-                            inB(segmentB);
-                            inAC(segmentC);
-                        } else {
-                            outAC(segmentA);
-                            outB(segmentB);
-                            outAC(segmentC);
-                        }
-                        toCloseIcon = !toCloseIcon;
-                    });
-                }
-            } else {
-                outAC(segmentA);
-                outB(segmentB);
-                outAC(segmentC);
-            }
-        }
-
-        $(window).resize(animar)
-        $(document).ready(animar)
+        btnMenu()
 
 
         //centrar mais pontuados quando a largura é menor ou igual a 575
@@ -199,18 +85,7 @@ window.onload = function () {
 
     idUtilizadorLogado = parseInt(localStorage.getItem("idUtilizadorLogado"))
 
-    //variáveis área de utilizador e login
-    let areaUtilizador = document.getElementById("areaUtilizador")
-    let btnPainelAdmin = document.getElementById("btnPainelAdmin")
-    let btnLogin = document.getElementById("btnLogin")
-
-    if (idUtilizadorLogado === -1) {
-        //esconde área utilizador
-        areaUtilizador.style.display = "none"
-        btnPainelAdmin.style.display = "none"
-    } else {
-        btnLogin.style.display = "none"
-    }
+    navbar()
 
     //efetuar registo
     let formRegisto = document.getElementById("formRegisto")
@@ -366,7 +241,7 @@ function gerarLivrosMaisPontuados() {
                             </div>
                             <div class="livro-dados">
                                 <div>
-                                    <a href="#" class="livro-titulo">${livros[j].titulo}</a>
+                                    <a href="livro.html" class="livro-titulo">${livros[j].titulo}</a>
                                 </div>
                                 <div>
                                     <a href="#" class="livro-autor">${livros[j].autor.join(", ")}</a>
@@ -405,8 +280,8 @@ function gerarTestemunhos() {
             }
         }
     } else {
-        for(let i in testemunhos) {
-            if(testemunhos[i].estado === 1) {
+        for (let i in testemunhos) {
+            if (testemunhos[i].estado === 1) {
                 str += `<div class="container px-4 testemunho mt-5 col-xl-5 col-lg-10 col-md-10">
                             <div class="foto-testemunho text-center">
                                 <img class="img-thumbnail" src="${Utilizador.getUrlFotoById(testemunhos[i].idUtilizador)}" title="${Utilizador.getNomeById(testemunhos[i].id)}">
