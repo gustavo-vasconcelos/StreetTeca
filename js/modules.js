@@ -688,6 +688,14 @@ class Comentario {
 
         return ids
     }
+
+    static removerComentarioById(id) {
+        for (let i in comentarios) {
+            if (comentarios[i].id === id) {
+                comentarios.splice(i, 1)
+            }
+        }
+    }
 }
 
 class Genero {
