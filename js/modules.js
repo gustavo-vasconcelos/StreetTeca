@@ -1081,64 +1081,6 @@ class Testemunho {
         return ids
     }
 }
-    
-    class Requisicao {
-    constructor(idUtilizador, idLivro, dataRequisicao, dataEntrega, multa, valorMulta) {
-        this._id = Requisicao.getUltimoId() + 1
-        this.idLivro = idLivro
-        this.idUtilizador = idUtilizador
-        this.dataRequisicao = dataRequisicao
-        this.dataEntrega = dataEntrega
-        this.multa = multa
-        this.valorMulta = valorMulta
-    }
-
-    get id() {
-        return this._id
-    }
-
-    get dataRequisicao() {
-        return this._dataRequisicao
-    }
-    set dataRequisicao(valor) {
-        this._dataRequisicao = valor
-    }
-
-    get idUtilizador() {
-        return this._idUtilizador
-    }
-    set idUtilizador(valor) {
-        this._idUtilizador = valor
-    }
-
-    get idLivro() {
-        return this._idLivro
-    }
-    set idLivro(valor) {
-        this._idLivro = valor
-    }
-
-    get dataEntrega() {
-        return this._dataEntrega
-    }
-    set dataEntrega(valor) {
-        this._dataEntrega = valor
-    }
-
-    get multa() {
-        return this._multa
-    }
-    set multa(valor) {
-        this._multa = valor
-    }
-
-    get valorMulta() {
-        return this._valorMulta
-    }
-    set valorMulta(valor) {
-        this._valorMulta = valor
-    }
-}
 
 let utilizadores = []
 let livros = []
@@ -1150,6 +1092,18 @@ let tags = []
 let concelhos = []
 let freguesias = []
 let testemunhos = []
+let configuracoes = {
+    id: 1,
+    diasRequisicao: 0,
+    valorMultaDiaria: 0,
+    valorMultaLimite: 1
+}
+
+if (!localStorage.getItem("configuracoes")) {
+    localStorage.setItem("configuracoes", JSON.stringify(configuracoes))
+    configuracoes = JSON.parse(localStorage.getItem("configuracoes"))
+}
+
 
 //utilizadores predefinidos
 utilizadores.push(new Utilizador("Teste", "teste@teste.pt", "123", "", 0))
