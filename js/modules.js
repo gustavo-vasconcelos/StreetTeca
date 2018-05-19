@@ -370,6 +370,14 @@ class Livro {
         }
     }
 
+    static getIdGeneroById(id) {
+        for (let i in livros) {
+            if (livros[i].id === id) {
+                return livros[i].idGenero
+            }
+        }
+    }
+
     static removerLivroById(id) {
         for (let i in livros) {
             if (livros[i].id === id) {
@@ -396,6 +404,47 @@ class Livro {
         for (let i in livros) {
             if (livros[i].id === id) {
                 return livros[i].urlCapa
+            }
+        }
+    }
+
+    static getIdsAleatoriosByIdGenero(idGenero) {
+        let ids = []
+        for (let i in livros) {
+            if (livros[i].idGenero === idGenero) {
+                ids.push(livros[i].id)
+            }
+        }
+
+        //https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+        function shuffle(array) {
+            let currentIndex = array.length, temporaryValue, randomIndex;
+
+            // While there remain elements to shuffle...
+            while (0 !== currentIndex) {
+
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
+
+                // And swap it with the current element.
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
+
+            return array;
+        }
+
+        shuffle(ids)
+
+        return ids
+    }
+
+    static getIdBibliotecaById(id) {
+        for (let i in livros) {
+            if (livros[i].id === id) {
+                return livros[i].idBiblioteca
             }
         }
     }
@@ -520,6 +569,14 @@ class Biblioteca {
                 if (bibliotecas[i].idFreguesia === idFreguesia) {
                     bibliotecas.splice(i, 1)
                 }
+            }
+        }
+    }
+
+    static getCoordenadasById(id) {
+        for (let i in bibliotecas) {
+            if (bibliotecas[i].id === id) {
+                return bibliotecas[i].coordenadas
             }
         }
     }
@@ -1107,7 +1164,7 @@ let configuracoes = {
     valorMultaLimite: 1
 }
 
-let idLivroClicado = 1
+let idLivroClicado = 5
 
 if (!localStorage.getItem("idLivroClicado")) {
     localStorage.setItem("idLivroClicado", idLivroClicado)
