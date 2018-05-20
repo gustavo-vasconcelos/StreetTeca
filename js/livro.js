@@ -106,7 +106,7 @@ function gerarCabecalho(idLivro) {
                     </div>
                     <div class="col-lg-15 col-md-12 col-sm-20 col-20 mt-5 text-white">
                         <h4 class="font-weight-bold">${livros[i].titulo}</h4>
-                        <small class="text-white" style="font-size: .9em;">${livros[i].autor.join(", ")}</small>
+                        <small class="text-white" style="font-size: .9em;">de ${livros[i].autor.join(", ")}</small>
                         <hr class="bg-teca4">
                         <div class="row">
                             <div class="col-xl-6 col-lg-10 col-sm-12 col-20" id="pontuacaoMediaEstrelas"></div>
@@ -641,7 +641,11 @@ function gerarComentarios(idLivro) {
         }
     }
     let comentariosLivro = document.getElementById("comentariosLivro")
-    comentariosLivro.innerHTML = str
+    if(str) {
+        comentariosLivro.innerHTML = str
+    } else {
+        comentariosLivro.innerHTML = '<p class="col-20">Ainda sem comentários. Caso queira deixar a sua opinião sobre este livro, requisite-o.</p>'
+    }
 }
 
 function gerarLivrosGenero(idGenero, idLivro) {
@@ -655,14 +659,14 @@ function gerarLivrosGenero(idGenero, idLivro) {
                 str += `<div class="col-lg-5 col-10 mt-4 livro-recente">
                             <figure>
                                 <div class="livro-card">
-                                    <a href="livro.html" class="clicarLivro" id="livro${livros[j].id}"><img class="img-fluid" src="${livros[j].urlCapa}" title="${livros[j].titulo}"></a>
+                                    <a href="livro.html" class="clicarLivro" id="livro${livros[j].id}"><img class="img-fluid" src="${livros[j].urlCapa}"></a>
                                 </div>
                                 <figcaption class="px-2">
                                     <div>
                                         <a href="livro.html" class="livro-titulo clicarLivro" id="livro${livros[j].id}">${livros[j].titulo}</a>
                                     </div>
-                                    <div>
-                                        <a href="#" class="livro-autor">${livros[j].autor.join(", ")}</a>
+                                    <div class="livro-autor">
+                                        ${livros[j].autor.join(", ")}
                                     </div>
                                 </figcaption>
                             </figure>

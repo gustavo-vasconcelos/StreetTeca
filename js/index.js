@@ -207,14 +207,14 @@ function gerarLivrosRecentes() {
         str += `<div class="col-xl-4 col-lg-5 col-sm-6 col-10 mt-4 livro-recente">
                     <figure>
                         <div class="livro-card">
-                            <a href="livro.html" class="clicarLivro" id="livro${livrosRecentes[i].id}"><img class="img-fluid" src="${livrosRecentes[i].urlCapa}" title="${livrosRecentes[i].titulo}"></a>
+                            <a href="livro.html" class="clicarLivro" id="livro${livrosRecentes[i].id}"><img class="img-fluid" src="${livrosRecentes[i].urlCapa}"></a>
                         </div>
                         <figcaption class="px-2">
                             <div>
                                 <a href="livro.html" class="livro-titulo clicarLivro" id="livro${livrosRecentes[i].id}">${livrosRecentes[i].titulo}</a>
                             </div>
-                            <div>
-                                <a href="#" class="livro-autor">${livrosRecentes[i].autor.join(", ")}</a>
+                            <div class="livro-autor">
+                                ${livrosRecentes[i].autor.join(", ")}
                             </div>
                         </figcaption>
                     </figure>
@@ -238,15 +238,15 @@ function gerarLivrosMaisPontuados() {
                                     <h1 class="text-center text-white">${count}</h1>
                                 </div>
                                 <div>
-                                    <a href="livro.html" class="clicarLivro" id="livro${livros[j].id}"><img class="img-fluid" src="${livros[j].urlCapa}" title="${livros[j].titulo}"></a>
+                                    <a href="livro.html" class="clicarLivro" id="livro${livros[j].id}"><img class="img-fluid" src="${livros[j].urlCapa}"></a>
                                 </div>
                             </div>
                             <div class="livro-dados">
                                 <div>
                                     <a href="livro.html" class="livro-titulo clicarLivro" id="livro${livros[j].id}">${livros[j].titulo}</a>
                                 </div>
-                                <div>
-                                    <a href="#" class="livro-autor">${livros[j].autor.join(", ")}</a>
+                                <div class="livro-autor">
+                                    ${livros[j].autor.join(", ")}
                                 </div>
                             </div>
                         </div>`
@@ -269,7 +269,7 @@ function gerarTestemunhos() {
                 if (testemunhos[j].id === idsAleatorios[i]) {
                     str += `<div class="container px-4 testemunho mt-5 col-xl-5 col-lg-10 col-md-10">
                                 <div class="foto-testemunho text-center">
-                                    <img class="img-thumbnail" src="${Utilizador.getUrlFotoById(testemunhos[j].idUtilizador)}" title="${Utilizador.getNomeById(testemunhos[j].id)}">
+                                    <img class="img-thumbnail" src="${Utilizador.getUrlFotoById(testemunhos[j].idUtilizador)}">
                                 </div>
                                 <div class="texto-testemunho bg-teca3 py-3 px-5 text-white mt-3">
                                     <div class="texto-corpo">${testemunhos[j].testemunho}</div>
@@ -286,7 +286,7 @@ function gerarTestemunhos() {
             if (testemunhos[i].estado === 1) {
                 str += `<div class="container px-4 testemunho mt-5 col-xl-5 col-lg-10 col-md-10">
                             <div class="foto-testemunho text-center">
-                                <img class="img-thumbnail" src="${Utilizador.getUrlFotoById(testemunhos[i].idUtilizador)}" title="${Utilizador.getNomeById(testemunhos[i].id)}">
+                                <img class="img-thumbnail" src="${Utilizador.getUrlFotoById(testemunhos[i].idUtilizador)}">
                             </div>
                             <div class="texto-testemunho bg-teca3 py-3 px-5 text-white mt-3">
                                 <div class="texto-corpo">${testemunhos[i].testemunho}</div>
