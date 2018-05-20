@@ -257,7 +257,7 @@ function gerarLivrosMaisPontuados() {
         for (let j in livros) {
             if (livrosMaisPontuados[i] === livros[j].id) {
                 if (idUtilizadorLogado !== -1) {
-                    str += `<div class="col-lg-6 col-md-6 col-sm-10 col-20 mt-4 livro-pontuado">
+                    str += `<div class="col-lg-6 col-sm-10 col-20 mt-4 livro-pontuado">
                                 <div class="d-flex flex-row">
                                     <div class="bg-teca3 px-3 ranking-div">
                                         <h1 class="text-center text-white">${count}</h1>
@@ -276,7 +276,7 @@ function gerarLivrosMaisPontuados() {
                                 </div>
                             </div>`
                 } else {
-                    str += `<div class="col-lg-6 col-md-6 col-sm-10 col-20 mt-4 livro-pontuado">
+                    str += `<div class="col-lg-6 col-sm-10 col-20 mt-4 livro-pontuado">
                                 <div class="d-flex flex-row">
                                     <div class="bg-teca3 px-3 ranking-div">
                                         <h1 class="text-center text-white">${count}</h1>

@@ -48,28 +48,33 @@ section {
 
 /* quando a largura é menor ou igual a 1199 */
 @media only screen and (max-width: 1199px) {
-    #main-container img{
+    #main-container #recentes img, #main-container #relacionados img{
         height: 315px;
         width: 220px;
+    }
+
+    #main-container #pontuados img{
+        height: 300px;
+        width: 209px;
     }
 }
 
 /* quando a largura é menor ou igual a 991 */
 @media only screen and (max-width: 991px) {
-    #main-container #recentes img, #main-container #mesmoGenero img{
+    #main-container #recentes img, #main-container #relacionados img{
         height: 270px;
         width: 174px;
     }
 
     #main-container #pontuados img{
-        height: 199px;
-        width: 139px;
+        height: 270px;
+        width: 181px;
     }
 }
 
 /* quando a largura é menor ou igual a 769 */
 @media only screen and (max-width: 769px) {
-    #main-container #recentes img, #main-container #mesmoGenero img{
+    #main-container #recentes img, #main-container #relacionados img{
         height: 189px;
         width: 132px;
     }
@@ -81,21 +86,21 @@ section {
 }
 
 @media only screen and (max-width: 575px) {
-    #main-container #recentes img, #main-container #recentes img, #main-container #mesmoGenero img{
+    #main-container #recentes img, #main-container #recentes img, #main-container #relacionados img{
         height: 260px !important;
         width: 181px !important;
     }
 }
 
 @media only screen and (max-width: 510px) {
-    #main-container #recentes img, #main-container #mesmoGenero img{
+    #main-container #recentes img, #main-container #relacionados img{
         height: 250px !important;
         width: 175px !important;
     }
 }
 
 @media only screen and (max-width: 376px) {
-    #main-container #recentes img, #main-container #mesmoGenero img{
+    #main-container #recentes img, #main-container #relacionados img{
         height: 165px !important;
         width: 115px !important;
     }
