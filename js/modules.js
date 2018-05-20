@@ -408,11 +408,25 @@ class Livro {
         }
     }
 
-    static getIdsAleatoriosByIdGenero(idGenero) {
+    static getIdTagsById(id) {
+        for (let i in livros) {
+            if (livros[i].id === id) {
+                return livros[i].idTags
+            }
+        }
+    }
+
+    static getIdsAleatoriosByIdGeneroIdTags(idGenero, idTags) {
         let ids = []
         for (let i in livros) {
-            if (livros[i].idGenero === idGenero) {
-                ids.push(livros[i].id)
+            for (let j in idTags) {
+                for (let k in livros[i].idTags) {
+                    if (livros[i].idGenero === idGenero || livros[i].idTags[k] === idTags[j]) {
+                        if (ids.indexOf(livros[i].id) === -1) {
+                            ids.push(livros[i].id)
+                        }
+                    }
+                }
             }
         }
 

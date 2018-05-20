@@ -676,12 +676,17 @@ function gerarComentarios(idLivro) {
 
 function gerarLivrosGenero(idGenero, idLivro) {
     let existir = false
-    let ids = Livro.getIdsAleatoriosByIdGenero(idGenero)
-    let str = `<h4 class="text-teca4">Do mesmo género (${Genero.getNomeById(Livro.getIdGeneroById(idLivro))})</h4>
+    let ids = Livro.getIdsAleatoriosByIdGeneroIdTags(idGenero, Livro.getIdTagsById(idLivro))
+    //remove o id do livro em questão do array ids, caso este esteja lá
+    if(ids.indexOf(idLivro) !== -1) {
+        ids.splice(ids.indexOf(idLivro), 1)
+    }
+    ids.length = 4
+    let str = `<h4 class="text-teca4">Poderá também gostar de</h4>
                <div class="row mt-1 d-flex justify-content-start text-center">`
     for (let i in ids) {
         for (let j in livros) {
-            if (livros[j].id === ids[i] && livros[j].id !== idLivro && i <= 4) {
+            if (livros[j].id === ids[i] && livros[j].id !== idLivro) {
                 str += `<div class="col-lg-5 col-10 mt-4 livro-recente">
                             <figure>
                                 <div class="livro-card">
@@ -702,8 +707,8 @@ function gerarLivrosGenero(idGenero, idLivro) {
         }
     }
     str += "</div>"
-    //caso hajam livros que sejam do mesmo género
+    //caso hajam livros que estejam relacionados
     if (existir) {
-        document.getElementById("mesmoGenero").innerHTML = str
+        document.getElementById("relacionados").innerHTML = str
     }
 }
