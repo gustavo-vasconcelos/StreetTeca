@@ -192,7 +192,7 @@ function gerarPontuacaoEstrelas(pontuacaoMedia, idLivro) {
         }
     }
 
-    let palavra = (Comentario.getQuantidadePontuacoesByIdLivro(idLivro) <= 1) ? " avaliação" : " avaliações"
+    let palavra = (Comentario.getQuantidadePontuacoesByIdLivro(idLivro) === 1) ? " avaliação" : " avaliações"
 
     str += `&nbsp;(${Comentario.getQuantidadePontuacoesByIdLivro(idLivro) + palavra})`
 
