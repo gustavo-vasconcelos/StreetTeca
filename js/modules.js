@@ -127,7 +127,7 @@ class Utilizador {
                 let ultimo = ""
                 if (nome.indexOf(" ") !== -1) {
                     primeiro = nome.substr(0, nome.indexOf(" "))
-                    ultimo = nome.substr(nome.lastIndexOf(" ") + 1, 1) + "."
+                    ultimo = nome.substr(nome.lastIndexOf(" ") + 1, nome.length)
                     return primeiro + " " + ultimo
                 } else {
                     return nome
@@ -1164,10 +1164,21 @@ let configuracoes = {
     valorMultaLimite: 1
 }
 
-let idLivroClicado = 5
+let idLivroClicado = -1
 
 if (!localStorage.getItem("idLivroClicado")) {
     localStorage.setItem("idLivroClicado", idLivroClicado)
+}
+
+function livroClicado() {
+    let clicarLivro = document.getElementsByClassName("clicarLivro")
+    for (let i = 0; i < clicarLivro.length; i++) {
+        clicarLivro[i].addEventListener("click", function () {
+            idLivroClicado = parseInt(clicarLivro[i].id.replace(/livro/g, ""))
+            console.log(idLivroClicado)
+            localStorage.setItem("idLivroClicado", parseInt(clicarLivro[i].id.replace(/livro/g, "")))
+        })
+    }
 }
 
 if (!localStorage.getItem("configuracoes")) {
@@ -1259,7 +1270,8 @@ if (!localStorage.getItem("freguesias")) {
 }
 
 //bibliotecas predefinidas
-bibliotecas.push(new Biblioteca(2, 3, "R. Dom Sancho I 1, 4490 Argivai, Portugal", 300, "Top", { lat: 41.36615219999999, lng: -8.7394442 }))
+bibliotecas.push(new Biblioteca(1, 1, "R. Dom Sancho I 1, 4490 Argivai, Portugal", 300, "Top", { lat: 41.36615219999999, lng: -8.7394442 }))
+bibliotecas.push(new Biblioteca(1, 7, "Praça de Mindelo, 4485-487 Mindelo, Portugal", 300, "Top", { lat: 41.3132966, lng: -8.7202863 }))
 
 if (!localStorage.getItem("bibliotecas")) {
     localStorage.setItem("bibliotecas", JSON.stringify(bibliotecas))
@@ -1299,7 +1311,7 @@ if (!localStorage.getItem("livros")) {
 }
 
 //comentários predefinidos
-comentarios.push(new Comentario(1, 1, "Top.", 5))
+comentarios.push(new Comentario(1, 1, "Top.", 4))
 comentarios.push(new Comentario(1, 2, "Top.", 5))
 comentarios.push(new Comentario(2, 3, "Top.", 2))
 comentarios.push(new Comentario(2, 4, "Top.", 3))

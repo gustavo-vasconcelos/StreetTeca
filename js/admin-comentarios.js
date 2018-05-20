@@ -25,6 +25,9 @@ function gerarTabelaComentarios() {
 					<tr>
                         <th>#</th>
                         <th>ID utilizador</th>                        
+                        <th>Nome utilizador</th>                        
+                        <th>ID livro</th>                        
+                        <th>Título livro</th>                        
 						<th>Comentário</th>
 						<th>Pontuação</th>
 						<th></th>
@@ -37,6 +40,9 @@ function gerarTabelaComentarios() {
 		str += `<tr id="${comentarios[i].id}">
 					<td>${count}</td>
 					<td>${comentarios[i].idUtilizador}</td>
+					<td>${Utilizador.getNomeById(comentarios[i].idUtilizador)}</td>
+					<td>${comentarios[i].idLivro}</td>
+					<td>${Livro.getTituloById(comentarios[i].idLivro)}</td>
 					<td>${comentarios[i].comentario}</td>
 					<td>${comentarios[i].pontuacao}</td>					
 					<td align="right">

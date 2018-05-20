@@ -233,7 +233,7 @@ function gerarCheckboxesTags(editar = false) {
 
 function gerarComboboxBibliotecas(editar = false) {
     let inputLivroBiblioteca = (!editar) ? document.getElementById("inputLivroBiblioteca") : document.getElementById("inputLivroBibliotecaEditar")
-    let str = (!editar) ? '<option value="" hidden selected>Selecione uma</option>' : ""
+    let str = (!editar) ? '<option value="-1" selected>Não atribuir</option>' : '<option value="-1" id="semBiblioteca">Não atribuir</option>'
     for (let i in bibliotecas) {
         if (!editar) {
             if (bibliotecas[i].getCapacidadeAtual() <= 0) {
@@ -249,7 +249,7 @@ function gerarComboboxBibliotecas(editar = false) {
             }
         } else {
             if (bibliotecas[i].getCapacidadeAtual() <= 0) {
-                if (bibliotecas[i].id === editar) {
+                if (bibliotecas[i].id === Livro.getIdBibliotecaById(editar)) {
                     str += `<option value="${bibliotecas[i].id}" disabled selected>ID: ${bibliotecas[i].id} / 
                     Concelho: ${Concelho.getConcelhoById(bibliotecas[i].idConcelho)} / 
                     Freguesia: ${Freguesia.getFreguesiaById(bibliotecas[i].idFreguesia)} / 
@@ -262,7 +262,7 @@ function gerarComboboxBibliotecas(editar = false) {
                 }
 
             } else {
-                if (bibliotecas[i].id === editar) {
+                if (bibliotecas[i].id === Livro.getIdBibliotecaById(editar)) {
                     str += `<option value="${bibliotecas[i].id}" selected>ID: ${bibliotecas[i].id} / 
                     Concelho: ${Concelho.getConcelhoById(bibliotecas[i].idConcelho)} / 
                     Freguesia: ${Freguesia.getFreguesiaById(bibliotecas[i].idFreguesia)} / 
@@ -276,9 +276,12 @@ function gerarComboboxBibliotecas(editar = false) {
 
             }
         }
-
     }
     inputLivroBiblioteca.innerHTML = str
+    if(Livro.getIdBibliotecaById(editar) === -1) {
+        console.log(true)
+        document.getElementById("semBiblioteca").selected = true
+    }
 }
 
 function gerarComboboxUtilizadores(editar = false) {

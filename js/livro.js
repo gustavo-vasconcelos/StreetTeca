@@ -3,6 +3,24 @@ window.onload = function () {
     livros = JSON.parse(localStorage.getItem("livros"))
     transformarEmInstanciaLivro(livros)
 
+    generos = JSON.parse(localStorage.getItem("generos"))
+    transformarEmInstanciaGenero(generos)
+
+    tags = JSON.parse(localStorage.getItem("tags"))
+    transformarEmInstanciaTag(tags)
+
+    concelhos = JSON.parse(localStorage.getItem("concelhos"))
+    transformarEmInstanciaConcelho(concelhos)
+
+    freguesias = JSON.parse(localStorage.getItem("freguesias"))
+    transformarEmInstanciaFreguesia(freguesias)
+
+    bibliotecas = JSON.parse(localStorage.getItem("bibliotecas"))
+    transformarEmInstanciaBiblioteca(bibliotecas)
+
+    utilizadores = JSON.parse(localStorage.getItem("utilizadores"))
+    transformarEmInstanciaUtilizador(utilizadores)
+
     idUtilizadorLogado = parseInt(localStorage.getItem("idUtilizadorLogado"))
 
     idLivroClicado = parseInt(localStorage.getItem("idLivroClicado"))
@@ -15,6 +33,9 @@ window.onload = function () {
 
     for (let i in livros) {
         if (livros[i].id === idLivroClicado) {
+            //título
+            document.title = "StreetTeca - " + livros[i].titulo
+
             gerarCabecalho(livros[i].id)
             //pontuação
             gerarPontuacaoEstrelas(livros[i].getPontuacaoMedia(), livros[i].id)
@@ -72,6 +93,8 @@ window.onload = function () {
             gerarLivrosGenero(livros[i].idGenero, livros[i].id)
         }
     }
+
+    livroClicado()
 } //fim onload
 
 function gerarCabecalho(idLivro) {
@@ -93,8 +116,8 @@ function gerarCabecalho(idLivro) {
                         </div>
                         <hr class="bg-teca4">
                         <div class="row">
-                            <button type="button" class="col-lg-6 col-md-9 col-sm-20 btn btn-teca3 mt-2 mx-2" style="border-radius: 2em;">
-                                <i class="fa fa-check-circle-o text-success"></i> Livro disponível
+                            <button type="button" class="col-lg-6 col-md-9 col-sm-20 btn btn-teca3 mt-2 mx-2" id="disponibilidade" style="border-radius: 2em;">
+
                             </button>
                             <button type="button" class="col-lg-6 col-md-9 col-sm-20 btn btn-teca3 mt-2 mx-2" style="border-radius: 2em;">
                                 <i class="fa fa-heart text-danger"></i> Lista de desejos
@@ -118,7 +141,16 @@ function gerarCabecalho(idLivro) {
                     </div>`
         }
     }
+
     document.getElementById("cabecalho").innerHTML = str
+
+    let disponibilidade = document.getElementById("disponibilidade")
+    if (Livro.getIdBibliotecaById(idLivro) !== -1) {
+        disponibilidade.innerHTML = '<i class="fa fa-archive text-teca4"></i> Requisitar'
+    } else {
+        disponibilidade.innerHTML = '<i class="fa fa-times text-teca4"></i> Livro indisponível'
+    }
+
 }
 
 function gerarPontuacaoEstrelas(pontuacaoMedia, idLivro) {
@@ -143,440 +175,442 @@ function gerarPontuacaoEstrelas(pontuacaoMedia, idLivro) {
 }
 
 function gerarMapaLivro(idLivro) {
-    let map
-    let mapaBibliotecas = document.getElementById("mapaLivro")
-    mapaBibliotecas.style.height = "650px"
+    if (Livro.getIdBibliotecaById(idLivro) !== -1) {
+        document.getElementById("ondeEncontrar").innerHTML = "Onde encontrar este livro"
+        let map
+        let mapaBibliotecas = document.getElementById("mapaLivro")
+        mapaBibliotecas.style.height = "650px"
 
-    let coordenadas = Biblioteca.getCoordenadasById(Livro.getIdBibliotecaById(idLivro))
+        let coordenadas = Biblioteca.getCoordenadasById(Livro.getIdBibliotecaById(idLivro))
 
-    let mapProp = {
-        center: new google.maps.LatLng(coordenadas.lat, coordenadas.lng),
-        zoom: 10,
-        styles: [
-            {
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#1d2c4d"
-                    }
-                ]
-            },
-            {
-                "elementType": "labels.text.fill",
-                "stylers": [
-                    {
-                        "color": "#8ec3b9"
-                    }
-                ]
-            },
-            {
-                "elementType": "labels.text.stroke",
-                "stylers": [
-                    {
-                        "color": "#1a3646"
-                    }
-                ]
-            },
-            {
-                "featureType": "administrative.country",
-                "elementType": "geometry.stroke",
-                "stylers": [
-                    {
-                        "color": "#4b6878"
-                    }
-                ]
-            },
-            {
-                "featureType": "administrative.land_parcel",
-                "elementType": "labels.text.fill",
-                "stylers": [
-                    {
-                        "color": "#64779e"
-                    }
-                ]
-            },
-            {
-                "featureType": "administrative.province",
-                "elementType": "geometry.stroke",
-                "stylers": [
-                    {
-                        "color": "#4b6878"
-                    }
-                ]
-            },
-            {
-                "featureType": "landscape.man_made",
-                "elementType": "geometry.stroke",
-                "stylers": [
-                    {
-                        "color": "#334e87"
-                    }
-                ]
-            },
-            {
-                "featureType": "landscape.natural",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#023e58"
-                    }
-                ]
-            },
-            {
-                "featureType": "poi",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#283d6a"
-                    }
-                ]
-            },
-            {
-                "featureType": "poi",
-                "elementType": "labels.text.fill",
-                "stylers": [
-                    {
-                        "color": "#6f9ba5"
-                    }
-                ]
-            },
-            {
-                "featureType": "poi",
-                "elementType": "labels.text.stroke",
-                "stylers": [
-                    {
-                        "color": "#1d2c4d"
-                    }
-                ]
-            },
-            {
-                "featureType": "poi.business",
-                "stylers": [
-                    {
-                        "visibility": "off"
-                    }
-                ]
-            },
-            {
-                "featureType": "poi.park",
-                "elementType": "geometry.fill",
-                "stylers": [
-                    {
-                        "color": "#023e58"
-                    }
-                ]
-            },
-            {
-                "featureType": "poi.park",
-                "elementType": "labels.text",
-                "stylers": [
-                    {
-                        "visibility": "off"
-                    }
-                ]
-            },
-            {
-                "featureType": "poi.park",
-                "elementType": "labels.text.fill",
-                "stylers": [
-                    {
-                        "color": "#3C7680"
-                    }
-                ]
-            },
-            {
-                "featureType": "road",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#304a7d"
-                    }
-                ]
-            },
-            {
-                "featureType": "road",
-                "elementType": "labels.text.fill",
-                "stylers": [
-                    {
-                        "color": "#98a5be"
-                    }
-                ]
-            },
-            {
-                "featureType": "road",
-                "elementType": "labels.text.stroke",
-                "stylers": [
-                    {
-                        "color": "#1d2c4d"
-                    }
-                ]
-            },
-            {
-                "featureType": "road.arterial",
-                "elementType": "labels",
-                "stylers": [
-                    {
-                        "visibility": "off"
-                    }
-                ]
-            },
-            {
-                "featureType": "road.highway",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#2c6675"
-                    }
-                ]
-            },
-            {
-                "featureType": "road.highway",
-                "elementType": "geometry.stroke",
-                "stylers": [
-                    {
-                        "color": "#255763"
-                    }
-                ]
-            },
-            {
-                "featureType": "road.highway",
-                "elementType": "labels",
-                "stylers": [
-                    {
-                        "visibility": "off"
-                    }
-                ]
-            },
-            {
-                "featureType": "road.highway",
-                "elementType": "labels.text.fill",
-                "stylers": [
-                    {
-                        "color": "#b0d5ce"
-                    }
-                ]
-            },
-            {
-                "featureType": "road.highway",
-                "elementType": "labels.text.stroke",
-                "stylers": [
-                    {
-                        "color": "#023e58"
-                    }
-                ]
-            },
-            {
-                "featureType": "road.local",
-                "stylers": [
-                    {
-                        "visibility": "off"
-                    }
-                ]
-            },
-            {
-                "featureType": "transit",
-                "elementType": "labels.text.fill",
-                "stylers": [
-                    {
-                        "color": "#98a5be"
-                    }
-                ]
-            },
-            {
-                "featureType": "transit",
-                "elementType": "labels.text.stroke",
-                "stylers": [
-                    {
-                        "color": "#1d2c4d"
-                    }
-                ]
-            },
-            {
-                "featureType": "transit.line",
-                "elementType": "geometry.fill",
-                "stylers": [
-                    {
-                        "color": "#283d6a"
-                    }
-                ]
-            },
-            {
-                "featureType": "transit.station",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#3a4762"
-                    }
-                ]
-            },
-            {
-                "featureType": "water",
-                "elementType": "geometry",
-                "stylers": [
-                    {
-                        "color": "#0e1626"
-                    }
-                ]
-            },
-            {
-                "featureType": "water",
-                "elementType": "labels.text.fill",
-                "stylers": [
-                    {
-                        "color": "#4e6d70"
-                    }
-                ]
-            }
-        ]
-    }
-    map = new google.maps.Map(mapaBibliotecas, mapProp)
-
-
-    for (let i in livros) {
-        if (livros[i].id === idLivro) {
-            let marker = new google.maps.Marker({
-                position: new google.maps.LatLng(coordenadas.lat, coordenadas.lng),
-                //label: bibliotecas[i].id + "",
-                //title: "Biblioteca " + bibliotecas[i].id,
-                animation: google.maps.Animation.DROP
-            })
-
-            marker.setMap(map)
-
-            let infoWindow
-
-            for (let j in bibliotecas) {
-                if (bibliotecas[j].id === Livro.getIdBibliotecaById(idLivro)) {
-                    infoWindow = new google.maps.InfoWindow({
-                        content: `<div class="container text-dark" id="info" style="font-size:1.1em;">
-                                    <h4>Biblioteca de ${Freguesia.getFreguesiaById(bibliotecas[j].idFreguesia)}, ${Concelho.getConcelhoById(bibliotecas[j].idConcelho)}</h4>
-                                    <hr>
-                                    <p>${bibliotecas[j].descricao}</p>
-                                    <hr>
-                                    <p><b>Capacidade:</b> ${bibliotecas[j].capacidade}</p>                                    
-                                    <p><b>Morada:</b> ${bibliotecas[j].morada}</p>                                    
-                                    <p><b>Coordenadas:</b></p>
-                                    <p>Latitude: ${coordenadas.lat}</p>
-                                    <p>Longitude: ${coordenadas.lng}</p>
-                                    <hr>
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-teca3 mt-1" id="percurso">Iniciar percurso</button>
-                                    </div>
-                                </div>`
-                    })
+        let mapProp = {
+            center: new google.maps.LatLng(coordenadas.lat, coordenadas.lng),
+            zoom: 10,
+            styles: [
+                {
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#1d2c4d"
+                        }
+                    ]
+                },
+                {
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#8ec3b9"
+                        }
+                    ]
+                },
+                {
+                    "elementType": "labels.text.stroke",
+                    "stylers": [
+                        {
+                            "color": "#1a3646"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "administrative.country",
+                    "elementType": "geometry.stroke",
+                    "stylers": [
+                        {
+                            "color": "#4b6878"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "administrative.land_parcel",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#64779e"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "administrative.province",
+                    "elementType": "geometry.stroke",
+                    "stylers": [
+                        {
+                            "color": "#4b6878"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "landscape.man_made",
+                    "elementType": "geometry.stroke",
+                    "stylers": [
+                        {
+                            "color": "#334e87"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "landscape.natural",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#023e58"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#283d6a"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#6f9ba5"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [
+                        {
+                            "color": "#1d2c4d"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi.business",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi.park",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                        {
+                            "color": "#023e58"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi.park",
+                    "elementType": "labels.text",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi.park",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#3C7680"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#304a7d"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#98a5be"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [
+                        {
+                            "color": "#1d2c4d"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.arterial",
+                    "elementType": "labels",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#2c6675"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "geometry.stroke",
+                    "stylers": [
+                        {
+                            "color": "#255763"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "labels",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#b0d5ce"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [
+                        {
+                            "color": "#023e58"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.local",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#98a5be"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [
+                        {
+                            "color": "#1d2c4d"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit.line",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                        {
+                            "color": "#283d6a"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit.station",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#3a4762"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "geometry",
+                    "stylers": [
+                        {
+                            "color": "#0e1626"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#4e6d70"
+                        }
+                    ]
                 }
-            }
+            ]
+        }
+        map = new google.maps.Map(mapaBibliotecas, mapProp)
 
 
-            marker.addListener("click", function () {
-                infoWindow.open(map, marker)
+        for (let i in livros) {
+            if (livros[i].id === idLivro) {
+                let marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(coordenadas.lat, coordenadas.lng),
+                    //label: bibliotecas[i].id + "",
+                    //title: "Biblioteca " + bibliotecas[i].id,
+                    animation: google.maps.Animation.DROP
+                })
 
-                let info = document.getElementById("info")
+                marker.setMap(map)
 
-                if ($(window).width() <= 991) {
-                    info.style.width = $(window).width() / 2 + "px"
-                } else {
-                    info.style.width = 991 / 2 + "px"
+                let infoWindow
+
+                for (let j in bibliotecas) {
+                    if (bibliotecas[j].id === Livro.getIdBibliotecaById(idLivro)) {
+                        infoWindow = new google.maps.InfoWindow({
+                            content: `<div class="container text-dark" id="info" style="font-size:1.1em;">
+                                        <h4>Biblioteca de ${Freguesia.getFreguesiaById(bibliotecas[j].idFreguesia)}, ${Concelho.getConcelhoById(bibliotecas[j].idConcelho)}</h4>
+                                        <hr>
+                                        <p>${bibliotecas[j].descricao}</p>
+                                        <hr>
+                                        <p><b>Capacidade:</b> ${bibliotecas[j].capacidade}</p>                                    
+                                        <p><b>Morada:</b> ${bibliotecas[j].morada}</p>                                    
+                                        <p><b>Coordenadas:</b></p>
+                                        <p>Latitude: ${coordenadas.lat}</p>
+                                        <p>Longitude: ${coordenadas.lng}</p>
+                                        <hr>
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-teca3 mt-1" id="percurso">Iniciar percurso</button>
+                                        </div>
+                                    </div>`
+                        })
+                    }
                 }
 
-                window.addEventListener("resize", function () {
+
+                marker.addListener("click", function () {
+                    infoWindow.open(map, marker)
+
+                    let info = document.getElementById("info")
+
                     if ($(window).width() <= 991) {
                         info.style.width = $(window).width() / 2 + "px"
                     } else {
                         info.style.width = 991 / 2 + "px"
                     }
-                })
 
-                //percurso
-
-                let deslocacao
-
-                document.getElementById("percurso").addEventListener("click", function () {
-                    swal("Iniciar percurso", "Selecione o meio de deslocação", "info", {
-                        buttons: {
-                            carro: {
-                                text: "Carro",
-                                value: "carro"
-                            },
-                            pe: {
-                                text: "A pé",
-                                value: "pe",
-                            },
-                        },
-                    }).then((value) => {
-                        let continuar = true
-                        switch (value) {
-                            case "carro":
-                                deslocacao = google.maps.TravelMode.DRIVING
-                                break;
-
-                            case "pe":
-                                deslocacao = google.maps.TravelMode.WALKING
-                                break;
-                            default:
-                                continuar = false
-                                break;
+                    window.addEventListener("resize", function () {
+                        if ($(window).width() <= 991) {
+                            info.style.width = $(window).width() / 2 + "px"
+                        } else {
+                            info.style.width = 991 / 2 + "px"
                         }
+                    })
 
-                        if (continuar) {
-                            navigator.geolocation.watchPosition(function (position) {
-                                // Associa as direções ao mapa
-                                let directionsDisplay = new google.maps.DirectionsRenderer({
-                                    map: map
-                                })
+                    //percurso
 
-                                let origem = { lat: position.coords.latitude, lng: position.coords.longitude }
-                                let destino = { lat: coordenadas.lat, lng: coordenadas.lng }
+                    let deslocacao
 
-                                // Define um objeto Request com origem, destino e modo de viagem
-                                let request = {
-                                    destination: destino,
-                                    origin: origem,
-                                    travelMode: deslocacao
-                                }
-                                // Passa o objeto Request ao serviço Directions
-                                let directionsService = new google.maps.DirectionsService()
-                                directionsService.route(request, function (response, status) {
-                                    if (status == google.maps.DirectionsStatus.OK) {
-                                        // Exibe a rota no mapa
-                                        directionsDisplay.setDirections(response);
+                    let percurso = document.getElementById("percurso")
+                    percurso.addEventListener("click", function () {
+                        swal("Iniciar percurso", "Selecione o meio de deslocação", "info", {
+                            buttons: {
+                                carro: {
+                                    text: "Carro",
+                                    value: "carro"
+                                },
+                                pe: {
+                                    text: "A pé",
+                                    value: "pe",
+                                },
+                            },
+                        }).then((value) => {
+                            let continuar = true
+                            switch (value) {
+                                case "carro":
+                                    deslocacao = google.maps.TravelMode.DRIVING
+                                    break;
+
+                                case "pe":
+                                    deslocacao = google.maps.TravelMode.WALKING
+                                    break;
+                                default:
+                                    continuar = false
+                                    break;
+                            }
+
+                            if (continuar) {
+                                navigator.geolocation.watchPosition(function (position) {
+                                    // Associa as direções ao mapa
+                                    let directionsDisplay = new google.maps.DirectionsRenderer({
+                                        map: map
+                                    })
+
+                                    let origem = { lat: position.coords.latitude, lng: position.coords.longitude }
+                                    let destino = { lat: coordenadas.lat, lng: coordenadas.lng }
+
+                                    // Define um objeto Request com origem, destino e modo de viagem
+                                    let request = {
+                                        destination: destino,
+                                        origin: origem,
+                                        travelMode: deslocacao
                                     }
-                                })
-                            }, function (error) {
-                                if (error.code == error.PERMISSION_DENIED)
-                                    console.log("you denied me :-(");
-                            });
-                        }
+                                    // Passa o objeto Request ao serviço Directions
+                                    let directionsService = new google.maps.DirectionsService()
+                                    directionsService.route(request, function (response, status) {
+                                        if (status == google.maps.DirectionsStatus.OK) {
+                                            // Exibe a rota no mapa
+                                            directionsDisplay.setDirections(response);
+                                        }
+                                    })
+                                }, function (error) {
+                                    if (error.code == error.PERMISSION_DENIED)
+                                        console.log("you denied me :-(");
+                                });
 
-                    });
+                                percurso.style.display = "none"
+                            }
+                        });
+                    })
 
+                    /*
+                    //btn remover biblioteca
+                    document.getElementById(`removerBiblioteca${bibliotecas[i].id}`).addEventListener("click", function () {
+                        swal({
+                            title: "Deseja mesmo remover?",
+                            text: `A biblioteca cujo id é ${idBiblioteca} será removida para sempre!`,
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        }).then((willDelete) => {
+                            if (willDelete) {
+                                swal(`A biblioteca cujo id era ${idBiblioteca} foi removida com sucesso.`, {
+                                    icon: "success",
+                                });
+        
+                                Biblioteca.removerBibliotecaById(idBiblioteca)
+                                localStorage.setItem("bibliotecas", JSON.stringify(bibliotecas))
+                                gerarMapaBibliotecas()
+                            }
+                        });*/
                 })
-
-                /*
-                //btn remover biblioteca
-                document.getElementById(`removerBiblioteca${bibliotecas[i].id}`).addEventListener("click", function () {
-                    swal({
-                        title: "Deseja mesmo remover?",
-                        text: `A biblioteca cujo id é ${idBiblioteca} será removida para sempre!`,
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    }).then((willDelete) => {
-                        if (willDelete) {
-                            swal(`A biblioteca cujo id era ${idBiblioteca} foi removida com sucesso.`, {
-                                icon: "success",
-                            });
-    
-                            Biblioteca.removerBibliotecaById(idBiblioteca)
-                            localStorage.setItem("bibliotecas", JSON.stringify(bibliotecas))
-                            gerarMapaBibliotecas()
-                        }
-                    });*/
-            })
+            }
         }
     }
-
-
 }
 
 function gerarComentarios(idLivro) {
@@ -590,14 +624,18 @@ function gerarComentarios(idLivro) {
                         <div class="foto-comentario pull-left">
                             <img src="${Utilizador.getUrlFotoById(comentarios[i].idUtilizador)}" width="50px" height="50px">
                         </div>
-                        <div>&nbsp;${Utilizador.getNomeById(comentarios[i].idUtilizador)}</div>
-                        <div>&nbsp;
-                            <span class="fa fa-star estrela"></span>
-                            <span class="fa fa-star estrela"></span>
-                            <span class="fa fa-star estrela"></span>
-                            <span class="fa fa-star estrela"></span>
-                            <span class="fa fa-star estrela"></span>
-                        </div>
+                        <div>&nbsp;${Utilizador.getPrimeiroUltimoNomeById(comentarios[i].idUtilizador)}</div>
+                        <div>&nbsp;`
+
+            for (let j = 0; j <= 4; j++) {
+                if (comentarios[i].pontuacao > j) {
+                    str += '<span class="fa fa-star estrela"></span>&nbsp;'
+                } else {
+                    str += '<span class="fa fa-star"></span>&nbsp;'
+                }
+            }
+
+            str += `    </div>
                         <p class="" style="font-size: .9em;">&nbsp;${comentarios[i].comentario}</p>
                     </div>`
         }
@@ -607,6 +645,7 @@ function gerarComentarios(idLivro) {
 }
 
 function gerarLivrosGenero(idGenero, idLivro) {
+    let existir = false
     let ids = Livro.getIdsAleatoriosByIdGenero(idGenero)
     let str = `<h4 class="text-teca4">Do mesmo género (${Genero.getNomeById(Livro.getIdGeneroById(idLivro))})</h4>
                <div class="row mt-1 d-flex justify-content-start text-center">`
@@ -616,11 +655,11 @@ function gerarLivrosGenero(idGenero, idLivro) {
                 str += `<div class="col-lg-5 col-10 mt-4 livro-recente">
                             <figure>
                                 <div class="livro-card">
-                                    <img class="img-fluid" src="${livros[j].urlCapa}" title="${livros[j].titulo}">
+                                    <a href="livro.html" class="clicarLivro" id="livro${livros[j].id}"><img class="img-fluid" src="${livros[j].urlCapa}" title="${livros[j].titulo}"></a>
                                 </div>
                                 <figcaption class="px-2">
                                     <div>
-                                        <a href="#" class="livro-titulo">${livros[j].titulo}</a>
+                                        <a href="livro.html" class="livro-titulo clicarLivro" id="livro${livros[j].id}">${livros[j].titulo}</a>
                                     </div>
                                     <div>
                                         <a href="#" class="livro-autor">${livros[j].autor.join(", ")}</a>
@@ -628,12 +667,13 @@ function gerarLivrosGenero(idGenero, idLivro) {
                                 </figcaption>
                             </figure>
                         </div>`
+                existir = true
             }
         }
     }
     str += "</div>"
     //caso hajam livros que sejam do mesmo género
-    if (str) {
+    if (existir) {
         document.getElementById("mesmoGenero").innerHTML = str
     }
 }

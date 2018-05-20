@@ -69,7 +69,6 @@ window.onload = function () {
         FIM APARÊNCIA
     */
 
-
     //importar variáveis do sessionStorage
     utilizadores = JSON.parse(localStorage.getItem("utilizadores"))
     transformarEmInstanciaUtilizador(utilizadores)
@@ -194,6 +193,9 @@ window.onload = function () {
     gerarLivrosRecentes()
     gerarLivrosMaisPontuados()
     gerarTestemunhos()
+
+    //alterar o id do livro clicado
+    livroClicado()
 } //fim onload
 
 function gerarLivrosRecentes() {
@@ -205,11 +207,11 @@ function gerarLivrosRecentes() {
         str += `<div class="col-xl-4 col-lg-5 col-sm-6 col-10 mt-4 livro-recente">
                     <figure>
                         <div class="livro-card">
-                            <img class="img-fluid" src="${livrosRecentes[i].urlCapa}" title="${livrosRecentes[i].titulo}">
+                            <a href="livro.html" class="clicarLivro" id="livro${livrosRecentes[i].id}"><img class="img-fluid" src="${livrosRecentes[i].urlCapa}" title="${livrosRecentes[i].titulo}"></a>
                         </div>
                         <figcaption class="px-2">
                             <div>
-                                <a href="#" class="livro-titulo">${livrosRecentes[i].titulo}</a>
+                                <a href="livro.html" class="livro-titulo clicarLivro" id="livro${livrosRecentes[i].id}">${livrosRecentes[i].titulo}</a>
                             </div>
                             <div>
                                 <a href="#" class="livro-autor">${livrosRecentes[i].autor.join(", ")}</a>
@@ -236,12 +238,12 @@ function gerarLivrosMaisPontuados() {
                                     <h1 class="text-center text-white">${count}</h1>
                                 </div>
                                 <div>
-                                    <img class="img-fluid" src="${livros[j].urlCapa}" title="${livros[j].titulo}">
+                                    <a href="livro.html" class="clicarLivro" id="livro${livros[j].id}"><img class="img-fluid" src="${livros[j].urlCapa}" title="${livros[j].titulo}"></a>
                                 </div>
                             </div>
                             <div class="livro-dados">
                                 <div>
-                                    <a href="livro.html" class="livro-titulo">${livros[j].titulo}</a>
+                                    <a href="livro.html" class="livro-titulo clicarLivro" id="livro${livros[j].id}">${livros[j].titulo}</a>
                                 </div>
                                 <div>
                                     <a href="#" class="livro-autor">${livros[j].autor.join(", ")}</a>
