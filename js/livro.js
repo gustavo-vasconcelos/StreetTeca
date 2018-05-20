@@ -31,70 +31,96 @@ window.onload = function () {
     btnMenu()
     //fim aparência
 
-    for (let i in livros) {
-        if (livros[i].id === idLivroClicado) {
-            //título
-            document.title = "StreetTeca - " + livros[i].titulo
+    if (idUtilizadorLogado !== -1) {
+        for (let i in livros) {
+            if (livros[i].id === idLivroClicado) {
+                //título
+                document.title = "StreetTeca - " + livros[i].titulo
 
-            gerarCabecalho(livros[i].id)
-            //pontuação
-            gerarPontuacaoEstrelas(livros[i].getPontuacaoMedia(), livros[i].id)
-            /*
-            //imagem do livro
-            let capaLivro = document.getElementById("capaLivro")
-            capaLivro.src = livros[i].urlCapa
+                gerarCabecalho(livros[i].id)
+                //pontuação
+                gerarPontuacaoEstrelas(livros[i].getPontuacaoMedia(), livros[i].id)
+                /*
+                //imagem do livro
+                let capaLivro = document.getElementById("capaLivro")
+                capaLivro.src = livros[i].urlCapa
 
-            //título
-            let tituloLivro = document.getElementById("tituloLivro")
-            tituloLivro.innerHTML = livros[i].titulo
+                //título
+                let tituloLivro = document.getElementById("tituloLivro")
+                tituloLivro.innerHTML = livros[i].titulo
 
-            //autor
-            let autorLivro = document.getElementById("autorLivro")
-            autorLivro.innerHTML = "de " + livros[i].autor.join(", ")
+                //autor
+                let autorLivro = document.getElementById("autorLivro")
+                autorLivro.innerHTML = "de " + livros[i].autor.join(", ")
 
-            //pontuação
-            gerarPontuacaoEstrelas(livros[i].getPontuacaoMedia(), livros[i].id)
+                //pontuação
+                gerarPontuacaoEstrelas(livros[i].getPontuacaoMedia(), livros[i].id)
 
-            //género
-            let generoLivro = document.getElementById("generoLivro")
-            generoLivro.innerHTML = `<h4 class="text-teca4 pull-left">Género:</h4>
-                                     <p class="mt-1">&nbsp;${Genero.getNomeById(livros[i].idGenero)}</p>`
+                //género
+                let generoLivro = document.getElementById("generoLivro")
+                generoLivro.innerHTML = `<h4 class="text-teca4 pull-left">Género:</h4>
+                                        <p class="mt-1">&nbsp;${Genero.getNomeById(livros[i].idGenero)}</p>`
 
-            //tags
-            let tagsLivro = document.getElementById("tagsLivro")
-            tagsLivro.innerHTML = "&nbsp;" + Tag.getNomesByIds(livros[i].idTags).join(", ")
-            */
+                //tags
+                let tagsLivro = document.getElementById("tagsLivro")
+                tagsLivro.innerHTML = "&nbsp;" + Tag.getNomesByIds(livros[i].idTags).join(", ")
+                */
 
-            //descrição
-            let descricaoLivro = document.getElementById("descricaoLivro")
-            descricaoLivro.innerHTML = `<h4 class="text-teca4">Descrição</h4>
-                                        ${livros[i].descricao}`
+                //descrição
+                let descricaoLivro = document.getElementById("descricaoLivro")
+                descricaoLivro.innerHTML = `<h4 class="text-teca4">Descrição</h4>
+                                            ${livros[i].descricao}`
 
-            //comentários
-            gerarComentarios(livros[i].id)
+                //comentários
+                gerarComentarios(livros[i].id)
 
-            //info
-            let infoLivro = document.getElementById("infoLivro")
-            let str = '<h4 class="text-teca4">Informações</h4>'
-            str += `<p>Ano: ${livros[i].ano}.</p>
-                    <p>Editora: ${livros[i].editora}.</p>
-                    <p>Páginas: ${livros[i].paginas}.</p>
-                    <p>Estado: ${livros[i].estadoToString()}.</p>
-                    <p>Data de doação: ${livros[i].dataDoacao}.</p>`
-            if (livros[i].idDoador !== -1) {
-                str += `<p>Doador: ${Utilizador.getNomeById(livros[i].idDoador)}.</p>`
+                //info
+                let infoLivro = document.getElementById("infoLivro")
+                let str = '<h4 class="text-teca4">Informações</h4>'
+                str += `<p>Ano: ${livros[i].ano}.</p>
+                        <p>Editora: ${livros[i].editora}.</p>
+                        <p>Páginas: ${livros[i].paginas}.</p>
+                        <p>Estado: ${livros[i].estadoToString()}.</p>
+                        <p>Data de doação: ${livros[i].dataDoacao}.</p>`
+                if (livros[i].idDoador !== -1) {
+                    str += `<p>Doador: ${Utilizador.getNomeById(livros[i].idDoador)}.</p>`
+                }
+                infoLivro.innerHTML = str
+
+                //mapa
+                gerarMapaLivro(livros[i].id)
+
+                //do mesmo género
+                gerarLivrosGenero(livros[i].idGenero, livros[i].id)
             }
-            infoLivro.innerHTML = str
-
-            //mapa
-            gerarMapaLivro(livros[i].id)
-
-            //do mesmo género
-            gerarLivrosGenero(livros[i].idGenero, livros[i].id)
         }
+
+        livroClicado()
+
+        //btn logout
+        let btnLogout = document.getElementById("btnLogout")
+        btnLogout.addEventListener("click", function () {
+            swal("Até à próxima, " + Utilizador.getPrimeiroNomeById(idUtilizadorLogado) + "!", {
+                icon: "success",
+                buttons: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                timer: 1000,
+            });
+
+            idUtilizadorLogado = -1
+            localStorage.setItem("idUtilizadorLogado", idUtilizadorLogado)
+            btnPainelAdmin.style.display = "none"
+            areaUtilizador.style.display = "none"
+            btnLogin.style.display = "inline"
+            setTimeout(function () {
+                window.location.href = 'index.html'
+            }, 1000)
+        })
+    } else {
+        window.location.href = 'index.html'
     }
 
-    livroClicado()
 } //fim onload
 
 function gerarCabecalho(idLivro) {
@@ -641,7 +667,7 @@ function gerarComentarios(idLivro) {
         }
     }
     let comentariosLivro = document.getElementById("comentariosLivro")
-    if(str) {
+    if (str) {
         comentariosLivro.innerHTML = str
     } else {
         comentariosLivro.innerHTML = '<p class="col-20">Ainda sem comentários. Caso queira deixar a sua opinião sobre este livro, requisite-o.</p>'

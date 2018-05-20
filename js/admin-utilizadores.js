@@ -100,9 +100,9 @@ function gerarTabelaUtilizadores() {
 
     for (let i in utilizadores) {
 
-        let password = function() {
+        let password = function () {
             let resultado = ""
-            for(let j in utilizadores[i].password) {
+            for (let j in utilizadores[i].password) {
                 resultado += "•"
             }
             return resultado
@@ -201,7 +201,7 @@ function gerarTabelaUtilizadores() {
 
                                 modalBody.innerHTML = `<div class="container-fluid">
                                                             <div class="text-center">
-                                                                <img src="${foto}" alt="${utilizadores[k].nome}" class="img-fluid img-thumbnail" style="width: 150px; height: 150px; border-radius: 50%;">                            
+                                                                <img src="${foto}" alt="${utilizadores[k].nome}" class="img-fluid img-thumbnail" id="inputAdmUtilizadorFoto" style="width: 150px; height: 150px; border-radius: 50%;">                            
                                                             </div>
                                                             <br>
                                                             <form class="form-horizontal" id="formAdmEditarUtilizador">
@@ -269,6 +269,12 @@ function gerarTabelaUtilizadores() {
                                                                 <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Fechar</button>
                                                             </form>                                  
                                                         </div>`
+
+                                let inputAdmUtilizadorEditarFoto = document.getElementById("inputAdmUtilizadorEditarFoto")
+                                inputAdmUtilizadorEditarFoto.addEventListener("change", function() {
+                                    document.getElementById("inputAdmUtilizadorFoto").src = inputAdmUtilizadorEditarFoto.value
+                                })
+
                                 let editarTipoAcesso = document.getElementsByClassName("radio-inline-input-editar")
                                 for (let l = 0; l < editarTipoAcesso.length; l++) {
                                     if (Utilizador.getTipoAcessoById(idUtilizador) === parseInt(editarTipoAcesso[l].value)) {
@@ -285,7 +291,6 @@ function gerarTabelaUtilizadores() {
                                     if (Utilizador.getIdByEmail(inputAdmUtilizadorEditarEmail.value) === -1 || (Utilizador.getIdByEmail(inputAdmUtilizadorEditarEmail.value) === utilizadores[k].id && Utilizador.getIdByEmail(inputAdmUtilizadorEditarEmail.value) !== -1)) { //caso não exista nenhum utilizador com o email indicado
                                         let inputAdmUtilizadorEditarNome = document.getElementById("inputAdmUtilizadorEditarNome")
                                         let inputAdmUtilizadorEditarPassword = document.getElementById("inputAdmUtilizadorEditarPassword")
-                                        let inputAdmUtilizadorEditarFoto = document.getElementById("inputAdmUtilizadorEditarFoto")
                                         let inputAdmUtilizadorEditarMulta = document.getElementById("inputAdmUtilizadorEditarMulta")
 
                                         utilizadores[k].nome = inputAdmUtilizadorEditarNome.value

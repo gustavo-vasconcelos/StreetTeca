@@ -151,6 +151,8 @@ window.onload = function () {
                     timer: 1000,
                 });
                 $("#modalLogin").modal("hide")
+                gerarLivrosRecentes()
+                gerarLivrosMaisPontuados()
             } else {
                 erro = true
             }
@@ -186,6 +188,9 @@ window.onload = function () {
         btnPainelAdmin.style.display = "none"
         areaUtilizador.style.display = "none"
         btnLogin.style.display = "inline"
+
+        gerarLivrosRecentes()
+        gerarLivrosMaisPontuados()
     })
 
 
@@ -204,21 +209,40 @@ function gerarLivrosRecentes() {
     let livrosRecentes = Livro.getLivrosRecentes()
 
     for (let i in livrosRecentes) {
-        str += `<div class="col-xl-4 col-lg-5 col-sm-6 col-10 mt-4 livro-recente">
-                    <figure>
-                        <div class="livro-card">
-                            <a href="livro.html" class="clicarLivro" id="livro${livrosRecentes[i].id}"><img class="img-fluid" src="${livrosRecentes[i].urlCapa}"></a>
-                        </div>
-                        <figcaption class="px-2">
-                            <div>
-                                <a href="livro.html" class="livro-titulo clicarLivro" id="livro${livrosRecentes[i].id}">${livrosRecentes[i].titulo}</a>
+        if (idUtilizadorLogado !== -1) {
+            str += `<div class="col-xl-4 col-lg-5 col-sm-6 col-10 mt-4 livro-recente">
+                        <figure>
+                            <div class="livro-card">
+                                <a href="livro.html" class="clicarLivro" id="livro${livrosRecentes[i].id}"><img class="img-fluid" src="${livrosRecentes[i].urlCapa}"></a>
                             </div>
-                            <div class="livro-autor">
-                                ${livrosRecentes[i].autor.join(", ")}
+                            <figcaption class="px-2">
+                                <div>
+                                    <a href="livro.html" class="livro-titulo clicarLivro" id="livro${livrosRecentes[i].id}">${livrosRecentes[i].titulo}</a>
+                                </div>
+                                <div class="livro-autor">
+                                    ${livrosRecentes[i].autor.join(", ")}
+                                </div>
+                            </figcaption>
+                        </figure>
+                    </div>`
+        } else {
+            str += `<div class="col-xl-4 col-lg-5 col-sm-6 col-10 mt-4 livro-recente">
+                        <figure>
+                            <div class="livro-card">
+                                <a href="livro.html" data-toggle="modal" data-target="#modalLogin"><img class="img-fluid" src="${livrosRecentes[i].urlCapa}"></a>
                             </div>
-                        </figcaption>
-                    </figure>
-                </div>`
+                            <figcaption class="px-2">
+                                <div>
+                                    <a href="" class="livro-titulo" data-toggle="modal" data-target="#modalLogin">${livrosRecentes[i].titulo}</a>
+                                </div>
+                                <div class="livro-autor">
+                                    ${livrosRecentes[i].autor.join(", ")}
+                                </div>
+                            </figcaption>
+                        </figure>
+                    </div>`
+        }
+
     }
     recentesDiv.innerHTML = str
 }
@@ -232,24 +256,46 @@ function gerarLivrosMaisPontuados() {
     for (let i in livrosMaisPontuados) {
         for (let j in livros) {
             if (livrosMaisPontuados[i] === livros[j].id) {
-                str += `<div class="col-lg-6 col-md-6 col-sm-10 col-20 mt-4 livro-pontuado">
-                            <div class="d-flex flex-row">
-                                <div class="bg-teca3 px-3 ranking-div">
-                                    <h1 class="text-center text-white">${count}</h1>
+                if (idUtilizadorLogado !== -1) {
+                    str += `<div class="col-lg-6 col-md-6 col-sm-10 col-20 mt-4 livro-pontuado">
+                                <div class="d-flex flex-row">
+                                    <div class="bg-teca3 px-3 ranking-div">
+                                        <h1 class="text-center text-white">${count}</h1>
+                                    </div>
+                                    <div>
+                                        <a href="livro.html" class="clicarLivro" id="livro${livros[j].id}"><img class="img-fluid" src="${livros[j].urlCapa}"></a>
+                                    </div>
                                 </div>
-                                <div>
-                                    <a href="livro.html" class="clicarLivro" id="livro${livros[j].id}"><img class="img-fluid" src="${livros[j].urlCapa}"></a>
+                                <div class="livro-dados">
+                                    <div>
+                                        <a href="livro.html" class="livro-titulo clicarLivro" id="livro${livros[j].id}">${livros[j].titulo}</a>
+                                    </div>
+                                    <div class="livro-autor">
+                                        ${livros[j].autor.join(", ")}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="livro-dados">
-                                <div>
-                                    <a href="livro.html" class="livro-titulo clicarLivro" id="livro${livros[j].id}">${livros[j].titulo}</a>
+                            </div>`
+                } else {
+                    str += `<div class="col-lg-6 col-md-6 col-sm-10 col-20 mt-4 livro-pontuado">
+                                <div class="d-flex flex-row">
+                                    <div class="bg-teca3 px-3 ranking-div">
+                                        <h1 class="text-center text-white">${count}</h1>
+                                    </div>
+                                    <div>
+                                        <a href="" data-toggle="modal" data-target="#modalLogin"><img class="img-fluid" src="${livros[j].urlCapa}"></a>
+                                    </div>
                                 </div>
-                                <div class="livro-autor">
-                                    ${livros[j].autor.join(", ")}
+                                <div class="livro-dados">
+                                    <div>
+                                        <a href="" class="livro-titulo" data-toggle="modal" data-target="#modalLogin">${livros[j].titulo}</a>
+                                    </div>
+                                    <div class="livro-autor">
+                                        ${livros[j].autor.join(", ")}
+                                    </div>
                                 </div>
-                            </div>
-                        </div>`
+                            </div>`
+                }
+
                 count++
             }
         }
