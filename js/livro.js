@@ -137,7 +137,7 @@ function gerarCabecalho(idLivro) {
                         <div class="row">
                             <div class="col-xl-6 col-lg-10 col-sm-12 col-20" id="pontuacaoMediaEstrelas"></div>
                             <div class="col-xl-12 col-lg-10 col-sm-8 col-20">
-                                <i class="fa fa-archive text-teca4"></i> 3 requisições
+                                <i class="fa fa-archive text-teca4"></i> 517k requisições
                             </div>
                         </div>
                         <hr class="bg-teca4">
