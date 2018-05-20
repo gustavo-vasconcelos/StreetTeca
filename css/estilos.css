@@ -85,6 +85,13 @@ section {
     }
 }
 
+@media only screen and (max-width: 767px) {
+    #main-container #cabecalho img{
+        height: 300px;
+        width: 209px;
+    }
+}
+
 @media only screen and (max-width: 575px) {
     #main-container #recentes img, #main-container #recentes img, #main-container #relacionados img{
         height: 260px !important;
