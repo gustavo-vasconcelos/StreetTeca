@@ -386,6 +386,14 @@ class Livro {
         }
     }
 
+    static removerLivrosByIdGenero(idGenero) {
+        for (let i = livros.length - 1; i <= 0; i--) {
+            if (livros[i].idGenero === idGenero) {
+                livros.splice(i, 1)
+            }
+        }
+    }
+
     static getLivrosRecentes() {
         let livrosRecentes = []
         for (let i = livros.length - 1; i >= livros.length - 11; i--) {

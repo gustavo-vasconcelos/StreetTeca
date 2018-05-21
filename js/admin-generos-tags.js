@@ -3,6 +3,9 @@ window.onload = function () {
     generos = JSON.parse(localStorage.getItem("generos"))
     transformarEmInstanciaGenero(generos)
 
+    livros = JSON.parse(localStorage.getItem("livros"))
+    transformarEmInstanciaLivro(livros)
+
     tags = JSON.parse(localStorage.getItem("tags"))
     transformarEmInstanciaTag(tags)
 
@@ -170,8 +173,10 @@ function gerarTabelaGeneros() {
                     });
                     $("#modal").modal('hide')
                     Genero.removerGeneroById(idGenero)
+                    Livro.removerLivrosByIdGenero(idGenero)
                     //atualiza localstorage
                     localStorage.setItem("generos", JSON.stringify(generos))
+                    localStorage.setItem("livros", JSON.stringify(livros))
 
                     gerarTabelaGeneros()
                 }
