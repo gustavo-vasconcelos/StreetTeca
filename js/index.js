@@ -307,7 +307,7 @@ function gerarTestemunhos() {
     let testemunhosDiv = document.getElementById("testemunhosDiv")
     let str = ""
     let idsAleatorios = Testemunho.getIdTestemunhosAleatorios(4)
-    let count = 1
+    let count
 
     if (idsAleatorios.length >= 4) {
         for (let i in idsAleatorios) {
@@ -323,11 +323,11 @@ function gerarTestemunhos() {
                                     <div class="text-right">${Utilizador.getNomeById(testemunhos[j].id)}</div>
                                 </div>
                             </div>`
-                    count++
                 }
             }
         }
     } else {
+        count = 0
         for (let i in testemunhos) {
             if (testemunhos[i].estado === 1) {
                 str += `<div class="container px-4 testemunho mt-5 col-xl-5 col-lg-10 col-md-10">
@@ -343,6 +343,27 @@ function gerarTestemunhos() {
                 count++
             }
         }
+    }
+
+    function encherString(quantidade) {
+        for (let i = 0; i < quantidade; i++) {
+            str += `<div class="container px-4 testemunho mt-5 col-xl-5 col-lg-10 col-md-10"></div>`
+        }
+    }
+
+    switch (count) {
+        case 0:
+            sencherString(4)
+            break;
+        case 1:
+            encherString(3)
+            break;
+        case 2:
+            encherString(2)
+            break;
+        case 3:
+            encherString(1)
+            break;
     }
 
     testemunhosDiv.innerHTML = str
