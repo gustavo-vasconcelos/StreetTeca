@@ -470,6 +470,28 @@ class Livro {
             }
         }
     }
+
+    static getTitulosByIdGenero(idGenero) {
+        let titulos = []
+        for (let i in livros) {
+            if (livros[i].idGenero === idGenero) {
+                titulos.push(livros[i].titulo)
+            }
+        }
+        return titulos
+    }
+
+    static getTitulosByIdTag(idTag) {
+        let titulos = []
+        for (let i in livros) {
+            for (let j in livros[i].idTags) {
+                if (livros[i].idTags[j] === idTag) {
+                    titulos.push(livros[i].titulo)
+                }
+            }
+        }
+        return titulos
+    }
 }
 
 class Biblioteca {

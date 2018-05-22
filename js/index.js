@@ -198,9 +198,6 @@ window.onload = function () {
     gerarLivrosRecentes()
     gerarLivrosMaisPontuados()
     gerarTestemunhos()
-
-    //alterar o id do livro clicado
-    livroClicado()
 } //fim onload
 
 function gerarLivrosRecentes() {
@@ -245,6 +242,8 @@ function gerarLivrosRecentes() {
 
     }
     recentesDiv.innerHTML = str
+    //alterar o id do livro clicado
+    livroClicado()
 }
 
 function gerarLivrosMaisPontuados() {
@@ -353,7 +352,7 @@ function gerarTestemunhos() {
 
     switch (count) {
         case 0:
-            sencherString(4)
+            encherString(4)
             break;
         case 1:
             encherString(3)

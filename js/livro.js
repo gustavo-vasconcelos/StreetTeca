@@ -40,31 +40,6 @@ window.onload = function () {
                 gerarCabecalho(livros[i].id)
                 //pontuação
                 gerarPontuacaoEstrelas(livros[i].getPontuacaoMedia(), livros[i].id)
-                /*
-                //imagem do livro
-                let capaLivro = document.getElementById("capaLivro")
-                capaLivro.src = livros[i].urlCapa
-
-                //título
-                let tituloLivro = document.getElementById("tituloLivro")
-                tituloLivro.innerHTML = livros[i].titulo
-
-                //autor
-                let autorLivro = document.getElementById("autorLivro")
-                autorLivro.innerHTML = "de " + livros[i].autor.join(", ")
-
-                //pontuação
-                gerarPontuacaoEstrelas(livros[i].getPontuacaoMedia(), livros[i].id)
-
-                //género
-                let generoLivro = document.getElementById("generoLivro")
-                generoLivro.innerHTML = `<h4 class="text-teca4 pull-left">Género:</h4>
-                                        <p class="mt-1">&nbsp;${Genero.getNomeById(livros[i].idGenero)}</p>`
-
-                //tags
-                let tagsLivro = document.getElementById("tagsLivro")
-                tagsLivro.innerHTML = "&nbsp;" + Tag.getNomesByIds(livros[i].idTags).join(", ")
-                */
 
                 //descrição
                 let descricaoLivro = document.getElementById("descricaoLivro")
@@ -77,14 +52,21 @@ window.onload = function () {
                 //info
                 let infoLivro = document.getElementById("infoLivro")
                 let str = '<h4 class="text-teca4">Informações</h4>'
-                str += `<p>Ano: ${livros[i].ano}.</p>
-                        <p>Editora: ${livros[i].editora}.</p>
-                        <p>Páginas: ${livros[i].paginas}.</p>
-                        <p>Estado: ${livros[i].estadoToString()}.</p>
-                        <p>Data de doação: ${livros[i].dataDoacao}.</p>`
+                str += `<div>
+                            <span style="font-weight: 600;">Ano:</span> ${livros[i].ano}.
+                            <br>
+                            <span style="font-weight: 600;">Editora:</span> ${livros[i].editora}.
+                            <br>
+                            <span style="font-weight: 600;">Páginas:</span> ${livros[i].paginas}.
+                            <br>
+                            <span style="font-weight: 600;">Estado:</span> ${livros[i].estadoToString()}.
+                            <br>
+                            <span style="font-weight: 600;">Data de doação:</span> ${livros[i].dataDoacao}.`
                 if (livros[i].idDoador !== -1) {
-                    str += `<p>Doador: ${Utilizador.getNomeById(livros[i].idDoador)}.</p>`
+                    str += `<br>
+                    <span style="font-weight: 600;">Doador:</span> ${Utilizador.getNomeById(livros[i].idDoador)}.`
                 }
+                str += "</div>"
                 infoLivro.innerHTML = str
 
                 //mapa
@@ -155,12 +137,10 @@ function gerarCabecalho(idLivro) {
                         <hr class="bg-teca4">
                         <div class="row">
                             <div class="col-lg-10 col-md-20 col-sm-10 col-20">
-                                <h4 class="text-teca4 pull-left">Género:</h4>
-                                <p class="mt-1">&nbsp;${Genero.getNomeById(livros[i].idGenero)}</p>
+                                <span class="text-teca4" style="font-size: 1.5em; font-weight: 500">Género:</span> ${Genero.getNomeById(livros[i].idGenero)}
                             </div>
                             <div class="col-lg-10 col-md-20 col-sm-10 col-20">
-                                <h4 class="text-teca4 pull-left">Tags:</h4>
-                                <p class="mt-1">&nbsp;${Tag.getNomesByIds(livros[i].idTags).join(", ")}</p>
+                                <span class="text-teca4" style="font-size: 1.5em; font-weight: 500">Tags:</span> ${Tag.getNomesByIds(livros[i].idTags).join(", ")}
                             </div>
                         </div>
                         <hr class="bg-teca4">
@@ -496,8 +476,7 @@ function gerarMapaLivro(idLivro) {
             if (livros[i].id === idLivro) {
                 let marker = new google.maps.Marker({
                     position: new google.maps.LatLng(coordenadas.lat, coordenadas.lng),
-                    //label: bibliotecas[i].id + "",
-                    //title: "Biblioteca " + bibliotecas[i].id,
+                    title: "Biblioteca",
                     animation: google.maps.Animation.DROP
                 })
 
@@ -579,6 +558,7 @@ function gerarMapaLivro(idLivro) {
                                     break;
                             }
 
+
                             if (continuar) {
                                 navigator.geolocation.watchPosition(function (position) {
                                     // Associa as direções ao mapa
@@ -601,38 +581,16 @@ function gerarMapaLivro(idLivro) {
                                         if (status == google.maps.DirectionsStatus.OK) {
                                             // Exibe a rota no mapa
                                             directionsDisplay.setDirections(response);
+                                            percurso.style.display = "none"
                                         }
                                     })
                                 }, function (error) {
                                     if (error.code == error.PERMISSION_DENIED)
-                                        console.log("you denied me :-(");
+                                        swal("Habilitar localização!", "Para que possamos calcular o percurso ideal, habilite a localização. Caso esteja com problemas limpe os dados de navegação do browser.", "error")
                                 });
-
-                                percurso.style.display = "none"
                             }
                         });
                     })
-
-                    /*
-                    //btn remover biblioteca
-                    document.getElementById(`removerBiblioteca${bibliotecas[i].id}`).addEventListener("click", function () {
-                        swal({
-                            title: "Deseja mesmo remover?",
-                            text: `A biblioteca cujo id é ${idBiblioteca} será removida para sempre!`,
-                            icon: "warning",
-                            buttons: true,
-                            dangerMode: true,
-                        }).then((willDelete) => {
-                            if (willDelete) {
-                                swal(`A biblioteca cujo id era ${idBiblioteca} foi removida com sucesso.`, {
-                                    icon: "success",
-                                });
-        
-                                Biblioteca.removerBibliotecaById(idBiblioteca)
-                                localStorage.setItem("bibliotecas", JSON.stringify(bibliotecas))
-                                gerarMapaBibliotecas()
-                            }
-                        });*/
                 })
             }
         }
@@ -678,7 +636,7 @@ function gerarLivrosGenero(idGenero, idLivro) {
     let existir = false
     let ids = Livro.getIdsAleatoriosByIdGeneroIdTags(idGenero, Livro.getIdTagsById(idLivro))
     //remove o id do livro em questão do array ids, caso este esteja lá
-    if(ids.indexOf(idLivro) !== -1) {
+    if (ids.indexOf(idLivro) !== -1) {
         ids.splice(ids.indexOf(idLivro), 1)
     }
     ids.length = 4

@@ -308,7 +308,8 @@ function gerarTabelaLivros() {
                         <th>#</th>
                         <th>Título</th>
                         <th>ID biblioteca</th>
-                        <th>Estado</th>
+                        <th>Género</th>
+                        <th>Tags</th>
                         <th>Data de doação</th>                        
                         <th></th>
                     </tr>
@@ -321,7 +322,8 @@ function gerarTabelaLivros() {
                     <td>${count}</td>
                     <td>${livros[i].titulo}</td>
                     <td>${livros[i].idBiblioteca}</td>
-                    <td>${livros[i].estadoToString()}</td>
+                    <td>${Genero.getNomeById(livros[i].idGenero)}</td>
+                    <td>${Tag.getNomesByIds(livros[i].idTags).join(", ")}</td>
                     <td>${livros[i].dataDoacao}</td>                    
                     <td align="right">
                         <button type="button" class="btn btn-primary infoLivro" data-toggle="modal" data-target="#modal"><i class="fa fa-search"></i></button>

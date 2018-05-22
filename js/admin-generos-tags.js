@@ -49,7 +49,7 @@ window.onload = function () {
     let btnResetTags = document.getElementById("btnResetTags")
 
     formTag.addEventListener("submit", function (event) {
-        if(inputTagNome.value.indexOf(" ") !== -1) {
+        if (inputTagNome.value.indexOf(" ") !== -1) {
             swal("Erro!", "Uma tag deve ser constituída por apenas uma palavra.", "error")
         } else {
             if (Tag.getIdByNome(inputTagNome.value) !== -1) {
@@ -62,7 +62,7 @@ window.onload = function () {
                 gerarTabelaTags()
             }
         }
-            
+
         event.preventDefault()
     })
 
@@ -133,8 +133,8 @@ function gerarTabelaGeneros() {
 
                     //form editar
                     let formGeneroEditar = document.getElementById("formGeneroEditar")
-                    let inputGeneroEditarNome = document.getElementById("inputGeneroEditarNome")                    
-                    formGeneroEditar.addEventListener("submit", function(event) {
+                    let inputGeneroEditarNome = document.getElementById("inputGeneroEditarNome")
+                    formGeneroEditar.addEventListener("submit", function (event) {
                         if (Genero.getIdByNome(inputGeneroEditarNome.value) === -1 || (Genero.getIdByNome(inputGeneroEditarNome.value) === generos[j].id && Genero.getIdByNome(inputGeneroEditarNome.value) !== -1)) { //caso não exista nenhum género com o nome indicado
                             generos[j].nome = inputGeneroEditarNome.value
 
@@ -158,29 +158,36 @@ function gerarTabelaGeneros() {
     //btn remover género
     let btnRemoverGenero = document.getElementsByClassName("removerGenero")
     for (let i = 0; i < btnRemoverGenero.length; i++) {
-        btnRemoverGenero[i].addEventListener("click", function() {
+        btnRemoverGenero[i].addEventListener("click", function () {
             let idGenero = parseInt(btnRemoverGenero[i].parentNode.parentNode.id)
-            swal({
-                title: "Deseja mesmo remover?",
-                text: `O género ${Genero.getNomeById(idGenero)} será removido para sempre!`,
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            }).then((willDelete) => {
-                if (willDelete) {
-                    swal(`O género ${Genero.getNomeById(idGenero)} foi removido com sucesso.`, {
-                        icon: "success",
-                    });
-                    $("#modal").modal('hide')
-                    Genero.removerGeneroById(idGenero)
-                    Livro.removerLivrosByIdGenero(idGenero)
-                    //atualiza localstorage
-                    localStorage.setItem("generos", JSON.stringify(generos))
-                    localStorage.setItem("livros", JSON.stringify(livros))
+            let livrosDependentes = Livro.getTitulosByIdGenero(idGenero)
+            if (livrosDependentes.length === 0) {
+                swal({
+                    title: "Deseja mesmo remover?",
+                    text: `O género ${Genero.getNomeById(idGenero)} será removido para sempre!`,
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        swal(`O género ${Genero.getNomeById(idGenero)} foi removido com sucesso.`, {
+                            icon: "success",
+                        });
+                        $("#modal").modal('hide')
+                        Genero.removerGeneroById(idGenero)
+                        Livro.removerLivrosByIdGenero(idGenero)
+                        //atualiza localstorage
+                        localStorage.setItem("generos", JSON.stringify(generos))
+                        localStorage.setItem("livros", JSON.stringify(livros))
 
-                    gerarTabelaGeneros()
-                }
-            });
+                        gerarTabelaGeneros()
+                    }
+                });
+            } else {
+                let palavras = (livrosDependentes.length === 1) ? ["Existe ", " livro", ". Remova o livro em questão ou altere o género deste."] : ["Existem ", " livros", ". Remova os livros em questão ou altere o género destes."]
+                swal("Impossível remover!", `${palavras[0] + livrosDependentes.length + palavras[1]} com o género ${Genero.getNomeById(idGenero)}: ${livrosDependentes.join(", ") + palavras[2]}`, "error")
+            }
+
         })
     }
 }
@@ -246,8 +253,8 @@ function gerarTabelaTags() {
 
                     //form editar
                     let formTagEditar = document.getElementById("formTagEditar")
-                    let inputTagEditarNome = document.getElementById("inputTagEditarNome")                    
-                    formTagEditar.addEventListener("submit", function(event) {
+                    let inputTagEditarNome = document.getElementById("inputTagEditarNome")
+                    formTagEditar.addEventListener("submit", function (event) {
                         if (Tag.getIdByNome(inputTagEditarNome.value) === -1 || (Tag.getIdByNome(inputTagEditarNome.value) === tags[j].id && Tag.getIdByNome(inputTagEditarNome.value) !== -1)) { //caso não exista nenhuma tag com o nome indicado
                             tags[j].nome = inputTagEditarNome.value
 
@@ -271,27 +278,34 @@ function gerarTabelaTags() {
     //btn remover tag
     let btnRemoverTag = document.getElementsByClassName("removerTag")
     for (let i = 0; i < btnRemoverTag.length; i++) {
-        btnRemoverTag[i].addEventListener("click", function() {
+        btnRemoverTag[i].addEventListener("click", function () {
             let idTag = parseInt(btnRemoverTag[i].parentNode.parentNode.id)
-            swal({
-                title: "Deseja mesmo remover?",
-                text: `A tag ${Tag.getNomeById(idTag)} será removida para sempre!`,
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            }).then((willDelete) => {
-                if (willDelete) {
-                    swal(`A tag ${Tag.getNomeById(idTag)} foi removida com sucesso.`, {
-                        icon: "success",
-                    });
-                    $("#modal").modal('hide')
-                    Tag.removerTagById(idTag)
-                    //atualiza localstorage
-                    localStorage.setItem("tags", JSON.stringify(tags))
+            let livrosDependentes = Livro.getTitulosByIdTag(idTag)
+            if (livrosDependentes.length === 0) {
+                swal({
+                    title: "Deseja mesmo remover?",
+                    text: `A tag ${Tag.getNomeById(idTag)} será removida para sempre!`,
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        swal(`A tag ${Tag.getNomeById(idTag)} foi removida com sucesso.`, {
+                            icon: "success",
+                        });
+                        $("#modal").modal('hide')
+                        Tag.removerTagById(idTag)
+                        //atualiza localstorage
+                        localStorage.setItem("tags", JSON.stringify(tags))
 
-                    gerarTabelaTags()
-                }
-            });
+                        gerarTabelaTags()
+                    }
+                });
+            } else {
+                let palavras = (livrosDependentes.length === 1) ? ["Existe ", " livro", ". Remova o livro em questão ou altere a(s) tag(s) deste."] : ["Existem ", " livros", ". Remova os livro em questão ou altere a(s) tag(s) destes."]
+                swal("Impossível remover!", `${palavras[0] + livrosDependentes.length + palavras[1]} com o género ${Tag.getNomeById(idTag)}: ${livrosDependentes.join(", ") + palavras[2]}`, "error")
+            }
+
         })
     }
 }
