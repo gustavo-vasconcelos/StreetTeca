@@ -671,7 +671,7 @@ function gerarLivrosGenero(idGenero, idLivro) {
     }
 }
 
-function spawnNotification(titulo, corpo, imagem) {
+function notificar(titulo, corpo, imagem) {
     let opcoes = {
         body: corpo,
         icon: imagem,
