@@ -670,3 +670,19 @@ function gerarLivrosGenero(idGenero, idLivro) {
         document.getElementById("relacionados").innerHTML = str
     }
 }
+
+function spawnNotification(titulo, corpo, imagem) {
+    let opcoes = {
+        body: corpo,
+        icon: imagem,
+        vibrate: [200, 100, 200]
+    }
+
+    let n = new Notification(titulo, opcoes);
+
+    n.onclick = function (event) {
+        event.preventDefault(); // prevent the browser from focusing the Notification's tab
+        window.open('http://www.mozilla.org', '_blank');
+        n.close()
+    }
+}
