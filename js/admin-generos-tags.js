@@ -184,8 +184,8 @@ function gerarTabelaGeneros() {
                     }
                 });
             } else {
-                let palavras = (livrosDependentes.length === 1) ? ["Existe ", " livro", ". Remova o livro em questão ou altere o género deste."] : ["Existem ", " livros", ". Remova os livros em questão ou altere o género destes."]
-                swal("Impossível remover!", `${palavras[0] + livrosDependentes.length + palavras[1]} com o género ${Genero.getNomeById(idGenero)}: ${livrosDependentes.join(", ") + palavras[2]}`, "error")
+                let palavras = (livrosDependentes.length === 1) ? ["Existe ", " livro", "Remova o livro em questão ou altere o género deste."] : ["Existem ", " livros", "Remova os livros em questão ou altere o género destes."]
+                swal("Impossível remover!", `${palavras[0] + livrosDependentes.length + palavras[1]} com o género ${Genero.getNomeById(idGenero)}:\n${livrosDependentes.join(", ")}.\n\n${palavras[2]}`, "error")
             }
 
         })
@@ -302,8 +302,8 @@ function gerarTabelaTags() {
                     }
                 });
             } else {
-                let palavras = (livrosDependentes.length === 1) ? ["Existe ", " livro", ". Remova o livro em questão ou altere a(s) tag(s) deste."] : ["Existem ", " livros", ". Remova os livro em questão ou altere a(s) tag(s) destes."]
-                swal("Impossível remover!", `${palavras[0] + livrosDependentes.length + palavras[1]} com o género ${Tag.getNomeById(idTag)}: ${livrosDependentes.join(", ") + palavras[2]}`, "error")
+                let palavras = (livrosDependentes.length === 1) ? ["Existe ", " livro", "Remova o livro em questão ou altere a(s) tag(s) deste."] : ["Existem ", " livros", "Remova os livro em questão ou altere a(s) tag(s) destes."]
+                swal("Impossível remover!", `${palavras[0] + livrosDependentes.length + palavras[1]} com o género ${Tag.getNomeById(idTag)}:\n${livrosDependentes.join(", ")}.\n\n${palavras[2]}`, "error")
             }
 
         })

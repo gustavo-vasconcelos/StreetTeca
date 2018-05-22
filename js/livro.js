@@ -586,7 +586,7 @@ function gerarMapaLivro(idLivro) {
                                     })
                                 }, function (error) {
                                     if (error.code == error.PERMISSION_DENIED)
-                                        swal("Habilitar localização!", "Para que possamos calcular o percurso ideal, habilite a localização. Caso esteja com problemas limpe os dados de navegação do browser.", "error")
+                                        swal("Habilitar localização!", "Para que possamos calcular o percurso ideal, habilite a localização.\nCaso o problema persista, limpe os dados de navegação do seu navegador.", "error")
                                 });
                             }
                         });
