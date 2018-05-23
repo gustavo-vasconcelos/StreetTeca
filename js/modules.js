@@ -81,10 +81,15 @@ class Utilizador {
     }
 
     static getTipoAcessoById(id) {
-        for (let i in utilizadores) {
-            if (utilizadores[i].id === id) {
-                return utilizadores[i].tipoAcesso
+        if (id !== -1) {
+            for (let i in utilizadores) {
+                if (utilizadores[i].id === id) {
+                    return utilizadores[i].tipoAcesso
+                }
             }
+        } 
+        if(id === -1) {
+            return 2
         }
     }
 
@@ -1640,6 +1645,7 @@ function atualizarFotoNome() {
 function gerarMenu(tipoAcesso, menuAtivo) {
     let str = ""
     //utilizador
+    console.log(tipoAcesso)
     if (tipoAcesso === 2) {
         window.location.href = '../index.html'
     } else if (tipoAcesso === 1) { //operador
@@ -1700,34 +1706,37 @@ function gerarMenu(tipoAcesso, menuAtivo) {
                 </li>`
     }
 
-    document.getElementById("menu").innerHTML = str    
+    document.getElementById("menu").innerHTML = str
 
-    switch (menuAtivo) {
-        case "inicioMenu":
-            document.getElementById("inicioMenu").className = "active"
-            break;
-        case "utilizadoresMenu":
-            document.getElementById("utilizadoresMenu").className = "active"
-            break;
-        case "bibliotecasMenu":
-            document.getElementById("bibliotecasMenu").className = "active"
-            break;
-        case "generos-tagsMenu":
-            document.getElementById("generos-tagsMenu").className = "active"
-            break;
-        case "livrosMenu":
-            document.getElementById("livrosMenu").className = "active"
-            break;
-        case "comentariosMenu":
-            document.getElementById("comentariosMenu").className = "active"
-            break;
-        case "testemunhosMenu":
-            document.getElementById("testemunhosMenu").className = "active"
-            break;
-        case "configuracoesMenu":
-            document.getElementById("configuracoesMenu").className = "active"
-            break;
-        default:
-            break;
+    if (idUtilizadorLogado !== -1) {
+        switch (menuAtivo) {
+            case "inicioMenu":
+                document.getElementById("inicioMenu").className = "active"
+                break;
+            case "utilizadoresMenu":
+                document.getElementById("utilizadoresMenu").className = "active"
+                break;
+            case "bibliotecasMenu":
+                document.getElementById("bibliotecasMenu").className = "active"
+                break;
+            case "generos-tagsMenu":
+                document.getElementById("generos-tagsMenu").className = "active"
+                break;
+            case "livrosMenu":
+                document.getElementById("livrosMenu").className = "active"
+                break;
+            case "comentariosMenu":
+                document.getElementById("comentariosMenu").className = "active"
+                break;
+            case "testemunhosMenu":
+                document.getElementById("testemunhosMenu").className = "active"
+                break;
+            case "configuracoesMenu":
+                document.getElementById("configuracoesMenu").className = "active"
+                break;
+            default:
+                break;
+        }
+
     }
 }
