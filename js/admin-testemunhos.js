@@ -8,6 +8,9 @@ window.onload = function () {
     //atualiza as informações do utilizador logado
     atualizarFotoNome()
 
+    //menu
+    gerarMenu(Utilizador.getTipoAcessoById(idUtilizadorLogado), "testemunhosMenu")
+
     //gerar tabelas
     gerarTabelaPendentes()
     gerarTabelaTestemunhos()

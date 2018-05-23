@@ -1624,7 +1624,6 @@ function btnMenu() {
 }
 
 
-
 /*
     PAINEL ADMIN
 */
@@ -1636,4 +1635,99 @@ function atualizarFotoNome() {
     //foto utilizador logado
     let fotoUtilizadorLogado = document.getElementById("fotoUtilizadorLogado")
     fotoUtilizadorLogado.src = "../" + Utilizador.getUrlFotoById(idUtilizadorLogado)
+}
+
+function gerarMenu(tipoAcesso, menuAtivo) {
+    let str = ""
+    //utilizador
+    if (tipoAcesso === 2) {
+        window.location.href = '../index.html'
+    } else if (tipoAcesso === 1) { //operador
+        let url = window.location.href
+        if (url.substr(url.length - 10, 11) === "index.html" || url.substr(url.length - 11, 11) === "livros.html") {
+            str += `<li id="inicioMenu">
+                        <a href="index.html">
+                            <em class="fa fa-dashboard">&nbsp;</em> Início</a>
+                    </li>
+                    <li id="livrosMenu">
+                        <a href="livros.html">
+                            <em class="fa fa-book">&nbsp;</em> Livros</a>
+                    </li>
+                    <li id="paginaInicialMenu">
+                        <a href="../index.html">
+                            <em class="fa fa-home">&nbsp;</em> Página inicial</a>
+                    </li>`
+        } else {
+            window.location.href = 'index.html'
+        }
+    } else if (tipoAcesso === 0) { //admin
+        str += `<li id="inicioMenu">
+                    <a href="index.html">
+                        <em class="fa fa-dashboard">&nbsp;</em> Início</a>
+                </li>
+                <li id="utilizadoresMenu">
+                    <a href="utilizadores.html">
+                        <em class="fa fa-user">&nbsp;</em> Utilizadores</a>
+                </li>
+                <li id="bibliotecasMenu">
+                    <a href="bibliotecas.html">
+                        <em class="fa fa-map-marker">&nbsp;</em> Bibliotecas</a>
+                </li>
+                <li id="generos-tagsMenu">
+                    <a href="generos-tags.html">
+                        <em class="fa fa-list-alt">&nbsp;</em> Géneros &nbsp; & &nbsp;&nbsp;
+                        <em class="fa fa-tags">&nbsp;</em> Tags</a>
+                </li>
+                <li id="livrosMenu">
+                    <a href="livros.html">
+                        <em class="fa fa-book">&nbsp;</em> Livros</a>
+                </li>
+                <li id="comentariosMenu">
+                    <a href="comentarios.html">
+                        <em class="fa fa-comments">&nbsp;</em> Comentários</a>
+                </li>
+                <li id="testemunhosMenu">
+                    <a href="testemunhos.html">
+                        <em class="fa fa-quote-right">&nbsp;</em> Testemunhos</a>
+                </li>
+                <li id="configuracoesMenu">
+                    <a href="configuracoes.html">
+                        <em class="fa fa-cog">&nbsp;</em> Configurações</a>
+                </li>
+                <li id="paginaInicialMenu">
+                    <a href="../index.html">
+                        <em class="fa fa-home">&nbsp;</em> Página inicial</a>
+                </li>`
+    }
+
+    document.getElementById("menu").innerHTML = str    
+
+    switch (menuAtivo) {
+        case "inicioMenu":
+            document.getElementById("inicioMenu").className = "active"
+            break;
+        case "utilizadoresMenu":
+            document.getElementById("utilizadoresMenu").className = "active"
+            break;
+        case "bibliotecasMenu":
+            document.getElementById("bibliotecasMenu").className = "active"
+            break;
+        case "generos-tagsMenu":
+            document.getElementById("generos-tagsMenu").className = "active"
+            break;
+        case "livrosMenu":
+            document.getElementById("livrosMenu").className = "active"
+            break;
+        case "comentariosMenu":
+            document.getElementById("comentariosMenu").className = "active"
+            break;
+        case "testemunhosMenu":
+            document.getElementById("testemunhosMenu").className = "active"
+            break;
+        case "configuracoesMenu":
+            document.getElementById("configuracoesMenu").className = "active"
+            break;
+        default:
+            break;
+    }
 }

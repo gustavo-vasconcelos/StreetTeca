@@ -7,6 +7,9 @@ window.onload = function () {
     //atualiza as informações do utilizador logado
     atualizarFotoNome()
 
+    //menu
+    gerarMenu(Utilizador.getTipoAcessoById(idUtilizadorLogado), "utilizadoresMenu")
+
     //atualiza as percentagens de utilizadores
     atualizarPercentagens()
 

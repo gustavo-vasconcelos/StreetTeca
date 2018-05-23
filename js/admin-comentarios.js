@@ -11,6 +11,9 @@ window.onload = function () {
 	//atualiza as informações do utilizador logado
 	atualizarFotoNome()
 
+	//menu
+    gerarMenu(Utilizador.getTipoAcessoById(idUtilizadorLogado), "comentariosMenu")
+
 	//gera a tabela
 	gerarTabelaComentarios()
 

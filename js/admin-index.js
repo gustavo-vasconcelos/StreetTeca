@@ -27,6 +27,9 @@ window.onload = function () {
     //atualiza as informações do utilizador logado
     atualizarFotoNome()
 
+    //menu
+    gerarMenu(Utilizador.getTipoAcessoById(idUtilizadorLogado), "inicioMenu")
+
     //atualizar os valores
     let quantidadeUtilizadores = document.getElementById("quantidadeUtilizadores")
     let quantidadeBibliotecas = document.getElementById("quantidadeBibliotecas")

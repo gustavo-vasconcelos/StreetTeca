@@ -6,6 +6,9 @@ window.onload = function () {
     //atualiza as informações do utilizador logado
     atualizarFotoNome()
 
+    //menu
+    gerarMenu(Utilizador.getTipoAcessoById(idUtilizadorLogado), "configuracoesMenu")
+
     atualizarValores()
 
     let btnEditar = document.getElementById("btnEditar")

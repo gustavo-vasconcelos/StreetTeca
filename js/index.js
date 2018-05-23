@@ -125,7 +125,10 @@ window.onload = function () {
     let formLogin = document.getElementById("formLogin")
     let loginInputEmail = document.getElementById("loginInputEmail")
     let loginInputPassword = document.getElementById("loginInputPassword")
-
+    let btnLogin = document.getElementById("btnLogin")
+    let areaUtilizador = document.getElementById("areaUtilizador")
+    let btnPainelAdmin = document.getElementById("btnPainelAdmin")
+    
     formLogin.addEventListener("submit", function (event) {
         let idUtilizador = Utilizador.getIdByEmail(loginInputEmail.value)
         let erro = false
@@ -139,7 +142,7 @@ window.onload = function () {
 
                 areaUtilizador.style.display = "inline"
 
-                if (Utilizador.getTipoAcessoById(idUtilizadorLogado) === 0) {
+                if (Utilizador.getTipoAcessoById(idUtilizadorLogado) !== 2) {
                     btnPainelAdmin.style.display = "inline"
                 }
 
