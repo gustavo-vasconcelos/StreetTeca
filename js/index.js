@@ -297,12 +297,13 @@ function gerarLivrosMaisPontuados() {
                                 </div>
                             </div>`
                 }
-
                 count++
             }
         }
     }
     maisPontuadosDiv.innerHTML = str
+    //alterar o id do livro clicado
+    livroClicado()
 }
 
 function gerarTestemunhos() {

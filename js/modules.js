@@ -1645,8 +1645,8 @@ function atualizarFotoNome() {
 function gerarMenu(tipoAcesso, menuAtivo) {
     let str = ""
     //utilizador
-    console.log(tipoAcesso)
-    if (tipoAcesso === 2) {
+    if (idUtilizadorLogado === -1 || tipoAcesso === 2) {
+        document.getElementsByTagName("body")[0].innerHTML = ""
         window.location.href = '../index.html'
     } else if (tipoAcesso === 1) { //operador
         let url = window.location.href
@@ -1664,6 +1664,7 @@ function gerarMenu(tipoAcesso, menuAtivo) {
                             <em class="fa fa-home">&nbsp;</em> Página inicial</a>
                     </li>`
         } else {
+            document.getElementsByTagName("body")[0].innerHTML = ""
             window.location.href = 'index.html'
         }
     } else if (tipoAcesso === 0) { //admin

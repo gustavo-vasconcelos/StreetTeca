@@ -107,6 +107,7 @@ window.onload = function () {
             }, 1000)
         })
     } else {
+        document.getElementsByTagName("body")[0].innerHTML = ""        
         window.location.href = 'index.html'
     }
 
