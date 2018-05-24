@@ -614,7 +614,7 @@ function gerarComentarios(idLivro) {
         if (comentarios[i].idLivro === idLivro) {
             str += `<div class="mt-3 col-xl-5 col-md-6 col-sm-10 col-20">
                         <div class="foto-comentario pull-left">
-                            <img src="${Utilizador.getUrlFotoById(comentarios[i].idUtilizador)}" width="50px" height="50px">
+                            <img src="../${Utilizador.getUrlFotoById(comentarios[i].idUtilizador)}" width="50px" height="50px">
                         </div>
                         <div>&nbsp;${Utilizador.getPrimeiroUltimoNomeById(comentarios[i].idUtilizador)}</div>
                         <div>&nbsp;`
@@ -692,7 +692,7 @@ function notificar(titulo, corpo, imagem) {
         n.onclick = function (event) {
             event.preventDefault(); // prevent the browser from focusing the Notification's tab
             localStorage.setItem("idLivroClicado", 1)
-            window.open('livro.html');
+            window.open('livro.html', "_self");
             n.close()
         }
     });
