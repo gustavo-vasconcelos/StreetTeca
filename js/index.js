@@ -229,7 +229,7 @@ function gerarLivrosRecentes() {
             str += `<div class="col-xl-4 col-lg-5 col-sm-6 col-10 mt-4 livro-recente">
                         <figure>
                             <div class="livro-card">
-                                <a href="livro.html" data-toggle="modal" data-target="#modalLogin"><img class="img-fluid" src="${livrosRecentes[i].urlCapa}"></a>
+                                <a href="" data-toggle="modal" data-target="#modalLogin"><img class="img-fluid" src="${livrosRecentes[i].urlCapa}"></a>
                             </div>
                             <figcaption class="px-2">
                                 <div>

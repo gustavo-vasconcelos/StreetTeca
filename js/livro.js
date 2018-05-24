@@ -34,7 +34,7 @@ window.onload = function () {
     let btnPainelAdmin = document.getElementById("btnPainelAdmin")
 
     if (idUtilizadorLogado !== -1) {
-        if(Utilizador.getTipoAcessoById(idUtilizadorLogado) !== 2) {
+        if (Utilizador.getTipoAcessoById(idUtilizadorLogado) !== 2) {
             btnPainelAdmin.style.display = "inline"
         } else {
             btnPainelAdmin.style.display = "none"
@@ -107,7 +107,7 @@ window.onload = function () {
             }, 1000)
         })
     } else {
-        document.getElementsByTagName("body")[0].innerHTML = ""        
+        document.getElementsByTagName("body")[0].innerHTML = ""
         window.location.href = 'index.html'
     }
 
@@ -680,17 +680,47 @@ function gerarLivrosGenero(idGenero, idLivro) {
 }
 
 function notificar(titulo, corpo, imagem) {
-    let opcoes = {
-        body: corpo,
-        icon: imagem,
-        vibrate: [200, 100, 200]
-    }
+    Notification.requestPermission().then(function (result) {
+        let opcoes = {
+            body: corpo,
+            icon: imagem,
+            vibrate: [200, 100, 200]
+        }
 
-    let n = new Notification(titulo, opcoes);
+        let n = new Notification(titulo, opcoes);
 
-    n.onclick = function (event) {
-        event.preventDefault(); // prevent the browser from focusing the Notification's tab
-        window.open('http://www.mozilla.org', '_blank');
-        n.close()
-    }
+        n.onclick = function (event) {
+            event.preventDefault(); // prevent the browser from focusing the Notification's tab
+            localStorage.setItem("idLivroClicado", 1)
+            window.open('livro.html');
+            n.close()
+        }
+    });
+
 }
+/*
+function notifyMe() {
+    // Let's check if the browser supports notifications
+    if (!("Notification" in window)) {
+        alert("This browser does not support desktop notification");
+    }
+
+    // Let's check whether notification permissions have already been granted
+    else if (Notification.permission === "granted") {
+        // If it's okay let's create a notification
+        var notification = new Notification("Hi there!");
+    }
+
+    // Otherwise, we need to ask the user for permission
+    else if (Notification.permission !== "denied") {
+        Notification.requestPermission(function (permission) {
+            // If the user accepts, let's create a notification
+            if (permission === "granted") {
+                var notification = new Notification("Hi there!");
+            }
+        });
+    }
+
+    // At last, if the user has denied notifications, and you 
+    // want to be respectful there is no need to bother them any more.
+}*/
