@@ -1224,7 +1224,6 @@ function livroClicado() {
     for (let i = 0; i < clicarLivro.length; i++) {
         clicarLivro[i].addEventListener("click", function () {
             idLivroClicado = parseInt(clicarLivro[i].id.replace(/livro/g, ""))
-            console.log(idLivroClicado)
             localStorage.setItem("idLivroClicado", parseInt(clicarLivro[i].id.replace(/livro/g, "")))
         })
     }
@@ -1497,6 +1496,11 @@ function navbar() {
     } else {
         btnLogin.style.display = "none"
     }
+}
+
+function clicarCatalogo() {
+    let catalogo = document.getElementById("catalogo")
+    catalogo.innerHTML = (idUtilizadorLogado === -1) ? '<a class="nav-link js-scroll-trigger menu-icon-trigger" href="" data-toggle="modal" data-target="#modalLogin">Catálogo</a>' : '<a class="nav-link js-scroll-trigger menu-icon-trigger" href="content/catalogo.html">Catálogo</a>'
 }
 
 /*

@@ -86,6 +86,8 @@ window.onload = function () {
 
     navbar()
 
+    clicarCatalogo()
+    
     //efetuar registo
     let formRegisto = document.getElementById("formRegisto")
     let registoInputNome = document.getElementById("registoInputNome")
@@ -128,7 +130,7 @@ window.onload = function () {
     let btnLogin = document.getElementById("btnLogin")
     let areaUtilizador = document.getElementById("areaUtilizador")
     let btnPainelAdmin = document.getElementById("btnPainelAdmin")
-    
+
     formLogin.addEventListener("submit", function (event) {
         let idUtilizador = Utilizador.getIdByEmail(loginInputEmail.value)
         let erro = false
@@ -154,6 +156,7 @@ window.onload = function () {
                     timer: 1000,
                 });
                 $("#modalLogin").modal("hide")
+                clicarCatalogo()
                 gerarLivrosRecentes()
                 gerarLivrosMaisPontuados()
             } else {
@@ -191,6 +194,8 @@ window.onload = function () {
         btnPainelAdmin.style.display = "none"
         areaUtilizador.style.display = "none"
         btnLogin.style.display = "inline"
+
+        clicarCatalogo()
 
         gerarLivrosRecentes()
         gerarLivrosMaisPontuados()
