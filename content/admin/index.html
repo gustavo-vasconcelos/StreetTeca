@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+	<title>StreetTeca - Painel de Controlo</title>
+	<link href="../../css/admin/bootstrap.css" rel="stylesheet">
+	<link href="../../css/admin/font-awesome.min.css" rel="stylesheet">
+	<link href="../../css/admin/styles.css" rel="stylesheet">
+	<!--Custom Font-->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+</head>
+
+<body>
+	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+		<div class="profile-sidebar">
+			<div class="profile-userpic">
+				<img src="../../img/perfil.png" class="img-responsive" id="fotoUtilizadorLogado">
+			</div>
+			<div class="profile-usertitle">
+				<div class="profile-usertitle-name" id="nomeUtilizadorLogado"></div>
+				<div class="profile-usertitle-status">
+					<span class="indicator label-success"></span>Online</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="divider"></div>
+		<ul class="nav menu" id="menu"></ul>
+	</div>
+	<!--/.sidebar-->
+
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Início</h1>
+			</div>
+		</div>
+		<!--/.row-->
+
+		<div class="panel panel-container">
+			<div class="row">
+				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+					<div class="panel panel-orange panel-widget border-right">
+						<div class="row no-padding">
+							<em class="fa fa-xl fa-users color-teal"></em>
+							<div class="large" id="quantidadeUtilizadores"></div>
+							<div class="text-muted">Utilizadores</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+					<div class="panel panel-teal panel-widget border-right">
+						<div class="row no-padding">
+							<em class="fa fa-xl fa-map-marker color-blue"></em>
+							<div class="large" id="quantidadeBibliotecas"></div>
+							<div class="text-muted">Bibliotecas</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+					<div class="panel panel-teal panel-widget border-right">
+						<div class="row no-padding">
+							<em class="fa fa-xl fa-book color-blue"></em>
+							<div class="large" id="quantidadeLivros"></div>
+							<div class="text-muted">Livros</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+					<div class="panel panel-red panel-widget">
+						<div class="row no-padding">
+							<em class="fa fa-xl fa-list-alt color-red"></em>
+							<div class="large" id="quantidadeGeneros"></div>
+							<div class="text-muted">Géneros</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+					<div class="panel panel-red panel-widget border-right">
+						<div class="row no-padding">
+							<em class="fa fa-xl fa-tags color-red"></em>
+							<div class="large" id="quantidadeTags"></div>
+							<div class="text-muted">Tags</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+					<div class="panel panel-blue panel-widget border-right">
+						<div class="row no-padding">
+							<em class="fa fa-xl fa-comments color-orange"></em>
+							<div class="large" id="quantidadeComentarios"></div>
+							<div class="text-muted">Comentários & Pontuações</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+					<div class="panel panel-blue panel-widget border-right">
+						<div class="row no-padding">
+							<em class="fa fa-xl fa-quote-right color-orange"></em>
+							<div class="large" id="quantidadeTestemunhos"></div>
+							<div class="text-muted">Testemunhos</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+					<div class="panel panel-blue panel-widget">
+						<div class="row no-padding">
+							<em class="fa fa-xl fa-archive color-orange"></em>
+							<div class="large" id="quantidadeRequisicoes"></div>
+							<div class="text-muted">Requisições</div>
+						</div>
+					</div>
+				</div>
+
+
+
+			</div>
+			<!--/.row-->
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-default articles">
+					<div class="panel-heading">
+						Latest News
+						<ul class="pull-right panel-settings panel-button-tab-right">
+							<li class="dropdown">
+								<a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
+									<em class="fa fa-cogs"></em>
+								</a>
+								<ul class="dropdown-menu dropdown-menu-right">
+									<li>
+										<ul class="dropdown-settings">
+											<li>
+												<a href="#">
+													<em class="fa fa-cog"></em> Settings 1
+												</a>
+											</li>
+											<li class="divider"></li>
+											<li>
+												<a href="#">
+													<em class="fa fa-cog"></em> Settings 2
+												</a>
+											</li>
+											<li class="divider"></li>
+											<li>
+												<a href="#">
+													<em class="fa fa-cog"></em> Settings 3
+												</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<span class="pull-right clickable panel-toggle panel-button-tab-left">
+							<em class="fa fa-toggle-up"></em>
+						</span>
+					</div>
+					<div class="panel-body articles-container">
+						<div class="article border-bottom">
+							<div class="col-xs-12">
+								<div class="row">
+									<div class="col-xs-2 col-md-2 date">
+										<div class="large">30</div>
+										<div class="text-muted">Jun</div>
+									</div>
+									<div class="col-xs-10 col-md-10">
+										<h4>
+											<a href="#">Lorem ipsum dolor sit amet</a>
+										</h4>
+										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus
+											finibus feugiat.</p>
+									</div>
+								</div>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<!--End .article-->
+
+						<div class="article border-bottom">
+							<div class="col-xs-12">
+								<div class="row">
+									<div class="col-xs-2 col-md-2 date">
+										<div class="large">28</div>
+										<div class="text-muted">Jun</div>
+									</div>
+									<div class="col-xs-10 col-md-10">
+										<h4>
+											<a href="#">Lorem ipsum dolor sit amet</a>
+										</h4>
+										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus
+											finibus feugiat.</p>
+									</div>
+								</div>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<!--End .article-->
+
+						<div class="article">
+							<div class="col-xs-12">
+								<div class="row">
+									<div class="col-xs-2 col-md-2 date">
+										<div class="large">24</div>
+										<div class="text-muted">Jun</div>
+									</div>
+									<div class="col-xs-10 col-md-10">
+										<h4>
+											<a href="#">Lorem ipsum dolor sit amet</a>
+										</h4>
+										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus
+											finibus feugiat.</p>
+									</div>
+								</div>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<!--End .article-->
+					</div>
+				</div>
+				<!--End .articles-->
+
+			</div>
+			<!--/.col-->
+
+			<div class="col-md-6">
+				<div class="panel panel-default ">
+					<div class="panel-heading">
+						Timeline
+						<ul class="pull-right panel-settings panel-button-tab-right">
+							<li class="dropdown">
+								<a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
+									<em class="fa fa-cogs"></em>
+								</a>
+								<ul class="dropdown-menu dropdown-menu-right">
+									<li>
+										<ul class="dropdown-settings">
+											<li>
+												<a href="#">
+													<em class="fa fa-cog"></em> Settings 1
+												</a>
+											</li>
+											<li class="divider"></li>
+											<li>
+												<a href="#">
+													<em class="fa fa-cog"></em> Settings 2
+												</a>
+											</li>
+											<li class="divider"></li>
+											<li>
+												<a href="#">
+													<em class="fa fa-cog"></em> Settings 3
+												</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<span class="pull-right clickable panel-toggle panel-button-tab-left">
+							<em class="fa fa-toggle-up"></em>
+						</span>
+					</div>
+					<div class="panel-body timeline-container">
+						<ul class="timeline">
+							<li>
+								<div class="timeline-badge">
+									<em class="glyphicon glyphicon-pushpin"></em>
+								</div>
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h4 class="timeline-title">Lorem ipsum dolor sit amet</h4>
+									</div>
+									<div class="timeline-body">
+										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus
+											finibus feugiat.</p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="timeline-badge primary">
+									<em class="glyphicon glyphicon-link"></em>
+								</div>
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h4 class="timeline-title">Lorem ipsum dolor sit amet</h4>
+									</div>
+									<div class="timeline-body">
+										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="timeline-badge">
+									<em class="glyphicon glyphicon-camera"></em>
+								</div>
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h4 class="timeline-title">Lorem ipsum dolor sit amet</h4>
+									</div>
+									<div class="timeline-body">
+										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus
+											finibus feugiat.</p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="timeline-badge">
+									<em class="glyphicon glyphicon-paperclip"></em>
+								</div>
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h4 class="timeline-title">Lorem ipsum dolor sit amet</h4>
+									</div>
+									<div class="timeline-body">
+										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!--/.col-->
+			<div class="col-sm-12">
+				<p class="back-link">
+                    Todos os direitos reservados - StreetTeca © 2018
+                </p>
+			</div>
+		</div>
+		<!--/.row-->
+	</div>
+	<!--/.main-->
+
+	<script src="../../js/modules.js"></script>
+	<script src="../../js/admin/index.js"></script>
+	<script src="../../js/admin/jquery-1.11.1.min.js"></script>
+	<script src="../../js/admin/bootstrap.min.js"></script>
+	<script src="../../js/admin/custom.js"></script>
+
+</body>
+
+</html>

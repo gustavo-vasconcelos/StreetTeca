@@ -1639,7 +1639,7 @@ function atualizarFotoNome() {
 
     //foto utilizador logado
     let fotoUtilizadorLogado = document.getElementById("fotoUtilizadorLogado")
-    fotoUtilizadorLogado.src = "../" + Utilizador.getUrlFotoById(idUtilizadorLogado)
+    fotoUtilizadorLogado.src = "../../" + Utilizador.getUrlFotoById(idUtilizadorLogado)
 }
 
 function gerarMenu(tipoAcesso, menuAtivo) {
@@ -1647,7 +1647,7 @@ function gerarMenu(tipoAcesso, menuAtivo) {
     //utilizador
     if (idUtilizadorLogado === -1 || tipoAcesso === 2) {
         document.getElementsByTagName("body")[0].innerHTML = ""
-        window.location.href = '../index.html'
+        window.location.href = '../../index.html'
     } else if (tipoAcesso === 1) { //operador
         let url = window.location.href
         if (url.substr(url.length - 10, 11) === "index.html" || url.substr(url.length - 11, 11) === "livros.html") {
@@ -1660,7 +1660,7 @@ function gerarMenu(tipoAcesso, menuAtivo) {
                             <em class="fa fa-book">&nbsp;</em> Livros</a>
                     </li>
                     <li id="paginaInicialMenu">
-                        <a href="../index.html">
+                        <a href="../../index.html">
                             <em class="fa fa-home">&nbsp;</em> Página inicial</a>
                     </li>`
         } else {
@@ -1702,7 +1702,7 @@ function gerarMenu(tipoAcesso, menuAtivo) {
                         <em class="fa fa-cog">&nbsp;</em> Configurações</a>
                 </li>
                 <li id="paginaInicialMenu">
-                    <a href="../index.html">
+                    <a href="../../index.html">
                         <em class="fa fa-home">&nbsp;</em> Página inicial</a>
                 </li>`
     }
