@@ -131,6 +131,12 @@ window.onload = function () {
     let areaUtilizador = document.getElementById("areaUtilizador")
     let btnPainelAdmin = document.getElementById("btnPainelAdmin")
 
+    if (Utilizador.getTipoAcessoById(idUtilizadorLogado) !== 2) {
+        btnPainelAdmin.style.display = "inline"
+    } else {
+        btnPainelAdmin.style.display = "none"
+    }
+
     formLogin.addEventListener("submit", function (event) {
         let idUtilizador = Utilizador.getIdByEmail(loginInputEmail.value)
         let erro = false

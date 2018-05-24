@@ -103,12 +103,12 @@ window.onload = function () {
             areaUtilizador.style.display = "none"
             btnLogin.style.display = "inline"
             setTimeout(function () {
-                window.location.href = 'index.html'
+                window.location.href = '../index.html'
             }, 1000)
         })
     } else {
         document.getElementsByTagName("body")[0].innerHTML = ""
-        window.location.href = 'index.html'
+        window.location.href = '../index.html'
     }
 
 } //fim onload
