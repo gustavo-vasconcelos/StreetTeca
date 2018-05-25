@@ -65,4 +65,25 @@ window.onload = function () {
         window.location.href = '../index.html'
     }
 
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+
+    console.log(swiper)
+
+    window.addEventListener("resize", function () {
+        if ($(window).width() <= 500) {
+            swiper.slidesPerView = 2
+            console.log(true)
+        } else {
+            swiper.slidesPerView = 3
+        }
+    })
+
+
 } //fim onload

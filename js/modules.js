@@ -1238,8 +1238,8 @@ if (!localStorage.getItem("configuracoes")) {
 //utilizadores predefinidos
 utilizadores.push(new Utilizador("Teste", "teste@teste.pt", "123", "", 0))
 utilizadores.push(new Utilizador("Gustavo Henrique", "teste2@teste.pt", "123", "", 2))
-utilizadores.push(new Utilizador("João", "teste3@teste.pt", "123", "", 1))
-utilizadores.push(new Utilizador("Guilherme", "teste4@teste.pt", "123", "", 1))
+utilizadores.push(new Utilizador("João Paixão Amorim", "teste3@teste.pt", "123", "", 1))
+utilizadores.push(new Utilizador("Guilherme Leonardo Costa", "teste4@teste.pt", "123", "", 1))
 
 if (!localStorage.getItem("utilizadores")) {
     localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
