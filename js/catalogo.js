@@ -66,24 +66,39 @@ window.onload = function () {
     }
 
     var swiper = new Swiper('.swiper-container', {
-        slidesPerView: 3,
+        slidesPerView: 5,
         spaceBetween: 30,
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
         },
-    });
+        scrollbar: {
+            el: '.swiper-scrollbar',
+            draggable: true,
+        },
 
-    console.log(swiper)
-
-    window.addEventListener("resize", function () {
-        if ($(window).width() <= 500) {
-            swiper.slidesPerView = 2
-            console.log(true)
-        } else {
-            swiper.slidesPerView = 3
+        breakpoints: {
+            320: {
+                slidesPerView: 2,
+                spaceBetween: 10
+            },
+            530: {
+                slidesPerView: 2,
+                spaceBetween: 10
+            },
+            769: {
+                slidesPerView: 3,
+                spaceBetween: 10
+            },
+            991: {
+                slidesPerView: 4,
+                spaceBetween: 15
+            },
+            1199: {
+                slidesPerView: 4,
+                spaceBetween: 30
+            }
         }
-    })
-
+    });
 
 } //fim onload

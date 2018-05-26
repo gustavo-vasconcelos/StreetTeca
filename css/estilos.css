@@ -457,3 +457,16 @@ h1 { font-size: 1.5em; margin: 10px; }
     width: 45px !important;
     border-radius: 50%;
 }
+
+/*
+    catálogo
+*/
+
+.swiper-container:not(hover) .mudarPagina {
+    display: none;
+}
+
+.swiper-container:hover .mudarPagina {
+    display: inline;
+}
+

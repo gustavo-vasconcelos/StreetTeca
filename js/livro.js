@@ -298,28 +298,11 @@ function gerarMapaLivro(idLivro) {
                     ]
                 },
                 {
-                    "featureType": "poi.business",
-                    "stylers": [
-                        {
-                            "visibility": "off"
-                        }
-                    ]
-                },
-                {
                     "featureType": "poi.park",
                     "elementType": "geometry.fill",
                     "stylers": [
                         {
                             "color": "#023e58"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "poi.park",
-                    "elementType": "labels.text",
-                    "stylers": [
-                        {
-                            "visibility": "off"
                         }
                     ]
                 },
@@ -360,15 +343,6 @@ function gerarMapaLivro(idLivro) {
                     ]
                 },
                 {
-                    "featureType": "road.arterial",
-                    "elementType": "labels",
-                    "stylers": [
-                        {
-                            "visibility": "off"
-                        }
-                    ]
-                },
-                {
                     "featureType": "road.highway",
                     "elementType": "geometry",
                     "stylers": [
@@ -388,15 +362,6 @@ function gerarMapaLivro(idLivro) {
                 },
                 {
                     "featureType": "road.highway",
-                    "elementType": "labels",
-                    "stylers": [
-                        {
-                            "visibility": "off"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "road.highway",
                     "elementType": "labels.text.fill",
                     "stylers": [
                         {
@@ -410,14 +375,6 @@ function gerarMapaLivro(idLivro) {
                     "stylers": [
                         {
                             "color": "#023e58"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "road.local",
-                    "stylers": [
-                        {
-                            "visibility": "off"
                         }
                     ]
                 },
