@@ -335,6 +335,10 @@ class Livro {
             parseFloat((Comentario.getPontuacaoByIdLivro(this.id) / Comentario.getQuantidadePontuacoesByIdLivro(this.id)).toFixed(1)) : 0
     }
 
+    getQuantidadeRequisicoes() {
+        return Requisicao.getQuantidadeRequisicoesByIdLivro(this.id)
+    }
+
     static idLivroToTitulo(id) {
         for (let i in livros) {
             if (livros[i].id === id) {
@@ -509,6 +513,76 @@ class Livro {
             }
         }
         return titulos
+    }
+
+    static ordenarMaisRequisitados(a, b) {
+        if (a.getQuantidadeRequisicoes() > b.getQuantidadeRequisicoes()) {
+            return 1
+        } else if (a.getQuantidadeRequisicoes() < b.getQuantidadeRequisicoes()) {
+            return -1
+        } else {
+            return 0
+        }
+    }
+
+    static ordenarAZ(a, b) {
+        if (a.titulo.toLowerCase() > b.titulo.toLowerCase()) {
+            return 1
+        } else if (a.titulo.toLowerCase() < b.titulo.toLowerCase()) {
+            return -1
+        } else {
+            return 0
+        }
+    }
+
+    static ordenarZA(a, b) {
+        if (a.titulo.toLowerCase() < b.titulo.toLowerCase()) {
+            return 1
+        } else if (a.titulo.toLowerCase() > b.titulo.toLowerCase()) {
+            return -1
+        } else {
+            return 0
+        }
+    }
+
+    static ordenarMaiorPontuacao(a, b) {
+        if (a.getPontuacaoTotal() < b.getPontuacaoTotal()) {
+            return 1
+        } else if (a.getPontuacaoTotal() > b.getPontuacaoTotal()) {
+            return -1
+        } else {
+            return 0
+        }
+    }
+
+    static ordenarMenorPontuacao(a, b) {
+        if (a.getPontuacaoTotal() > b.getPontuacaoTotal()) {
+            return 1
+        } else if (a.getPontuacaoTotal() < b.getPontuacaoTotal()) {
+            return -1
+        } else {
+            return 0
+        }
+    }
+
+    static ordenarMaiorDataDoacao(a, b) {
+        if (a.dataDoacao < b.dataDoacao) {
+            return 1
+        } else if (a.dataDoacao > b.dataDoacao) {
+            return -1
+        } else {
+            return 0
+        }
+    }
+
+    static ordenarMenorDataDoacao(a, b) {
+        if (a.dataDoacao > b.dataDoacao) {
+            return 1
+        } else if (a.dataDoacao < b.dataDoacao) {
+            return -1
+        } else {
+            return 0
+        }
     }
 }
 
@@ -689,14 +763,26 @@ class Requisicao {
         this._dataRequisicao = valor
     }
 
+    static getQuantidadeRequisicoesByIdLivro(idLivro) {
+        let quantidade = 0
+        for (let i in requisicoes) {
+            if (requisicoes[i].idLivro === idLivro) {
+                quantidade++
+            }
+        }
+        return quantidade
+    }
+
     static quantidadeRequisicoesByIdUtilizador(id) {
+        /*
         let quantidade = 0
         for (let i in requisicoes) {
             if (requisicoes[i].idUtilizador === id) {
                 quantidade++
             }
         }
-        return quantidade
+        return quantidade*/
+        return Requisicao.livrosRequisitadosByIdUtilizador(id).length
     }
 
     static livrosRequisitadosByIdUtilizador(id) {
@@ -1376,17 +1462,17 @@ temia! Sozinho na corte, Eddard também se apercebe que a sua vida nada vale. E 
 longe no norte, pode estar em perigo. Uma galeria de personagens brilhantes dá vida a esta saga:
 o anão Tyrion, ovelha negra do clã Lannister; Jon Snow, bastardo de Eddard Stark que decide juntar-se
 à Patrulha da Noite, e a princesa Daenerys Targaryen, da dinastia que reinou antes de Robert, que
-pretende ressuscitar os dragões do passado para recuperar o trono, custe o que custar.`, 2008, 2, [3, 4, 5], "Saída de Emergência", 400, 1, "2018-05-02", 1, -1))
+pretende ressuscitar os dragões do passado para recuperar o trono, custe o que custar.`, 2008, 2, [3, 4, 5], "Saída de Emergência", 400, 1, "2018-05-27", 1, -1))
 livros.push(new Livro("https://img.wook.pt/images/os-100-kass-morgan/MXwxNjU5MTM3MHwxMjIwMTAzNXwxNDk0OTc1NjAwMDAw/502x", "Os 100", ["Kass Morgan"], `Há muito tempo, a superfície da Terra foi arrasada por uma guerra nuclear.
 Os poucos sortudos que conseguiram sobreviver refugiaram-se a bordo da Colónia, uma estação espacial que orbita o planeta.`, 2015, 1, [3, 4, 5], "TopSeller", 288, 1, "2018-05-02", 1, -1))
 livros.push(new Livro("https://img.wook.pt/images/os-jogos-da-fome-suzanne-collins/MXwyODQzMTU2fDIzOTc5MTJ8MTQ0NzExMzYwMDAwMA==/502x", "Os Jogos da Fome", ["Suzanne Collins"], `Num futuro pós-apocalíptico, surge das cinzas do que foi a América do Norte Panem,
-uma nova nação governada por um regime totalitário que a partir da megalópole, Capitol, governa os doze Distritos com mão de ferro.`, 2009, 3, [3, 4, 5], "Editorial Presença", 268, 1, "2018-05-02", 1, -1))
+uma nova nação governada por um regime totalitário que a partir da megalópole, Capitol, governa os doze Distritos com mão de ferro.`, 2009, 3, [3, 4, 5], "Editorial Presença", 268, 1, "2018-05-15", 1, -1))
 livros.push(new Livro("https://img.wook.pt/images/o-rapaz-do-pijama-as-riscas-john-boyne/MXwyMDAzOTB8MjU4MTk2fDEzODM1MjMyMDAwMDA=/502x", "O Rapaz do Pijama às Riscas", ["John Boyne"], `Ao regressar da escola um dia, Bruno constata que as suas coisas estão a ser empacotadas.
 O seu pai tinha sido promovido no trabalho e toda a família tem de deixar a luxuosa casa onde vivia e mudar-se para outra cidade, onde Bruno não encontra ninguém com quem brincar nem nada para fazer.`, 2008, 3, [3, 4, 5], "Edições Asa", 176, 1, "2018-05-02", 1, -1))
 livros.push(new Livro("https://img.wook.pt/images/o-marciano-andy-weir/MXwxNTc1ODc5MXwxMTI1Mzg4NXwxNDQxMTQ4NDAwMDAw/502x", "O Marciano", ["Andy Weir"], `Há exatamente seis dias, o astronauta Mark Watney tornou-se uma das primeiras pessoas a caminhar em Marte.
-Agora, ele tem a certeza de que vai ser a primeira pessoa a morrer ali.`, 2014, 3, [3, 4, 5], "TopSeller", 384, 1, "2018-05-02", 1, -1))
+Agora, ele tem a certeza de que vai ser a primeira pessoa a morrer ali.`, 2014, 3, [3, 4, 5], "TopSeller", 384, 1, "2017-12-15", 1, -1))
 livros.push(new Livro("https://img.wook.pt/images/o-nome-do-vento-patrick-rothfuss/MXwyMTQ1MjAwfDE4ODMyOTN8MTUxNzc4ODgwMDAwMA==/502x", "O Nome do Vento", ["Patrick Rothfuss"], `Da infância como membro de uma família unida de nómadas Edema Ruh até à provação dos primeiros dias como aluno de magia numa universidade prestigiada,
-o humilde estalajadeiro Kvothe relata a história de como um rapaz desfavorecido pelo destino se torna um herói, um bardo, um mago e uma lenda.`, 2009, 3, [3, 4, 5], "Edições Gailivro", 976, 1, "2018-05-02", 1, -1))
+o humilde estalajadeiro Kvothe relata a história de como um rapaz desfavorecido pelo destino se torna um herói, um bardo, um mago e uma lenda.`, 2009, 3, [3, 4, 5], "Edições Gailivro", 976, 1, "2017-05-18", 1, -1))
 livros.push(new Livro("https://img.wook.pt/images/o-tatuador-de-auschwitz-heather-morris/MXwyMTM3MDQwNnwxNzI1MjkwM3wxNTE2NzUyMDAwMDAw/502x", "O Tatuador de Auschwitz", ["Heather Morris"], `Em 1942, Lale Sokolov chega a Auschwitz-Birkenau.
 Ali é incumbido da tarefa de tatuar os prisioneiros marcados para sobreviver - gravando uma sequência de números no braço de outras vítimas como ele - com uma tinta indelével.`, 2018, 3, [3, 4, 5], "Editorial Presença", 232, 1, "2018-05-02", 1, -1))
 

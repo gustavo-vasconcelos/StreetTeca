@@ -3,6 +3,7 @@
 }
 
 body, html {
+    user-select: none;
     height: 100%;
     font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
@@ -36,99 +37,117 @@ section {
     padding-top: 100px;
 }
 
+#main-container {
+    min-height: 100%;
+}
+
+.page-footer {
+    bottom: 0;
+    width: 100%;
+}
+
+
 /* imagens responsivas */
 
 /* quando a largura é maior ou igual a 1200 */
+
 @media only screen and (min-width: 1200px) {
-    #main-container img{
+    #main-container img {
         height: 290px;
         width: 190px;
     }
 }
 
 /* quando a largura é menor ou igual a 1199 */
+
 @media only screen and (max-width: 1199px) {
-    #main-container #recentes img, #main-container #relacionados img{
+    #main-container #recentes img, #main-container #relacionados img {
         height: 315px;
         width: 220px;
     }
-
-    #main-container #pontuados img{
+    #main-container #pontuados img {
         height: 300px;
         width: 209px;
     }
 }
 
 /* quando a largura é menor ou igual a 991 */
+
 @media only screen and (max-width: 991px) {
-    #main-container #recentes img, #main-container #relacionados img{
+    #main-container #recentes img, #main-container #relacionados img {
         height: 270px;
         width: 174px;
     }
-
-    #main-container #pontuados img{
+    #main-container #pontuados img {
         height: 270px;
         width: 181px;
     }
 }
 
 /* quando a largura é menor ou igual a 769 */
+
 @media only screen and (max-width: 769px) {
-    #main-container #recentes img, #main-container #relacionados img{
+    #main-container #recentes img, #main-container #relacionados img {
         height: 189px;
         width: 132px;
     }
-
-    #main-container #pontuados img{
+    #main-container #pontuados img {
         height: 263px;
         width: 184px;
     }
 }
 
 @media only screen and (max-width: 767px) {
-    #main-container #cabecalho img{
+    #main-container #cabecalho img {
         height: 300px;
         width: 209px;
     }
 }
 
 @media only screen and (max-width: 575px) {
-    #main-container #recentes img, #main-container #recentes img, #main-container #relacionados img{
+    #main-container #recentes img, #main-container #recentes img, #main-container #relacionados img {
         height: 260px !important;
         width: 181px !important;
     }
 }
 
 @media only screen and (max-width: 510px) {
-    #main-container #recentes img, #main-container #relacionados img{
+    #main-container #recentes img, #main-container #relacionados img {
         height: 250px !important;
         width: 175px !important;
     }
 }
 
 @media only screen and (max-width: 376px) {
-    #main-container #recentes img, #main-container #relacionados img{
+    #main-container #recentes img, #main-container #relacionados img {
         height: 165px !important;
         width: 115px !important;
     }
 }
 
-
 .zoom-hover:hover {
-    -webkit-transform:scale(1.15); /* Safari and Chrome */
-    -moz-transform:scale(1.15); /* Firefox */
-    -ms-transform:scale(1.15); /* IE 9 */
-    -o-transform:scale(1.15); /* Opera */
-    transform:scale(1.15);
+    -webkit-transform: scale(1.15);
+    /* Safari and Chrome */
+    -moz-transform: scale(1.15);
+    /* Firefox */
+    -ms-transform: scale(1.15);
+    /* IE 9 */
+    -o-transform: scale(1.15);
+    /* Opera */
+    transform: scale(1.15);
     transition: all .3s ease-in-out;
 }
 
 .zoom-hover:not(hover) {
-    -webkit-transform:scale(1); /* Safari and Chrome */
-    -moz-transform:scale(1); /* Firefox */
-    -ms-transform:scale(1); /* IE 9 */
-    -o-transform:scale(1); /* Opera */
-    transform:scale(1);
+    -webkit-transform: scale(1);
+    /* Safari and Chrome */
+    -moz-transform: scale(1);
+    /* Firefox */
+    -ms-transform: scale(1);
+    /* IE 9 */
+    -o-transform: scale(1);
+    /* Opera */
+    transform: scale(1);
     transition: all .3s ease-out;
 }
 
@@ -138,7 +157,7 @@ a {
 
 /* livros recentes */
 
-.livro-recente img{
+.livro-recente img {
     box-sizing: border-box;
     border: 5px solid white;
     border-radius: 5px;
@@ -146,16 +165,17 @@ a {
 
 .livro-recente:hover img {
     border-color: #92CDCF;
-    -webkit-box-shadow: 0px 0px 50px 4px rgba(0,0,0,0.61);
-    -moz-box-shadow: 0px 0px 50px 4px rgba(0,0,0,0.61);
-    box-shadow: 0px 0px 50px 4px rgba(0,0,0,0.61);
+    -webkit-box-shadow: 0px 0px 50px 4px rgba(0, 0, 0, 0.61);
+    -moz-box-shadow: 0px 0px 50px 4px rgba(0, 0, 0, 0.61);
+    box-shadow: 0px 0px 50px 4px rgba(0, 0, 0, 0.61);
 }
+
 .livro-recente:hover .livro-titulo {
     color: #92CDCF;
 }
 
-.livro-titulo{
-    color:white;
+.livro-titulo {
+    color: white;
     font-weight: bold;
 }
 
@@ -163,7 +183,7 @@ a {
     color: #92CDCF;
 }
 
-.livro-autor{
+.livro-autor {
     color: #b3b3b3;
     font-size: 14px;
 }
@@ -182,9 +202,9 @@ a {
 
 .livro-pontuado:hover img {
     border-color: #92CDCF;
-    -webkit-box-shadow: 0px 0px 50px 4px rgba(0,0,0,0.61);
-    -moz-box-shadow: 0px 0px 50px 4px rgba(0,0,0,0.61);
-    box-shadow: 0px 0px 50px 4px rgba(0,0,0,0.61);
+    -webkit-box-shadow: 0px 0px 50px 4px rgba(0, 0, 0, 0.61);
+    -moz-box-shadow: 0px 0px 50px 4px rgba(0, 0, 0, 0.61);
+    box-shadow: 0px 0px 50px 4px rgba(0, 0, 0, 0.61);
 }
 
 .livro-pontuado:hover .livro-titulo {
@@ -210,7 +230,6 @@ a {
     color: white;
     border: 0;
 }
-
 
 #mainNav .navbar-nav .nav-item .nav-link {
     font-size: 90%;
@@ -252,9 +271,9 @@ a {
     }
 }
 
-
 /* menu ícone animado */
-.menu-icon-wrapper{
+
+.menu-icon-wrapper {
     position: relative;
     display: inline-block;
     width: 34px;
@@ -263,24 +282,24 @@ a {
     transition: 0.1s;
 }
 
-.menu-icon-wrapper.scaled{
+.menu-icon-wrapper.scaled {
     transform: scale(0.5);
 }
 
-.menu-icon-wrapper svg{
+.menu-icon-wrapper svg {
     position: absolute;
     top: -33px;
     left: -33px;
 }
 
-.menu-icon-wrapper svg path{
+.menu-icon-wrapper svg path {
     stroke: #fff;
     stroke-width: 6px;
     stroke-linecap: round;
     fill: transparent;
 }
 
-.menu-icon-wrapper .menu-icon-trigger{
+.menu-icon-wrapper .menu-icon-trigger {
     position: relative;
     width: 100%;
     height: 100%;
@@ -292,14 +311,12 @@ a {
     padding: 0;
 }
 
-
 #areaUtilizador {
-    background-color:transparent !important;
+    background-color: transparent !important;
     text-shadow: 2px 2px 3px rgba(33, 37, 41, 1);
     color: white;
     border: 0;
 }
-
 
 /*pontuados*/
 
@@ -309,15 +326,16 @@ a {
 
 /* testemunhos */
 
-.foto-testemunho img{
+.foto-testemunho img {
     height: 150px !important;
     width: 150px !important;
     border-radius: 50%;
 }
 
 /* quando a largura é menor ou igual a 769 */
+
 @media only screen and (max-width: 769px) {
-    .foto-testemunho img{
+    .foto-testemunho img {
         height: 189px;
         width: 132px;
     }
@@ -332,13 +350,10 @@ a {
     font-style: italic;
 }
 
-
-
-
-
 #btnDown a {
     padding-top: 50px;
 }
+
 #btnDown a span {
     position: absolute;
     top: 500;
@@ -351,7 +366,7 @@ a {
     box-sizing: border-box;
 }
 
-#btnDown a span:hover{
+#btnDown a span:hover {
     border-color: #92CDCF;
 }
 
@@ -369,6 +384,7 @@ a {
     animation: sdb10 2s infinite;
     box-sizing: border-box;
 }
+
 @-webkit-keyframes sdb10 {
     0% {
         -webkit-transform: translate(0, 0);
@@ -385,6 +401,7 @@ a {
         opacity: 0;
     }
 }
+
 @keyframes sdb10 {
     0% {
         transform: translate(0, 0);
@@ -399,60 +416,84 @@ a {
         transform: translate(0, 20px);
         opacity: 1;
     }
-        100% {
+    100% {
         opacity: 0;
     }
 }
 
-
 /*star rating*/
+
 .estrela {
-    color:#92CDCF;
+    color: #92CDCF;
 }
 
 .disponibilidade:hover {
     background-color: #445878;
 }
 
-fieldset, label { margin: 0; padding: 0; }
-body{ margin: 20px; }
-h1 { font-size: 1.5em; margin: 10px; }
+fieldset, label {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 20px;
+}
+
+h1 {
+    font-size: 1.5em;
+    margin: 10px;
+}
 
 /****** Style Star Rating Widget *****/
 
-.rating { 
-  border: none;
-  float: left;
+.rating {
+    border: none;
+    float: left;
 }
 
-.rating > input { display: none; } 
-.rating > label:before { 
-  margin: 5px;
-  font-size: 1.25em;
-  font-family: FontAwesome;
-  display: inline-block;
-  content: "\f005";
+.rating>input {
+    display: none;
 }
 
-.rating > label { 
-  color: #ddd; 
- float: right; 
+.rating>label:before {
+    margin: 5px;
+    font-size: 1.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+}
+
+.rating>label {
+    color: #ddd;
+    float: right;
 }
 
 /***** CSS Magic to Highlight Stars on Hover *****/
 
-.rating > input:checked ~ label, /* show gold star when clicked */
-.rating:not(:checked) > label:hover, /* hover current star */
-.rating:not(:checked) > label:hover ~ label { color: #92CDCF;  } /* hover previous stars in list */
+.rating>input:checked~label,
+/* show gold star when clicked */
 
-.rating > input:checked + label:hover, /* hover current star when changing rating */
-.rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label { color: rgb(205, 247, 248);  } 
+.rating:not(:checked)>label:hover,
+/* hover current star */
 
+.rating:not(:checked)>label:hover~label {
+    color: #92CDCF;
+}
 
+/* hover previous stars in list */
 
-.foto-comentario img{
+.rating>input:checked+label:hover,
+/* hover current star when changing rating */
+
+.rating>input:checked~label:hover, .rating>label:hover~input:checked~label,
+/* lighten current selection */
+
+.rating>input:checked~label:hover~label {
+    color: rgb(205, 247, 248);
+}
+
+.foto-comentario img {
     height: 45px !important;
     width: 45px !important;
     border-radius: 50%;
@@ -474,7 +515,6 @@ h1 { font-size: 1.5em; margin: 10px; }
     .swiper-container .mudarPagina {
         display: inline;
     }
-
     .hoverGenero .verTudo {
         display: inline;
     }
@@ -484,15 +524,111 @@ h1 { font-size: 1.5em; margin: 10px; }
     .swiper-container:not(hover) .mudarPagina {
         display: none;
     }
-    
     .swiper-container:hover .mudarPagina {
         display: inline;
     }
-
     .hoverGenero:hover .verTudo {
         display: inline;
     }
     .hoverGenero:hover .verTudo {
         display: inline;
+    }
+}
+
+/* 
+    catálogo-género
+*/
+
+.dropdown-el {
+    max-height: 2em;
+    overflow: hidden;
+    cursor: pointer;
+    text-align: left;
+    white-space: nowrap;
+    color: white;
+    outline: none;
+    border: .06em solid transparent;
+    border-radius: 1em;
+    background-color: #445878;
+    transition: 0.3s all ease-in-out;
+}
+
+.dropdown-el input {
+    display: none;
+}
+
+.dropdown-el label {
+    border-top: .06em solid #31353D;
+    display: block;
+    height: 2em;
+    line-height: 2em;
+    padding-left: 1em;
+    padding-right: 1em;
+    cursor: pointer;
+    position: relative;
+    transition: 0.3s color ease-in-out;
+}
+
+.dropdown-el label:nth-child(2) {
+    margin-top: 2em;
+    border-top: .06em solid #31353D;
+}
+
+.dropdown-el input:checked+label {
+    display: block;
+    border-top: none;
+    position: absolute;
+    top: 0;
+}
+
+.dropdown-el input:checked+label:nth-child(2) {
+    margin-top: 0;
+    position: relative;
+}
+
+.dropdown-el::after {
+    content: "";
+    position: absolute;
+    right: 0.8em;
+    top: 0.9em;
+    border: 0.3em solid #92CDCF;
+    border-color: #92CDCF transparent transparent transparent;
+    transition: .4s all ease-in-out;
+}
+
+.dropdown-el.expanded {
+    border: 0.06em solid #92CDCF;
+    background: #445878;
+    border-radius: .25em;
+    padding: 0;
+    box-shadow: rgba(0, 0, 0, 0.1) 3px 3px 5px 0px;
+    max-height: 30em;
+}
+
+.dropdown-el.expanded label {
+    border-top: .06em solid #31353D;
+}
+
+.dropdown-el.expanded label:hover {
+    color: #92CDCF;
+}
+
+.dropdown-el.expanded input:checked+label {
+    color: #92CDCF;
+}
+
+.dropdown-el.expanded::after {
+    transform: rotate(-180deg);
+    top: .55em;
+}
+
+@media only screen and (min-width: 768px) {
+    #subNav {
+        max-height: 3em;
+    }
+}
+@media only screen and (max-width: 767px) {
+    #subNav {
+        max-height: 6em;
     }
 }
