@@ -87,8 +87,8 @@ class Utilizador {
                     return utilizadores[i].tipoAcesso
                 }
             }
-        } 
-        if(id === -1) {
+        }
+        if (id === -1) {
             return 2
         }
     }
@@ -375,6 +375,24 @@ class Livro {
         }
     }
 
+    static getIdsByIdGenero(idGenero) {
+        let ids = []
+        for (let i in livros) {
+            if (livros[i].idGenero === idGenero) {
+                ids.push(livros[i].id)
+            }
+        }
+        return ids
+    }
+
+    static getAutorById(id) {
+        for (let i in livros) {
+            if (livros[i].id === id) {
+                return livros[i].autor
+            }
+        }
+    }
+
     static getIdGeneroById(id) {
         for (let i in livros) {
             if (livros[i].id === id) {
@@ -443,24 +461,19 @@ class Livro {
             }
         }
 
-        //https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-        function shuffle(array) {
-            let currentIndex = array.length, temporaryValue, randomIndex;
+        shuffle(ids)
 
-            // While there remain elements to shuffle...
-            while (0 !== currentIndex) {
+        return ids
+    }
 
-                // Pick a remaining element...
-                randomIndex = Math.floor(Math.random() * currentIndex);
-                currentIndex -= 1;
-
-                // And swap it with the current element.
-                temporaryValue = array[currentIndex];
-                array[currentIndex] = array[randomIndex];
-                array[randomIndex] = temporaryValue;
+    static getIdsAleatoriosByIdGenero(idGenero) {
+        let ids = []
+        for (let i in livros) {
+            if (livros[i].idGenero === idGenero) {
+                if (ids.indexOf(livros[i].id) === -1) {
+                    ids.push(livros[i].id)
+                }
             }
-
-            return array;
         }
 
         shuffle(ids)
@@ -1196,6 +1209,26 @@ class Testemunho {
     }
 }
 
+//https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+function shuffle(array) {
+    let currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+}
+
 let utilizadores = []
 let livros = []
 let bibliotecas = []
@@ -1214,17 +1247,22 @@ let configuracoes = {
 }
 
 let idLivroClicado = -1
-
 if (!localStorage.getItem("idLivroClicado")) {
     localStorage.setItem("idLivroClicado", idLivroClicado)
 }
+
+let idGeneroClicado = -1
+if (!localStorage.getItem("idGeneroClicado")) {
+    localStorage.setItem("idGeneroClicado", idGeneroClicado)
+}
+
 
 function livroClicado() {
     let clicarLivro = document.getElementsByClassName("clicarLivro")
     for (let i = 0; i < clicarLivro.length; i++) {
         clicarLivro[i].addEventListener("click", function () {
             idLivroClicado = parseInt(clicarLivro[i].id.replace(/livro/g, ""))
-            localStorage.setItem("idLivroClicado", parseInt(clicarLivro[i].id.replace(/livro/g, "")))
+            localStorage.setItem("idLivroClicado", parseInt(idLivroClicado))
         })
     }
 }

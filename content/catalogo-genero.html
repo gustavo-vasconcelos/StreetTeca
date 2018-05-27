@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="pt-pt">
+
+<head>
+    <title>StreetTeca - Gestão de Bibliotecas de Rua</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Fonts awesome-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/estilos.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    <!-- Scripts do botão menu animado -->
+    <script src="../js/segment.js"></script>
+    <script src="../js/ease.min.js"></script>
+</head>
+
+<body class="bg-teca2">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-shrink" id="mainNav">
+        <div class="container">
+            <a href="../index.html">
+                <img src="../img/marca.png" id="marca" class="zoom-hover mr-2">
+            </a>
+            <!-- Wrapper -->
+            <div id="menu-icon-wrapper" class="navbar-toggler navbar-toggler-right menu-icon-wrapper" data-toggle="collapse" data-target="#navbarResponsive">
+                <!-- SVG element with paths -->
+                <svg width="100px" height="100px">
+                    <path id="pathA" d="M 30 40 L 70 40 C 90 40 90 75 60 85 A 40 40 0 0 1 20 20 L 80 80" />
+                    <path id="pathB" d="M 30 50 L 70 50" />
+                    <path id="pathC" d="M 70 60 L 30 60 C 10 60 10 20 40 15 A 40 38 0 1 1 20 80 L 80 20" />
+                </svg>
+                <!-- Trigger to perform the animations -->
+                <button id="menu-icon-trigger" class="menu-icon-trigger"></button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger menu-icon-trigger" href="../index.html#recentes">Recentes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger menu-icon-trigger" href="../index.html#pontuados">Mais pontuados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger menu-icon-trigger" href="../index.html#testemunhos">Testemunhos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger menu-icon-trigger text-teca4" href="catalogo.html">Catálogo</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item">
+                        <div class="dropdown open">
+                            <button class="nav-link btn dropdown-toggle text-uppercase" type="button" id="areaUtilizador" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">ÁREA DE UTILIZADOR</button>
+                            <div class="dropdown-menu" aria-labelledby="triggerId">
+                                <button class="dropdown-item btn btn-teca3" onclick="window.location.href='admin/index.html'" id="btnPainelAdmin">Painel de controlo</button>
+                                <button class="dropdown-item btn btn-teca3" id="btnLogout">Logout</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger menu-icon-trigger" href="#" id="btnLogin" data-toggle="modal" data-target="#modalLogin">Login</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+    <!--Fim navbar -->
+    <!-- Início main container -->
+    <div class="container pb-5" id="main-container">
+        <!-- livros -->
+        <div class="bg-teca4" style="margin-top: 75px; background-color: aqua !important;">
+            <div class="text-white" style="position: sticky; top: 75px;">
+                <div class="pull-left" style="font-size: 1.5em; font-weight: 500">
+                    <a href="catalogo-genero.html" class="text-teca4 hoverGenero" id="">CATÁLOGO ></a> FANTASIA
+                </div>
+                <div class="" style="position: absolute; right: 0px;">
+                    <select name="" id="">
+                        <option value="">DATA DE LANÇAMENTO</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="recentes" class="text-white" style="padding-top: 75px;">
+
+
+        </div>
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus rhoncus sed velit id venenatis. Pellentesque fringilla,
+        erat vel pulvinar porttitor, sem erat vulputate justo, ac laoreet mauris risus a ante. Curabitur condimentum felis
+        sit amet quam tristique consectetur. Sed fringilla, purus sit amet dapibus egestas, odio sapien mattis nunc, quis
+        ornare sapien risus eget tellus. Sed eu mi condimentum, interdum nulla tincidunt, imperdiet augue. Nullam lacus leo,
+        suscipit at eleifend at, dignissim id urna. Ut sed dignissim sapien, vitae egestas nisl. Proin turpis diam, finibus
+        sit amet fermentum pulvinar, malesuada at libero. Aenean lorem enim, gravida nec magna a, facilisis consectetur tellus.
+        Nulla porta commodo volutpat. Sed a neque nec urna sollicitudin consectetur vitae vel nibh. Sed nec velit in est
+        commodo pharetra accumsan ut lacus. Vestibulum ipsum nulla, blandit id commodo quis, consequat vitae enim. Nullam
+        pellentesque sapien viverra posuere commodo. Mauris nec ullamcorper lectus. In sollicitudin nisl quis convallis fringilla.
+        Proin quis laoreet neque, ut hendrerit augue. Sed dapibus augue sit amet nisl semper, et facilisis ex vulputate.
+        Phasellus in leo ante. Cras ligula dui, maximus vitae ipsum nec, posuere congue justo. Aenean condimentum ullamcorper
+        ligula in efficitur. Nullam ac leo eu ipsum dignissim euismod. Quisque semper iaculis luctus. Vestibulum facilisis
+        metus nec commodo aliquet. Vestibulum malesuada, dui sed efficitur viverra, quam neque vehicula odio, a lacinia quam
+        mi quis felis. Fusce quis tellus volutpat, porta est id, consequat quam. Fusce nunc nisl, aliquet nec bibendum non,
+        lacinia quis elit. Vivamus lectus orci, blandit ut auctor sed, efficitur nec augue. Etiam vitae turpis nec nulla
+        imperdiet interdum id a est. Vivamus a tortor ut odio elementum hendrerit sed ut ipsum. Suspendisse faucibus, lectus
+        et pulvinar pulvinar, ligula nisl vestibulum diam, non gravida leo dolor ut dolor. Nam faucibus a nisi et semper.
+        Ut vitae nisl posuere nulla mattis malesuada eu in ligula. Sed mollis volutpat tempus. Praesent quis felis sit amet
+        neque ultricies dapibus in hendrerit justo. Suspendisse scelerisque, quam consectetur pellentesque placerat, tortor
+        mauris sollicitudin velit, et consectetur enim dui ut risus. Sed augue magna, finibus aliquet vehicula et, mollis
+        ut dui. Proin a hendrerit massa. Cras pulvinar rutrum ultricies. Sed quis lorem volutpat, aliquet ante sed, dapibus
+        mi. Pellentesque tincidunt, lectus ac pellentesque tristique, velit purus convallis ipsum, vitae ornare lectus lorem
+        sit amet lacus. Integer vel orci sem. Nulla facilisi. Donec mollis arcu et convallis ultrices. Morbi iaculis, tellus
+        vel fermentum lacinia, turpis erat ullamcorper lorem, a lacinia ligula lorem at ante. Curabitur venenatis sed turpis
+        vitae luctus. Vestibulum felis ligula, malesuada a turpis vel, eleifend pharetra ipsum. Pellentesque rutrum, ligula
+        ac aliquet suscipit, mauris massa faucibus nibh, et laoreet elit tortor in libero. Etiam pharetra sit amet nisl in
+        sollicitudin. Sed imperdiet neque nulla, a fringilla dui varius at. Praesent vehicula ultrices erat in tincidunt.
+        Quisque placerat erat eget enim laoreet, vitae venenatis tellus hendrerit. Vestibulum consequat nunc sed lorem tempor,
+        vehicula egestas eros egestas. Integer tortor nunc, finibus sit amet diam eget, vestibulum porttitor dui. Cras nec
+        volutpat odio. In eu efficitur libero. Pellentesque molestie justo in turpis vulputate, ac aliquam sem hendrerit.
+        Vestibulum vel sollicitudin nisi, nec mollis turpis. Etiam eleifend mauris a lectus tristique ornare. Duis sed congue
+        libero. Sed tincidunt sed libero non tincidunt. Praesent sit amet placerat odio, sed sagittis nisl. Donec mauris
+        nulla, bibendum eget feugiat vel, porttitor vitae orci. Etiam placerat nulla et tellus fringilla eleifend non feugiat
+        nulla. Nullam et lectus lectus. Ut imperdiet metus eu tellus ornare sagittis. Aenean id molestie quam, ut laoreet
+        arcu. Donec consectetur orci in ultrices varius. Nulla vel dolor enim. Curabitur at purus imperdiet, pellentesque
+        tellus id, pharetra nibh. Fusce iaculis rhoncus consectetur. Curabitur sed nunc semper, ornare lorem nec, efficitur
+        est. Vivamus semper augue suscipit augue egestas scelerisque. Vivamus vitae metus id sapien viverra ultricies. Phasellus
+        odio magna, auctor vitae augue sed, imperdiet tristique nisi. Sed gravida efficitur semper. Nam ornare, erat in bibendum
+        fringilla, tellus justo faucibus leo, sagittis tristique risus lorem nec sapien. Nunc fermentum, lorem porttitor
+        maximus blandit, lectus lacus pharetra lacus, ut placerat arcu ante vitae nunc. Ut lacinia nulla dui, nec bibendum
+        felis sollicitudin sit amet. Aliquam luctus ac felis non blandit. Donec vitae lorem ut arcu rhoncus lacinia nec ac
+        lectus. Phasellus vel velit ultrices, dictum justo nec, auctor orci. Fusce pharetra, quam sit amet rhoncus pretium,
+        purus odio rhoncus odio, mattis consequat mauris nisl non magna. Curabitur bibendum convallis felis non fringilla.
+        Suspendisse finibus consectetur est, sit amet imperdiet nibh mollis id. In gravida sagittis molestie. Nulla blandit
+        quam ac est tincidunt, eget faucibus felis maximus. Phasellus pharetra neque a pulvinar porta. Duis eu finibus metus,
+        ac lacinia sapien. Aliquam ac metus diam. Ut pharetra sagittis arcu. Sed non rhoncus arcu. Etiam vitae velit lobortis,
+        iaculis est vitae, consequat est. Phasellus mattis interdum ligula at dignissim. Nulla vitae mi volutpat, dapibus
+        arcu ut, finibus nisl. Cras et nibh accumsan, tincidunt mauris eget, egestas nisl. Aenean suscipit luctus iaculis.
+        Quisque volutpat malesuada sem, sit amet ornare magna lobortis vel. Nunc vel tincidunt massa, at sodales massa. Vestibulum
+        vitae nisi at ex volutpat ullamcorper id sed nisl. Aenean vestibulum dignissim augue, eget blandit tellus. Quisque
+        sed ex odio. In venenatis eros vel ex feugiat, congue auctor elit facilisis. Sed fringilla eros cursus imperdiet
+        elementum. Quisque malesuada est facilisis tristique laoreet. Duis consectetur odio diam, elementum volutpat est
+        porta blandit. Ut venenatis imperdiet libero vel congue. Cras magna urna, fringilla ac euismod at, pellentesque ut
+        ex. Aliquam ac bibendum ligula. Maecenas scelerisque finibus felis eget tristique. In vulputate lobortis facilisis.
+        Vestibulum ut nisl purus. Aliquam dolor lorem, congue convallis dictum nec, ultricies nec metus. Curabitur vitae
+        enim neque. Phasellus imperdiet mi non libero porta, non malesuada elit vehicula. Morbi vitae posuere ipsum. Suspendisse
+        molestie id est nec aliquet. Integer efficitur elit a augue fermentum, non gravida diam rutrum. Aliquam finibus vehicula
+        ante, non suscipit est elementum dapibus. Cras venenatis condimentum turpis vitae consectetur. Nulla sodales fermentum
+        varius. Suspendisse id lacus ac orci blandit molestie. In ut vestibulum sapien. Fusce vel pretium lacus. Mauris lectus
+        metus, tristique et accumsan vel, convallis porta orci. Cras porta, justo sit amet aliquet lobortis, eros dui condimentum
+        sem, at dignissim velit ante in arcu. Morbi eu leo eget arcu dictum tempus. Fusce consectetur rutrum est, a luctus
+        quam maximus vel. Etiam ornare aliquam tincidunt. Nulla maximus metus ut ante feugiat ultrices. Pellentesque ut urna
+        dolor. Fusce ut risus nec ante rhoncus viverra vitae nec diam. Duis finibus sit amet ex eget aliquam. Mauris ultricies
+        molestie dui suscipit porttitor. Nunc viverra consequat ornare. Etiam libero diam, gravida fermentum tempor ut, tincidunt
+        nec diam. Pellentesque sed tortor sagittis, sodales leo eget, imperdiet ipsum. Suspendisse tempor leo eget erat ullamcorper
+        imperdiet. Donec quis pulvinar sem. Curabitur bibendum est tortor, sed ullamcorper augue ultrices et. Curabitur dignissim
+        urna eu lorem tempor vehicula. Aliquam tristique orci id turpis volutpat commodo. Pellentesque vel maximus mauris.
+        Cras elementum porttitor eros sed finibus. Suspendisse consectetur ex id sapien egestas sodales. Praesent molestie
+        libero vel odio aliquet semper. Vestibulum nec lobortis sem, in ornare libero. Sed non libero at augue lobortis venenatis
+        et a nulla. Etiam sit amet rhoncus orci. Aliquam a consectetur dui. Sed at metus risus. Etiam in velit at ligula
+        malesuada tempor sit amet id mi. Nam sit amet aliquam purus. Nam vestibulum eu quam et dignissim. Pellentesque facilisis
+        quis erat ac pretium. Maecenas ut cursus quam. Aenean varius est nec libero pharetra, et sagittis lectus scelerisque.
+        Aliquam erat volutpat. Donec vitae magna gravida, tincidunt turpis non, euismod orci. Nulla dictum, urna vel laoreet
+        elementum, orci tortor tristique nunc, in lobortis ex sapien sit amet lacus. Pellentesque pretium consectetur sollicitudin.
+        Etiam et iaculis diam. Phasellus posuere ipsum vitae consectetur tincidunt. Morbi dictum ullamcorper massa a blandit.
+        Aliquam vestibulum pharetra fermentum. Proin quis felis sed est sodales consectetur eu vel quam. Vivamus vulputate
+        sed quam a aliquet. Pellentesque egestas ut leo vitae vehicula. Maecenas quis laoreet sapien, a feugiat erat. Aenean
+        ullamcorper erat at lacus faucibus dignissim. Pellentesque laoreet ultrices pharetra. Ut hendrerit quis lectus a
+        dictum. Donec bibendum rhoncus lobortis. In velit mauris, tristique et dolor quis, maximus viverra tellus. Sed posuere
+        laoreet massa, eu vestibulum magna fringilla in. Nulla fermentum, libero eu varius dictum, nisi diam scelerisque
+        mauris, a mattis sem tellus non tortor. Quisque imperdiet metus ut ante volutpat blandit. Aliquam dapibus mi vel
+        iaculis consequat. Nunc vulputate sem arcu, et hendrerit sem hendrerit eget. Cras pretium nibh est, non laoreet ligula
+        pellentesque eget. Nullam bibendum enim sapien, ac lobortis libero tristique vel. Praesent ligula ex, congue ac lacinia
+        in, feugiat non purus. Nulla sed arcu fermentum, imperdiet purus nec, posuere tortor. Morbi in semper nisi. Praesent
+        efficitur, nunc ac tempor mollis, nisi tellus gravida eros, non congue tortor massa rutrum mauris. Aliquam sed augue
+        ut sapien consequat pellentesque. Suspendisse potenti. Curabitur commodo condimentum nulla, non facilisis nunc eleifend
+        ut. Vestibulum feugiat est vel purus posuere gravida. Cras consequat vestibulum tempus. Mauris sagittis massa eget
+        congue vehicula. Integer sit amet risus a felis pulvinar maximus quis sit amet nibh. Fusce interdum elit a ante malesuada
+        sodales. Morbi augue lectus, condimentum a ante vel, congue lobortis arcu. Etiam convallis magna est, porta venenatis
+        nisi dictum quis. Pellentesque pharetra enim sit amet nisi hendrerit, sit amet consectetur nunc auctor. Donec consequat
+        fringilla est, sit amet ullamcorper lorem dignissim vitae. Nullam metus magna, consequat sit amet euismod eget, fermentum
+        non nisl. Maecenas condimentum ullamcorper lectus, nec egestas arcu mattis porta. Proin accumsan imperdiet enim nec
+        rhoncus. Donec sollicitudin mollis varius. Nullam nec justo feugiat, dapibus nulla a, posuere orci. Aenean sed accumsan
+        purus. Aenean nec facilisis quam, vitae laoreet mauris. Ut imperdiet tortor odio, et imperdiet turpis ultrices in.
+        Proin vitae purus interdum nunc suscipit auctor nec ac turpis. Maecenas luctus leo et sem imperdiet, non ullamcorper
+        magna egestas. Nam at fringilla ex. Nunc gravida ligula eu felis sollicitudin eleifend. Nunc lacinia urna nec elit
+        vestibulum volutpat. Curabitur nec magna diam. In turpis mi, viverra ac turpis a, placerat varius sapien. Suspendisse
+        efficitur tortor sit amet pulvinar lacinia. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris
+        suscipit, ex gravida maximus accumsan, elit odio aliquet urna, nec suscipit quam nisi et justo. Cras auctor est vitae
+        accumsan egestas. Integer commodo maximus blandit. Sed fermentum eget justo eget tincidunt. Sed rutrum posuere diam
+        a posuere. Suspendisse id tortor euismod, elementum enim et, gravida augue. Phasellus facilisis turpis quis arcu
+        dignissim dignissim id a leo. Maecenas ultrices venenatis ultrices. Mauris tincidunt maximus suscipit. Quisque pellentesque
+        nunc in vehicula venenatis. Vestibulum molestie lacus posuere libero egestas varius. Nulla venenatis gravida massa,
+        sed suscipit nisl tincidunt non. Nullam non ipsum dui. Fusce ex odio, sollicitudin ac pulvinar quis, ultrices pellentesque
+        nulla. Duis pharetra, sem posuere cursus pharetra, elit eros consequat mauris, in tristique dui dolor non nunc. Integer
+        mollis ornare elit. Sed fermentum, lacus nec blandit faucibus, mauris massa tincidunt nisl, eget accumsan turpis
+        est eu erat.
+        <!-- /livro -->
+    </div>
+    <!-- Fim main container -->
+
+    <!-- Início footer-->
+    <footer class="page-footer font-small bg-teca1">
+        <div class="footer-copyright py-3 text-center text-light">
+            Todos os direitos reservados - StreetTeca © 2018
+        </div>
+    </footer>
+    <!-- Fim footer-->
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../js/modules.js"></script>
+    <script src="../js/catalogo-genero.js"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

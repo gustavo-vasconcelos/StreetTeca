@@ -65,7 +65,12 @@ window.onload = function () {
         window.location.href = '../index.html'
     }
 
-    var swiper = new Swiper('.swiper-container', {
+    gerarSections()
+    generoClicado()    
+    livroClicado()
+
+    //swiper
+    let swiper = new Swiper('.swiper-container', {
         slidesPerView: 5,
         spaceBetween: 30,
         navigation: {
@@ -76,7 +81,6 @@ window.onload = function () {
             el: '.swiper-scrollbar',
             draggable: true,
         },
-
         breakpoints: {
             320: {
                 slidesPerView: 2,
@@ -102,3 +106,66 @@ window.onload = function () {
     });
 
 } //fim onload
+
+function gerarSections() {
+    let str = ""
+    for (let i in generos) {
+        str += gerarLivrosPorGenero(generos[i].id)
+    }
+    document.getElementById("recentes").innerHTML = str
+}
+
+function gerarLivrosPorGenero(idGenero) {
+    let livrosAleatorios = Livro.getIdsAleatoriosByIdGenero(idGenero)
+    //apenas mostra 10 livros no máximo
+    livrosAleatorios.length = (livrosAleatorios.length > 10) ? 10 : livrosAleatorios.length
+    let str = ""
+    if (Livro.getIdsByIdGenero(idGenero).length > 0) {
+        str += `<div id="catalogo" style="padding-top: 50px;">
+                    <a href="catalogo-genero.html" class="text-white hoverGenero" id="genero${idGenero}">
+                        <span class="text-teca4" style="font-size: 1.5em; font-weight: 500">${Genero.getNomeById(idGenero).toUpperCase()}</span>
+                        &nbsp;<span class="verTudo">Ver tudo &nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                    </a>
+                    <br>
+                    <br>
+                    <div class="swiper-container text-center">
+                        <div class="swiper-wrapper">`
+
+        //cria os slides dos livros
+        for (let i in livrosAleatorios) {
+            str += `<div class="swiper-slide">
+                            <div class="livro-recente">
+                                <figure>
+                                    <div class="livro-card">
+                                        <a href="livro.html" class="clicarLivro" id="livro${livrosAleatorios[i]}">
+                                            <img class="img-fluid" src="${Livro.getUrlCapaById(livrosAleatorios[i])}">
+                                        </a>
+                                    </div>
+                                    <figcaption class="px-2">
+                                        <div>
+                                            <a href="livro.html" class="livro-titulo clicarLivro" id="livro${livrosAleatorios[i]}">${Livro.getTituloById(livrosAleatorios[i])}</a>
+                                        </div>
+                                        <div class="livro-autor">${Livro.getAutorById(livrosAleatorios[i]).join(", ")}</div>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>`
+        }
+
+        str += `    </div>
+                        <div class="swiper-scrollbar"></div>
+                    </div>
+                </div>`
+    }
+    return str
+}
+
+function generoClicado() {
+    let clicarGenero = document.getElementsByClassName("hoverGenero")
+    for (let i = 0; i < clicarGenero.length; i++) {
+        clicarGenero[i].addEventListener("click", function () {
+            idGeneroClicado = parseInt(clicarGenero[i].id.replace(/genero/g, ""))
+            localStorage.setItem("idGeneroClicado", parseInt(idGeneroClicado))
+        })
+    }
+}
