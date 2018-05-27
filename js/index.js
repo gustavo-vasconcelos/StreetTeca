@@ -87,7 +87,7 @@ window.onload = function () {
     navbar()
 
     clicarCatalogo()
-    
+
     //efetuar registo
     let formRegisto = document.getElementById("formRegisto")
     let registoInputNome = document.getElementById("registoInputNome")
@@ -217,43 +217,45 @@ window.onload = function () {
 function gerarLivrosRecentes() {
     let recentesDiv = document.getElementById("recentesDiv")
     let str = ""
-    let livrosRecentes = Livro.getLivrosRecentes()
+    let count = 0
 
-    for (let i in livrosRecentes) {
-        if (idUtilizadorLogado !== -1) {
-            str += `<div class="col-xl-4 col-lg-5 col-sm-6 col-10 mt-4 livro-recente">
-                        <figure>
-                            <div class="livro-card">
-                                <a href="content/livro.html" class="clicarLivro" id="livro${livrosRecentes[i].id}"><img class="img-fluid" src="${livrosRecentes[i].urlCapa}"></a>
-                            </div>
-                            <figcaption class="px-2">
-                                <div>
-                                    <a href="content/livro.html" class="livro-titulo clicarLivro" id="livro${livrosRecentes[i].id}">${livrosRecentes[i].titulo}</a>
+    for (let i = livros.length - 1; i >= 0; i--) {
+        if(count < 10) {
+            if (idUtilizadorLogado !== -1) {
+                str += `<div class="col-xl-4 col-lg-5 col-sm-6 col-10 mt-4 livro-recente">
+                            <figure>
+                                <div class="livro-card">
+                                    <a href="content/livro.html" class="clicarLivro" id="livro${livros[i].id}"><img class="img-fluid" src="${livros[i].urlCapa}"></a>
                                 </div>
-                                <div class="livro-autor">
-                                    ${livrosRecentes[i].autor.join(", ")}
+                                <figcaption class="px-2">
+                                    <div>
+                                        <a href="content/livro.html" class="livro-titulo clicarLivro" id="livro${livros[i].id}">${livros[i].titulo}</a>
+                                    </div>
+                                    <div class="livro-autor">
+                                        ${livros[i].autor.join(", ")}
+                                    </div>
+                                </figcaption>
+                            </figure>
+                        </div>`
+            } else {
+                str += `<div class="col-xl-4 col-lg-5 col-sm-6 col-10 mt-4 livro-recente">
+                            <figure>
+                                <div class="livro-card">
+                                    <a href="" data-toggle="modal" data-target="#modalLogin"><img class="img-fluid" src="${livros[i].urlCapa}"></a>
                                 </div>
-                            </figcaption>
-                        </figure>
-                    </div>`
-        } else {
-            str += `<div class="col-xl-4 col-lg-5 col-sm-6 col-10 mt-4 livro-recente">
-                        <figure>
-                            <div class="livro-card">
-                                <a href="" data-toggle="modal" data-target="#modalLogin"><img class="img-fluid" src="${livrosRecentes[i].urlCapa}"></a>
-                            </div>
-                            <figcaption class="px-2">
-                                <div>
-                                    <a href="" class="livro-titulo" data-toggle="modal" data-target="#modalLogin">${livrosRecentes[i].titulo}</a>
-                                </div>
-                                <div class="livro-autor">
-                                    ${livrosRecentes[i].autor.join(", ")}
-                                </div>
-                            </figcaption>
-                        </figure>
-                    </div>`
+                                <figcaption class="px-2">
+                                    <div>
+                                        <a href="" class="livro-titulo" data-toggle="modal" data-target="#modalLogin">${livros[i].titulo}</a>
+                                    </div>
+                                    <div class="livro-autor">
+                                        ${livros[i].autor.join(", ")}
+                                    </div>
+                                </figcaption>
+                            </figure>
+                        </div>`
+            }
+            count++
         }
-
     }
     recentesDiv.innerHTML = str
     //alterar o id do livro clicado
