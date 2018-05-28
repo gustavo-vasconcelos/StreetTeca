@@ -37,10 +37,6 @@ section {
     padding-top: 100px;
 }
 
-#main-container {
-    min-height: 100%;
-}
-
 .page-footer {
     bottom: 0;
     width: 100%;
