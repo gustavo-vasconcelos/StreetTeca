@@ -1387,6 +1387,10 @@ tags.push(new Tag("épico")) //12
 tags.push(new Tag("magia")) //13
 tags.push(new Tag("história-pessoal")) //14
 tags.push(new Tag("epidemia")) //15
+tags.push(new Tag("amor")) //16
+tags.push(new Tag("reflexão")) //17
+tags.push(new Tag("futurista")) //18
+tags.push(new Tag("cultura-pop")) //19
 
 if (!localStorage.getItem("tags")) {
     localStorage.setItem("tags", JSON.stringify(tags))
@@ -1473,7 +1477,7 @@ livros.push(new Livro(
     `Há muito tempo, a superfície da Terra foi arrasada por uma guerra nuclear. Os poucos sortudos que conseguiram sobreviver refugiaram-se a bordo da Colónia, uma estação espacial que orbita o planeta. Cem anos após ter sido a salvação da Humanidade, a Colónia está em perigo. Os aparelhos que garantem a renovação do oxigénio na estação espacial estão a falhar, e não há como os substituir. A última esperança da Humanidade reside em 100 jovens selecionados entre criminosos, para regressar à superfície da Terra e descobrir se o planeta pode de novo ser habitado. Depois de tanto tempo, estes serão os primeiros humanos a pisar a Terra. Mas estarão na verdade sozinhos? Terão todos os seres vivos perecido durante o longo inverno nuclear, ou será que algo se esconde nas sombras das grandes florestas que agora cobrem toda a Terra?`,
     2015,
     2,
-    [1, 7, 8, 11],
+    [1, 7, 8, 11, 18],
     "TopSeller",
     288,
     2,
@@ -1781,6 +1785,52 @@ livros.push(new Livro(
     1,
     -1
 ))
+livros.push(new Livro(
+    "https://img.wook.pt/images/prometo-amar-pedro-chagas-freitas/MXwyMTUwNTAxNXwxNzM1MTcyOXwxNTIwODk5MjAwMDAw/502x",
+    "Prometo Amar",
+    ["Pedro Chagas Freitas"],
+    `Um homem fica cego, inexplicavelmente, quando se encontra no seu carro no meio do trânsito. A cegueira alastra como «um rastilho de pólvora». Uma cegueira coletiva. Romance contundente. Saramago a ver mais longe. Personagens sem nome. Um mundo com as contradições da espécie humana. Não se situa em nenhum tempo específico. É um tempo que pode ser ontem, hoje ou amanhã. As ideias a virem ao de cima, sempre na escrita de Saramago. A alegoria. O poder da palavra a abrir os olhos, face ao risco de uma situação terminal generalizada. A arte da escrita ao serviço da preocupação cívica.`,
+    2018,
+    3,
+    [16],
+    "Desrotina",
+    312,
+    2,
+    "2018-05-02",
+    1,
+    -1
+))
+livros.push(new Livro(
+    "https://img.wook.pt/images/o-principezinho-antoine-de-saint-exupery/MXw0Njk5M3w3NzA2MHwxMzgzNTIzMjAwMDAw/260x",
+    "O Principezinho",
+    ["Antoine de Saint-Exupéry"],
+    `Antoine de Saint-Exupéry publicou pela primeira vez «O Principezinho» em 1943, quando recuperava de ferimentos de guerra em Nova Iorque, um ano antes do seu avião Lockheed P-38 ter sido dado como desaparecido sobre o Mar Mediterrâneo, durante uma missão de reconhecimento. Mais de meio século depois, a sua fábula sobre o amor e a solidão não perdeu nenhuma da sua força, muito pelo contrário: este livro que se transformou numa das obras mais amadas e admiradas do nosso tempo, é na verdade de alcance intemporal, podendo ser inspirador para leitores de todas as idades e de todas as culturas. O narrador da obra é um piloto com um avião avariado no deserto do Sahara, que, tenta desesperadamente, reparar os danos causados no seu aparelho. Um belo dia os seus esforços são interrompidos devido à aparição de um pequeno príncipe, que lhe pede que desenhe uma ovelha. Perante um domínio tão misterioso, o piloto não se atreveu a desobedecer e, por muito absurdo que pareça - a mais de mil milhas das próximas regiões habitadas e correndo perigo de vida - pegou num pedaço de papel e numa caneta e fez o que o principezinho tinha pedido. E assim tem início um diálogo que expande a imaginação do narrador para todo o género de infantis e surpreendentes direcções. «O Principezinho» conta a sua viagem de planeta em planeta, cada um sendo um pequeno mundo povoado com um único adulto. Esta maravilhosa sequência criativa evoca não apenas os grandes contos de fadas de todos os tempos, como também o extravagante «Cidades Invisíveis» de Ítalo Calvino. Uma história terna que apresenta uma exposição sentida sobre a tristeza e a solidão, dotada de uma filosofia ansiosa e poética, que revela algumas reflexões sobre o que de facto são os valores da vida.`,
+    2001,
+    5,
+    [7, 17],
+    "Editorial Presença",
+    96,
+    2,
+    "2018-05-02",
+    1,
+    -1
+))
+livros.push(new Livro(
+    "https://img.wook.pt/images/ready-player-one-ernest-cline/MXwxNzk1MDYwN3wxMzU5NTIyOHwxNTIwMjA4MDAwMDAw/260x",
+    "Ready Player One",
+    ["Ernest Cline"],
+    `Em 2044 o mundo tornou-se um lugar triste, devastado por conflitos, escassez de recursos, fome, pobreza e doenças. Wade Watts só se sente feliz na realidade virtual conhecida como OASIS, onde pode viver, jogar e apaixonar-se sem constrangimentos. Quando o criador do OASIS morre, deixa a sua imensa fortuna e o controlo da realidade virtual a quem conseguir resolver os enigmas que aí escondeu. Os utilizadores têm apenas como pistas a cultura pop dos anos 1980. Começa assim uma frenética e perigosa caça ao tesouro. Nos primeiros anos, milhares de jogadores tentam solucionar o enigma inicial sem sucesso. Até que Wade por acaso desvenda a primeira chave. De um momento para o outro, vê-se numa corrida desesperada para vencer o prémio, uma corrida que rapidamente continua no mundo real e que põe em risco a sua vida.`,
+    2016,
+    1,
+    [9, 18, 19],
+    "Editorial Presença",
+    416,
+    2,
+    "2018-05-02",
+    1,
+    -1
+))
+
 
 if (!localStorage.getItem("livros")) {
     localStorage.setItem("livros", JSON.stringify(livros))

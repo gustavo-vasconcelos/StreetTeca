@@ -323,7 +323,7 @@ function gerarTabelaLivros() {
     for (let i in livros) {
         str += `<tr id="${livros[i].id}">
                     <td>${count}</td>
-                    <td>${livros[i].titulo}</td>
+                    <td><a href="../livro.html" class="livro${livros[i].id} clicarLivro">${livros[i].titulo}</a></td>
                     <td>${livros[i].idBiblioteca}</td>
                     <td>${Genero.getNomeById(livros[i].idGenero)}</td>
                     <td>${Tag.getNomesByIds(livros[i].idTags).join(", ")}</td>
@@ -336,7 +336,7 @@ function gerarTabelaLivros() {
     }
 
     document.getElementById("tabelaLivros").innerHTML = str
-
+    livroClicado()
     //btn info livro
     let btnInfoLivro = document.getElementsByClassName("infoLivro")
     for (let i = 0; i < btnInfoLivro.length; i++) {
