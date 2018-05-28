@@ -613,11 +613,11 @@ function gerarLivrosGenero(idGenero, idLivro) {
                 str += `<div class="col-lg-5 col-10 mt-4 livro-recente">
                             <figure>
                                 <div class="livro-card">
-                                    <a href="livro.html" class="clicarLivro" id="livro${livros[j].id}"><img class="img-fluid" src="${livros[j].urlCapa}"></a>
+                                    <a href="livro.html" class="livro${livros[j].id} clicarLivro""><img class="img-fluid" src="${livros[j].urlCapa}"></a>
                                 </div>
                                 <figcaption class="px-2">
                                     <div>
-                                        <a href="livro.html" class="livro-titulo clicarLivro" id="livro${livros[j].id}">${livros[j].titulo}</a>
+                                        <a href="livro.html" class="livro${livros[j].id} livro-titulo clicarLivro"">${livros[j].titulo}</a>
                                     </div>
                                     <div class="livro-autor">
                                         ${livros[j].autor.join(", ")}

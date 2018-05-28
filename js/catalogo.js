@@ -30,7 +30,7 @@ window.onload = function () {
     smoothScroll()
     btnMenu()
     //fim aparência
-
+    
     let btnPainelAdmin = document.getElementById("btnPainelAdmin")
 
     if (idUtilizadorLogado !== -1) {
@@ -137,13 +137,13 @@ function gerarLivrosPorGenero(idGenero) {
                             <div class="livro-recente">
                                 <figure>
                                     <div class="livro-card">
-                                        <a href="livro.html" class="clicarLivro" id="livro${livrosAleatorios[i]}">
+                                        <a href="livro.html" class="livro${livrosAleatorios[i]} clicarLivro">
                                             <img class="img-fluid" src="${Livro.getUrlCapaById(livrosAleatorios[i])}">
                                         </a>
                                     </div>
                                     <figcaption class="px-2">
                                         <div>
-                                            <a href="livro.html" class="livro-titulo clicarLivro" id="livro${livrosAleatorios[i]}">${Livro.getTituloById(livrosAleatorios[i])}</a>
+                                            <a href="livro.html" class="livro${livrosAleatorios[i]} livro-titulo clicarLivro">${Livro.getTituloById(livrosAleatorios[i])}</a>
                                         </div>
                                         <div class="livro-autor">${Livro.getAutorById(livrosAleatorios[i]).join(", ")}</div>
                                     </figcaption>

@@ -150,11 +150,11 @@ function gerarLivros(idGenero, filtro = "filtroRelevancia", disposicao = "grelha
                 str += `<div class="col-xl-4 col-lg-5 col-sm-6 col-10 mt-4 livro-recente">
                             <figure>
                                 <div class="livro-card">
-                                    <a href="livro.html" class="clicarLivro" id="livro${livros[i].id}"><img class="img-fluid" src="${livros[i].urlCapa}"></a>
+                                    <a href="livro.html" class="livro${livros[i].id} clicarLivro"><img class="img-fluid" src="${livros[i].urlCapa}"></a>
                                 </div>
                                 <figcaption class="px-2">
                                     <div>
-                                        <a href="livro.html" class="livro-titulo clicarLivro" id="livro${livros[i].id}">${livros[i].titulo}</a>
+                                        <a href="livro.html" class="livro${livros[i].id} livro-titulo clicarLivro">${livros[i].titulo}</a>
                                     </div>
                                     <div class="livro-autor">
                                         ${livros[i].autor.join(", ")}
@@ -165,16 +165,16 @@ function gerarLivros(idGenero, filtro = "filtroRelevancia", disposicao = "grelha
             }
             if (disposicao === "lista") {
                 let descricao = (livros[i].descricao.length > 200) ? livros[i].descricao.substr(0, livros[i].descricao.indexOf(" ", 200)) + "..." : livros[i].descricao
-                str += `<div class="row">
+                str += `<div class="row mt-4">
                             <div class="col-xl-4 col-lg-5 col-md-6 col-sm-7 col-20 pull-left livro-recente text-center">
-                                <figure id="livro${livros[i].id}">
+                                <figure>
                                     <div class="livro-card">
-                                        <a href="livro.html" class="clicarLivro" id="livro${livros[i].id}"><img class="img-fluid" src="${livros[i].urlCapa}"></a>
+                                        <a href="livro.html" class="livro${livros[i].id} clicarLivro"><img class="img-fluid" src="${livros[i].urlCapa}"></a>
                                     </div>
                                 </figure>
                             </div>
                             <div class="col-xl-13 col-lg-15 col-md-14 col-sm-13 col-20 text-white text-left">
-                                <a href="livro.html" class="clicarLivro" id="livro${livros[i].id}"><h4 class="livro-titulo">${livros[i].titulo}</h4></a>
+                                <a href="livro.html" class="livro${livros[i].id} clicarLivro"><h4 class="livro-titulo">${livros[i].titulo}</h4></a>
                                 <p style="font-size: .9em;">de ${livros[i].autor.join(", ")}</p>
                                 <p>${descricao}</p>
                             </div>
@@ -185,11 +185,11 @@ function gerarLivros(idGenero, filtro = "filtroRelevancia", disposicao = "grelha
         }
     }
     str += (disposicao === "grelha") ? "</div>" : ""
+
     document.getElementById("recentes").innerHTML = str
+
+    if(disposicao === "lista") {
+        document.querySelectorAll("hr.bg-teca4")[document.querySelectorAll("hr.bg-teca4").length - 1].remove()
+    }
     livroClicado()
 }
-
-
-let a = "Quando Eddard Stark, lorde do castelo de Winterfell, recebe a visita do velho amigo, o rei Robert Baratheon, está longe de adivinhar que a sua vida, e a da sua família, está prestes a entrar numa espiral de tragédia, conspiração e morte. Durante a estadia, o rei convida Eddard a mudar-se para a corte e a assumir a prestigiada posição de Mão do Rei. Este aceita, mas apenas porque desconfia que o anterior detentor desse título foi envenenado pela própria rainha: uma cruel manipuladora do clã Lannister. Assim, perto do rei, Eddard tem esperança de o proteger da rainha. Mas ter os Lannister como inimigos é fatal: a ambição dessa família não tem limites e o rei corre um perigo muito maior do que Eddard temia! Sozinho na corte, Eddard também se apercebe que a sua vida nada vale. E até a sua família, longe no norte, pode estar em perigo. Uma galeria de personagens brilhantes dá vida a esta saga: o anão Tyrion, ovelha negra do clã Lannister; Jon Snow, bastardo de Eddard Stark que decide juntar-se à Patrulha da Noite, e a princesa Daenerys Targaryen, da dinastia que reinou antes de Robert, que pretende ressuscitar os dragões do passado para recuperar o trono, custe o que custar."
-
-a = (a.length > 200) ? a.substr(0, a.indexOf(" ", 200)) + "..." : a

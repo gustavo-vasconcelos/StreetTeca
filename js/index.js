@@ -225,11 +225,11 @@ function gerarLivrosRecentes() {
                 str += `<div class="col-xl-4 col-lg-5 col-sm-6 col-10 mt-4 livro-recente">
                             <figure>
                                 <div class="livro-card">
-                                    <a href="content/livro.html" class="clicarLivro" id="livro${livros[i].id}"><img class="img-fluid" src="${livros[i].urlCapa}"></a>
+                                    <a href="content/livro.html" class="livro${livros[i].id} clicarLivro"><img class="img-fluid" src="${livros[i].urlCapa}"></a>
                                 </div>
                                 <figcaption class="px-2">
                                     <div>
-                                        <a href="content/livro.html" class="livro-titulo clicarLivro" id="livro${livros[i].id}">${livros[i].titulo}</a>
+                                        <a href="content/livro.html" class="livro${livros[i].id} livro-titulo clicarLivro">${livros[i].titulo}</a>
                                     </div>
                                     <div class="livro-autor">
                                         ${livros[i].autor.join(", ")}
@@ -278,12 +278,12 @@ function gerarLivrosMaisPontuados() {
                                         <h1 class="text-center text-white">${count}</h1>
                                     </div>
                                     <div>
-                                        <a href="content/livro.html" class="clicarLivro" id="livro${livros[j].id}"><img class="img-fluid" src="${livros[j].urlCapa}"></a>
+                                        <a href="content/livro.html" class="livro${livros[j].id} clicarLivro"><img class="img-fluid" src="${livros[j].urlCapa}"></a>
                                     </div>
                                 </div>
                                 <div class="livro-dados">
                                     <div>
-                                        <a href="content/livro.html" class="livro-titulo clicarLivro" id="livro${livros[j].id}">${livros[j].titulo}</a>
+                                        <a href="content/livro.html" class="livro${livros[j].id} livro-titulo clicarLivro">${livros[j].titulo}</a>
                                     </div>
                                     <div class="livro-autor">
                                         ${livros[j].autor.join(", ")}
