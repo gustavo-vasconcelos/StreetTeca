@@ -143,7 +143,7 @@ function gerarLivros(idGenero, filtro = "filtroRelevancia", disposicao = "grelha
             break;
     }
 
-    let str = `<div class="row mt-1 d-flex justify-content-start text-center">`
+    let str = (disposicao === "grelha") ? '<div class="row mt-1 d-flex justify-content-start text-center">' : ""
     for (let i in livros) {
         if (livros[i].idGenero === idGenero) {
             if (disposicao === "grelha") {
@@ -178,12 +178,13 @@ function gerarLivros(idGenero, filtro = "filtroRelevancia", disposicao = "grelha
                                 <p style="font-size: .9em;">de ${livros[i].autor.join(", ")}</p>
                                 <p>${descricao}</p>
                             </div>
-                        </div>`
+                        </div>
+                        <hr class="bg-teca4">`
             }
 
         }
     }
-    str += "</div>"
+    str += (disposicao === "grelha") ? "</div>" : ""
     document.getElementById("recentes").innerHTML = str
     livroClicado()
 }
