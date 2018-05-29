@@ -6,6 +6,9 @@ window.onload = function () {
     bibliotecas = JSON.parse(localStorage.getItem("bibliotecas"))
     transformarEmInstanciaBiblioteca(bibliotecas)
 
+    autores = JSON.parse(localStorage.getItem("autores"))
+    transformarEmInstanciaAutor(autores)
+
     livros = JSON.parse(localStorage.getItem("livros"))
     transformarEmInstanciaLivro(livros)
 

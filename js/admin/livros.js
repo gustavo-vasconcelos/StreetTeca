@@ -49,6 +49,9 @@ window.onload = function () {
     //limitar máximo valor para o ano
     inputLivroAno.max = new Date().getFullYear()
 
+    //gerar combobox autores
+    gerarComboboxAutores()
+
     //gerar combobox generos
     gerarComboboxGeneros()
 
@@ -185,6 +188,23 @@ function atualizarPercentagens() {
 
     let percentagemLivrosPorGenero = document.getElementById("percentagemLivrosPorGenero")
     percentagemLivrosPorGenero.innerHTML = str
+}
+
+function gerarComboboxAutores(editar = false) {
+    let inputAutor = (!editar) ? document.getElementById("inputLivroGenero") : document.getElementById("inputLivroGeneroEditar")
+    let str = (!editar) ? '<option value="" hidden selected>Selecione um</option>' : ""
+    for (let i in generos) {
+        if (!editar) {
+            str += `<option value="${generos[i].nome}">${generos[i].nome}</option>`
+        } else {
+            if (generos[i].nome === editar) {
+                str += `<option value="${generos[i].nome}" selected>${generos[i].nome}</option>`
+            } else {
+                str += `<option value="${generos[i].nome}">${generos[i].nome}</option>`
+            }
+        }
+    }
+    inputLivroGenero.innerHTML = str
 }
 
 function gerarComboboxGeneros(editar = false) {

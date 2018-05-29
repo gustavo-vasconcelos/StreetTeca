@@ -40,6 +40,7 @@ function gerarTabelaAutores() {
                         <th>#</th>
                         <th>Nome</th>
                         <th>Livros publicados</th>
+                        <th>Descrição</th>
                         <th></th>
                     </tr>
                 </thead>`
@@ -51,6 +52,7 @@ function gerarTabelaAutores() {
                     <td>${count}</td>
                     <td>${autores[i].nome}</td>
                     <td>${autores[i].getLivrosPublicados().join(", ")}</td>                    
+                    <td>${autores[i].descricao}</td>                    
                     <td align="right">
                         <button type="button" class="btn btn-warning editarAutor" data-toggle="modal" data-target="#modal"><i class="fa fa-edit"></i></button>                    
                         <button type="button" class="btn btn-danger removerAutor"><i class="fa fa-trash"></i></button>
@@ -60,27 +62,42 @@ function gerarTabelaAutores() {
     }
 
     document.getElementById("tabelaAutores").innerHTML = str
-
-    //btn editar género
-    let btnEditarGenero = document.getElementsByClassName("editarGenero")
-    for (let i = 0; i < btnEditarGenero.length; i++) {
-        btnEditarGenero[i].addEventListener("click", function () {
-            let idGenero = parseInt(btnEditarGenero[i].parentNode.parentNode.id)
-            for (let j in generos) {
-                if (generos[j].id === idGenero) {
-                    modalTitulo.innerHTML = "Editar género"
+    //btn editar autor
+    let btnEditarAutor = document.getElementsByClassName("editarAutor")
+    for (let i = 0; i < btnEditarAutor.length; i++) {
+        btnEditarAutor[i].addEventListener("click", function () {
+            let idAutor = parseInt(btnEditarAutor[i].parentNode.parentNode.id)
+            for (let j in autores) {
+                if (autores[j].id === idAutor) {
+                    modalTitulo.innerHTML = "Editar autor"
                     modalBody.innerHTML = `<div class="container-fluid">
-                                                <form class="form-horizontal" id="formGeneroEditar">
+                                                <div class="text-center">
+                                                    <img src="${autores[j].urlFoto}" title="${autores[j].nome}" class="img-fluid img-thumbnail" style="width: 150px; height: 150px; border-radius: 50%;">                            
+                                                </div>
+                                                <br>
+                                                <form class="form-horizontal" id="formEditar">
                                                     <div class="form-group">
-                                                        <label class="col-sm-3 control-label" for="inputGeneroEditarId">ID</label>
+                                                        <label class="col-sm-3 control-label" for="inputEditarId">ID</label>
                                                         <div class="col-sm-9">
-                                                            <input id="inputGeneroEditarId" type="text" class="form-control" required readonly value="${generos[j].id}">
+                                                            <input id="inputEditarId" type="number" class="form-control" required readonly value="${autores[j].id}">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="col-sm-3 control-label" for="inputGeneroEditarNome">Nome</label>
+                                                        <label class="col-sm-3 control-label" for="inputEditarNome">Nome *</label>
                                                         <div class="col-sm-9">
-                                                            <input id="inputGeneroEditarNome" type="text" class="form-control" required value="${generos[j].nome}">
+                                                            <input id="inputEditarNome" type="text" class="form-control" required value="${autores[j].nome}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label" for="inputEditarDescricao">Descrição *</label>
+                                                        <div class="col-sm-9">
+                                                            <textarea id="inputEditarDescricao" class="form-control" rows="5" style="resize: vertical; min-height: 48px; max-height: 150px;" required>${autores[j].descricao}</textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label" for="inputEditarFoto">URL foto</label>
+                                                        <div class="col-md-9">
+                                                            <input id="inputEditarFoto" type="text" class="form-control" value="${autores[j].urlFoto}">
                                                         </div>
                                                     </div>
                                                     <input type="submit" class="col-lg-2 btn btn-warning btn-md pull-right" style="margin-left:10px;" value="Confirmar">
@@ -90,21 +107,22 @@ function gerarTabelaAutores() {
                     modalFooter.innerHTML = ""
 
                     //form editar
-                    let formGeneroEditar = document.getElementById("formGeneroEditar")
-                    let inputGeneroEditarNome = document.getElementById("inputGeneroEditarNome")
-                    formGeneroEditar.addEventListener("submit", function (event) {
-                        if (Genero.getIdByNome(inputGeneroEditarNome.value) === -1 || (Genero.getIdByNome(inputGeneroEditarNome.value) === generos[j].id && Genero.getIdByNome(inputGeneroEditarNome.value) !== -1)) { //caso não exista nenhum género com o nome indicado
-                            generos[j].nome = inputGeneroEditarNome.value
+                    let formEditar = document.getElementById("formEditar")
+                    let inputEditarNome = document.getElementById("inputEditarNome")
+                    let inputEditarDescricao = document.getElementById("inputEditarDescricao")
+                    let inputEditarFoto = document.getElementById("inputEditarFoto")
+                    
+                    formEditar.addEventListener("submit", function (event) {
+                        autores[j].nome = inputEditarNome.value
+                        autores[j].descricao = inputEditarDescricao.value
+                        autores[j].urlFoto = inputEditarFoto.value
+                        
+                        //atualizar a key do localStorage
+                        localStorage.setItem("autores", JSON.stringify(autores))
 
-                            //atualizar a key do localStorage
-                            localStorage.setItem("generos", JSON.stringify(generos))
-
-                            swal("Género editado!", `O género com o id ${generos[j].id} foi editado com sucesso.`, "success");
-                            gerarTabelaGeneros()
-                            $("#modal").modal("hide")
-                        } else { //caso exista um género com o mesmo email indicado
-                            swal("Erro!", `O género ${inputGeneroEditarNome.value} já está em uso.`, "error");
-                        }
+                        swal("Autor editado!", `O autor cujo id é ${autores[j].id} foi editado com sucesso.`, "success");
+                        gerarTabelaAutores()
+                        $("#modal").modal("hide")
 
                         event.preventDefault()
                     })
