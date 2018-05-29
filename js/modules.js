@@ -509,6 +509,18 @@ class Livro {
         return titulos
     }
 
+    static getTitulosByIdAutor(idAutor) {
+        let titulos = []
+        for (let i in livros) {
+            for (let j in livros[i].autor) {
+                if (livros[i].autor[j] === idAutor) {
+                    titulos.push(livros[i].titulo)
+                }
+            }
+        }
+        return titulos
+    }
+
     static ordenarMaisRequisitados(a, b) {
         if (a.getQuantidadeRequisicoes() > b.getQuantidadeRequisicoes()) {
             return 1
@@ -1375,6 +1387,14 @@ class Autor {
             }
         }
         return id
+    }
+
+    static removerAutorById(id) {
+        for (let i in autores) {
+            if (autores[i].id === id) {
+                autores.splice(i, 1)
+            }
+        }
     }
 }
 

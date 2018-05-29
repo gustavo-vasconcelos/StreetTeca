@@ -178,10 +178,8 @@ function gerarTabelaGeneros() {
                         });
                         $("#modal").modal('hide')
                         Genero.removerGeneroById(idGenero)
-                        Livro.removerLivrosByIdGenero(idGenero)
                         //atualiza localstorage
                         localStorage.setItem("generos", JSON.stringify(generos))
-                        localStorage.setItem("livros", JSON.stringify(livros))
 
                         gerarTabelaGeneros()
                     }

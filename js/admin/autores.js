@@ -138,37 +138,35 @@ function gerarTabelaAutores() {
         })
     }
 
-    //btn remover género
-    let btnRemoverGenero = document.getElementsByClassName("removerGenero")
-    for (let i = 0; i < btnRemoverGenero.length; i++) {
-        btnRemoverGenero[i].addEventListener("click", function () {
-            let idGenero = parseInt(btnRemoverGenero[i].parentNode.parentNode.id)
-            let livrosDependentes = Livro.getTitulosByIdGenero(idGenero)
+    //btn remover autor
+    let btnRemoverAutor = document.getElementsByClassName("removerAutor")
+    for (let i = 0; i < btnRemoverAutor.length; i++) {
+        btnRemoverAutor[i].addEventListener("click", function () {
+            let idAutor = parseInt(btnRemoverAutor[i].parentNode.parentNode.id)
+            let livrosDependentes = Livro.getTitulosByIdAutor(idAutor)
             if (livrosDependentes.length === 0) {
                 swal({
                     title: "Deseja mesmo remover?",
-                    text: `O género ${Genero.getNomeById(idGenero)} será removido para sempre!`,
+                    text: `O autor ${Autor.getNomeById(idAutor)} será removido para sempre!`,
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
                 }).then((willDelete) => {
                     if (willDelete) {
-                        swal(`O género ${Genero.getNomeById(idGenero)} foi removido com sucesso.`, {
+                        swal(`O autor ${Autor.getNomeById(idAutor)} foi removido com sucesso.`, {
                             icon: "success",
                         });
                         $("#modal").modal('hide')
-                        Genero.removerGeneroById(idGenero)
-                        Livro.removerLivrosByIdGenero(idGenero)
+                        Autor.removerAutorById(idAutor)
                         //atualiza localstorage
-                        localStorage.setItem("generos", JSON.stringify(generos))
-                        localStorage.setItem("livros", JSON.stringify(livros))
+                        localStorage.setItem("autores", JSON.stringify(autores))
 
-                        gerarTabelaGeneros()
+                        gerarTabelaAutores()
                     }
                 });
             } else {
-                let palavras = (livrosDependentes.length === 1) ? ["Existe ", " livro", "Remova o livro em questão ou altere o género deste."] : ["Existem ", " livros", "Remova os livros em questão ou altere o género destes."]
-                swal("Impossível remover!", `${palavras[0] + livrosDependentes.length + palavras[1]} com o género ${Genero.getNomeById(idGenero)}:\n${livrosDependentes.join(", ")}.\n\n${palavras[2]}`, "error")
+                let palavras = (livrosDependentes.length === 1) ? ["Existe ", " livro", "Remova o livro em questão ou altere o(s) autor(es) deste."] : ["Existem ", " livros", "Remova os livros em questão ou altere o(s) autor(es) destes."]
+                swal("Impossível remover!", `${palavras[0] + livrosDependentes.length + palavras[1]} cujo autor é ${Autor.getNomeById(idAutor)}:\n${livrosDependentes.join(", ")}.\n\n${palavras[2]}`, "error")
             }
 
         })
