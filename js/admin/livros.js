@@ -2,7 +2,7 @@ window.onload = function () {
     //importar variáveis do sessionStorage
     autores = JSON.parse(localStorage.getItem("autores"))
     transformarEmInstanciaAutor(autores)
-    
+
     livros = JSON.parse(localStorage.getItem("livros"))
     transformarEmInstanciaLivro(livros)
 
@@ -107,15 +107,9 @@ window.onload = function () {
         } else {
             //obter autores
             let autores = []
-            if (inputLivroAutor.value.indexOf(",") !== -1) {
-                autores = inputLivroAutor.value.split(",")
-            } else {
-                autores.push(inputLivroAutor.value)
-            }
-            //remove espaço inicial (caso haja)
-            for (let i in autores) {
-                if (autores[i].indexOf(" ") === 0) {
-                    autores[i].slice(1, autores.length)
+            for (let i = 0; i < inputLivroAutor.options.length; i++) {
+                if (inputLivroAutor.options[i].selected) {
+                    autores.push(parseInt(inputLivroAutor.options[i].value))
                 }
             }
 
@@ -194,20 +188,23 @@ function atualizarPercentagens() {
 }
 
 function gerarComboboxAutores(editar = false) {
-    let inputAutor = (!editar) ? document.getElementById("inputLivroAutor") : document.getElementById("inputLivroGeneroEditar")
-    let str = (!editar) ? '<option value="" hidden selected>Selecione um</option>' : ""
-    for (let i in generos) {
+    let inputAutor = (!editar) ? document.getElementById("inputLivroAutor") : document.getElementById("inputLivroAutorEditar")
+    //let str = (!editar) ? '<option value="" hidden selected>Selecione um</option>' : ""
+    let str = ""
+    for (let i in autores) {
         if (!editar) {
-            str += `<option value="${generos[i].nome}">${generos[i].nome}</option>`
+            str += `<option value="${autores[i].id}">${autores[i].nome}</option>`
         } else {
-            if (generos[i].nome === editar) {
-                str += `<option value="${generos[i].nome}" selected>${generos[i].nome}</option>`
-            } else {
-                str += `<option value="${generos[i].nome}">${generos[i].nome}</option>`
+            for (let j in editar) {
+                if (autores[i].id === editar[j]) {
+                    str += `<option value="${autores[i].id}" selected>${autores[i].nome}</option>`
+                } else {
+                    str += `<option value="${autores[i].id}">${autores[i].nome}</option>`
+                }
             }
         }
     }
-    inputLivroGenero.innerHTML = str
+    inputAutor.innerHTML = str
 }
 
 function gerarComboboxGeneros(editar = false) {
@@ -304,7 +301,7 @@ function gerarComboboxBibliotecas(editar = false) {
         }
     }
     inputLivroBiblioteca.innerHTML = str
-    if(Livro.getIdBibliotecaById(editar) === -1) {
+    if (Livro.getIdBibliotecaById(editar) === -1) {
         console.log(true)
         document.getElementById("semBiblioteca").selected = true
     }
@@ -450,7 +447,7 @@ function gerarTabelaLivros() {
                                                             <div class="form-group">
                                                                 <label class="col-md-3 control-label" for="inputLivroAutorEditar">Autor</label>
                                                                 <div class="col-md-9">
-                                                                    <select id="inputLivroAutorEditar" class="form-control" required multiple"></select>
+                                                                    <select id="inputLivroAutorEditar" class="form-control" required multiple></select>
                                                                     <small>Separar por vírgulas caso seja mais que um.</small>
                                                                 </div>
                                                             </div>
@@ -538,6 +535,9 @@ function gerarTabelaLivros() {
                                                     </div>`
                             modalFooter.innerHTML = ""
 
+                            //gerar combobox autores e selecionar o autor
+                            gerarComboboxAutores(livros[k].autor)
+
                             //gerar combobox géneros e selecionar o género
                             gerarComboboxGeneros(Genero.getNomeById(livros[k].idGenero))
 
@@ -616,15 +616,9 @@ function gerarTabelaLivros() {
                                 } else {
                                     //obter autores
                                     let autores = []
-                                    if (inputLivroAutorEditar.value.indexOf(",") !== -1) {
-                                        autores = inputLivroAutorEditar.value.split(",")
-                                    } else {
-                                        autores.push(inputLivroAutorEditar.value)
-                                    }
-                                    //remove espaço inicial (caso haja)
-                                    for (let l in autores) {
-                                        if (autores[l].indexOf(" ") === 0) {
-                                            autores[l].slice(1, autores.length)
+                                    for (let l = 0; l < inputLivroAutorEditar.options.length; l++) {
+                                        if (inputLivroAutorEditar.options[l].selected) {
+                                            autores.push(parseInt(inputLivroAutorEditar.options[l].value))
                                         }
                                     }
 
