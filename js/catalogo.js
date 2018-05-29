@@ -30,7 +30,7 @@ window.onload = function () {
     smoothScroll()
     btnMenu()
     //fim aparência
-    
+
     let btnPainelAdmin = document.getElementById("btnPainelAdmin")
 
     if (idUtilizadorLogado !== -1) {
@@ -65,8 +65,61 @@ window.onload = function () {
         window.location.href = '../index.html'
     }
 
+    //barra de pesquisa
+    let opcaoPesquisar = document.getElementById("opcaoPesquisar")
+    let opcaoSelecionada = "opcaoLivro"
+    let inputPesquisar = document.getElementById("inputPesquisar")
+    let str = ""
+    opcaoPesquisar.addEventListener("change", function () {
+        opcaoSelecionada = opcaoPesquisar.value
+        switch (opcaoSelecionada) {
+            case "opcaoLivro":
+                inputPesquisar.innerHTML = '<input type="text" class="form-control border-teca3" style="border-radius: 0; box-shadow: inset 0px 0px 3px 1px rgba(0,0,0,0.59);">'
+                break;
+            case "opcaoTag":
+                inputPesquisar.innerHTML = '<select id="inputPesquisarSelect" class="form-control border-teca3" style="border-radius: 0; box-shadow: inset 0px 0px 3px 1px rgba(0,0,0,0.59);" required></select>'
+
+                let tagsEmUso = Tag.getIdsTagsEmUso()
+                str = '<option value="" selected hidden>Selecione uma</option>'
+                for (let i in tagsEmUso) {
+                    str += `<option value="${tagsEmUso[i]}">${Tag.getNomeById(tagsEmUso[i])}</option>`
+                }
+                document.getElementById("inputPesquisarSelect").innerHTML = str
+                break;
+            case "opcaoAutor":
+                inputPesquisar.innerHTML = '<select class="form-control border-teca3" style="border-radius: 0; box-shadow: inset 0px 0px 3px 1px rgba(0,0,0,0.59);"></select>'
+                break;
+            case "opcaoBiblioteca":
+                inputPesquisar.innerHTML = '<select id="inputPesquisarSelect" class="form-control border-teca3" style="border-radius: 0; box-shadow: inset 0px 0px 3px 1px rgba(0,0,0,0.59);" required></select>'
+
+                let bibliotecasEmUso = Biblioteca.getIdsBibliotecasEmUso()
+                str = '<option value="" selected hidden>Selecione uma</option>'
+                for (let i in bibliotecasEmUso) {
+                    for (let j in bibliotecas) {
+                        if (bibliotecas[j].id === bibliotecasEmUso[i]) {
+                            str += `<option value="${bibliotecasEmUso[i]}">Biblioteca de ${Freguesia.getFreguesiaById(bibliotecas[j].idFreguesia)}, ${Concelho.getConcelhoById(bibliotecas[j].idConcelho)}</option>`
+                        }
+                    }
+                }
+                document.getElementById("inputPesquisarSelect").innerHTML = str
+                break;
+        }
+    })
+
+    let formPesquisar = document.getElementById("formPesquisar")
+    formPesquisar.addEventListener("submit", function (event) {
+        let err = false
+        let msgErr = ""
+        if (opcaoPesquisar !== "opcaoLivro") {
+            msgErr += ""
+        }
+
+    })
+
+
+
     gerarSections()
-    generoClicado()    
+    generoClicado()
     livroClicado()
 
     //swiper
@@ -121,7 +174,7 @@ function gerarLivrosPorGenero(idGenero) {
     livrosAleatorios.length = (livrosAleatorios.length > 10) ? 10 : livrosAleatorios.length
     let str = ""
     if (Livro.getIdsByIdGenero(idGenero).length > 0) {
-        str += `<div id="catalogo" style="padding-top: 50px;">
+        str += `<div id="catalogo" style="padding-bottom: 50px;">
                     <a href="catalogo-genero.html" class="text-white hoverGenero" id="genero${idGenero}">
                         <span class="text-teca4" style="font-size: 1.5em; font-weight: 500">${Genero.getNomeById(idGenero).toUpperCase()}</span>
                         &nbsp;<span class="verTudo">Ver tudo &nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i></span>
@@ -133,25 +186,27 @@ function gerarLivrosPorGenero(idGenero) {
 
         //cria os slides dos livros
         for (let i in livrosAleatorios) {
-            str += `<div class="swiper-slide">
+            for (let j in livros) {
+                if(livros[j].id === livrosAleatorios[i])
+                str += `<div class="swiper-slide">
                             <div class="livro-recente">
                                 <figure>
                                     <div class="livro-card">
-                                        <a href="livro.html" class="livro${livrosAleatorios[i]} clicarLivro">
-                                            <img class="img-fluid" src="${Livro.getUrlCapaById(livrosAleatorios[i])}">
+                                        <a href="livro.html" class="livro${livros[j].id} clicarLivro">
+                                            <img class="img-fluid" src="${livros[j].urlCapa}">
                                         </a>
                                     </div>
                                     <figcaption class="px-2">
                                         <div>
-                                            <a href="livro.html" class="livro${livrosAleatorios[i]} livro-titulo clicarLivro">${Livro.getTituloById(livrosAleatorios[i])}</a>
+                                            <a href="livro.html" class="livro${livros[j].id} livro-titulo clicarLivro">${livros[j].titulo}</a>
                                         </div>
-                                        <div class="livro-autor">${Livro.getAutorById(livrosAleatorios[i]).join(", ")}</div>
+                                        <div class="livro-autor">${livros[j].autorToString().join(", ")}</div>
                                     </figcaption>
                                 </figure>
                             </div>
                         </div>`
+            }
         }
-
         str += `    </div>
                         <div class="swiper-scrollbar"></div>
                     </div>

@@ -353,7 +353,7 @@ function gerarTabelaLivros() {
                                                 <br>
                                                 <p><b>ID:</b> ${livros[j].id}</p>
                                                 <p><b>Nome:</b> ${livros[j].titulo}</p>
-                                                <p><b>Autor:</b> ${livros[j].autor.join(", ")}</p>
+                                                <p><b>Autor:</b> ${livros[j].autorToString().join(", ")}</p>
                                                 <p><b>Descrição:</b> ${livros[j].descricao}</p> 
                                                 <p><b>Ano:</b> ${livros[j].ano}</p>
                                                 <p><b>Género:</b> ${Genero.getNomeById(livros[j].idGenero)}</p>

@@ -78,9 +78,6 @@ window.onload = function () {
 	let inputBibliotecaMorada = document.getElementById("inputBibliotecaMorada")
 	let inputBibliotecaCapacidade = document.getElementById("inputBibliotecaCapacidade")
 	let inputBibliotecaDescricao = document.getElementById("inputBibliotecaDescricao")
-	inputBibliotecaDescricao.style.resize = "vertical"
-	inputBibliotecaDescricao.style.minHeight = "48px"
-	inputBibliotecaDescricao.style.maxHeight = "150px"
 
 	let btnResetBibliotecas = document.getElementById("btnResetBibliotecas")
 

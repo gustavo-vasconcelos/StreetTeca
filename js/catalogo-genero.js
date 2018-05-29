@@ -156,9 +156,7 @@ function gerarLivros(idGenero, filtro = "filtroRelevancia", disposicao = "grelha
                                     <div>
                                         <a href="livro.html" class="livro${livros[i].id} livro-titulo clicarLivro">${livros[i].titulo}</a>
                                     </div>
-                                    <div class="livro-autor">
-                                        ${livros[i].autor.join(", ")}
-                                    </div>
+                                    <div class="livro-autor">${livros[i].autorToString().join(", ")}</div>
                                 </figcaption>
                             </figure>
                         </div>`
@@ -175,7 +173,7 @@ function gerarLivros(idGenero, filtro = "filtroRelevancia", disposicao = "grelha
                             </div>
                             <div class="col-xl-13 col-lg-15 col-md-14 col-sm-13 col-20 text-white text-left">
                                 <a href="livro.html" class="livro${livros[i].id} clicarLivro"><h4 class="livro-titulo">${livros[i].titulo}</h4></a>
-                                <p style="font-size: .9em;">de ${livros[i].autor.join(", ")}</p>
+                                <p style="font-size: .9em;">de ${livros[i].autorToString().join(", ")}</p>
                                 <p>${descricao}</p>
                             </div>
                         </div>

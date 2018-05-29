@@ -231,9 +231,7 @@ function gerarLivrosRecentes() {
                                     <div>
                                         <a href="content/livro.html" class="livro${livros[i].id} livro-titulo clicarLivro">${livros[i].titulo}</a>
                                     </div>
-                                    <div class="livro-autor">
-                                        ${livros[i].autor.join(", ")}
-                                    </div>
+                                    <div class="livro-autor">${livros[i].autorToString().join(", ")}</div>
                                 </figcaption>
                             </figure>
                         </div>`
@@ -247,9 +245,7 @@ function gerarLivrosRecentes() {
                                     <div>
                                         <a href="" class="livro-titulo" data-toggle="modal" data-target="#modalLogin">${livros[i].titulo}</a>
                                     </div>
-                                    <div class="livro-autor">
-                                        ${livros[i].autor.join(", ")}
-                                    </div>
+                                    <div class="livro-autor">${livros[i].autorToString().join(", ")}</div>
                                 </figcaption>
                             </figure>
                         </div>`
@@ -285,9 +281,7 @@ function gerarLivrosMaisPontuados() {
                                     <div>
                                         <a href="content/livro.html" class="livro${livros[j].id} livro-titulo clicarLivro">${livros[j].titulo}</a>
                                     </div>
-                                    <div class="livro-autor">
-                                        ${livros[j].autor.join(", ")}
-                                    </div>
+                                    <div class="livro-autor">${livros[j].autorToString().join(", ")}</div>
                                 </div>
                             </div>`
                 } else {
@@ -304,9 +298,7 @@ function gerarLivrosMaisPontuados() {
                                     <div>
                                         <a href="" class="livro-titulo" data-toggle="modal" data-target="#modalLogin">${livros[j].titulo}</a>
                                     </div>
-                                    <div class="livro-autor">
-                                        ${livros[j].autor.join(", ")}
-                                    </div>
+                                    <div class="livro-autor">${livros[j].autorToString().join(", ")}</div>
                                 </div>
                             </div>`
                 }
