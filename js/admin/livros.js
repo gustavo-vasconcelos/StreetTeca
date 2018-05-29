@@ -191,7 +191,7 @@ function atualizarPercentagens() {
 }
 
 function gerarComboboxAutores(editar = false) {
-    let inputAutor = (!editar) ? document.getElementById("inputLivroGenero") : document.getElementById("inputLivroGeneroEditar")
+    let inputAutor = (!editar) ? document.getElementById("inputLivroAutor") : document.getElementById("inputLivroGeneroEditar")
     let str = (!editar) ? '<option value="" hidden selected>Selecione um</option>' : ""
     for (let i in generos) {
         if (!editar) {
@@ -447,7 +447,7 @@ function gerarTabelaLivros() {
                                                             <div class="form-group">
                                                                 <label class="col-md-3 control-label" for="inputLivroAutorEditar">Autor</label>
                                                                 <div class="col-md-9">
-                                                                    <input id="inputLivroAutorEditar" type="text" class="form-control" required value="${livros[k].autor.join(", ")}">
+                                                                    <select id="inputLivroAutorEditar" class="form-control" required multiple"></select>
                                                                     <small>Separar por vírgulas caso seja mais que um.</small>
                                                                 </div>
                                                             </div>
