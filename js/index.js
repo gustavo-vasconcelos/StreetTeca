@@ -73,6 +73,9 @@ window.onload = function () {
     utilizadores = JSON.parse(localStorage.getItem("utilizadores"))
     transformarEmInstanciaUtilizador(utilizadores)
 
+    autores = JSON.parse(localStorage.getItem("autores"))
+    transformarEmInstanciaAutor(autores)
+    
     livros = JSON.parse(localStorage.getItem("livros"))
     transformarEmInstanciaLivro(livros)
 

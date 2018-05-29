@@ -42,6 +42,7 @@ function gerarTabelaAutores() {
                         <th>Livros publicados</th>
                         <th>Descrição</th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>`
 
@@ -55,6 +56,8 @@ function gerarTabelaAutores() {
                     <td>${autores[i].descricao}</td>                    
                     <td align="right">
                         <button type="button" class="btn btn-warning editarAutor" data-toggle="modal" data-target="#modal"><i class="fa fa-edit"></i></button>                    
+                    </td>
+                    <td align="right">
                         <button type="button" class="btn btn-danger removerAutor"><i class="fa fa-trash"></i></button>
                     </td>
                 </tr>`
@@ -111,12 +114,16 @@ function gerarTabelaAutores() {
                     let inputEditarNome = document.getElementById("inputEditarNome")
                     let inputEditarDescricao = document.getElementById("inputEditarDescricao")
                     let inputEditarFoto = document.getElementById("inputEditarFoto")
-                    
+
+                    inputEditarFoto.addEventListener("change", function () {
+                        document.querySelectorAll(`img[title="${autores[j].nome}"]`)[0].src = inputEditarFoto.value
+                    })
+
                     formEditar.addEventListener("submit", function (event) {
                         autores[j].nome = inputEditarNome.value
                         autores[j].descricao = inputEditarDescricao.value
                         autores[j].urlFoto = inputEditarFoto.value
-                        
+
                         //atualizar a key do localStorage
                         localStorage.setItem("autores", JSON.stringify(autores))
 

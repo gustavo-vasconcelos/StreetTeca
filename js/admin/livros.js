@@ -1,5 +1,8 @@
 window.onload = function () {
     //importar variáveis do sessionStorage
+    autores = JSON.parse(localStorage.getItem("autores"))
+    transformarEmInstanciaAutor(autores)
+    
     livros = JSON.parse(localStorage.getItem("livros"))
     transformarEmInstanciaLivro(livros)
 

@@ -2,7 +2,7 @@ window.onload = function () {
     //importar variáveis do sessionStorage
     generos = JSON.parse(localStorage.getItem("generos"))
     transformarEmInstanciaGenero(generos)
-
+    
     livros = JSON.parse(localStorage.getItem("livros"))
     transformarEmInstanciaLivro(livros)
 
