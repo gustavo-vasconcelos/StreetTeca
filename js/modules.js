@@ -1396,6 +1396,19 @@ class Autor {
             }
         }
     }
+
+    static getIdsAutoresEmUso() {
+        let ids = []
+        for (let i in livros) {
+            for (let j in livros[i].autor) {
+                if (ids.indexOf(livros[i].autor[j]) === -1) {
+                    ids.push(livros[i].autor[j])
+                }
+            }
+        }
+        ids.sort(sortNumero)
+        return ids
+    }
 }
 
 //https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array

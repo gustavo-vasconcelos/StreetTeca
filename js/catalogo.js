@@ -2,7 +2,7 @@ window.onload = function () {
     //importar variáveis do sessionStorage
     autores = JSON.parse(localStorage.getItem("autores"))
     transformarEmInstanciaAutor(autores)
-    
+
     livros = JSON.parse(localStorage.getItem("livros"))
     transformarEmInstanciaLivro(livros)
 
@@ -90,7 +90,18 @@ window.onload = function () {
                 document.getElementById("inputPesquisarSelect").innerHTML = str
                 break;
             case "opcaoAutor":
-                inputPesquisar.innerHTML = '<select class="form-control border-teca3" style="border-radius: 0; box-shadow: inset 0px 0px 3px 1px rgba(0,0,0,0.59);"></select>'
+                inputPesquisar.innerHTML = '<select id="inputPesquisarSelect" class="form-control border-teca3" style="border-radius: 0; box-shadow: inset 0px 0px 3px 1px rgba(0,0,0,0.59);" required></select>'
+
+                let autoresEmUso = Autor.getIdsAutoresEmUso()
+                str = '<option value="" selected hidden>Selecione um</option>'
+                for (let i in autoresEmUso) {
+                    for (let j in autores) {
+                        if (autores[j].id === autoresEmUso[i]) {
+                            str += `<option value="${autoresEmUso[i]}">${autores[j].nome}</option>`
+                        }
+                    }
+                }
+                document.getElementById("inputPesquisarSelect").innerHTML = str
                 break;
             case "opcaoBiblioteca":
                 inputPesquisar.innerHTML = '<select id="inputPesquisarSelect" class="form-control border-teca3" style="border-radius: 0; box-shadow: inset 0px 0px 3px 1px rgba(0,0,0,0.59);" required></select>'
@@ -190,8 +201,8 @@ function gerarLivrosPorGenero(idGenero) {
         //cria os slides dos livros
         for (let i in livrosAleatorios) {
             for (let j in livros) {
-                if(livros[j].id === livrosAleatorios[i])
-                str += `<div class="swiper-slide">
+                if (livros[j].id === livrosAleatorios[i])
+                    str += `<div class="swiper-slide">
                             <div class="livro-recente">
                                 <figure>
                                     <div class="livro-card">
