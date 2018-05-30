@@ -81,8 +81,6 @@ window.onload = function () {
         window.location.href = '../index.html'
     }
 
-    gerarLivros(idGeneroClicado)
-
     let disposicao = "grelha"    
     //alterar filtro
     let filtros = document.getElementsByTagName("label")
@@ -96,6 +94,9 @@ window.onload = function () {
             }
         })
     }
+
+    gerarLivros(idGeneroClicado)
+    
 
     //mudar grelha
     let btnGrelha = document.getElementById("btnGrelha")

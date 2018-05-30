@@ -81,7 +81,7 @@ window.onload = function () {
                 break;
             case "opcaoTag":
                 inputPesquisar.innerHTML = '<select id="inputPesquisarSelect" class="form-control border-teca3" style="border-radius: 0; box-shadow: inset 0px 0px 3px 1px rgba(0,0,0,0.59);" required></select>'
-
+            
                 let tagsEmUso = Tag.getIdsTagsEmUso()
                 str = '<option value="" selected hidden>Selecione uma</option>'
                 for (let i in tagsEmUso) {
@@ -185,6 +185,7 @@ function gerarSections() {
 function gerarLivrosPorGenero(idGenero) {
     let livrosAleatorios = Livro.getIdsAleatoriosByIdGenero(idGenero)
     //apenas mostra 10 livros no máximo
+
     livrosAleatorios.length = (livrosAleatorios.length > 10) ? 10 : livrosAleatorios.length
     let str = ""
     if (Livro.getIdsByIdGenero(idGenero).length > 0) {
@@ -234,7 +235,7 @@ function generoClicado() {
     for (let i = 0; i < clicarGenero.length; i++) {
         clicarGenero[i].addEventListener("click", function () {
             idGeneroClicado = parseInt(clicarGenero[i].id.replace(/genero/g, ""))
-            localStorage.setItem("idGeneroClicado", parseInt(idGeneroClicado))
+            localStorage.setItem("idGeneroClicado", idGeneroClicado)
         })
     }
 }

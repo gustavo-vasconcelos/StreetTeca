@@ -1469,7 +1469,6 @@ function livroClicado() {
     for (let i = 0; i < clicarLivro.length; i++) {
         clicarLivro[i].addEventListener("click", function () {
             idLivroClicado = parseInt(clicarLivro[i].classList[0].replace(/livro/g, ""))
-            console.log(clicarLivro[i].classList[1])
             localStorage.setItem("idLivroClicado", parseInt(idLivroClicado))
         })
     }
