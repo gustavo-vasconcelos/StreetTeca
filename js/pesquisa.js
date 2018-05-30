@@ -116,7 +116,6 @@ window.onload = function () {
 } //fim onload
 
 function gerarLivros(filtro = "filtroRelevancia", disposicao = "grelha") {
-    console.log(true)
     switch (filtro) {
         case "filtroRelevancia":
             resultadosPesquisa.sort(Livro.ordenarMaisRequisitados)
