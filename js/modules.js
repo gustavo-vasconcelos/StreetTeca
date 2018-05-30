@@ -314,7 +314,7 @@ class Livro {
 
     autorToString() {
         let autorString = []
-        for(let i in this.autor) {
+        for (let i in this.autor) {
             autorString.push(Autor.getNomeById(this.autor[i]))
         }
         return autorString
@@ -391,6 +391,28 @@ class Livro {
         let ids = []
         for (let i in livros) {
             if (livros[i].idGenero === idGenero) {
+                ids.push(livros[i].id)
+            }
+        }
+        return ids
+    }
+
+    static getIdsByIdTag(idTag) {
+        let ids = []
+        for (let i in livros) {
+            for (let j in livros[i].idTags) {
+                if (livros[i].idTags[j] === idTag) {
+                    ids.push(livros[i].id)
+                }
+            }
+        }
+        return ids
+    }
+
+    static getIdsByIdBiblioteca(idBiblioteca) {
+        let ids = []
+        for (let i in livros) {
+            if (livros[i].idBiblioteca === idBiblioteca) {
                 ids.push(livros[i].id)
             }
         }
@@ -590,7 +612,35 @@ class Livro {
             return 0
         }
     }
+
+    static getIdsByPalavra(palavra) {
+        let ids = []
+        palavra = palavra.split(" ")
+        for (let i in palavra) {
+            for (let j in livros) {
+                let titulo = livros[j].titulo.split(" ")
+                for (let k in titulo) {
+                    if (palavra[i].toLowerCase() === titulo[k].toLowerCase() && ids.indexOf(livros[j].id) === -1) {
+                        ids.push(livros[j].id)
+                    }
+                }
+            }
+        }
+        return ids
+    }
+
+    static getIdsByPesquisa(pesquisa) {
+        let ids = []
+        for (let i in livros) {
+            if (livros[i].titulo.toLowerCase().includes(pesquisa.toLowerCase()) && ids.indexOf(livros[i].id) === -1) {
+                ids.push(livros[i].id)
+            }
+        }
+        return ids
+    }
+
 }
+
 
 class Biblioteca {
     constructor(idConcelho, idFreguesia, morada, capacidade, descricao, coordenadas) {
@@ -2454,4 +2504,19 @@ function gerarMenu(tipoAcesso, menuAtivo) {
         }
 
     }
+}
+
+/*
+    filtros (catalogo-genero.html e pesquisa.html)
+*/
+function comboboxFiltros() {
+    $('.dropdown-el').click(function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).toggleClass('expanded');
+        $('#' + $(e.target).attr('for')).prop('checked', true);
+    });
+    $(document).click(function () {
+        $('.dropdown-el').removeClass('expanded');
+    });
 }

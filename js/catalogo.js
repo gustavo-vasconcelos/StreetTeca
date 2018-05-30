@@ -77,21 +77,21 @@ window.onload = function () {
         opcaoSelecionada = opcaoPesquisar.value
         switch (opcaoSelecionada) {
             case "opcaoLivro":
-                inputPesquisar.innerHTML = '<input type="text" class="form-control border-teca3" style="border-radius: 0; box-shadow: inset 0px 0px 3px 1px rgba(0,0,0,0.59);">'
-                break;
+                inputPesquisar.innerHTML = `<input list="sugerirLivros" id="inputPesquisarInput" class="form-control border-teca3" placeholder="Título do livro" style="border-radius: 0; box-shadow: inset 0px 0px 3px 1px rgba(0,0,0,0.59);">
+                                            <datalist id="sugerirLivros"></datalist>`
+                listenerInput()
+                break
             case "opcaoTag":
-                inputPesquisar.innerHTML = '<select id="inputPesquisarSelect" class="form-control border-teca3" style="border-radius: 0; box-shadow: inset 0px 0px 3px 1px rgba(0,0,0,0.59);" required></select>'
-            
+                inputPesquisar.innerHTML = '<select id="inputPesquisarInput" class="form-control border-teca3" style="border-radius: 0; box-shadow: inset 0px 0px 3px 1px rgba(0,0,0,0.59);" required></select>'
                 let tagsEmUso = Tag.getIdsTagsEmUso()
                 str = '<option value="" selected hidden>Selecione uma</option>'
                 for (let i in tagsEmUso) {
                     str += `<option value="${tagsEmUso[i]}">${Tag.getNomeById(tagsEmUso[i])}</option>`
                 }
-                document.getElementById("inputPesquisarSelect").innerHTML = str
-                break;
+                document.getElementById("inputPesquisarInput").innerHTML = str
+                break
             case "opcaoAutor":
-                inputPesquisar.innerHTML = '<select id="inputPesquisarSelect" class="form-control border-teca3" style="border-radius: 0; box-shadow: inset 0px 0px 3px 1px rgba(0,0,0,0.59);" required></select>'
-
+                inputPesquisar.innerHTML = '<select id="inputPesquisarInput" class="form-control border-teca3" style="border-radius: 0; box-shadow: inset 0px 0px 3px 1px rgba(0,0,0,0.59);" required></select>'
                 let autoresEmUso = Autor.getIdsAutoresEmUso()
                 str = '<option value="" selected hidden>Selecione um</option>'
                 for (let i in autoresEmUso) {
@@ -101,11 +101,10 @@ window.onload = function () {
                         }
                     }
                 }
-                document.getElementById("inputPesquisarSelect").innerHTML = str
-                break;
+                document.getElementById("inputPesquisarInput").innerHTML = str
+                break
             case "opcaoBiblioteca":
-                inputPesquisar.innerHTML = '<select id="inputPesquisarSelect" class="form-control border-teca3" style="border-radius: 0; box-shadow: inset 0px 0px 3px 1px rgba(0,0,0,0.59);" required></select>'
-
+                inputPesquisar.innerHTML = '<select id="inputPesquisarInput" class="form-control border-teca3" style="border-radius: 0; box-shadow: inset 0px 0px 3px 1px rgba(0,0,0,0.59);" required></select>'
                 let bibliotecasEmUso = Biblioteca.getIdsBibliotecasEmUso()
                 str = '<option value="" selected hidden>Selecione uma</option>'
                 for (let i in bibliotecasEmUso) {
@@ -115,22 +114,57 @@ window.onload = function () {
                         }
                     }
                 }
-                document.getElementById("inputPesquisarSelect").innerHTML = str
-                break;
+                document.getElementById("inputPesquisarInput").innerHTML = str
+                break
         }
     })
+
+    //sugerir livros de acordo com a pesquisa (autocompletar com uma datalist)
+    listenerInput()
 
     let formPesquisar = document.getElementById("formPesquisar")
     formPesquisar.addEventListener("submit", function (event) {
-        let err = false
-        let msgErr = ""
-        if (opcaoPesquisar !== "opcaoLivro") {
-            msgErr += ""
+        event.preventDefault()
+        let livrosEncontrados
+        switch (opcaoSelecionada) {
+            case "opcaoLivro":
+                livrosEncontrados = Livro.getIdsByPesquisa(inputPesquisarInput.value)
+                if (livrosEncontrados.length === 0) {
+                    swal("Nenhum livro encontrado!", "", "error")
+                } else if (livrosEncontrados.length === 1) {
+                    localStorage.setItem("idLivroClicado", parseInt(document.querySelector("#sugerirLivros option").dataset.value))
+                    window.location.href = "livro.html"
+                } else {
+                    localStorage.setItem("pesquisa", JSON.stringify(livrosEncontrados))
+                    window.location.href = "pesquisa.html"
+                }
+                break
+            case "opcaoTag":
+                livrosEncontrados = Livro.getIdsByIdTag(parseInt(inputPesquisarInput.value))
+                if (livrosEncontrados.length === 1) {
+                    localStorage.setItem("idLivroClicado", livrosEncontrados[0])
+                    window.location.href = "livro.html"
+                } else {
+                    localStorage.setItem("pesquisa", JSON.stringify(livrosEncontrados))
+                    window.location.href = "pesquisa.html"
+                }
+                break
+            case "opcaoAutor":
+                localStorage.setItem("idAutorClicado", parseInt(inputPesquisarInput.value))
+                window.location.href = "autor.html"
+                break
+            case "opcaoBiblioteca":
+                livrosEncontrados = Livro.getIdsByIdBiblioteca(parseInt(inputPesquisarInput.value))
+                if (livrosEncontrados.length === 1) {
+                    localStorage.setItem("idLivroClicado", livrosEncontrados[0])
+                    window.location.href = "livro.html"
+                } else {
+                    localStorage.setItem("pesquisa", JSON.stringify(livrosEncontrados))
+                    window.location.href = "pesquisa.html"
+                }
+                break
         }
-
     })
-
-
 
     gerarSections()
     generoClicado()
@@ -237,5 +271,33 @@ function generoClicado() {
             idGeneroClicado = parseInt(clicarGenero[i].id.replace(/genero/g, ""))
             localStorage.setItem("idGeneroClicado", idGeneroClicado)
         })
+    }
+}
+
+function listenerInput() {
+    let elemento = document.querySelectorAll('#inputPesquisar input[list]')[0]
+    elemento.oninput = function () {
+        if (elemento.value !== "") {
+            sugerirLivros(inputPesquisarInput.value)
+        } else {
+            document.getElementById("sugerirLivros").innerHTML = ""
+        }
+    }
+}
+
+function sugerirLivros(pesquisa) {
+    if (pesquisa) {
+        let livrosSugeridos = Livro.getIdsByPesquisa(pesquisa)
+        let str = ""
+        for (let i in livrosSugeridos) {
+            for (let j in livros) {
+                if (livros[j].id === livrosSugeridos[i]) {
+                    str += `<option value="${livros[j].titulo}" data-value="${livros[j].id}">`
+                }
+            }
+        }
+        str += "<datalist>"
+        document.getElementById("sugerirLivros").innerHTML = str
+        listenerInput()
     }
 }

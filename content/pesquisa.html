@@ -70,14 +70,16 @@
     </nav>
     <!-- Fim navbar -->
     <!-- sub nav -->
-    <div class="bg-teca2" style="position: sticky; top: 50px; z-index: 5;">
-        <div class="container bg-teca2 py-2 text-white" id="subNav">
+    <div class="bg-teca2 fixed-top" style="top: 50px; z-index: 5;">
+        <div class="container bg-teca2 pt-2 pb-5 text-white" id="subNav">
             <div class="d-flex justify-content-between flex-wrap">
-                <div class="col-xl-15 col-lg-12 col-md-12 col-sm-20" style="font-size: 1.5em; font-weight: 500">
-                    <a href="catalogo.html" class="text-teca4 hoverGenero">CATÁLOGO > </a>
-                    <span id="genero"></span>
+                <div class="col-lg-12 col-md-20 mt-1" style="font-size: 1.5em; font-weight: 500;">
+                    <div>
+                        <a href="catalogo.html" class="text-teca4 hoverGenero">CATÁLOGO > </a>
+                        <span>Resultado pesquisa</span>
+                    </div>
                 </div>
-                <span class="col-xl-5 col-lg-8 col-md-8 col-sm-20 dropdown-el">
+                <span class="col-lg-5 col-md-12 col-sm-15 col-11 dropdown-el mt-1">
                     <input type="radio" name="filtro" value="filtroRelevancia" id="filtroRelevancia" checked>
                     <label for="filtroRelevancia">Relevância</label>
 
@@ -98,6 +100,14 @@
                     <input type="radio" name="filtro" value="filtroMenorDataDoacao" id="filtroMenorDataDoacao">
                     <label for="filtroMenorDataDoacao">&lt; Data de doação</label>
                 </span>
+                <div class="col-lg-3 col-md-4 col-sm-5 col-9">
+                    <button type="button" class="btn btn-teca2 btnAtivo border border-teca4" style="color: #92CDCF" id="btnGrelha">
+                        <i class="fa fa-th-large" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="btn btn-teca2 border border-teca4" style="color: #92CDCF" id="btnLista">
+                        <i class="fa fa-list" aria-hidden="true"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -105,9 +115,7 @@
     <!-- Início main container -->
     <div class="container pb-5" id="main-container">
         <!-- livros -->
-        <div id="recentes" class="text-center px-2" style="padding-top: 50px;">
-            
-        </div>
+        <div id="recentes" class="px-2" style="padding-top: 115px;"></div>
         <!-- /livro -->
     </div>
     <!-- Fim main container -->
@@ -122,7 +130,7 @@
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../js/modules.js"></script>
-    <script src="../js/catalogo-pesquisa.js"></script>
+    <script src="../js/pesquisa.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"

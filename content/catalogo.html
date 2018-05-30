@@ -80,7 +80,7 @@
     <!-- Início main container -->
     <div class="container" id="main-container">
         <!-- livros -->
-        <form class="pr-3" id="formPesquisar" action="catalogo-pesquisa.html">
+        <form class="pr-3" id="formPesquisar" autocomplete="off">
             <div class="form-group d-flex flex-row justify-content-between" style="padding-top: 65px;">
                 <div class="col-lg-3 col-md-4 col-sm-6 col-9 p-0">
                     <select id="opcaoPesquisar" class="form-control border-teca3 bg-teca3 text-white" style="border-radius: .5em 0 0 .5em;">
@@ -91,7 +91,8 @@
                     </select>
                 </div>
                 <div class="col-lg-16 col-md-15 col-sm-13 col-10 p-0" id="inputPesquisar">
-                    <input type="text" class="form-control border-teca3" style="border-radius: 0; box-shadow: inset 0px 0px 3px 1px rgba(0,0,0,0.59);">
+                    <input list="sugerirLivros" id="inputPesquisarInput" class="form-control border-teca3" placeholder="Título do livro" style="border-radius: 0; box-shadow: inset 0px 0px 3px 1px rgba(0,0,0,0.59);">
+                    <datalist id="sugerirLivros"></datalist>
                 </div>
                 <div class="col-1 p-0">
                     <button type="submit" class="btn btn-teca3 border border-teca3" style="color: #92CDCF; border-radius: 0 .5em .5em 0;">
