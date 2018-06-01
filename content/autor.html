@@ -27,12 +27,15 @@
             <a href="../index.html">
                 <img src="../img/marca.png" id="marca" class="zoom-hover mr-2">
             </a>
+            <!-- Wrapper -->
             <div id="menu-icon-wrapper" class="navbar-toggler navbar-toggler-right menu-icon-wrapper" data-toggle="collapse" data-target="#navbarResponsive">
+                <!-- SVG element with paths -->
                 <svg width="100px" height="100px">
                     <path id="pathA" d="M 30 40 L 70 40 C 90 40 90 75 60 85 A 40 40 0 0 1 20 20 L 80 80" />
                     <path id="pathB" d="M 30 50 L 70 50" />
                     <path id="pathC" d="M 70 60 L 30 60 C 10 60 10 20 40 15 A 40 38 0 1 1 20 80 L 80 20" />
                 </svg>
+                <!-- Trigger to perform the animations -->
                 <button id="menu-icon-trigger" class="menu-icon-trigger"></button>
             </div>
             <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -47,7 +50,7 @@
                         <a class="nav-link js-scroll-trigger menu-icon-trigger" href="../index.html#testemunhos">Testemunhos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger menu-icon-trigger text-teca4" href="catalogo.html">Catálogo</a>
+                        <a class="nav-link js-scroll-trigger menu-icon-trigger" href="catalogo.html">Catálogo</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav text-uppercase ml-auto">
@@ -65,58 +68,15 @@
                         <a class="nav-link js-scroll-trigger menu-icon-trigger" href="#" id="btnLogin" data-toggle="modal" data-target="#modalLogin">Login</a>
                     </li>
                 </ul>
+
             </div>
         </div>
     </nav>
-    <!-- Fim navbar -->
-    <!-- sub nav -->
-    <div class="bg-teca2 fixed-top" style="top: 50px; z-index: 5;">
-        <div class="container bg-teca2 pt-2 pb-5 text-white" id="subNav">
-            <div class="d-flex justify-content-between flex-wrap">
-                <div class="col-lg-12 col-md-20 mt-1" style="font-size: 1.5em; font-weight: 500;">
-                    <div>
-                        <a href="catalogo.html" class="text-teca4 hoverGenero">CATÁLOGO > </a>
-                        <span>Resultado da pesquisa</span>
-                    </div>
-                </div>
-                <span class="col-lg-5 col-md-12 col-sm-15 col-11 dropdown-el mt-1">
-                    <input type="radio" name="filtro" value="filtroRelevancia" id="filtroRelevancia" checked>
-                    <label for="filtroRelevancia">Relevância</label>
+    <!--Fim navbar -->
 
-                    <input type="radio" name="filtro" value="filtroAZ" id="filtroAZ">
-                    <label for="filtroAZ">A-Z</label>
-
-                    <input type="radio" name="filtro" value="filtroZA" id="filtroZA">
-                    <label for="filtroZA">Z-A</label>
-
-                    <input type="radio" name="filtro" value="filtroMaiorPontuacao" id="filtroMaiorPontuacao">
-                    <label for="filtroMaiorPontuacao">&gt; Pontuação</label>
-
-                    <input type="radio" name="filtro" value="filtroMenorPontuacao" id="filtroMenorPontuacao">
-                    <label for="filtroMenorPontuacao">&lt; Pontuação</label>
-                    <input type="radio" name="filtro" value="filtroMaiorDataDoacao" id="filtroMaiorDataDoacao">
-                    <label for="filtroMaiorDataDoacao">&gt; Data de doação</label>
-
-                    <input type="radio" name="filtro" value="filtroMenorDataDoacao" id="filtroMenorDataDoacao">
-                    <label for="filtroMenorDataDoacao">&lt; Data de doação</label>
-                </span>
-                <div class="col-lg-3 col-md-4 col-sm-5 col-9">
-                    <button type="button" class="btn btn-teca2 btnAtivo border border-teca4" style="color: #92CDCF" id="btnGrelha">
-                        <i class="fa fa-th-large" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-teca2 border border-teca4" style="color: #92CDCF" id="btnLista">
-                        <i class="fa fa-list" aria-hidden="true"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- sub nav -->
     <!-- Início main container -->
     <div class="container pb-5" id="main-container">
-        <!-- livros -->
-        <div id="recentes" class="px-2" style="padding-top: 115px;"></div>
-        <!-- /livro -->
+        
     </div>
     <!-- Fim main container -->
 
@@ -128,9 +88,10 @@
     </footer>
     <!-- Fim footer-->
 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwpPEcOyiz4v8GA9Hwo4W_LYlYQmfArS0"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../js/modules.js"></script>
-    <script src="../js/pesquisa.js"></script>
+    <script src="../js/autor.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"

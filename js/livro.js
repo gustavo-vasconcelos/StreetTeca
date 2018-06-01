@@ -125,7 +125,7 @@ function gerarCabecalho(idLivro) {
                     </div>
                     <div class="col-lg-15 col-md-12 col-sm-20 col-20 mt-5 text-white">
                         <h4 class="font-weight-bold">${livros[i].titulo}</h4>
-                        <small class="text-white" style="font-size: .9em;">de ${livros[i].autorToString().join(", ")}</small>
+                        <small class="text-white" style="font-size: .9em;">de ${livros[i].autorToString()}</small>
                         <hr class="bg-teca4">
                         <div class="row">
                             <div class="col-xl-6 col-lg-10 col-sm-12 col-20" id="pontuacaoMediaEstrelas"></div>
@@ -622,7 +622,7 @@ function gerarLivrosGenero(idGenero, idLivro) {
                                     <div>
                                         <a href="livro.html" class="livro${livros[j].id} livro-titulo clicarLivro"">${livros[j].titulo}</a>
                                     </div>
-                                    <div class="livro-autor">${livros[j].autorToString().join(", ")}</div>
+                                    <div class="livro-autor">${livros[j].autorToString()}</div>
                                 </figcaption>
                             </figure>
                         </div>`

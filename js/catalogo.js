@@ -169,6 +169,7 @@ window.onload = function () {
     gerarSections()
     generoClicado()
     livroClicado()
+    autorClicado()
 
     //swiper
     let swiper = new Swiper('.swiper-container', {
@@ -249,7 +250,7 @@ function gerarLivrosPorGenero(idGenero) {
                                         <div>
                                             <a href="livro.html" class="livro${livros[j].id} livro-titulo clicarLivro">${livros[j].titulo}</a>
                                         </div>
-                                        <div class="livro-autor">${livros[j].autorToString().join(", ")}</div>
+                                        <div class="livro-autor">${livros[j].autorToString()}</div>
                                     </figcaption>
                                 </figure>
                             </div>

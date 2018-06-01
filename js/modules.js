@@ -312,12 +312,13 @@ class Livro {
         this._idDoador = valor
     }
 
-    autorToString() {
+    autorToString(dir = "") {
         let autorString = []
         for (let i in this.autor) {
-            autorString.push(Autor.getNomeById(this.autor[i]))
+            autorString.push(`<a href="${dir}autor.html" class="autor${this.autor[i]} clicarAutor livro-autor">${Autor.getNomeById(this.autor[i])}</a>`)
         }
-        return autorString
+
+        return (autorString.length <= 2) ? autorString.join(" & ") : autorString.join(", ")
     }
 
     estadoToString() {
@@ -1429,6 +1430,14 @@ class Autor {
         }
     }
 
+    static getIdByNome(nome) {
+        for (let i in autores) {
+            if (autores[i].nome === nome) {
+                return autores[i].id
+            }
+        }
+    }
+
     static getUltimoId() {
         let id = 0
         if (autores.length > 0) {
@@ -1508,18 +1517,32 @@ if (!localStorage.getItem("idLivroClicado")) {
     localStorage.setItem("idLivroClicado", idLivroClicado)
 }
 
-let idGeneroClicado = -1
-if (!localStorage.getItem("idGeneroClicado")) {
-    localStorage.setItem("idGeneroClicado", idGeneroClicado)
-}
-
-
 function livroClicado() {
     let clicarLivro = document.getElementsByClassName("clicarLivro")
     for (let i = 0; i < clicarLivro.length; i++) {
         clicarLivro[i].addEventListener("click", function () {
             idLivroClicado = parseInt(clicarLivro[i].classList[0].replace(/livro/g, ""))
             localStorage.setItem("idLivroClicado", parseInt(idLivroClicado))
+        })
+    }
+}
+
+let idGeneroClicado = -1
+if (!localStorage.getItem("idGeneroClicado")) {
+    localStorage.setItem("idGeneroClicado", idGeneroClicado)
+}
+
+let idAutorClicado = -1
+if (!localStorage.getItem("idAutorClicado")) {
+    localStorage.setItem("idAutorClicado", idAutorClicado)
+}
+
+function autorClicado() {
+    let clicarAutor = document.getElementsByClassName("clicarAutor")
+    for (let i = 0; i < clicarAutor.length; i++) {
+        clicarAutor[i].addEventListener("click", function () {
+            idAutorClicado = parseInt(clicarAutor[i].classList[0].replace(/autor/g, ""))
+            localStorage.setItem("idAutorClicado", parseInt(idAutorClicado))
         })
     }
 }

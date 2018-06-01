@@ -152,7 +152,7 @@ function gerarLivros(idGenero, filtro = "filtroRelevancia", disposicao = "grelha
                                     <div>
                                         <a href="livro.html" class="livro${livros[i].id} livro-titulo clicarLivro">${livros[i].titulo}</a>
                                     </div>
-                                    <div class="livro-autor">${livros[i].autorToString().join(", ")}</div>
+                                    <div class="livro-autor">${livros[i].autorToString()}</div>
                                 </figcaption>
                             </figure>
                         </div>`
@@ -169,7 +169,7 @@ function gerarLivros(idGenero, filtro = "filtroRelevancia", disposicao = "grelha
                             </div>
                             <div class="col-xl-13 col-lg-15 col-md-14 col-sm-13 col-20 text-white text-left">
                                 <a href="livro.html" class="livro${livros[i].id} clicarLivro"><h4 class="livro-titulo">${livros[i].titulo}</h4></a>
-                                <p style="font-size: .9em;">de ${livros[i].autorToString().join(", ")}</p>
+                                <p style="font-size: .9em;">de ${livros[i].autorToString()}</p>
                                 <p>${descricao}</p>
                             </div>
                         </div>
@@ -186,4 +186,5 @@ function gerarLivros(idGenero, filtro = "filtroRelevancia", disposicao = "grelha
         document.querySelectorAll("hr.bg-teca4")[document.querySelectorAll("hr.bg-teca4").length - 1].remove()
     }
     livroClicado()
+    autorClicado()
 }

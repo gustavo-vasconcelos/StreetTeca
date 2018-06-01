@@ -234,7 +234,7 @@ function gerarLivrosRecentes() {
                                     <div>
                                         <a href="content/livro.html" class="livro${livros[i].id} livro-titulo clicarLivro">${livros[i].titulo}</a>
                                     </div>
-                                    <div class="livro-autor">${livros[i].autorToString().join(", ")}</div>
+                                    <div class="livro-autor">${livros[i].autorToString("content/")}</div>
                                 </figcaption>
                             </figure>
                         </div>`
@@ -248,7 +248,7 @@ function gerarLivrosRecentes() {
                                     <div>
                                         <a href="" class="livro-titulo" data-toggle="modal" data-target="#modalLogin">${livros[i].titulo}</a>
                                     </div>
-                                    <div class="livro-autor">${livros[i].autorToString().join(", ")}</div>
+                                    <div class="livro-autor">${livros[i].autorToString("content/")}</div>
                                 </figcaption>
                             </figure>
                         </div>`
@@ -257,8 +257,9 @@ function gerarLivrosRecentes() {
         }
     }
     recentesDiv.innerHTML = str
-    //alterar o id do livro clicado
+    //alterar o id do livro e autor clicado
     livroClicado()
+    autorClicado()
 }
 
 function gerarLivrosMaisPontuados() {
@@ -284,7 +285,7 @@ function gerarLivrosMaisPontuados() {
                                     <div>
                                         <a href="content/livro.html" class="livro${livros[j].id} livro-titulo clicarLivro">${livros[j].titulo}</a>
                                     </div>
-                                    <div class="livro-autor">${livros[j].autorToString().join(", ")}</div>
+                                    <div class="livro-autor">${livros[j].autorToString("content/")}</div>
                                 </div>
                             </div>`
                 } else {
@@ -301,7 +302,7 @@ function gerarLivrosMaisPontuados() {
                                     <div>
                                         <a href="" class="livro-titulo" data-toggle="modal" data-target="#modalLogin">${livros[j].titulo}</a>
                                     </div>
-                                    <div class="livro-autor">${livros[j].autorToString().join(", ")}</div>
+                                    <div class="livro-autor">${livros[j].autorToString("content/")}</div>
                                 </div>
                             </div>`
                 }
@@ -310,8 +311,9 @@ function gerarLivrosMaisPontuados() {
         }
     }
     maisPontuadosDiv.innerHTML = str
-    //alterar o id do livro clicado
+    //alterar o id do livro e autor clicado
     livroClicado()
+    autorClicado()
 }
 
 function gerarTestemunhos() {

@@ -28,6 +28,26 @@ window.onload = function () {
 
     gerarTabelaAutores()
 
+    //form adicionar género
+    let formAutor = document.getElementById("formAutor")
+    let inputAdicionarNome = document.getElementById("inputAdicionarNome")
+    let inputAdicionarDescricao = document.getElementById("inputAdicionarDescricao")
+    let inputAdicionarFoto = document.getElementById("inputAdicionarFoto")
+    let btnResetAutor = document.getElementById("btnResetAutor")
+
+    formAutor.addEventListener("submit", function (event) {
+        autores.push(new Autor(inputAdicionarNome.value, inputAdicionarDescricao.value, inputAdicionarFoto.value))
+        localStorage.setItem("autores", JSON.stringify(autores))
+        swal("Autor adicionado!", `Foi adicionado o autor ${inputAdicionarNome.value} com o id ${Autor.getUltimoId()}.`, "success");
+        formAutor.reset()
+        gerarTabelaAutores()
+        event.preventDefault()
+    })
+
+    btnResetAutor.addEventListener("click", function () {
+        inputAdicionarNome.focus()
+    })
+
 } //fim onload
 
 function gerarTabelaAutores() {
@@ -51,7 +71,7 @@ function gerarTabelaAutores() {
     for (let i in autores) {
         str += `<tr id="${autores[i].id}">
                     <td>${count}</td>
-                    <td>${autores[i].nome}</td>
+                    <td><a href="../autor.html" class="autor${autores[i].id} clicarAutor">${autores[i].nome}</a></td>
                     <td>${autores[i].getLivrosPublicados().join(", ")}</td>                    
                     <td>${autores[i].descricao}</td>                    
                     <td align="right">
@@ -65,6 +85,8 @@ function gerarTabelaAutores() {
     }
 
     document.getElementById("tabelaAutores").innerHTML = str
+    autorClicado()
+    
     //btn editar autor
     let btnEditarAutor = document.getElementsByClassName("editarAutor")
     for (let i = 0; i < btnEditarAutor.length; i++) {
