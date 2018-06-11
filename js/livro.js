@@ -135,9 +135,7 @@ function gerarCabecalho(idLivro) {
                         </div>
                         <hr class="bg-teca4">
                         <div class="row">
-                            <button type="button" class="col-lg-6 col-md-9 col-sm-20 btn btn-teca3 mt-2 mx-2" id="disponibilidade" style="border-radius: 2em;">
-
-                            </button>
+                            <button type="button" class="col-lg-6 col-md-9 col-sm-20 btn btn-teca3 mt-2 mx-2" id="disponibilidade" style="border-radius: 2em;"></button>
                             <button type="button" class="col-lg-6 col-md-9 col-sm-20 btn btn-teca3 mt-2 mx-2" style="border-radius: 2em;">
                                 <i class="fa fa-heart text-danger"></i> Lista de desejos
                             </button>

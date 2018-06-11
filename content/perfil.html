@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="pt-pt">
+
+<head>
+    <title>StreetTeca - Gestão de Bibliotecas de Rua</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Fonts awesome-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/estilos.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    <!-- Scripts do botão menu animado -->
+    <script src="../js/segment.js"></script>
+    <script src="../js/ease.min.js"></script>
+</head>
+
+<body class="bg-teca2">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-shrink" id="mainNav">
+        <div class="container">
+            <a href="../index.html">
+                <img src="../img/marca.png" id="marca" class="zoom-hover mr-2">
+            </a>
+            <!-- Wrapper -->
+            <div id="menu-icon-wrapper" class="navbar-toggler navbar-toggler-right menu-icon-wrapper" data-toggle="collapse" data-target="#navbarResponsive">
+                <!-- SVG element with paths -->
+                <svg width="100px" height="100px">
+                    <path id="pathA" d="M 30 40 L 70 40 C 90 40 90 75 60 85 A 40 40 0 0 1 20 20 L 80 80" />
+                    <path id="pathB" d="M 30 50 L 70 50" />
+                    <path id="pathC" d="M 70 60 L 30 60 C 10 60 10 20 40 15 A 40 38 0 1 1 20 80 L 80 20" />
+                </svg>
+                <!-- Trigger to perform the animations -->
+                <button id="menu-icon-trigger" class="menu-icon-trigger"></button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav text-uppercase">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger menu-icon-trigger" href="../index.html#recentes">Recentes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger menu-icon-trigger" href="../index.html#pontuados">Mais pontuados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger menu-icon-trigger" href="../index.html#testemunhos">Testemunhos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger menu-icon-trigger" href="catalogo.html">Catálogo</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item">
+                        <div class="dropdown open">
+                            <button class="nav-link btn dropdown-toggle text-uppercase" type="button" id="areaUtilizador" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">ÁREA DE UTILIZADOR</button>
+                            <div class="dropdown-menu" aria-labelledby="triggerId">
+                                <button class="dropdown-item btn btn-teca3" onclick="window.location.href='admin/index.html'" id="btnPainelAdmin">Painel de controlo</button>
+                                <button class="dropdown-item btn btn-teca3" id="btnLogout">Logout</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger menu-icon-trigger" href="#" id="btnLogin" data-toggle="modal" data-target="#modalLogin">Login</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+    <!--Fim navbar -->
+
+    <!-- Início main container -->
+    <div class="container pb-5 px-2 text-white" id="main-container" style="padding-top: 65px;">
+        <div class="row">
+            <div class="col-lg-5 col-md-8 col-sm-20 col-20 mt-5 text-center">
+                <div class="foto-testemunho text-center">
+                    <img class="img-thumbnail" src="http://i0.kym-cdn.com/photos/images/facebook/001/217/729/f9a.jpg">
+                    <div class="row px-5">
+                        <button type="button" class="col-20 btn btn-teca3 mt-2" style="border-radius: 2em;">
+                            <i class="fa fa-pencil text-teca4"></i> Editar o perfil
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-15 col-md-12 col-sm-20 col-20 mt-5 text-white">
+                <div class="row">
+                    <div class="col-2">Nome</div>
+                    <div class="col-18">Gustavo Henrique da Silva Vasconcelos</div>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item bg-teca3">
+                        <div class="row">
+                            <div class="col-2">Nome</div>
+                            <div class="col-18">
+                                <div>
+                                    <span class="ml-5 font-weight-bold">Gustavo Henrique da Silva Vasconcelos</span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item bg-teca3">
+                        <div class="row">
+                            <div class="col-2">Email</div>
+                            <div class="col-18">
+                                <span class="ml-5 font-weight-bold">teste@teste.pt</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item bg-teca3">Nome
+                        <span class="ml-5">Gustavo Henrique da Silva Vasconcelos</span>
+                    </li>
+                    <li class="list-group-item bg-teca3">Nome
+                        <span class="ml-5">Gustavo Henrique da Silva Vasconcelos</span>
+                    </li>
+                    <li class="list-group-item bg-teca3">Nome
+                        <span class="ml-5">Gustavo Henrique da Silva Vasconcelos</span>
+                    </li>
+                    <li class="list-group-item bg-teca3">Nome
+                        <span class="ml-5">Gustavo Henrique da Silva Vasconcelos</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Fim main container -->
+
+    <!-- Início footer-->
+    <footer class="page-footer font-small bg-teca1">
+        <div class="footer-copyright py-3 text-center text-light">
+            Todos os direitos reservados - StreetTeca © 2018
+        </div>
+    </footer>
+    <!-- Fim footer-->
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwpPEcOyiz4v8GA9Hwo4W_LYlYQmfArS0"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../js/modules.js"></script>
+    <script src="../js/perfil.js"></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
