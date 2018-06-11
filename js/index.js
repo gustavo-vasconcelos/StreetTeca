@@ -69,13 +69,18 @@ window.onload = function () {
         FIM APARÊNCIA
     */
 
+    //email
+    (function () {
+        emailjs.init("user_8qQ3vyvQilyoXugsi3kGL");
+    })();
+
     //importar variáveis do sessionStorage
     utilizadores = JSON.parse(localStorage.getItem("utilizadores"))
     transformarEmInstanciaUtilizador(utilizadores)
 
     autores = JSON.parse(localStorage.getItem("autores"))
     transformarEmInstanciaAutor(autores)
-    
+
     livros = JSON.parse(localStorage.getItem("livros"))
     transformarEmInstanciaLivro(livros)
 
@@ -118,6 +123,15 @@ window.onload = function () {
         } else {
             utilizadores.push(new Utilizador(registoInputNome.value, registoInputEmail.value, registoInputPassword.value, registoInputUrlFoto.value))
             localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
+
+            //envia email
+            let service_id = "default_service", template_id = "registo";
+            let templateParams = {
+                email: registoInputEmail.value,
+                nome: registoInputNome.value
+            }
+            emailjs.send(service_id, template_id, templateParams)
+
             $("#modalRegisto").modal("hide")
             swal("Registo efetuado!", "Faça login com as suas credenciais.", "success")
         }
@@ -223,7 +237,7 @@ function gerarLivrosRecentes() {
     let count = 0
 
     for (let i = livros.length - 1; i >= 0; i--) {
-        if(count < 10) {
+        if (count < 10) {
             if (idUtilizadorLogado !== -1) {
                 str += `<div class="col-xl-4 col-lg-5 col-sm-6 col-10 mt-4 livro-recente">
                             <figure>

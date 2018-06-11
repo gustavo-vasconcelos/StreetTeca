@@ -141,7 +141,7 @@ function gerarTabelaUtilizadores() {
 
                     modalBody.innerHTML = `<div class="container-fluid">
                                                 <div class="text-center">
-                                                    <img src="${foto}" title="${utilizadores[j].nome}" class="img-fluid img-thumbnail" style="width: 150px; height: 150px; border-radius: 50%;">                            
+                                                    <img src="../../img/${foto}" title="${utilizadores[j].nome}" class="img-fluid img-thumbnail" style="width: 150px; height: 150px; border-radius: 50%;">                            
                                                 </div>
                                                 <br>
                                                 <p><b>ID:</b> ${utilizadores[j].id}</p>
@@ -204,7 +204,7 @@ function gerarTabelaUtilizadores() {
 
                                 modalBody.innerHTML = `<div class="container-fluid">
                                                             <div class="text-center">
-                                                                <img src="${foto}" alt="${utilizadores[k].nome}" class="img-fluid img-thumbnail" id="inputAdmUtilizadorFoto" style="width: 150px; height: 150px; border-radius: 50%;">                            
+                                                                <img src="../../img/${foto}" alt="${utilizadores[k].nome}" class="img-fluid img-thumbnail" id="inputAdmUtilizadorFoto" style="width: 150px; height: 150px; border-radius: 50%;">                            
                                                             </div>
                                                             <br>
                                                             <form class="form-horizontal" id="formAdmEditarUtilizador">

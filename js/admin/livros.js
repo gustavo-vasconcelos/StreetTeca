@@ -191,6 +191,7 @@ function gerarComboboxAutores(editar = false) {
     let inputAutor = (!editar) ? document.getElementById("inputLivroAutor") : document.getElementById("inputLivroAutorEditar")
     //let str = (!editar) ? '<option value="" hidden selected>Selecione um</option>' : ""
     let str = ""
+    let autoresNaoRepetir = []
     for (let i in autores) {
         if (!editar) {
             str += `<option value="${autores[i].id}">${autores[i].nome}</option>`
