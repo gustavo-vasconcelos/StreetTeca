@@ -76,134 +76,99 @@
 
     <!-- Início main container -->
     <div class="container pb-5 px-2 text-white" id="main-container" style="padding-top: 65px;">
-        <h4 class="text-teca4 text-center">O MEU PERFIL</h4>
-        <div class="row">
-            <div class="col-lg-5 col-md-8 col-sm-20 col-20 mt-2 text-center">
-                <div class="foto-testemunho text-center">
-                    <img class="img-thumbnail" src="http://i0.kym-cdn.com/photos/images/facebook/001/217/729/f9a.jpg">
-                    <div class="row px-5">
-                        <button type="button" class="col-20 btn btn-teca3 mt-2" style="border-radius: 2em;">
-                            <i class="fa fa-pencil text-teca4"></i> Editar o perfil
-                        </button>
-                    </div>
 
-                </div>
-            </div>
-            <div class="col-lg-15 col-md-12 col-sm-20 col-20 mt-2 text-white">
-                <ul class="list-group">
-                    <li class="list-group-item bg-teca3">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 col-20">Nome</div>
-                            <div class="col-lg-17 col-md-16 col-20 font-weight-bold">Gustavo Henrique</div>
-                        </div>
-                    </li>
-                    <li class="list-group-item bg-teca3">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 col-20">Email</div>
-                            <div class="col-lg-17 col-md-16 col-20 font-weight-bold">teste@teste.pt</div>
-                        </div>
-                    </li>
-                    <li class="list-group-item bg-teca3">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 col-20">Data de inscrição</div>
-                            <div class="col-lg-17 col-md-16 col-20 font-weight-bold">2018-06-12, 22:57</div>
-                        </div>
-                    </li>
-                    <li class="list-group-item bg-teca3">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 col-20">Biografia</div>
-                            <div class="col-lg-17 col-md-16 col-20 font-weight-bold">Escreva algo sobre si...</div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="mt-5 col-20" id="recentes">
-                <div>
-                    <span class="text-teca4" style="font-size: 1.5em; font-weight: 500">LIVROS POR ENTREGAR (2)</span>
-                    <div class="row mt-4">
-                        <div class="col-xl-4 col-lg-5 col-md-6 col-sm-7 col-20 pull-left livro-recente text-center">
-                            <figure>
-                                <div class="livro-card">
-                                    <a href="livro.html" class="livro${livros[i].id} clicarLivro">
+        <div id="cabecalho"></div>
+
+
+
+
+        <div class="mt-5 col-20" id="recentes">
+            <div>
+                <span class="text-teca4" style="font-size: 1.5em; font-weight: 500">LIVROS POR ENTREGAR (2)</span>
+                <div class="row mt-4">
+                    <div class="col-xl-4 col-lg-5 col-md-6 col-sm-7 col-20 pull-left livro-recente text-center">
+                        <figure>
+                            <div class="livro-card">
+                                <a href="livro.html" class="livro${livros[i].id} clicarLivro">
                                         <img class="img-fluid" src="http://i0.kym-cdn.com/photos/images/facebook/001/217/729/f9a.jpg">
                                     </a>
-                                </div>
-                            </figure>
-                        </div>
-                        <div class="col-xl-16 col-lg-15 col-md-14 col-sm-13 col-20 text-white text-left">
-                            <a href="livro.html" class="livro${livros[i].id} clicarLivro">
-                                <h4 class="livro-titulo">A Guerra dos Tronos</h4>
-                            </a>
-                            <p style="font-size: .9em;">de ${livros[i].autorToString()}</p>
-                            <div>
-                                <span style="font-weight: 600;">Data de requisição:</span> 2018-06-11, 22:57.
-                                <br>
-                                <span style="font-weight: 600;">Data limite de entrega:</span> 2018-06-14, 22:57.
                             </div>
-                            <button type="button" class="col-xl-8 col-lg-10 col-md-13 col-sm-20 col-15 btn btn-teca3 mt-2" style="border-radius: 2em;">
+                        </figure>
+                    </div>
+                    <div class="col-xl-16 col-lg-15 col-md-14 col-sm-13 col-20 text-white text-left">
+                        <a href="livro.html" class="livro${livros[i].id} clicarLivro">
+                            <h4 class="livro-titulo">A Guerra dos Tronos</h4>
+                        </a>
+                        <p style="font-size: .9em;">de ${livros[i].autorToString()}</p>
+                        <div>
+                            <span style="font-weight: 600;">Data de requisição:</span> 2018-06-11, 22:57.
+                            <br>
+                            <span style="font-weight: 600;">Data limite de entrega:</span> 2018-06-14, 22:57.
+                        </div>
+                        <button type="button" class="col-xl-8 col-lg-10 col-md-13 col-sm-20 col-15 btn btn-teca3 mt-2" style="border-radius: 2em;">
                                 <i class="fa fa-pencil text-teca4"></i> Entregar
                             </button>
-                        </div>
-                    </div>
-                    <hr class="bg-teca4">
-                    <div class="row mt-4">
-                        <div class="col-xl-4 col-lg-5 col-md-6 col-sm-7 col-20 pull-left livro-recente text-center">
-                            <figure>
-                                <div class="livro-card">
-                                    <a href="livro.html" class="livro${livros[i].id} clicarLivro">
-                                        <img class="img-fluid" src="http://i0.kym-cdn.com/photos/images/facebook/001/217/729/f9a.jpg">
-                                    </a>
-                                </div>
-                            </figure>
-                        </div>
-                        <div class="col-xl-16 col-lg-15 col-md-14 col-sm-13 col-20 text-white text-left">
-                            <a href="livro.html" class="livro${livros[i].id} clicarLivro">
-                                <h4 class="livro-titulo">A Guerra dos Tronos</h4>
-                            </a>
-                            <p style="font-size: .9em;">de ${livros[i].autorToString()}</p>
-                            <div>
-                                <span style="font-weight: 600;">Data de requisição:</span> 2018-06-11, 22:57.
-                                <br>
-                                <span style="font-weight: 600;">Data limite de entrega:</span> 2018-06-14, 22:57.
-                            </div>
-                            <button type="button" class="col-xl-8 col-lg-10 col-md-13 col-sm-20 col-15 btn btn-teca3 mt-2" style="border-radius: 2em;">
-                                <i class="fa fa-pencil text-teca4"></i> Entregar
-                            </button>
-                        </div>
                     </div>
                 </div>
-                <div class="mt-5">
-                    <span class="text-teca4" style="font-size: 1.5em; font-weight: 500">LIVROS REQUISITADOS (4)</span>
-                    <div class="row mt-4">
-                        <div class="col-xl-4 col-lg-5 col-md-6 col-sm-7 col-20 pull-left livro-recente text-center">
-                            <figure>
-                                <div class="livro-card">
-                                    <a href="livro.html" class="livro${livros[i].id} clicarLivro">
+                <hr class="bg-teca4">
+                <div class="row mt-4">
+                    <div class="col-xl-4 col-lg-5 col-md-6 col-sm-7 col-20 pull-left livro-recente text-center">
+                        <figure>
+                            <div class="livro-card">
+                                <a href="livro.html" class="livro${livros[i].id} clicarLivro">
                                         <img class="img-fluid" src="http://i0.kym-cdn.com/photos/images/facebook/001/217/729/f9a.jpg">
                                     </a>
-                                </div>
-                            </figure>
-                        </div>
-                        <div class="col-xl-16 col-lg-15 col-md-14 col-sm-13 col-20 text-white text-left">
-                            <a href="livro.html" class="livro${livros[i].id} clicarLivro">
-                                <h4 class="livro-titulo">A Guerra dos Tronos</h4>
-                            </a>
-                            <p style="font-size: .9em;">de ${livros[i].autorToString()}</p>
-                            <div>
-                                <span style="font-weight: 600;">Data de requisição:</span> 2018-06-11, 22:57.
-                                <br>
-                                <span style="font-weight: 600;">Data de entrega:</span> 2018-06-12, 22:57.
                             </div>
-                            <button type="button" class="col-xl-8 col-lg-10 col-md-13 col-sm-20 col-15 btn btn-teca3 mt-2" style="border-radius: 2em;">
+                        </figure>
+                    </div>
+                    <div class="col-xl-16 col-lg-15 col-md-14 col-sm-13 col-20 text-white text-left">
+                        <a href="livro.html" class="livro${livros[i].id} clicarLivro">
+                            <h4 class="livro-titulo">A Guerra dos Tronos</h4>
+                        </a>
+                        <p style="font-size: .9em;">de ${livros[i].autorToString()}</p>
+                        <div>
+                            <span style="font-weight: 600;">Data de requisição:</span> 2018-06-11, 22:57.
+                            <br>
+                            <span style="font-weight: 600;">Data limite de entrega:</span> 2018-06-14, 22:57.
+                        </div>
+                        <button type="button" class="col-xl-8 col-lg-10 col-md-13 col-sm-20 col-15 btn btn-teca3 mt-2" style="border-radius: 2em;">
+                                <i class="fa fa-pencil text-teca4"></i> Entregar
+                            </button>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <span class="text-teca4" style="font-size: 1.5em; font-weight: 500">LIVROS REQUISITADOS (4)</span>
+                <div class="row mt-4">
+                    <div class="col-xl-4 col-lg-5 col-md-6 col-sm-7 col-20 pull-left livro-recente text-center">
+                        <figure>
+                            <div class="livro-card">
+                                <a href="livro.html" class="livro${livros[i].id} clicarLivro">
+                                        <img class="img-fluid" src="http://i0.kym-cdn.com/photos/images/facebook/001/217/729/f9a.jpg">
+                                    </a>
+                            </div>
+                        </figure>
+                    </div>
+                    <div class="col-xl-16 col-lg-15 col-md-14 col-sm-13 col-20 text-white text-left">
+                        <a href="livro.html" class="livro${livros[i].id} clicarLivro">
+                            <h4 class="livro-titulo">A Guerra dos Tronos</h4>
+                        </a>
+                        <p style="font-size: .9em;">de ${livros[i].autorToString()}</p>
+                        <div>
+                            <span style="font-weight: 600;">Data de requisição:</span> 2018-06-11, 22:57.
+                            <br>
+                            <span style="font-weight: 600;">Data de entrega:</span> 2018-06-12, 22:57.
+                        </div>
+                        <button type="button" class="col-xl-8 col-lg-10 col-md-13 col-sm-20 col-15 btn btn-teca3 mt-2" style="border-radius: 2em;">
                                 <i class="fa fa-star text-teca4"></i> Avaliar o livro
                             </button>
-                        </div>
-
                     </div>
-                    <hr class="bg-teca4">
+
                 </div>
+                <hr class="bg-teca4">
             </div>
         </div>
+    </div>
     </div>
     <!-- Fim main container -->
 
@@ -214,6 +179,22 @@
         </div>
     </footer>
     <!-- Fim footer-->
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title pull-left" id="modalTitulo"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalBody"></div>
+                <div class="modal-footer" id="modalFooter"></div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwpPEcOyiz4v8GA9Hwo4W_LYlYQmfArS0"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

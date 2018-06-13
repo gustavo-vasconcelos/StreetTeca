@@ -1,5 +1,5 @@
 class Utilizador {
-    constructor(nome, email, password, urlFoto, dataInscricao, tipoAcesso = 2) {
+    constructor(nome, email, password, urlFoto, dataInscricao, tipoAcesso = 2, biografia = "") {
         this._id = Utilizador.getUltimoId() + 1
         this.nome = nome
         this.email = email
@@ -7,6 +7,7 @@ class Utilizador {
         this.urlFoto = urlFoto
         this.dataInscricao = dataInscricao        
         this.tipoAcesso = tipoAcesso
+        this.biografia = biografia
         this.multa = 0
     }
 
@@ -65,6 +66,14 @@ class Utilizador {
     }
     set dataInscricao(valor) {
         this._dataInscricao = valor
+    }
+
+    get biografia() {
+        return this._biografia
+    }
+    set biografia(valor) {
+        valor = (!valor) ? "Escreva algo sobre si..." : valor
+        this._biografia = valor
     }
 
     get multa() {
@@ -2400,7 +2409,7 @@ function btnMenu() {
         toCloseIcon = true;
 
     let animar = function () {
-        if ($(window).width() < 992) {
+        if ($(window).width(window).width() < 992) {
             for (let i = 0; i < trigger.length; i++) {
                 trigger[i].addEventListener("click", function () {
                     if (toCloseIcon) {
