@@ -84,6 +84,9 @@ window.onload = function () {
     livros = JSON.parse(localStorage.getItem("livros"))
     transformarEmInstanciaLivro(livros)
 
+    requisicoes = JSON.parse(localStorage.getItem("requisicoes"))
+    transformarEmInstanciaRequisicao(requisicoes)
+
     comentarios = JSON.parse(localStorage.getItem("comentarios"))
     transformarEmInstanciaComentario(comentarios)
 
@@ -95,6 +98,8 @@ window.onload = function () {
     navbar()
 
     clicarCatalogo()
+
+    atualizarTodasMultas()
 
     //efetuar registo
     let formRegisto = document.getElementById("formRegisto")
@@ -161,23 +166,26 @@ window.onload = function () {
 
         if (idUtilizador !== -1) {
             if (Utilizador.getPasswordById(idUtilizador) === loginInputPassword.value) {
-                idUtilizadorLogado = idUtilizador
-                localStorage.setItem("idUtilizadorLogado", idUtilizadorLogado)
+                if (!Utilizador.verificarBloqueioById(idUtilizador)) {
+                    idUtilizadorLogado = idUtilizador
+                    localStorage.setItem("idUtilizadorLogado", idUtilizadorLogado)
 
-                //opções utilizador
-                navbar()
-
-                swal("Bem vindo, " + Utilizador.getPrimeiroUltimoNomeById(idUtilizadorLogado) + "!", {
-                    icon: "success",
-                    buttons: false,
-                    closeOnClickOutside: false,
-                    closeOnEsc: false,
-                    timer: 1000,
-                });
-                $("#modalLogin").modal("hide")
-                clicarCatalogo()
-                gerarLivrosRecentes()
-                gerarLivrosMaisPontuados()
+                    //opções utilizador
+                    navbar()
+                    swal("Bem vindo, " + Utilizador.getPrimeiroUltimoNomeById(idUtilizadorLogado) + "!", {
+                        icon: "success",
+                        buttons: false,
+                        closeOnClickOutside: false,
+                        closeOnEsc: false,
+                        timer: 1000,
+                    });
+                    $("#modalLogin").modal("hide")
+                    clicarCatalogo()
+                    gerarLivrosRecentes()
+                    gerarLivrosMaisPontuados()
+                } else {
+                    swal("Conta bloqueada.", `A sua conta encontra-se bloqueada, uma vez que ultrapassou o valor limite de multa (€${configuracoes.valorMultaLimite}`)
+                }
             } else {
                 erro = true
             }

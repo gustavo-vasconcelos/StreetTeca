@@ -1,13 +1,14 @@
 class Utilizador {
-    constructor(nome, email, password, urlFoto, dataInscricao, tipoAcesso = 2, biografia = "") {
+    constructor(nome, email, password, urlFoto, dataInscricao, tipoAcesso = 2, biografia = "", bloqueio = false) {
         this._id = Utilizador.getUltimoId() + 1
         this.nome = nome
         this.email = email
         this.password = password
         this.urlFoto = urlFoto
-        this.dataInscricao = dataInscricao        
+        this.dataInscricao = dataInscricao
         this.tipoAcesso = tipoAcesso
         this.biografia = biografia
+        this.bloqueio = bloqueio
         this.multa = 0
     }
 
@@ -74,6 +75,13 @@ class Utilizador {
     set biografia(valor) {
         valor = (!valor) ? "Escreva algo sobre si..." : valor
         this._biografia = valor
+    }
+
+    get bloqueio() {
+        return this._bloqueio
+    }
+    set bloqueio(valor) {
+        this._bloqueio = valor
     }
 
     get multa() {
@@ -204,8 +212,12 @@ class Utilizador {
         }
     }
 
-    dataToString() {
-        return this.dataInscricao.substr(0, this.dataInscricao.indexOf("T")) + ", " + this.dataInscricao.substr(this.dataInscricao.indexOf("T") + 1, this.dataInscricao.length)
+    static verificarBloqueioById(idUtilizador) {
+        for(let i in utilizadores) {
+            if(utilizadores[i].id === idUtilizador) {
+                return utilizadores[i].bloqueio
+            }
+        }
     }
 }
 
@@ -808,11 +820,12 @@ class Biblioteca {
 }
 
 class Requisicao {
-    constructor(idUtilizador, idLivro, dataRequisicao) {
+    constructor(idUtilizador, idLivro, dataRequisicao, dataEntrega = false) {
         this._id = Requisicao.getUltimoId() + 1
         this.idUtilizador = idUtilizador
         this.idLivro = idLivro
         this.dataRequisicao = dataRequisicao
+        this.dataEntrega = dataEntrega
         this.multa = false
         this.valorMulta = 0
     }
@@ -852,6 +865,13 @@ class Requisicao {
         this._dataRequisicao = valor
     }
 
+    get dataEntrega() {
+        return this._dataEntrega
+    }
+    set dataEntrega(valor) {
+        this._dataEntrega = valor
+    }
+
     static getQuantidadeRequisicoesByIdLivro(idLivro) {
         let quantidade = 0
         for (let i in requisicoes) {
@@ -860,6 +880,56 @@ class Requisicao {
             }
         }
         return quantidade
+    }
+
+    static getQuantidadeRequisicoesAtivasByIdUtilizador(idUtilizador) {
+        let count = 0
+        for (let i in requisicoes) {
+            if (requisicoes[i].idUtilizador === idUtilizador && !requisicoes[i].dataEntrega) {
+                count++
+            }
+        }
+        return count
+    }
+
+    static getListaRequisicoesAtivasByIdUtilizador(idUtilizador) {
+        let lista = []
+        for (let i in requisicoes) {
+            if (requisicoes[i].idUtilizador === idUtilizador && !requisicoes[i].dataEntrega) {
+                lista.push(Livro.getTituloById(requisicoes[i].idLivro))
+            }
+        }
+        return lista
+    }
+
+    static getIdsLivrosRequisicoesAtivasByIdUtilizador(idUtilizador) {
+        let ids = []
+        for (let i in requisicoes) {
+            if (requisicoes[i].idUtilizador === idUtilizador && !requisicoes[i].dataEntrega) {
+                ids.push(requisicoes[i].idLivro)
+            }
+        }
+        return ids
+    }
+
+    static getIdsRequisicoesAtivasByIdUtilizador(idUtilizador) {
+        let ids = []
+        for (let i in requisicoes) {
+            if (requisicoes[i].idUtilizador === idUtilizador && !requisicoes[i].dataEntrega) {
+                ids.push(requisicoes[i].id)
+            }
+        }
+        return ids
+    }
+
+    static verificarRequisicaoAtivaByIdUtilizadorIdLivro(idUtilizador, idLivro) {
+        let existir = false
+        for (let i in requisicoes) {
+            if (requisicoes[i].idUtilizador === idUtilizador && requisicoes[i].idLivro === idLivro && !requisicoes[i].dataEntrega) {
+                existir = true
+            }
+        }
+        return existir
     }
 
     static quantidadeRequisicoesByIdUtilizador(id) {
@@ -882,6 +952,16 @@ class Requisicao {
             }
         }
         return listaLivros
+    }
+
+    dataRequisicaoToString() {
+        return this.dataRequisicao.substr(0, this.dataRequisicao.indexOf("T")) + ", " + this.dataRequisicao.substr(this.dataRequisicao.indexOf("T") + 1, this.dataRequisicao.length)
+    }
+
+    calcularDataLimiteEntrega() {
+        let dataLimite = new Date(this.dataRequisicao);
+        dataLimite.setDate(dataLimite.getDate() + configuracoes.diasRequisicao);
+        return dataLimite
     }
 }
 
@@ -1525,6 +1605,10 @@ function obterData(data) {
     return ano + "-" + mes + "-" + dia + "T" + hora + ":" + minutos + ":" + segundos
 }
 
+function dataToString(data) {
+    return data.substr(0, data.indexOf("T")) + ", " + data.substr(data.indexOf("T") + 1, data.length)
+}
+
 let utilizadores = []
 let livros = []
 let bibliotecas = []
@@ -1538,9 +1622,9 @@ let testemunhos = []
 let autores = []
 let configuracoes = {
     id: 1,
-    diasRequisicao: 0,
-    valorMultaDiaria: 0,
-    valorMultaLimite: 1
+    diasRequisicao: 14,
+    valorMultaDiaria: 3.5,
+    valorMultaLimite: 25
 }
 
 let idLivroClicado = -1
@@ -1691,6 +1775,18 @@ if (!localStorage.getItem("bibliotecas")) {
     localStorage.setItem("bibliotecas", JSON.stringify(bibliotecas))
     bibliotecas = JSON.parse(localStorage.getItem("bibliotecas"))
 }
+
+//requisicoes
+/*
+requisicoes.push(new Requisicao(1, 1, "2018-05-05T15:00:00", "2018-05-06T15:00:00"))
+requisicoes.push(new Requisicao(1, 2, "2018-05-05T15:00:00", "2018-05-06T15:00:00"))
+requisicoes.push(new Requisicao(1, 3, "2018-06-05T15:00:00"))
+
+
+if (!localStorage.getItem("requisicoes")) {
+    localStorage.setItem("requisicoes", JSON.stringify(requisicoes))
+    requisicoes = JSON.parse(localStorage.getItem("requisicoes"))
+}*/
 
 //autores predefinidos
 autores.push(new Autor(
@@ -2183,9 +2279,6 @@ if (!localStorage.getItem("testemunhos")) {
     testemunhos = JSON.parse(localStorage.getItem("testemunhos"))
 }
 
-requisicoes.push(new Requisicao(1, 1, "2018-05-02"))
-requisicoes.push(new Requisicao(1, 2, "2018-05-02"))
-
 
 let idUtilizadorLogado = (localStorage.getItem("idUtilizadorLogado")) ? localStorage.getItem("idUtilizadorLogado") : -1
 
@@ -2243,6 +2336,15 @@ function transformarEmInstanciaBiblioteca(arrayBibliotecas) {
         bibliotecasTemporarias.push(Object.assign(new Biblioteca(), arrayBibliotecas[i]))
     }
     bibliotecas = bibliotecasTemporarias
+}
+
+function transformarEmInstanciaRequisicao(arrayRequisicoes) {
+    let requisicoesTemporarias = []
+    //transformar os objetos em instâncias da classe Requisicao
+    for (let i in arrayRequisicoes) {
+        requisicoesTemporarias.push(Object.assign(new Requisicao(), arrayRequisicoes[i]))
+    }
+    requisicoes = requisicoesTemporarias
 }
 
 function transformarEmInstanciaAutor(arrayAutores) {
@@ -2580,4 +2682,32 @@ function comboboxFiltros() {
     $(document).click(function () {
         $('.dropdown-el').removeClass('expanded');
     });
+}
+
+
+function atualizarTodasMultas() {
+    utilizadores = JSON.parse(localStorage.getItem("utilizadores"))
+    transformarEmInstanciaUtilizador(utilizadores)
+
+    for (let i in utilizadores) {
+        let dataAtual = new Date()
+        let ativas = Requisicao.getIdsRequisicoesAtivasByIdUtilizador(utilizadores[i].id)
+        let multa = 0
+        for (let j in ativas) {
+            for (let k in requisicoes) {
+                if (requisicoes[k].id === ativas[j]) {
+                    let dataLimite = requisicoes[k].calcularDataLimiteEntrega()
+                    let dias = Math.round((dataAtual - dataLimite) / 86400000) //86 400 000 é o número de milissegundos em um ano
+                    if(dias >= 0) {
+                        multa += dias * configuracoes.valorMultaDiaria
+                    }
+                }
+            }
+        }
+        utilizadores[i].multa = multa
+        if(utilizadores[i].multa > configuracoes.valorMultaLimite) {
+            utilizadores[i].bloqueio = true
+        }
+        localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
+    }
 }

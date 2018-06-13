@@ -4,6 +4,12 @@ window.onload = function () {
     transformarEmInstanciaUtilizador(utilizadores)
     idUtilizadorLogado = parseInt(localStorage.getItem("idUtilizadorLogado"))
 
+    livros = JSON.parse(localStorage.getItem("livros"))
+    transformarEmInstanciaLivro(livros)
+
+    requisicoes = JSON.parse(localStorage.getItem("requisicoes"))
+    transformarEmInstanciaRequisicao(requisicoes)
+
     //atualiza as informações do utilizador logado
     atualizarFotoNome()
 
@@ -12,6 +18,9 @@ window.onload = function () {
 
     //atualiza as percentagens de utilizadores
     atualizarPercentagens()
+
+    //atualizar multas
+    atualizarTodasMultas()    
 
     //modal
     let modalTitulo = document.getElementById("modalTitulo")
@@ -151,7 +160,7 @@ function gerarTabelaUtilizadores() {
                                                 <p><b>Valor multa:</b> € ${utilizadores[j].multa}</p>
                                                 <p><b>Número de requisições:</b> ${Requisicao.quantidadeRequisicoesByIdUtilizador(utilizadores[j].id)}</p> 
                                                 <p><b>Livros requisitados:</b> ${Requisicao.livrosRequisitadosByIdUtilizador(utilizadores[j].id).join(" / ")}</p>
-                                                <p><b>Data de inscrição:</b> ${utilizadores[j].dataToString()}</p>
+                                                <p><b>Data de inscrição:</b> ${dataToString(utilizadores[j].dataInscricao)}</p>
                                                 <p><b>Tipo de acesso:</b> ${Utilizador.tipoAcessoToString(utilizadores[j].tipoAcesso)}</p>                      
                                             </div>`
                     modalFooter.innerHTML = `<button type="button" class="btn btn-danger remover">Remover utilizador</button>
@@ -260,7 +269,7 @@ function gerarTabelaUtilizadores() {
                                                                 <div class="form-group">
                                                                     <label class="col-sm-3 control-label" for="inputAdmUtilizadorEditarInscricao">Data de inscrição:</label>
                                                                     <div class="col-sm-9">
-                                                                        <input id="inputAdmUtilizadorEditarInscricao" type="text" class="form-control" required readonly value="${utilizadores[k].dataToString()}">
+                                                                        <input id="inputAdmUtilizadorEditarInscricao" type="text" class="form-control" required readonly value="${dataToString(utilizadores[k].dataInscricao)}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
