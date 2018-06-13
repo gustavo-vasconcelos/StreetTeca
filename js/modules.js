@@ -219,6 +219,14 @@ class Utilizador {
             }
         }
     }
+    
+    static getMultaById(idUtilizador) {
+        for(let i in utilizadores) {
+            if(utilizadores[i].id === idUtilizador) {
+                return utilizadores[i].multa
+            }
+        }
+    }
 }
 
 class Livro {
@@ -922,6 +930,16 @@ class Requisicao {
         return ids
     }
 
+    static getIdsRequisicoesEntreguesByIdUtilizador(idUtilizador) {
+        let ids = []
+        for (let i in requisicoes) {
+            if (requisicoes[i].idUtilizador === idUtilizador && requisicoes[i].dataEntrega) {
+                ids.push(requisicoes[i].id)
+            }
+        }
+        return ids
+    }
+
     static verificarRequisicaoAtivaByIdUtilizadorIdLivro(idUtilizador, idLivro) {
         let existir = false
         for (let i in requisicoes) {
@@ -962,6 +980,20 @@ class Requisicao {
         let dataLimite = new Date(this.dataRequisicao);
         dataLimite.setDate(dataLimite.getDate() + configuracoes.diasRequisicao);
         return dataLimite
+    }
+
+    entregarLivro() {
+        this.dataEntrega = obterData(new Date())
+        //atualiza key
+        localStorage.setItem("requisicoes", JSON.stringify(requisicoes))
+    }
+
+    static entregarLivroByIdUtilizadorIdLivro(idUtilizador, idLivro) {
+        for(let i in requisicoes) {
+            if(requisicoes[i].idUtilizador === idUtilizador && requisicoes[i].idLivro === idLivro) {
+                requisicoes[i].entregarLivro()
+            }
+        }
     }
 }
 
@@ -1669,7 +1701,7 @@ if (!localStorage.getItem("configuracoes")) {
 
 
 //utilizadores predefinidos
-utilizadores.push(new Utilizador("Teste", "teste@teste.pt", "123", "", "2018-05-10T02:00:00", 0))
+utilizadores.push(new Utilizador("Teste", "teste@teste.pt", "123", "https://imgix.ranker.com/user_node_img/50025/1000492230/original/brandon-stark-tv-characters-photo-u1?w=650&q=50&fm=jpg&fit=crop&crop=faces", "2018-05-10T02:00:00", 0))
 utilizadores.push(new Utilizador("Gustavo Henrique", "teste2@teste.pt", "123", "", "2018-05-10T02:00:00", 2))
 utilizadores.push(new Utilizador("João Paixão Amorim", "teste3@teste.pt", "123", "", "2018-05-10T02:00:00", 1))
 utilizadores.push(new Utilizador("Guilherme Leonardo Costa", "teste4@teste.pt", "123", "", "2018-05-10T02:00:00", 1))
@@ -2556,7 +2588,8 @@ function atualizarFotoNome() {
 
     //foto utilizador logado
     let fotoUtilizadorLogado = document.getElementById("fotoUtilizadorLogado")
-    fotoUtilizadorLogado.src = "../../" + Utilizador.getUrlFotoById(idUtilizadorLogado)
+    let foto = (Utilizador.getUrlFotoById(idUtilizadorLogado) === "img/perfil.png") ? "../../img/perfil.png" : Utilizador.getUrlFotoById(idUtilizadorLogado)
+    fotoUtilizadorLogado.src = foto
 }
 
 function gerarMenu(tipoAcesso, menuAtivo) {
@@ -2705,7 +2738,7 @@ function atualizarTodasMultas() {
             }
         }
         utilizadores[i].multa = multa
-        if(utilizadores[i].multa > configuracoes.valorMultaLimite) {
+        if(utilizadores[i].multa > configuracoes.valorMultaLimite && utilizadores[i].tipoAcesso === 2) {
             utilizadores[i].bloqueio = true
         }
         localStorage.setItem("utilizadores", JSON.stringify(utilizadores))

@@ -38,7 +38,7 @@ window.onload = function () {
     smoothScroll()
     btnMenu()
     //fim aparência
-    atualizarTodasMultas()    
+    atualizarTodasMultas()
 
     if (idUtilizadorLogado !== -1) {
         //btn logout
@@ -69,17 +69,23 @@ window.onload = function () {
     //gerar info sobre o utilizador, requisicoes ativas, lista de desejos, requisicoes
     gerarInfo()
     gerarRequisicoesAtivas()
+    gerarRequisicoesEntregues()
 
 } //fim onload
+
+let modalTitulo = document.getElementById("modalTitulo")
+let modalBody = document.getElementById("modalBody")
+let modalFooter = document.getElementById("modalFooter")
 
 function gerarInfo() {
     let str = `<h4 class="text-teca4 text-center">O MEU PERFIL</h4>
                <div class="row">`
     for (let i in utilizadores) {
         if (utilizadores[i].id === idUtilizadorLogado) {
+            let urlFoto = (utilizadores[i].urlFoto === "img/perfil.png") ? "../img/perfil.png" : utilizadores[i].urlFoto
             str += `<div class="col-lg-5 col-md-8 col-sm-20 col-20 mt-2 text-center">
                         <div class="foto-testemunho text-center">
-                            <img class="img-thumbnail" src="../${utilizadores[i].urlFoto}">
+                            <img class="img-thumbnail" src="${urlFoto}">
                             <div class="text-center">
                                 Multa: €${utilizadores[i].multa}
                             </div>
@@ -124,18 +130,15 @@ function gerarInfo() {
     str += "</div>"
     document.getElementById("cabecalho").innerHTML = str
 
-    let modalTitulo = document.getElementById("modalTitulo")
-    let modalBody = document.getElementById("modalBody")
-    let modalFooter = document.getElementById("modalFooter")
-
     document.getElementById("btnEditarPerfil").addEventListener("click", function () {
         modalTitulo.innerHTML = "A editar perfil"
         for (let i in utilizadores) {
             if (utilizadores[i].id === idUtilizadorLogado) {
-                let urlFoto = (utilizadores[i].urlFoto === "img/perfil.png") ? "" : urlFoto
+                let urlFoto = (utilizadores[i].urlFoto === "img/perfil.png") ? "../img/perfil.png" : utilizadores[i].urlFoto
+                let foto = (utilizadores[i].urlFoto === "img/perfil.png") ? "" : utilizadores[i].urlFoto
                 modalBody.innerHTML = ` <div class="container-fluid">
                                             <div class="text-center">
-                                                <img src="../${utilizadores[i].urlFoto}" class="img-fluid img-thumbnail" id="fotoEditar" style="width: 150px; height: 150px; border-radius: 50%;">                            
+                                                <img src="${urlFoto}" class="img-fluid img-thumbnail" id="fotoEditar" style="width: 150px; height: 150px; border-radius: 50%;">                            
                                             </div>
                                             <br>
                                             <form class="form-horizontal" id="formEditar">
@@ -169,7 +172,7 @@ function gerarInfo() {
                                                                 <i class="fa fa-link" aria-hidden="true"></i>
                                                             </span>
                                                         </div>
-                                                        <input type="text" class="form-control" id="inputEditarUrlFoto" value="${urlFoto}">
+                                                        <input type="text" class="form-control" id="inputEditarUrlFoto" value="${foto}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -297,6 +300,8 @@ function gerarInfo() {
     })
 }
 
+let idLivro
+
 function gerarRequisicoesAtivas() {
     let requisicoesAtivas = Requisicao.getIdsRequisicoesAtivasByIdUtilizador(idUtilizadorLogado)
     let str = `<span class="text-teca4" style="font-size: 1.5em; font-weight: 500">REQUISIÇÕES ATIVAS (${requisicoesAtivas.length})</span>`
@@ -316,9 +321,9 @@ function gerarRequisicoesAtivas() {
                                                 </div>
                                             </figure>
                                         </div>
-                                        <div class="col-xl-16 col-lg-15 col-md-14 col-sm-13 col-20 text-white text-left">
+                                        <div class="col-xl-16 col-lg-15 col-md-14 col-sm-13 col-20 text-white text-left" id="livro${livros[k].id}">
                                             <a href="livro.html" class="livro${livros[k].id} clicarLivro">
-                                                <h4 class="livro-titulo">A Guerra dos Tronos</h4>
+                                                <h4 class="livro-titulo">${livros[k].titulo}</h4>
                                             </a>
                                             <p style="font-size: .9em;">de ${livros[k].autorToString()}</p>
                                             <div>
@@ -326,7 +331,7 @@ function gerarRequisicoesAtivas() {
                                                 <br>
                                                 <span style="font-weight: 600;">Data limite de entrega:</span> ${dataToString(obterData(requisicoes[j].calcularDataLimiteEntrega()))}
                                             </div>
-                                            <button type="button" class="col-xl-8 col-lg-10 col-md-13 col-sm-20 col-15 btn btn-teca3 mt-2" style="border-radius: 2em;">
+                                            <button type="button" id="btnEntregarLivro" data-toggle="modal" data-target="#modal" class="col-xl-8 col-lg-10 col-md-13 col-sm-20 col-15 btn btn-teca3 mt-2" style="border-radius: 2em;">
                                                 <i class="fa fa-pencil text-teca4"></i> Entregar
                                             </button>
                                         </div>
@@ -338,9 +343,421 @@ function gerarRequisicoesAtivas() {
             }
         }
     } else {
-        str += '<br>Não possui nenhum livro requisitado de momento, caso queira visite o nosso <a href="catalogo.html" class="text-teca4">catálogo</a>, constantemente atualizado com os últimos lançamentos.'
+        str += '<br>Não possui nenhum livro requisitado de momento, caso queira visite o nosso <a href="catalogo.html" class="text-teca4">catálogo</a>, que é constantemente atualizado com os últimos lançamentos.'
     }
     document.getElementById("requisicoesAtivas").innerHTML = str
+    //remove o último <hr>
+    try {
+        document.querySelectorAll("#requisicoesAtivas hr.bg-teca4")[document.querySelectorAll("#requisicoesAtivas hr.bg-teca4").length - 1].remove()
+    } catch (err) {
+
+    }
     livroClicado()
     autorClicado()
+
+    let btnEntregarLivro = document.getElementById("btnEntregarLivro")
+    try {
+        btnEntregarLivro.addEventListener("click", function () {
+            idLivro = parseInt(btnEntregarLivro.parentNode.id.replace(/livro/g, ""))
+            modalTitulo.innerHTML = "A entregar " + Livro.getTituloById(idLivro)
+            modalBody.innerHTML = `Escolha uma biblioteca para entregar o livro:
+                                   <div id="mapa"></div>`
+            gerarMapaBibliotecas()
+        })
+    } catch (err) {
+
+    }
+
+}
+
+function gerarMapaBibliotecas() {
+    let map
+    let mapaBibliotecas = document.getElementById("mapa")
+    mapaBibliotecas.style.height = "650px"
+
+    let mapProp = {
+        center: new google.maps.LatLng(41.366174, -8.7396931),
+        zoom: 10,
+        styles: [
+            {
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#1d2c4d"
+                    }
+                ]
+            },
+            {
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#8ec3b9"
+                    }
+                ]
+            },
+            {
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                    {
+                        "color": "#1a3646"
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative.country",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "color": "#4b6878"
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative.land_parcel",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#64779e"
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative.province",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "color": "#4b6878"
+                    }
+                ]
+            },
+            {
+                "featureType": "landscape.man_made",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "color": "#334e87"
+                    }
+                ]
+            },
+            {
+                "featureType": "landscape.natural",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#023e58"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#283d6a"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#6f9ba5"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                    {
+                        "color": "#1d2c4d"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi.park",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#023e58"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi.park",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#3C7680"
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#304a7d"
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#98a5be"
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                    {
+                        "color": "#1d2c4d"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#2c6675"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "color": "#255763"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#b0d5ce"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                    {
+                        "color": "#023e58"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#98a5be"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit",
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                    {
+                        "color": "#1d2c4d"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit.line",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#283d6a"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit.station",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#3a4762"
+                    }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#0e1626"
+                    }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#4e6d70"
+                    }
+                ]
+            }
+        ]
+    }
+    map = new google.maps.Map(mapaBibliotecas, mapProp)
+
+    if (bibliotecas.length > 0) {
+        let bibliotecasMarker = []
+        let bibliotecasInfoWindow = []
+        for (let i in bibliotecas) {
+            if (bibliotecas[i].getCapacidadeAtual() >= 1) {
+                bibliotecasMarker.push(new google.maps.Marker({
+                    position: new google.maps.LatLng(bibliotecas[i].coordenadas.lat, bibliotecas[i].coordenadas.lng),
+                    label: bibliotecas[i].id + "",
+                    title: "Biblioteca " + bibliotecas[i].id,
+                    animation: google.maps.Animation.DROP
+                }))
+
+                bibliotecasInfoWindow.push(new google.maps.InfoWindow({
+                    content: `<div class="container text-dark" id="info" style="font-size:1.1em; width:100px;">
+                                <h4>Biblioteca de ${Freguesia.getFreguesiaById(bibliotecas[i].idFreguesia)}, ${Concelho.getConcelhoById(bibliotecas[i].idConcelho)}</h4>
+                                <hr>
+                                <p>${bibliotecas[i].descricao}</p>
+                                <hr>
+                                <p><b>Capacidade:</b> ${bibliotecas[i].capacidade}</p>                                    
+                                <p><b>Morada:</b> ${bibliotecas[i].morada}</p>                                    
+                                <p><b>Coordenadas:</b></p>
+                                <p>Latitude: ${bibliotecas[i].coordenadas.lat} / Longitude: ${bibliotecas[i].coordenadas.lng}</p>
+                                <hr>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-teca3 mt-1" id="btnConfirmarEntrega">Entregar livro</button>
+                                </div>
+                            </div>`
+                }))
+
+                for (let j in bibliotecasMarker) {
+                    bibliotecasMarker[j].setMap(map)
+                    bibliotecasMarker[j].addListener("click", function () {
+                        bibliotecasInfoWindow[j].open(map, bibliotecasMarker[j])
+                        let info = document.getElementById("info")
+
+                        if ($(window).width() <= 750) {
+                            info.style.width = $(window).width() / 2 + "px"
+                        } else {
+                            info.style.width = 750 / 2 + "px"
+                        }
+
+                        window.addEventListener("resize", function () {
+                            if ($(window).width() <= 750) {
+                                info.style.width = $(window).width() / 2 + "px"
+                            } else {
+                                info.style.width = 750 / 2 + "px"
+                            }
+                        })
+
+                        let btnConfirmarEntrega = document.getElementById("btnConfirmarEntrega")
+                        btnConfirmarEntrega.addEventListener("click", function () {
+                            $("#modal").modal("hide")
+                            if (Utilizador.getMultaById(idUtilizadorLogado)) {
+                                swal("Multa em dívida.", `Tem uma multa de €${Utilizador.getMultaById(idUtilizadorLogado)}. Dirija-se à biblioteca de ${Freguesia.getFreguesiaById(bibliotecas[i].idFreguesia)}, ${Concelho.getConcelhoById(bibliotecas[i].idConcelho)} para entregar o livro.`, "warning")
+                            } else {
+                                swal("Entregue o livro.", `Dirija-se à biblioteca de ${Freguesia.getFreguesiaById(bibliotecas[i].idFreguesia)}, ${Concelho.getConcelhoById(bibliotecas[i].idConcelho)} para entregar o livro.`, "warning")
+                            }
+                            Requisicao.entregarLivroByIdUtilizadorIdLivro(idUtilizadorLogado, idLivro)
+                            for(let k in livros) {
+                                if(livros[k].id === idLivro) {
+                                    livros[k].idBiblioteca = parseInt(bibliotecasMarker[j].label)
+                                    //atualiza a key
+                                    localStorage.setItem("livros", JSON.stringify(livros))
+                                }
+                            }
+                            gerarRequisicoesAtivas()
+                            gerarRequisicoesEntregues()
+                        })
+                    })
+                }
+
+
+            }
+        }
+    }
+}
+
+function gerarRequisicoesEntregues() {
+    let requisicoesEntregues = Requisicao.getIdsRequisicoesEntreguesByIdUtilizador(idUtilizadorLogado)
+    let str = ` <div class="mt-5">
+                <span class="text-teca4" style="font-size: 1.5em; font-weight: 500">LIVROS LIDOS (${requisicoesEntregues.length})</span>`
+    if (requisicoesEntregues.length > 0) {
+        for (let i in requisicoesEntregues) {
+            for (let j in requisicoes) {
+                if (requisicoes[j].id === requisicoesEntregues[i]) {
+                    for (let k in livros) {
+                        if (livros[k].id === requisicoes[j].idLivro) {
+                            str += `<div class="row mt-4">
+                                        <div class="col-xl-4 col-lg-5 col-md-6 col-sm-7 col-20 pull-left livro-recente text-center">
+                                            <figure>
+                                                <div class="livro-card">
+                                                    <a href="livro.html" class="livro${livros[k].id} clicarLivro">
+                                                        <img class="img-fluid" src="${livros[k].urlCapa}">
+                                                    </a>
+                                                </div>
+                                            </figure>
+                                        </div>
+                                        <div class="col-xl-16 col-lg-15 col-md-14 col-sm-13 col-20 text-white text-left">
+                                            <a href="livro.html" class="livro${livros[k].id} clicarLivro">
+                                                <h4 class="livro-titulo">${livros[k].titulo}</h4>
+                                            </a>
+                                            <p style="font-size: .9em;">de ${livros[k].autorToString()}</p>
+                                            <div>
+                                                <span style="font-weight: 600;">Data de requisição:</span> ${dataToString(requisicoes[j].dataRequisicao)}
+                                                <br>
+                                                <span style="font-weight: 600;">Data de entrega:</span> ${dataToString(requisicoes[j].dataEntrega)}
+                                            </div>
+                                            <button type="button" class="col-xl-8 col-lg-10 col-md-13 col-sm-20 col-15 btn btn-teca3 mt-2" style="border-radius: 2em;">
+                                                <i class="fa fa-star text-teca4"></i> Avaliar o livro
+                                            </button>
+                                        </div>
+                    
+                                    </div>
+                                    <hr class="bg-teca4">
+                                </div>`
+                        }
+                    }
+                }
+            }
+        }
+    } else {
+        str += '<br>Não possui nenhum livro lido, caso queira visite o nosso <a href="catalogo.html" class="text-teca4">catálogo</a>, que é constantemente atualizado com os últimos lançamentos.'
+    }
+    document.getElementById("requisicoesEntregues").innerHTML = str
+
+    //remove o último <hr>
+    try {
+        document.querySelectorAll("#requisicoesEntregues hr.bg-teca4")[document.querySelectorAll("#requisicoesEntregues hr.bg-teca4").length - 1].remove()
+    } catch (err) {
+
+    }
+    livroClicado()
+    autorClicado()
+
+    let btnEntregarLivro = document.getElementById("btnEntregarLivro")
+    try {
+        btnEntregarLivro.addEventListener("click", function () {
+            idLivro = parseInt(btnEntregarLivro.parentNode.id.replace(/livro/g, ""))
+            modalTitulo.innerHTML = "A entregar " + Livro.getTituloById(idLivro)
+            modalBody.innerHTML = `Escolha uma biblioteca para entregar o livro:
+                                   <div id="mapa"></div>`
+            gerarMapaBibliotecas()
+        })
+    } catch (err) {
+
+    }
 }

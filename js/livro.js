@@ -159,7 +159,7 @@ function gerarCabecalho(idLivro) {
     if (Livro.getIdBibliotecaById(idLivro) !== -1) {
         disponibilidade.innerHTML = '<i class="fa fa-archive text-teca4"></i> Requisitar'
     } else {
-        if(Requisicao.verificarRequisicaoAtivaByIdUtilizadorIdLivro(idUtilizadorLogado, idLivroClicado)) {
+        if (Requisicao.verificarRequisicaoAtivaByIdUtilizadorIdLivro(idUtilizadorLogado, idLivroClicado)) {
             disponibilidade.innerHTML = '<i class="fa fa-archive text-teca4"></i> Entregar livro'
         } else {
             disponibilidade.innerHTML = '<i class="fa fa-times text-teca4"></i> Livro indisponível'
@@ -184,8 +184,8 @@ function gerarCabecalho(idLivro) {
                         //atualiza key
                         localStorage.setItem("requisicoes", JSON.stringify(requisicoes))
                         //remove biblioteca ativa do livro requisitado
-                        for(let i in livros) {
-                            if(livros[i].id === idLivroClicado) {
+                        for (let i in livros) {
+                            if (livros[i].id === idLivroClicado) {
                                 livros[i].idBiblioteca = -1
                                 localStorage.setItem("livros", JSON.stringify(livros))
                                 disponibilidade.innerHTML = '<i class="fa fa-times text-teca4"></i> Livro indisponível'
@@ -194,9 +194,8 @@ function gerarCabecalho(idLivro) {
                     }
                 });
             }
-
         } else {
-            if(Requisicao.verificarRequisicaoAtivaByIdUtilizadorIdLivro(idUtilizadorLogado, idLivroClicado)) {
+            if (Requisicao.verificarRequisicaoAtivaByIdUtilizadorIdLivro(idUtilizadorLogado, idLivroClicado)) {
                 window.location.href = "perfil.html"
             } else {
                 swal("Livro indisponível.", "Este livro está temporariamente indisponível. Caso queira ser notificado quando estiver novamente disponível, adicione à sua lista de desejos.", "error")
