@@ -167,7 +167,7 @@ function gerarLivros(idGenero, filtro = "filtroRelevancia", disposicao = "grelha
                                     </div>
                                 </figure>
                             </div>
-                            <div class="col-xl-13 col-lg-15 col-md-14 col-sm-13 col-20 text-white text-left">
+                            <div class="col-xl-16 col-lg-15 col-md-14 col-sm-13 col-20 text-white text-left">
                                 <a href="livro.html" class="livro${livros[i].id} clicarLivro"><h4 class="livro-titulo">${livros[i].titulo}</h4></a>
                                 <p style="font-size: .9em;">de ${livros[i].autorToString()}</p>
                                 <p>${descricao}</p>

@@ -1,10 +1,11 @@
 class Utilizador {
-    constructor(nome, email, password, urlFoto, tipoAcesso = 2) {
+    constructor(nome, email, password, urlFoto, dataInscricao, tipoAcesso = 2) {
         this._id = Utilizador.getUltimoId() + 1
         this.nome = nome
         this.email = email
         this.password = password
         this.urlFoto = urlFoto
+        this.dataInscricao = dataInscricao        
         this.tipoAcesso = tipoAcesso
         this.multa = 0
     }
@@ -57,6 +58,13 @@ class Utilizador {
     }
     set tipoAcesso(valor) {
         this._tipoAcesso = valor
+    }
+
+    get dataInscricao() {
+        return this._dataInscricao
+    }
+    set dataInscricao(valor) {
+        this._dataInscricao = valor
     }
 
     get multa() {
@@ -185,6 +193,10 @@ class Utilizador {
         } else {
             return 0
         }
+    }
+
+    dataToString() {
+        return this.dataInscricao.substr(0, this.dataInscricao.indexOf("T")) + ", " + this.dataInscricao.substr(this.dataInscricao.indexOf("T") + 1, this.dataInscricao.length)
     }
 }
 
@@ -1494,6 +1506,16 @@ function sortNumero(a, b) {
     return a - b;
 }
 
+function obterData(data) {
+    let ano = data.getFullYear()
+    let mes = ((data.getMonth() + 1) <= 9) ? "0" + (data.getMonth() + 1) : (data.getMonth() + 1)
+    let dia = (data.getDate() <= 9) ? "0" + data.getDate() : data.getDate()
+    let hora = (data.getHours() <= 9) ? "0" + data.getHours() : data.getHours()
+    let minutos = (data.getMinutes() <= 9) ? "0" + data.getMinutes() : data.getMinutes()
+    let segundos = (data.getSeconds() <= 9) ? "0" + data.getSeconds() : data.getSeconds()
+    return ano + "-" + mes + "-" + dia + "T" + hora + ":" + minutos + ":" + segundos
+}
+
 let utilizadores = []
 let livros = []
 let bibliotecas = []
@@ -1554,10 +1576,10 @@ if (!localStorage.getItem("configuracoes")) {
 
 
 //utilizadores predefinidos
-utilizadores.push(new Utilizador("Teste", "teste@teste.pt", "123", "", 0))
-utilizadores.push(new Utilizador("Gustavo Henrique", "teste2@teste.pt", "123", "", 2))
-utilizadores.push(new Utilizador("João Paixão Amorim", "teste3@teste.pt", "123", "", 1))
-utilizadores.push(new Utilizador("Guilherme Leonardo Costa", "teste4@teste.pt", "123", "", 1))
+utilizadores.push(new Utilizador("Teste", "teste@teste.pt", "123", "", "2018-05-10T02:00:00", 0))
+utilizadores.push(new Utilizador("Gustavo Henrique", "teste2@teste.pt", "123", "", "2018-05-10T02:00:00", 2))
+utilizadores.push(new Utilizador("João Paixão Amorim", "teste3@teste.pt", "123", "", "2018-05-10T02:00:00", 1))
+utilizadores.push(new Utilizador("Guilherme Leonardo Costa", "teste4@teste.pt", "123", "", "2018-05-10T02:00:00", 1))
 
 if (!localStorage.getItem("utilizadores")) {
     localStorage.setItem("utilizadores", JSON.stringify(utilizadores))

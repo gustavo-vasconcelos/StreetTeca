@@ -121,16 +121,17 @@ window.onload = function () {
         if (erro) {
             swal("Erro!", strErro, "error")
         } else {
-            utilizadores.push(new Utilizador(registoInputNome.value, registoInputEmail.value, registoInputPassword.value, registoInputUrlFoto.value))
+            utilizadores.push(new Utilizador(registoInputNome.value, registoInputEmail.value, registoInputPassword.value, registoInputUrlFoto.value, new Date()))
             localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
 
             //envia email
+            /*
             let service_id = "default_service", template_id = "registo";
             let templateParams = {
                 email: registoInputEmail.value,
                 nome: registoInputNome.value
             }
-            emailjs.send(service_id, template_id, templateParams)
+            emailjs.send(service_id, template_id, templateParams)*/
 
             $("#modalRegisto").modal("hide")
             swal("Registo efetuado!", "Faça login com as suas credenciais.", "success")
