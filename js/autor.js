@@ -36,15 +36,7 @@ window.onload = function () {
     btnMenu()
     //fim aparência
 
-    let btnPainelAdmin = document.getElementById("btnPainelAdmin")
-
     if (idUtilizadorLogado !== -1) {
-        if (Utilizador.getTipoAcessoById(idUtilizadorLogado) !== 2) {
-            btnPainelAdmin.style.display = "inline"
-        } else {
-            btnPainelAdmin.style.display = "none"
-        }
-
         //btn logout
         let btnLogout = document.getElementById("btnLogout")
         btnLogout.addEventListener("click", function () {

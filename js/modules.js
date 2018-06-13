@@ -2292,11 +2292,19 @@ function navbar() {
     let btnPainelAdmin = document.getElementById("btnPainelAdmin")
     let btnLogin = document.getElementById("btnLogin")
 
+    if (Utilizador.getTipoAcessoById(idUtilizadorLogado) !== 2) {
+        btnPainelAdmin.style.display = "inline"
+    } else {
+        btnPainelAdmin.style.display = "none"
+    }
+
     if (idUtilizadorLogado === -1) {
         //esconde área utilizador
         areaUtilizador.style.display = "none"
         btnPainelAdmin.style.display = "none"
     } else {
+        areaUtilizador.innerHTML = "OLÁ, " + Utilizador.getPrimeiroNomeById(idUtilizadorLogado)
+        areaUtilizador.style.display = "inline"
         btnLogin.style.display = "none"
     }
 }
@@ -2521,7 +2529,6 @@ function gerarMenu(tipoAcesso, menuAtivo) {
                         <em class="fa fa-home">&nbsp;</em> Página inicial</a>
                 </li>`
     }
-
     document.getElementById("menu").innerHTML = str
 
     if (idUtilizadorLogado !== -1) {

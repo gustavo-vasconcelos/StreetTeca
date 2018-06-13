@@ -164,13 +164,8 @@ window.onload = function () {
                 idUtilizadorLogado = idUtilizador
                 localStorage.setItem("idUtilizadorLogado", idUtilizadorLogado)
 
-                btnLogin.style.display = "none"
-
-                areaUtilizador.style.display = "inline"
-
-                if (Utilizador.getTipoAcessoById(idUtilizadorLogado) !== 2) {
-                    btnPainelAdmin.style.display = "inline"
-                }
+                //opções utilizador
+                navbar()
 
                 swal("Bem vindo, " + Utilizador.getPrimeiroUltimoNomeById(idUtilizadorLogado) + "!", {
                     icon: "success",

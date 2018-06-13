@@ -34,14 +34,7 @@ window.onload = function () {
     btnMenu()
     //fim aparência
 
-    let btnPainelAdmin = document.getElementById("btnPainelAdmin")
-
     if (idUtilizadorLogado !== -1) {
-        if (Utilizador.getTipoAcessoById(idUtilizadorLogado) !== 2) {
-            btnPainelAdmin.style.display = "inline"
-        } else {
-            btnPainelAdmin.style.display = "none"
-        }
         for (let i in livros) {
             if (livros[i].id === idLivroClicado) {
                 //título
