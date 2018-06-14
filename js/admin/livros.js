@@ -6,6 +6,9 @@ window.onload = function () {
     livros = JSON.parse(localStorage.getItem("livros"))
     transformarEmInstanciaLivro(livros)
 
+    requisicoes = JSON.parse(localStorage.getItem("requisicoes"))
+    transformarEmInstanciaRequisicao(requisicoes)
+
     generos = JSON.parse(localStorage.getItem("generos"))
     transformarEmInstanciaGenero(generos)
 
@@ -143,7 +146,7 @@ window.onload = function () {
         event.preventDefault()
     })
 
-}
+} //fim onload
 
 function getDataAtual() {
     //data atual

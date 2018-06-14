@@ -213,16 +213,16 @@ class Utilizador {
     }
 
     static verificarBloqueioById(idUtilizador) {
-        for(let i in utilizadores) {
-            if(utilizadores[i].id === idUtilizador) {
+        for (let i in utilizadores) {
+            if (utilizadores[i].id === idUtilizador) {
                 return utilizadores[i].bloqueio
             }
         }
     }
-    
+
     static getMultaById(idUtilizador) {
-        for(let i in utilizadores) {
-            if(utilizadores[i].id === idUtilizador) {
+        for (let i in utilizadores) {
+            if (utilizadores[i].id === idUtilizador) {
                 return utilizadores[i].multa
             }
         }
@@ -359,6 +359,14 @@ class Livro {
             autorString.push(`<a href="${dir}autor.html" class="autor${this.autor[i]} clicarAutor livro-autor">${Autor.getNomeById(this.autor[i])}</a>`)
         }
 
+        return (autorString.length <= 2) ? autorString.join(" & ") : autorString.join(", ")
+    }
+
+    autorToStringModal() {
+        let autorString = []
+        for (let i in this.autor) {
+            autorString.push(`<a href="" class="livro-autor" data-toggle="modal" data-target="#modalLogin">${Autor.getNomeById(this.autor[i])}</a>`)
+        }
         return (autorString.length <= 2) ? autorString.join(" & ") : autorString.join(", ")
     }
 
@@ -989,8 +997,8 @@ class Requisicao {
     }
 
     static entregarLivroByIdUtilizadorIdLivro(idUtilizador, idLivro) {
-        for(let i in requisicoes) {
-            if(requisicoes[i].idUtilizador === idUtilizador && requisicoes[i].idLivro === idLivro) {
+        for (let i in requisicoes) {
+            if (requisicoes[i].idUtilizador === idUtilizador && requisicoes[i].idLivro === idLivro) {
                 requisicoes[i].entregarLivro()
             }
         }
@@ -2603,19 +2611,23 @@ function gerarMenu(tipoAcesso, menuAtivo) {
         if (url.substr(url.length - 10, 11) === "index.html" || url.substr(url.length - 11, 11) === "livros.html") {
             str += `<li id="inicioMenu">
                         <a href="index.html">
-                            <em class="fa fa-dashboard">&nbsp;</em> Início</a>
+                            <em class="fa fa-dashboard">&nbsp;</em> Início
+                        </a>
                     </li>
                     <li id="autoresMenu">
                         <a href="autores.html">
-                            <em class="fa fa-pencil">&nbsp;</em> Autores</a>
+                            <em class="fa fa-pencil">&nbsp;</em> Autores
+                        </a>
                     </li>
                     <li id="livrosMenu">
                         <a href="livros.html">
-                            <em class="fa fa-book">&nbsp;</em> Livros</a>
+                            <em class="fa fa-book">&nbsp;</em> Livros
+                        </a>
                     </li>
                     <li id="paginaInicialMenu">
                         <a href="../../index.html">
-                            <em class="fa fa-home">&nbsp;</em> Página inicial</a>
+                            <em class="fa fa-home">&nbsp;</em> Página inicial
+                        </a>
                     </li>`
         } else {
             document.getElementsByTagName("body")[0].innerHTML = ""
@@ -2624,44 +2636,59 @@ function gerarMenu(tipoAcesso, menuAtivo) {
     } else if (tipoAcesso === 0) { //admin
         str += `<li id="inicioMenu">
                     <a href="index.html">
-                        <em class="fa fa-dashboard">&nbsp;</em> Início</a>
+                        <em class="fa fa-dashboard">&nbsp;</em> Início
+                    </a>
                 </li>
                 <li id="utilizadoresMenu">
                     <a href="utilizadores.html">
-                        <em class="fa fa-user">&nbsp;</em> Utilizadores</a>
+                        <em class="fa fa-user">&nbsp;</em> Utilizadores
+                    </a>
                 </li>
                 <li id="bibliotecasMenu">
                     <a href="bibliotecas.html">
-                        <em class="fa fa-map-marker">&nbsp;</em> Bibliotecas</a>
+                        <em class="fa fa-map-marker">&nbsp;</em> Bibliotecas
+                    </a>
                 </li>
                 <li id="generos-tagsMenu">
                     <a href="generos-tags.html">
                         <em class="fa fa-list-alt">&nbsp;</em> Géneros &nbsp; & &nbsp;&nbsp;
-                        <em class="fa fa-tags">&nbsp;</em> Tags</a>
+                        <em class="fa fa-tags">&nbsp;</em> Tags
+                    </a>
                 </li>
                 <li id="autoresMenu">
                     <a href="autores.html">
-                        <em class="fa fa-pencil">&nbsp;</em> Autores</a>
+                        <em class="fa fa-pencil">&nbsp;</em> Autores
+                    </a>
                 </li>
                 <li id="livrosMenu">
                     <a href="livros.html">
-                        <em class="fa fa-book">&nbsp;</em> Livros</a>
+                        <em class="fa fa-book">&nbsp;</em> Livros
+                    </a>
+                </li>
+                <li id="requisicoesMenu">
+                    <a href="requisicoes.html">
+                        <em class="fa fa-archive">&nbsp;</em> Requisições
+                    </a>
                 </li>
                 <li id="comentariosMenu">
                     <a href="comentarios.html">
-                        <em class="fa fa-comments">&nbsp;</em> Comentários</a>
+                        <em class="fa fa-comments">&nbsp;</em> Comentários
+                    </a>
                 </li>
                 <li id="testemunhosMenu">
                     <a href="testemunhos.html">
-                        <em class="fa fa-quote-right">&nbsp;</em> Testemunhos</a>
+                        <em class="fa fa-quote-right">&nbsp;</em> Testemunhos
+                    </a>
                 </li>
                 <li id="configuracoesMenu">
                     <a href="configuracoes.html">
-                        <em class="fa fa-cog">&nbsp;</em> Configurações</a>
+                        <em class="fa fa-cog">&nbsp;</em> Configurações
+                    </a>
                 </li>
                 <li id="paginaInicialMenu">
                     <a href="../../index.html">
-                        <em class="fa fa-home">&nbsp;</em> Página inicial</a>
+                        <em class="fa fa-home">&nbsp;</em> Página inicial
+                    </a>
                 </li>`
     }
     document.getElementById("menu").innerHTML = str
@@ -2685,6 +2712,9 @@ function gerarMenu(tipoAcesso, menuAtivo) {
                 break;
             case "livrosMenu":
                 document.getElementById("livrosMenu").className = "active"
+                break;
+            case "requisicoesMenu":
+                document.getElementById("requisicoesMenu").className = "active"
                 break;
             case "comentariosMenu":
                 document.getElementById("comentariosMenu").className = "active"
@@ -2731,14 +2761,14 @@ function atualizarTodasMultas() {
                 if (requisicoes[k].id === ativas[j]) {
                     let dataLimite = requisicoes[k].calcularDataLimiteEntrega()
                     let dias = Math.round((dataAtual - dataLimite) / 86400000) //86 400 000 é o número de milissegundos em um ano
-                    if(dias >= 0) {
+                    if (dias >= 0) {
                         multa += dias * configuracoes.valorMultaDiaria
                     }
                 }
             }
         }
         utilizadores[i].multa = multa
-        if(utilizadores[i].multa > configuracoes.valorMultaLimite && utilizadores[i].tipoAcesso === 2) {
+        if (utilizadores[i].multa > configuracoes.valorMultaLimite && utilizadores[i].tipoAcesso === 2) {
             utilizadores[i].bloqueio = true
         }
         localStorage.setItem("utilizadores", JSON.stringify(utilizadores))

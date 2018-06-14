@@ -130,13 +130,12 @@ window.onload = function () {
             localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
 
             //envia email
-            /*
             let service_id = "default_service", template_id = "registo";
             let templateParams = {
                 email: registoInputEmail.value,
                 nome: registoInputNome.value
             }
-            emailjs.send(service_id, template_id, templateParams)*/
+            emailjs.send(service_id, template_id, templateParams)
 
             $("#modalRegisto").modal("hide")
             swal("Registo efetuado!", "Faça login com as suas credenciais.", "success")
@@ -266,7 +265,7 @@ function gerarLivrosRecentes() {
                                     <div>
                                         <a href="" class="livro-titulo" data-toggle="modal" data-target="#modalLogin">${livros[i].titulo}</a>
                                     </div>
-                                    <div class="livro-autor">${livros[i].autorToString("content/")}</div>
+                                    <div class="livro-autor">${livros[i].autorToStringModal()}</div>
                                 </figcaption>
                             </figure>
                         </div>`
@@ -318,9 +317,9 @@ function gerarLivrosMaisPontuados() {
                                 </div>
                                 <div class="livro-dados">
                                     <div>
-                                        <a href="" class="livro-titulo" data-toggle="modal" data-target="#modalLogin">${livros[j].titulo}</a>
+                                        <a href="#" class="livro-titulo" data-toggle="modal" data-target="#modalLogin">${livros[j].titulo}</a>
                                     </div>
-                                    <div class="livro-autor">${livros[j].autorToString("content/")}</div>
+                                    <div class="livro-autor">${livros[j].autorToStringModal()}</div>
                                 </div>
                             </div>`
                 }

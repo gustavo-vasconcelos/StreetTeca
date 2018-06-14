@@ -116,6 +116,8 @@ function gerarCabecalho(idLivro) {
     let str = ""
     for (let i in livros) {
         if (livros[i].id === idLivro) {
+            let quantidadeRequisicoes = Requisicao.getQuantidadeRequisicoesByIdLivro(livros[i].id)
+            let palavraRequisicao = (quantidadeRequisicoes === 1) ? " requisição" : " requisições"
             str += `<div class="col-xl-4 col-lg-5 col-md-8 col-sm-20 col-20 mt-5 text-center">
                         <img class="img-fluid img-thumbnail" src="${livros[i].urlCapa}">
                     </div>
@@ -126,7 +128,7 @@ function gerarCabecalho(idLivro) {
                         <div class="row">
                             <div class="col-xl-6 col-lg-10 col-sm-12 col-20" id="pontuacaoMediaEstrelas"></div>
                             <div class="col-xl-12 col-lg-10 col-sm-8 col-20">
-                                <i class="fa fa-archive text-teca4"></i> 517k requisições
+                                <i class="fa fa-archive text-teca4"></i> ${Requisicao.getQuantidadeRequisicoesByIdLivro(livros[i].id) + palavraRequisicao}
                             </div>
                         </div>
                         <hr class="bg-teca4">
@@ -167,40 +169,45 @@ function gerarCabecalho(idLivro) {
     }
 
     disponibilidade.addEventListener("click", function () {
-        if (Livro.getIdBibliotecaById(idLivro) !== -1) {
-            if (Requisicao.getQuantidadeRequisicoesAtivasByIdUtilizador(idUtilizadorLogado) === 2) {
-                swal("Impossível requisitar.", `Já tem 2 requisições ativas (${Requisicao.getListaRequisicoesAtivasByIdUtilizador(idUtilizadorLogado).join(" e ")}), entregue pelo menos um destes livros para continuar.`, "error")
-            } else {
-                swal({
-                    title: "Confirmar requisição",
-                    text: `Está prestes a requisitar o livro ${Livro.getTituloById(idLivroClicado)}.\nTenha em conta que tem um prazo de ${configuracoes.diasRequisicao} dias para entregar o livro, sob pena de multa que aumentará €${configuracoes.valorMultaDiaria} diariamente caso ultrapasse a data limite.\nUma vez que a multa tenha excedido os €${configuracoes.valorMultaLimite}, a sua conta será bloqueada.\nPretende continuar?`,
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: false,
-                }).then((willDelete) => {
-                    if (willDelete) {
-                        swal("Livro requisitado!", `O seu livro está disponível para levantamento na biblioteca de ${Biblioteca.getConcelhoFreguesiaById(Livro.getIdBibliotecaById(idLivroClicado)).join(", ")}. Boa leitura!`, "success")
-                        requisicoes.push(new Requisicao(idUtilizadorLogado, idLivroClicado, obterData(new Date())))
-                        //atualiza key
-                        localStorage.setItem("requisicoes", JSON.stringify(requisicoes))
-                        //remove biblioteca ativa do livro requisitado
-                        for (let i in livros) {
-                            if (livros[i].id === idLivroClicado) {
-                                livros[i].idBiblioteca = -1
-                                localStorage.setItem("livros", JSON.stringify(livros))
-                                disponibilidade.innerHTML = '<i class="fa fa-times text-teca4"></i> Livro indisponível'
+        if(Utilizador.getTipoAcessoById(idUtilizadorLogado) === 2) {
+            if (Livro.getIdBibliotecaById(idLivro) !== -1) {
+                if (Requisicao.getQuantidadeRequisicoesAtivasByIdUtilizador(idUtilizadorLogado) === 2) {
+                    swal("Impossível requisitar", `Já tem 2 requisições ativas (${Requisicao.getListaRequisicoesAtivasByIdUtilizador(idUtilizadorLogado).join(" e ")}), entregue pelo menos um destes livros para continuar.`, "error")
+                } else {
+                    swal({
+                        title: "Confirmar requisição?",
+                        text: `Está prestes a requisitar o livro ${Livro.getTituloById(idLivroClicado)}.\nTenha em conta que tem um prazo de ${configuracoes.diasRequisicao} dias para entregar o livro, sob pena de multa que aumentará €${configuracoes.valorMultaDiaria} diariamente caso ultrapasse a data limite.\nUma vez que a multa tenha excedido os €${configuracoes.valorMultaLimite}, a sua conta será bloqueada.\nPretende continuar?`,
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: false,
+                    }).then((willDelete) => {
+                        if (willDelete) {
+                            swal("Livro requisitado!", `O seu livro está disponível para levantamento na biblioteca de ${Biblioteca.getConcelhoFreguesiaById(Livro.getIdBibliotecaById(idLivroClicado)).join(", ")}. Boa leitura!`, "success")
+                            requisicoes.push(new Requisicao(idUtilizadorLogado, idLivroClicado, obterData(new Date())))
+                            //atualiza key
+                            localStorage.setItem("requisicoes", JSON.stringify(requisicoes))
+                            //remove biblioteca ativa do livro requisitado
+                            for (let i in livros) {
+                                if (livros[i].id === idLivroClicado) {
+                                    livros[i].idBiblioteca = -1
+                                    localStorage.setItem("livros", JSON.stringify(livros))
+                                    disponibilidade.innerHTML = '<i class="fa fa-times text-teca4"></i> Livro indisponível'
+                                }
                             }
                         }
-                    }
-                });
+                    });
+                }
+            } else {
+                if (Requisicao.verificarRequisicaoAtivaByIdUtilizadorIdLivro(idUtilizadorLogado, idLivroClicado)) {
+                    window.location.href = "perfil.html"
+                } else {
+                    swal("Livro indisponível", "Este livro está temporariamente indisponível. Caso queira ser notificado quando estiver novamente disponível, adicione à sua lista de desejos.", "error")
+                }
             }
         } else {
-            if (Requisicao.verificarRequisicaoAtivaByIdUtilizadorIdLivro(idUtilizadorLogado, idLivroClicado)) {
-                window.location.href = "perfil.html"
-            } else {
-                swal("Livro indisponível.", "Este livro está temporariamente indisponível. Caso queira ser notificado quando estiver novamente disponível, adicione à sua lista de desejos.", "error")
-            }
+            swal("Impossível requisitar", "Apenas utilizadores podem requisitar livros.", "error")
         }
+            
     })
 
 }
@@ -509,7 +516,6 @@ function gerarMapaLivro(idLivro) {
                     }
                 }
 
-
                 marker.addListener("click", function () {
                     infoWindow.open(map, marker)
 
@@ -607,9 +613,10 @@ function gerarComentarios(idLivro) {
     let str = ""
     for (let i in comentarios) {
         if (comentarios[i].idLivro === idLivro) {
+            let foto = (Utilizador.getUrlFotoById(comentarios[i].idUtilizador) === "img/perfil.png") ? "../img/perfil.png" : Utilizador.getUrlFotoById(comentarios[i].idUtilizador)
             str += `<div class="mt-3 col-xl-5 col-md-6 col-sm-10 col-20">
                         <div class="foto-comentario pull-left">
-                            <img src="../${Utilizador.getUrlFotoById(comentarios[i].idUtilizador)}" width="50px" height="50px">
+                            <img src="${foto}" width="50px" height="50px">
                         </div>
                         <div>&nbsp;${Utilizador.getPrimeiroUltimoNomeById(comentarios[i].idUtilizador)}</div>
                         <div>&nbsp;`
