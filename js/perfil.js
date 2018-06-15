@@ -72,6 +72,7 @@ window.onload = function () {
     //gerar info sobre o utilizador, requisicoes ativas, lista de desejos, requisicoes
     gerarInfo()
     gerarRequisicoesAtivas()
+    gerarListaDesejos()
     gerarRequisicoesEntregues()
 
 } //fim onload
@@ -704,6 +705,40 @@ function gerarMapaBibliotecas() {
     }
 }
 
+function gerarListaDesejos() {
+    let listaDesejos = Utilizador.getListaDesejosById(idUtilizadorLogado)
+    let str = ` <div class="mt-5">
+                <span class="text-teca4" style="font-size: 1.5em; font-weight: 500">LISTA DE DESEJOS (${listaDesejos.length})</span>
+                <div class="row mt-1 d-flex justify-content-start text-center">`
+    if (listaDesejos.length > 0) {
+        for (let i in listaDesejos) {
+            for (let j in livros) {
+                if (listaDesejos[i] === livros[j].id) {
+                    str += `<div class="col-xl-4 col-lg-5 col-sm-6 col-10 mt-4 livro-recente">
+                                <figure>
+                                    <div class="livro-card">
+                                        <a href="livro.html" class="livro${livros[j].id} clicarLivro"><img class="img-fluid" src="${livros[j].urlCapa}"></a>
+                                    </div>
+                                    <figcaption class="px-2">
+                                        <div>
+                                            <a href="livro.html" class="livro${livros[j].id} livro-titulo clicarLivro">${livros[j].titulo}</a>
+                                        </div>
+                                        <div class="livro-autor">${livros[j].autorToString()}</div>
+                                    </figcaption>
+                                </figure>
+                            </div>`
+                }
+            }
+        }
+    } else {
+        str += '<br><div class="col-20 text-left">A sua lista de desejos está vazia. Esta lista pode ser útil quando um livro que deseja está indisponível, assim, quando voltar a estar disponível, será notificado.<div>'
+    }
+    str += "</div></div>"
+    document.getElementById("listaDesejos").innerHTML = str
+    livroClicado()
+    autorClicado()
+}
+
 function gerarRequisicoesEntregues() {
     let requisicoesEntregues = Requisicao.getIdsRequisicoesEntreguesByIdUtilizador(idUtilizadorLogado)
     let str = ` <div class="mt-5">
@@ -741,10 +776,9 @@ function gerarRequisicoesEntregues() {
                                                 <i class="fa fa-star text-teca4"></i> Avaliar o livro
                                             </button>`
                             }
-                            str +=       `</div>      
+                            str += `    </div>      
                                     </div>
-                                    <hr class="bg-teca4">
-                                </div>`
+                                    <hr class="bg-teca4">`
                         }
                     }
                 }
@@ -753,6 +787,7 @@ function gerarRequisicoesEntregues() {
     } else {
         str += '<br>Não possui nenhum livro lido, caso queira visite o nosso <a href="catalogo.html" class="text-teca4">catálogo</a>, que é constantemente atualizado com os últimos lançamentos.'
     }
+    str += "</div>"
     document.getElementById("requisicoesEntregues").innerHTML = str
 
     //remove o último <hr>

@@ -180,8 +180,7 @@ window.onload = function () {
                     });
                     $("#modalLogin").modal("hide")
                     clicarCatalogo()
-                    gerarLivrosRecentes()
-                    gerarLivrosMaisPontuados()
+                    gerarSections()
                 } else {
                     swal("Conta bloqueada.", `A sua conta encontra-se bloqueada, uma vez que ultrapassou o valor limite de (€${configuracoes.valorMultaLimite}). Para continuar a utilizar a nossa plataforma, dirija-se ao Centro de Bibliotecas de Rua mais próximo para pagar a multa.`, "error")
                 }
@@ -222,9 +221,7 @@ window.onload = function () {
         btnLogin.style.display = "inline"
 
         clicarCatalogo()
-
-        gerarLivrosRecentes()
-        gerarLivrosMaisPontuados()
+        gerarSections()
     })
 
 

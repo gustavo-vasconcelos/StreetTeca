@@ -146,11 +146,11 @@ function gerarTabelaUtilizadores() {
                 if (utilizadores[j].id === idUtilizador) {
                     modalTitulo.innerHTML = "Informações sobre o utilizador"
 
-                    let foto = (utilizadores[j].urlFoto === "img/perfil.png") ? "../img/perfil.png" : utilizadores[j].urlFoto
+                    let foto = (utilizadores[j].urlFoto === "img/perfil.png") ? "../../img/perfil.png" : utilizadores[j].urlFoto
 
                     modalBody.innerHTML = `<div class="container-fluid">
                                                 <div class="text-center">
-                                                    <img src="../../img/${foto}" title="${utilizadores[j].nome}" class="img-fluid img-thumbnail" style="width: 150px; height: 150px; border-radius: 50%;">                            
+                                                    <img src="${foto}" title="${utilizadores[j].nome}" class="img-fluid img-thumbnail" style="width: 150px; height: 150px; border-radius: 50%;">                            
                                                 </div>
                                                 <br>
                                                 <p><b>ID:</b> ${utilizadores[j].id}</p>
@@ -162,6 +162,7 @@ function gerarTabelaUtilizadores() {
                                                 <p><b>Livros requisitados:</b> ${Requisicao.livrosRequisitadosByIdUtilizador(utilizadores[j].id).join(" / ")}</p>
                                                 <p><b>Data de inscrição:</b> ${dataToString(utilizadores[j].dataInscricao)}</p>
                                                 <p><b>Tipo de acesso:</b> ${Utilizador.tipoAcessoToString(utilizadores[j].tipoAcesso)}</p>                      
+                                                <p><b>Lista de desejos:</b> ${utilizadores[j].listaDesejosToString().join(", ")}</p>                      
                                             </div>`
                     modalFooter.innerHTML = `<button type="button" class="btn btn-danger remover">Remover utilizador</button>
                                              <button type="button" class="btn btn-warning editar">Editar perfil</button>
@@ -210,11 +211,12 @@ function gerarTabelaUtilizadores() {
                             if (utilizadores[k].id === idUtilizador) {
                                 modalTitulo.innerHTML = "A editar " + utilizadores[k].nome
 
-                                let foto = (utilizadores[k].urlFoto === "img/perfil.png") ? "../img/perfil.png" : utilizadores[k].urlFoto
+                                let foto = (utilizadores[k].urlFoto === "img/perfil.png") ? "../../img/perfil.png" : utilizadores[k].urlFoto
+                                let fotoTexto = (utilizadores[k].urlFoto === "img/perfil.png") ? "" : utilizadores[k].urlFoto
 
                                 modalBody.innerHTML = `<div class="container-fluid">
                                                             <div class="text-center">
-                                                                <img src="../../img/${foto}" alt="${utilizadores[k].nome}" class="img-fluid img-thumbnail" id="inputAdmUtilizadorFoto" style="width: 150px; height: 150px; border-radius: 50%;">                            
+                                                                <img src="${foto}" alt="${utilizadores[k].nome}" class="img-fluid img-thumbnail" id="inputAdmUtilizadorFoto" style="width: 150px; height: 150px; border-radius: 50%;">                            
                                                             </div>
                                                             <br>
                                                             <form class="form-horizontal" id="formAdmEditarUtilizador">
@@ -245,7 +247,7 @@ function gerarTabelaUtilizadores() {
                                                                 <div class="form-group">
                                                                     <label class="col-sm-3 control-label" for="inputAdmUtilizadorEditarFoto">URL foto</label>
                                                                     <div class="col-sm-9">
-                                                                        <input id="inputAdmUtilizadorEditarFoto" type="text" class="form-control" value="${utilizadores[k].urlFoto}">
+                                                                        <input id="inputAdmUtilizadorEditarFoto" type="url" class="form-control" value="${fotoTexto}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">

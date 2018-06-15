@@ -2,7 +2,7 @@ window.onload = function () {
     //importar variáveis do sessionStorage
     comentarios = JSON.parse(localStorage.getItem("comentarios"))
     transformarEmInstanciaComentario(comentarios)
-    
+
     autores = JSON.parse(localStorage.getItem("autores"))
     transformarEmInstanciaAutor(autores)
 
@@ -135,7 +135,7 @@ function gerarCabecalho(idLivro) {
                         <hr class="bg-teca4">
                         <div class="row">
                             <button type="button" class="col-lg-6 col-md-9 col-sm-20 btn btn-teca3 mt-2 mx-2" id="disponibilidade" style="border-radius: 2em;"></button>
-                            <button type="button" class="col-lg-6 col-md-9 col-sm-20 btn btn-teca3 mt-2 mx-2" style="border-radius: 2em;">
+                            <button type="button" class="col-lg-6 col-md-9 col-sm-20 btn btn-teca3 mt-2 mx-2" id="btnListaDesejos" style="border-radius: 2em;">
                                 <i class="fa fa-heart text-danger"></i> Lista de desejos
                             </button>
                             <button type="button" class="col-lg-6 col-md-19 col-sm-20 btn btn-teca3 mt-2 mx-2" style="border-radius: 2em;" onclick="window.location.href='#infoLivro'">
@@ -181,8 +181,8 @@ function gerarCabecalho(idLivro) {
                         icon: "warning",
                         buttons: true,
                         dangerMode: false,
-                    }).then((willDelete) => {
-                        if (willDelete) {
+                    }).then((requisitar) => {
+                        if (requisitar) {
                             swal("Livro requisitado!", `O seu livro está disponível para levantamento na biblioteca de ${Biblioteca.getConcelhoFreguesiaById(Livro.getIdBibliotecaById(idLivroClicado)).join(", ")}. Boa leitura!`, "success")
                             requisicoes.push(new Requisicao(idUtilizadorLogado, idLivroClicado, obterData(new Date())))
                             //atualiza key
@@ -195,6 +195,15 @@ function gerarCabecalho(idLivro) {
                                 }
                             }
                             gerarCabecalho(idLivroClicado)
+
+                            //remove o livro da lista de desejos, caso esteja lá
+                            let listaDesejos = Utilizador.getListaDesejosById(idUtilizadorLogado)
+                            let index = listaDesejos.indexOf(idLivroClicado)
+                            if (index !== -1) {
+                                Utilizador.removerLivroListaDesejosByIdUtilizadorIdLivro(idUtilizadorLogado, idLivroClicado)
+                                //atualiza key
+                                localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
+                            }
                         }
                     });
                 }
@@ -216,6 +225,31 @@ function gerarCabecalho(idLivro) {
             gerarPontuacaoEstrelas(livros[i].getPontuacaoMedia(), livros[i].id)
         }
     }
+
+    //lista de desejos
+    let btnListaDesejos = document.getElementById("btnListaDesejos")
+    btnListaDesejos.addEventListener("click", () => {
+        if (Utilizador.getTipoAcessoById(idUtilizadorLogado) !== 2) {
+            swal("Impossível adicionar", "Apenas utilizadores podem adicionar livros à lista de desejos.", "error")
+        } else {
+            if (Utilizador.getListaDesejosById(idUtilizadorLogado).indexOf(idLivroClicado) !== -1) {
+                swal("Impossível adicionar", `${Livro.getTituloById(idLivroClicado)} jà se encontra na sua lista de desejos.`, "error")
+            } else {
+                for (let i in utilizadores) {
+                    if (utilizadores[i].id === idUtilizadorLogado) {
+                        if (utilizadores[i].verificarListaDesejosByIdLivro(idLivroClicado)) {
+                            swal("Impossível adicionar", `${Livro.getTituloById(idLivroClicado)} já se encontra na sua lista de desejos.`, "error")
+                        } else {
+                            utilizadores[i].listaDesejos.push(idLivroClicado)
+                            //atualiza key
+                            localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
+                            swal("Adicionado à lista de desejos", `${Livro.getTituloById(idLivroClicado)} foi adicionado à lista de desejos.`, "success")
+                        }
+                    }
+                }
+            }
+        }
+    })
 }
 
 function gerarPontuacaoEstrelas(pontuacaoMedia, idLivro) {
@@ -704,29 +738,3 @@ function notificar(titulo, corpo, imagem) {
     });
 
 }
-/*
-function notifyMe() {
-    // Let's check if the browser supports notifications
-    if (!("Notification" in window)) {
-        alert("This browser does not support desktop notification");
-    }
-
-    // Let's check whether notification permissions have already been granted
-    else if (Notification.permission === "granted") {
-        // If it's okay let's create a notification
-        var notification = new Notification("Hi there!");
-    }
-
-    // Otherwise, we need to ask the user for permission
-    else if (Notification.permission !== "denied") {
-        Notification.requestPermission(function (permission) {
-            // If the user accepts, let's create a notification
-            if (permission === "granted") {
-                var notification = new Notification("Hi there!");
-            }
-        });
-    }
-
-    // At last, if the user has denied notifications, and you 
-    // want to be respectful there is no need to bother them any more.
-}*/

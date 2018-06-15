@@ -1,5 +1,5 @@
 class Utilizador {
-    constructor(nome, email, password, urlFoto, dataInscricao, tipoAcesso = 2, biografia = "", bloqueio = false) {
+    constructor(nome, email, password, urlFoto, dataInscricao, tipoAcesso = 2, biografia = "", bloqueio = false, listaDesejos = []) {
         this._id = Utilizador.getUltimoId() + 1
         this.nome = nome
         this.email = email
@@ -9,6 +9,7 @@ class Utilizador {
         this.tipoAcesso = tipoAcesso
         this.biografia = biografia
         this.bloqueio = bloqueio
+        this.listaDesejos = listaDesejos
         this.multa = 0
     }
 
@@ -82,6 +83,13 @@ class Utilizador {
     }
     set bloqueio(valor) {
         this._bloqueio = valor
+    }
+
+    get listaDesejos() {
+        return this._listaDesejos
+    }
+    set listaDesejos(valor) {
+        this._listaDesejos = valor
     }
 
     get multa() {
@@ -226,6 +234,33 @@ class Utilizador {
                 return utilizadores[i].multa
             }
         }
+    }
+
+    verificarListaDesejosByIdLivro(idLivro) {
+        return (this.listaDesejos.indexOf(idLivro) === -1) ? false : true
+    }
+
+    static getListaDesejosById(idUtilizador) {
+        for (let i in utilizadores) {
+            if (utilizadores[i].id === idUtilizador) {
+                return utilizadores[i].listaDesejos
+            }
+        }
+    }
+
+    static removerLivroListaDesejosByIdUtilizadorIdLivro(idUtilizador, idLivro) {
+        for (let i in utilizadores) {
+            if (utilizadores[i].id === idUtilizador) {
+                let index = utilizadores[i].listaDesejos.indexOf(idLivro)
+                utilizadores[i].listaDesejos.splice(index, 1)
+            }
+        }
+    }
+
+    listaDesejosToString() {
+        let titulos = []
+        this.listaDesejos.forEach((livro) => titulos.push(Livro.getTituloById(livro)))
+        return titulos
     }
 }
 
@@ -2784,3 +2819,34 @@ function atualizarTodasMultas() {
         localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
     }
 }
+
+function enviarNotificacoes() {
+    
+}
+
+/*
+function notifyMe() {
+    // Let's check if the browser supports notifications
+    if (!("Notification" in window)) {
+        alert("This browser does not support desktop notification");
+    }
+
+    // Let's check whether notification permissions have already been granted
+    else if (Notification.permission === "granted") {
+        // If it's okay let's create a notification
+        var notification = new Notification("Hi there!");
+    }
+
+    // Otherwise, we need to ask the user for permission
+    else if (Notification.permission !== "denied") {
+        Notification.requestPermission(function (permission) {
+            // If the user accepts, let's create a notification
+            if (permission === "granted") {
+                var notification = new Notification("Hi there!");
+            }
+        });
+    }
+
+    // At last, if the user has denied notifications, and you 
+    // want to be respectful there is no need to bother them any more.
+}*/
