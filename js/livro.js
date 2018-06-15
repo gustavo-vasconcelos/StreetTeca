@@ -1,5 +1,8 @@
 window.onload = function () {
     //importar variáveis do sessionStorage
+    comentarios = JSON.parse(localStorage.getItem("comentarios"))
+    transformarEmInstanciaComentario(comentarios)
+    
     autores = JSON.parse(localStorage.getItem("autores"))
     transformarEmInstanciaAutor(autores)
 
@@ -44,8 +47,6 @@ window.onload = function () {
                 document.title = "StreetTeca - " + livros[i].titulo
 
                 gerarCabecalho(livros[i].id)
-                //pontuação
-                gerarPontuacaoEstrelas(livros[i].getPontuacaoMedia(), livros[i].id)
 
                 //descrição
                 let descricaoLivro = document.getElementById("descricaoLivro")
@@ -169,7 +170,7 @@ function gerarCabecalho(idLivro) {
     }
 
     disponibilidade.addEventListener("click", function () {
-        if(Utilizador.getTipoAcessoById(idUtilizadorLogado) === 2) {
+        if (Utilizador.getTipoAcessoById(idUtilizadorLogado) === 2) {
             if (Livro.getIdBibliotecaById(idLivro) !== -1) {
                 if (Requisicao.getQuantidadeRequisicoesAtivasByIdUtilizador(idUtilizadorLogado) === 2) {
                     swal("Impossível requisitar", `Já tem 2 requisições ativas (${Requisicao.getListaRequisicoesAtivasByIdUtilizador(idUtilizadorLogado).join(" e ")}), entregue pelo menos um destes livros para continuar.`, "error")
@@ -191,9 +192,9 @@ function gerarCabecalho(idLivro) {
                                 if (livros[i].id === idLivroClicado) {
                                     livros[i].idBiblioteca = -1
                                     localStorage.setItem("livros", JSON.stringify(livros))
-                                    disponibilidade.innerHTML = '<i class="fa fa-times text-teca4"></i> Livro indisponível'
                                 }
                             }
+                            gerarCabecalho(idLivroClicado)
                         }
                     });
                 }
@@ -207,9 +208,14 @@ function gerarCabecalho(idLivro) {
         } else {
             swal("Impossível requisitar", "Apenas utilizadores podem requisitar livros.", "error")
         }
-            
     })
 
+    //pontuação    
+    for (let i in livros) {
+        if (livros[i].id === idLivroClicado) {
+            gerarPontuacaoEstrelas(livros[i].getPontuacaoMedia(), livros[i].id)
+        }
+    }
 }
 
 function gerarPontuacaoEstrelas(pontuacaoMedia, idLivro) {

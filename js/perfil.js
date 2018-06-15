@@ -1,5 +1,8 @@
 window.onload = function () {
     //importar variáveis do sessionStorage
+    comentarios = JSON.parse(localStorage.getItem("comentarios"))
+    transformarEmInstanciaComentario(comentarios)
+
     autores = JSON.parse(localStorage.getItem("autores"))
     transformarEmInstanciaAutor(autores)
 
@@ -208,17 +211,23 @@ function gerarInfo() {
                     let inputEditarEmail = document.getElementById("inputEditarEmail")
                     let inputEditarUrlFoto = document.getElementById("inputEditarUrlFoto")
                     let inputEditarBiografia = document.getElementById("inputEditarBiografia")
-                    utilizadores[i].nome = inputEditarNome.value
-                    utilizadores[i].email = inputEditarEmail.value
-                    utilizadores[i].urlFoto = inputEditarUrlFoto.value
-                    utilizadores[i].biografia = inputEditarBiografia.value
 
-                    //atualizar key
-                    localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
+                    if (Utilizador.getIdByEmail(inputEditarEmail.value) === -1) {
+                        utilizadores[i].nome = inputEditarNome.value
+                        utilizadores[i].email = inputEditarEmail.value
+                        utilizadores[i].urlFoto = inputEditarUrlFoto.value
+                        utilizadores[i].biografia = inputEditarBiografia.value
 
-                    $("#modal").modal("hide")
-                    swal("Perfil editado.", "", "success")
-                    gerarInfo()
+                        //atualizar key
+                        localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
+
+                        $("#modal").modal("hide")
+                        swal("Perfil editado.", "", "success")
+                        gerarInfo()
+                    } else {
+                        swal("Erro!", "Já existe um utilizador registado com o mesmo email.", "error")
+                    }
+
 
                     event.preventDefault()
                 })
@@ -627,7 +636,7 @@ function gerarMapaBibliotecas() {
                 }))
 
                 bibliotecasInfoWindow.push(new google.maps.InfoWindow({
-                    content: `<div class="container text-dark" id="info" style="font-size:1.1em; width:100px;">
+                    content: `<div class="container text-dark info" style="font-size:1.1em; width:100px;">
                                 <h4>Biblioteca de ${Freguesia.getFreguesiaById(bibliotecas[i].idFreguesia)}, ${Concelho.getConcelhoById(bibliotecas[i].idConcelho)}</h4>
                                 <hr>
                                 <p>${bibliotecas[i].descricao}</p>
@@ -638,7 +647,7 @@ function gerarMapaBibliotecas() {
                                 <p>Latitude: ${bibliotecas[i].coordenadas.lat} / Longitude: ${bibliotecas[i].coordenadas.lng}</p>
                                 <hr>
                                 <div class="text-center">
-                                    <button type="button" class="btn btn-teca3 mt-1" id="btnConfirmarEntrega">Entregar livro</button>
+                                    <button type="button" class="btn btn-teca3 mt-1 btnConfirmarEntrega">Entregar livro</button>
                                 </div>
                             </div>`
                 }))
@@ -647,45 +656,49 @@ function gerarMapaBibliotecas() {
                     bibliotecasMarker[j].setMap(map)
                     bibliotecasMarker[j].addListener("click", function () {
                         bibliotecasInfoWindow[j].open(map, bibliotecasMarker[j])
-                        let info = document.getElementById("info")
+                        let info = document.getElementsByClassName("info")
+                        for (let k = 0; k < info.length; k++) {
+                            if ($(window).width() <= 750) {
+                                info[k].style.width = $(window).width() / 2 + "px"
+                            } else {
+                                info[k].style.width = 750 / 2 + "px"
+                            }
 
-                        if ($(window).width() <= 750) {
-                            info.style.width = $(window).width() / 2 + "px"
-                        } else {
-                            info.style.width = 750 / 2 + "px"
+                            window.addEventListener("resize", function () {
+                                if ($(window).width() <= 750) {
+                                    info[k].style.width = $(window).width() / 2 + "px"
+                                } else {
+                                    info[k].style.width = 750 / 2 + "px"
+                                }
+                            })
                         }
 
-                        window.addEventListener("resize", function () {
-                            if ($(window).width() <= 750) {
-                                info.style.width = $(window).width() / 2 + "px"
-                            } else {
-                                info.style.width = 750 / 2 + "px"
-                            }
-                        })
-
-                        let btnConfirmarEntrega = document.getElementById("btnConfirmarEntrega")
-                        btnConfirmarEntrega.addEventListener("click", function () {
-                            $("#modal").modal("hide")
-                            if (Utilizador.getMultaById(idUtilizadorLogado)) {
-                                swal("Multa em dívida.", `Tem uma multa de €${Utilizador.getMultaById(idUtilizadorLogado)}. Dirija-se à biblioteca de ${Freguesia.getFreguesiaById(bibliotecas[i].idFreguesia)}, ${Concelho.getConcelhoById(bibliotecas[i].idConcelho)} para entregar o livro.`, "warning")
-                            } else {
-                                swal("Entregue o livro.", `Dirija-se à biblioteca de ${Freguesia.getFreguesiaById(bibliotecas[i].idFreguesia)}, ${Concelho.getConcelhoById(bibliotecas[i].idConcelho)} para entregar o livro.`, "warning")
-                            }
-                            Requisicao.entregarLivroByIdUtilizadorIdLivro(idUtilizadorLogado, idLivro)
-                            for(let k in livros) {
-                                if(livros[k].id === idLivro) {
-                                    livros[k].idBiblioteca = parseInt(bibliotecasMarker[j].label)
-                                    //atualiza a key
-                                    localStorage.setItem("livros", JSON.stringify(livros))
+                        let btnConfirmarEntrega = document.getElementsByClassName("btnConfirmarEntrega")
+                        for (let k = 0; k < btnConfirmarEntrega.length; k++) {
+                            btnConfirmarEntrega[k].addEventListener("click", function () {
+                                let idBiblioteca = parseInt(bibliotecasMarker[j].label)
+                                $("#modal").modal("hide")
+                                if (Utilizador.getMultaById(idUtilizadorLogado)) {
+                                    swal("Multa em dívida.", `Tem uma multa de €${Utilizador.getMultaById(idUtilizadorLogado)}. Dirija-se à biblioteca de ${Freguesia.getFreguesiaById(bibliotecas[i].idFreguesia)}, ${Concelho.getConcelhoById(bibliotecas[i].idConcelho)} para entregar o livro.`, "warning")
+                                } else {
+                                    console.log("freguesia", bibliotecas[i].idFreguesia)
+                                    console.log("concelho", bibliotecas[i].idConcelho)
+                                    swal("Entregue o livro.", `Dirija-se à biblioteca de ${Biblioteca.getConcelhoFreguesiaById(idBiblioteca)[1]}, ${Biblioteca.getConcelhoFreguesiaById(idBiblioteca)[0]} para entregar o livro.`, "warning")
                                 }
-                            }
-                            gerarRequisicoesAtivas()
-                            gerarRequisicoesEntregues()
-                        })
+                                Requisicao.entregarLivroByIdUtilizadorIdLivro(idUtilizadorLogado, idLivro)
+                                for (let l in livros) {
+                                    if (livros[l].id === idLivro) {
+                                        livros[l].idBiblioteca = idBiblioteca
+                                        //atualiza a key
+                                        localStorage.setItem("livros", JSON.stringify(livros))
+                                    }
+                                }
+                                gerarRequisicoesAtivas()
+                                gerarRequisicoesEntregues()
+                            })
+                        }
                     })
                 }
-
-
             }
         }
     }
@@ -701,7 +714,7 @@ function gerarRequisicoesEntregues() {
                 if (requisicoes[j].id === requisicoesEntregues[i]) {
                     for (let k in livros) {
                         if (livros[k].id === requisicoes[j].idLivro) {
-                            str += `<div class="row mt-4">
+                            str += `<div class="livro${livros[k].id} row mt-4">
                                         <div class="col-xl-4 col-lg-5 col-md-6 col-sm-7 col-20 pull-left livro-recente text-center">
                                             <figure>
                                                 <div class="livro-card">
@@ -720,12 +733,15 @@ function gerarRequisicoesEntregues() {
                                                 <span style="font-weight: 600;">Data de requisição:</span> ${dataToString(requisicoes[j].dataRequisicao)}
                                                 <br>
                                                 <span style="font-weight: 600;">Data de entrega:</span> ${dataToString(requisicoes[j].dataEntrega)}
-                                            </div>
-                                            <button type="button" class="col-xl-8 col-lg-10 col-md-13 col-sm-20 col-15 btn btn-teca3 mt-2" style="border-radius: 2em;">
+                                            </div>`
+
+                            let idComentario = Comentario.getIdByIdUtilizadorIdLivro(idUtilizadorLogado, livros[k].id)
+                            if (idComentario === -1) {
+                                str += `    <button type="button" class="col-xl-8 col-lg-10 col-md-13 col-sm-20 col-15 btn btn-teca3 mt-2 btnAvaliarLivro" style="border-radius: 2em;" data-toggle="modal" data-target="#modal">
                                                 <i class="fa fa-star text-teca4"></i> Avaliar o livro
-                                            </button>
-                                        </div>
-                    
+                                            </button>`
+                            }
+                            str +=       `</div>      
                                     </div>
                                     <hr class="bg-teca4">
                                 </div>`
@@ -759,5 +775,45 @@ function gerarRequisicoesEntregues() {
         })
     } catch (err) {
 
+    }
+
+    let btnAvaliarLivro = document.getElementsByClassName("btnAvaliarLivro")
+    for (let i = 0; i < btnAvaliarLivro.length; i++) {
+        btnAvaliarLivro[i].addEventListener("click", () => {
+            let idLivro = parseInt(btnAvaliarLivro[i].parentNode.parentNode.classList[0].replace(/livro/g, ""))
+            modalTitulo.innerHTML = "A avaliar " + Livro.getTituloById(idLivro)
+            modalBody.innerHTML = `<form id="formComentar">
+                                        <span class="pull-left">Pontuação:&nbsp;</span>
+                                        <div class="rating"></div>                                        
+                                        <div class="form-group">
+                                            <textarea id="inputComentario" class="form-control" rows="1" placeholder="Escreva aqui o seu comentário..." style="resize: vertical; min-height: 48px; max-height: 150px;" required></textarea>
+                                            <input type="submit" id="btnComentar" class="btn btn-teca3 pull-right mt-2" value="Comentar">
+                                        </div>
+                                    </form>`
+            //opções rating https://github.com/auxiliary/rater
+            var options = {
+                max_value: 5,
+                step_size: 1,
+                initial_value: 0,
+                selected_symbol_type: 'fontawesome_star',
+                cursor: "pointer"
+            }
+            $(".rating").rate(options)
+
+            document.getElementById("formComentar").addEventListener("submit", (event) => {
+                if ($(".rating").rate("getValue") === 0) {
+                    swal("Pontue o livro", "Escolha uma pontuação de 1 a 5.", "error")
+                } else {
+                    let inputComentario = document.getElementById("inputComentario")
+                    comentarios.push(new Comentario(idUtilizadorLogado, idLivro, inputComentario.value, $(".rating").rate("getValue")))
+                    //atualiza key
+                    localStorage.setItem("comentarios", JSON.stringify(comentarios))
+                    swal("Livro avaliado", "Obrigado por deixar a sua avaliação.", "success")
+                    $("#modal").modal("hide")
+                    gerarRequisicoesEntregues()
+                }
+                event.preventDefault()
+            })
+        })
     }
 }

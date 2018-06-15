@@ -478,7 +478,7 @@ h1 {
 /* hover current star */
 
 .rating:not(:checked)>label:hover~label {
-    color: #92CDCF;
+    color: #445878;
 }
 
 /* hover previous stars in list */
@@ -490,7 +490,7 @@ h1 {
 /* lighten current selection */
 
 .rating>input:checked~label:hover~label {
-    color: rgb(205, 247, 248);
+    color: #3c4f6b;
 }
 
 .foto-comentario img {

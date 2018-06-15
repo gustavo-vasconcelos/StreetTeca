@@ -1118,6 +1118,16 @@ class Comentario {
             }
         }
     }
+
+    static getIdByIdUtilizadorIdLivro(idUtilizador, idLivro) {
+        let id = -1
+        for (let i in comentarios) {
+            if (comentarios[i].idUtilizador === idUtilizador && comentarios[i].idLivro === idLivro) {
+                return comentarios[i].id
+            }
+        }
+        return id
+    }
 }
 
 class Genero {

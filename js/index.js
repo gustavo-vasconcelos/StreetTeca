@@ -228,17 +228,48 @@ window.onload = function () {
     })
 
 
-    //livros recentes e pontuados e testemunhos
-    gerarLivrosRecentes()
-    gerarLivrosMaisPontuados()
-    gerarTestemunhos()
+    //corpo
+    gerarSections()
 } //fim onload
 
+function gerarSections() {
+    let str = ` <!-- recentes -->
+                <section id="recentes" class="px-2">
+                    <h3 class="text-teca4">RECENTES</h3>
+                    <div class="row mt-1 d-flex justify-content-between justify-content-lg-start justify-content-md-between text-center" id="recentesDiv">
+                        ${gerarLivrosRecentes()}
+                    </div>
+                </section>
+                <!-- /recentes -->
+
+                <!-- pontuados -->
+                <section id="pontuados" class="px-2">
+                    <h3 class="text-teca4">MAIS PONTUADOS</h3>
+                    <div class="row mt-1 d-flex justify-content-center" id="maisPontuadosDiv">
+                        ${gerarLivrosMaisPontuados()}
+                    </div>
+                </section>
+                <!-- /pontuados -->
+
+                <!-- testemunhos -->
+                <section id="testemunhos" class="px-2">
+                    <h3 class="text-teca4">TESTEMUNHOS</h3>
+                    <div class="container-fluid p-0 d-flex justify-content-between">
+                        <div class="row" id="testemunhosDiv">
+                            ${gerarTestemunhos()}
+                        </div>
+                    </div>
+                </section>
+                <!-- /testemunhos -->`
+    document.getElementById("main-container").innerHTML = str
+    //funções para alterar o id do livro e autor clicado
+    livroClicado()
+    autorClicado()
+}
+
 function gerarLivrosRecentes() {
-    let recentesDiv = document.getElementById("recentesDiv")
     let str = ""
     let count = 0
-
     for (let i = livros.length - 1; i >= 0; i--) {
         if (count < 10) {
             if (idUtilizadorLogado !== -1) {
@@ -273,18 +304,13 @@ function gerarLivrosRecentes() {
             count++
         }
     }
-    recentesDiv.innerHTML = str
-    //alterar o id do livro e autor clicado
-    livroClicado()
-    autorClicado()
+    return str
 }
 
 function gerarLivrosMaisPontuados() {
-    let maisPontuadosDiv = document.getElementById("maisPontuadosDiv")
     let str = ""
     let livrosMaisPontuados = Comentario.getIdsLivrosMaisPontuados()
     let count = 1
-
     for (let i in livrosMaisPontuados) {
         for (let j in livros) {
             if (livrosMaisPontuados[i] === livros[j].id) {
@@ -327,14 +353,10 @@ function gerarLivrosMaisPontuados() {
             }
         }
     }
-    maisPontuadosDiv.innerHTML = str
-    //alterar o id do livro e autor clicado
-    livroClicado()
-    autorClicado()
+    return str
 }
 
 function gerarTestemunhos() {
-    let testemunhosDiv = document.getElementById("testemunhosDiv")
     let str = ""
     let idsAleatorios = Testemunho.getIdTestemunhosAleatorios(4)
     let count
@@ -395,6 +417,5 @@ function gerarTestemunhos() {
             encherString(1)
             break;
     }
-
-    testemunhosDiv.innerHTML = str
+    return str
 }
