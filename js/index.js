@@ -101,6 +101,7 @@ window.onload = function () {
 
     atualizarTodasMultas()
 
+
     //efetuar registo
     let formRegisto = document.getElementById("formRegisto")
     let registoInputNome = document.getElementById("registoInputNome")

@@ -79,7 +79,6 @@ window.onload = function () {
 
 let modalTitulo = document.getElementById("modalTitulo")
 let modalBody = document.getElementById("modalBody")
-let modalFooter = document.getElementById("modalFooter")
 
 function gerarInfo() {
     let str = `<h4 class="text-teca4 text-center">O MEU PERFIL</h4>
@@ -213,7 +212,7 @@ function gerarInfo() {
                     let inputEditarUrlFoto = document.getElementById("inputEditarUrlFoto")
                     let inputEditarBiografia = document.getElementById("inputEditarBiografia")
 
-                    if (Utilizador.getIdByEmail(inputEditarEmail.value) === -1) {
+                    if (Utilizador.getIdByEmail(inputEditarEmail.value) === -1 || (Utilizador.getIdByEmail(inputEditarEmail.value) === idUtilizadorLogado && Utilizador.getIdByEmail(inputEditarEmail.value) !== -1)) {
                         utilizadores[i].nome = inputEditarNome.value
                         utilizadores[i].email = inputEditarEmail.value
                         utilizadores[i].urlFoto = inputEditarUrlFoto.value
@@ -223,7 +222,7 @@ function gerarInfo() {
                         localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
 
                         $("#modal").modal("hide")
-                        swal("Perfil editado.", "", "success")
+                        swal("Perfil editado", "", "success")
                         gerarInfo()
                     } else {
                         swal("Erro!", "Já existe um utilizador registado com o mesmo email.", "error")
@@ -301,7 +300,6 @@ function gerarInfo() {
 
             }
         }
-        modalFooter.innerHTML = ""
 
         let inputEditarUrlFoto = document.getElementById("inputEditarUrlFoto")
         inputEditarUrlFoto.addEventListener("change", function () {
