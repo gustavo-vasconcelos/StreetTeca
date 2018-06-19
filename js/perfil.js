@@ -680,8 +680,6 @@ function gerarMapaBibliotecas() {
                                 if (Utilizador.getMultaById(idUtilizadorLogado)) {
                                     swal("Multa em dívida.", `Tem uma multa de €${Utilizador.getMultaById(idUtilizadorLogado)}. Dirija-se à biblioteca de ${Freguesia.getFreguesiaById(bibliotecas[i].idFreguesia)}, ${Concelho.getConcelhoById(bibliotecas[i].idConcelho)} para entregar o livro.`, "warning")
                                 } else {
-                                    console.log("freguesia", bibliotecas[i].idFreguesia)
-                                    console.log("concelho", bibliotecas[i].idConcelho)
                                     swal("Entregue o livro.", `Dirija-se à biblioteca de ${Biblioteca.getConcelhoFreguesiaById(idBiblioteca)[1]}, ${Biblioteca.getConcelhoFreguesiaById(idBiblioteca)[0]} para entregar o livro.`, "warning")
                                 }
                                 Requisicao.entregarLivroByIdUtilizadorIdLivro(idUtilizadorLogado, idLivro)

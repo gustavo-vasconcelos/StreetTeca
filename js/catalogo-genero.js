@@ -2,7 +2,7 @@ window.onload = function () {
     //importar variáveis do sessionStorage
     autores = JSON.parse(localStorage.getItem("autores"))
     transformarEmInstanciaAutor(autores)
-    
+
     livros = JSON.parse(localStorage.getItem("livros"))
     transformarEmInstanciaLivro(livros)
 
@@ -65,7 +65,7 @@ window.onload = function () {
         window.location.href = '../index.html'
     }
 
-    let disposicao = "grelha"    
+    let disposicao = "grelha"
     //alterar filtro
     let filtros = document.getElementsByTagName("label")
     let filtroSelecionado = "filtroRelevancia"
@@ -80,7 +80,7 @@ window.onload = function () {
     }
 
     gerarLivros(idGeneroClicado)
-    
+
 
     //mudar grelha
     let btnGrelha = document.getElementById("btnGrelha")
@@ -174,7 +174,7 @@ function gerarLivros(idGenero, filtro = "filtroRelevancia", disposicao = "grelha
 
     document.getElementById("recentes").innerHTML = str
 
-    if(disposicao === "lista") {
+    if (disposicao === "lista") {
         document.querySelectorAll("hr.bg-teca4")[document.querySelectorAll("hr.bg-teca4").length - 1].remove()
     }
     livroClicado()

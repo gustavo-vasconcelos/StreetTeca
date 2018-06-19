@@ -2821,7 +2821,7 @@ function atualizarTodasMultas() {
 }
 
 function enviarNotificacoes() {
-    
+
 }
 
 /*
