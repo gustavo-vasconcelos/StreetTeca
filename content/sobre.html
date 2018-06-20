@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="../css/estilos.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/main.css">
+    <!-- Swiper -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.6/css/swiper.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.6/css/swiper.min.css">
     <!-- Scripts do botão menu animado -->
     <script src="../js/segment.js"></script>
     <script src="../js/ease.min.js"></script>
@@ -27,12 +30,15 @@
             <a href="../index.html">
                 <img src="../img/marca.png" id="marca" class="zoom-hover mr-2">
             </a>
+            <!-- Wrapper -->
             <div id="menu-icon-wrapper" class="navbar-toggler navbar-toggler-right menu-icon-wrapper" data-toggle="collapse" data-target="#navbarResponsive">
+                <!-- SVG element with paths -->
                 <svg width="100px" height="100px">
                     <path id="pathA" d="M 30 40 L 70 40 C 90 40 90 75 60 85 A 40 40 0 0 1 20 20 L 80 80" />
                     <path id="pathB" d="M 30 50 L 70 50" />
                     <path id="pathC" d="M 70 60 L 30 60 C 10 60 10 20 40 15 A 40 38 0 1 1 20 80 L 80 20" />
                 </svg>
+                <!-- Trigger to perform the animations -->
                 <button id="menu-icon-trigger" class="menu-icon-trigger"></button>
             </div>
             <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -47,10 +53,10 @@
                         <a class="nav-link js-scroll-trigger menu-icon-trigger" href="../index.html#testemunhos">Testemunhos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger menu-icon-trigger text-teca4" href="catalogo.html">Catálogo</a>
+                        <a class="nav-link js-scroll-trigger menu-icon-trigger" href="catalogo.html">Catálogo</a>
                     </li>
                     <li class="nav-item" id="sobre">
-                        <a class="nav-link js-scroll-trigger menu-icon-trigger" href="sobre.html">Sobre</a>
+                        <a class="nav-link js-scroll-trigger menu-icon-trigger text-teca4" href="#">Sobre</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav text-uppercase ml-auto">
@@ -72,57 +78,85 @@
             </div>
         </div>
     </nav>
-    <!-- Fim navbar -->
-    <!-- sub nav -->
-    <div class="bg-teca2 fixed-top" style="top: 50px; z-index: 5;">
-        <div class="container bg-teca2 pt-2 pb-5 text-white" id="subNav">
-            <div class="d-flex justify-content-between flex-wrap">
-                <div class="col-lg-12 col-md-20 mt-1" style="font-size: 1.5em; font-weight: 500;">
-                    <div>
-                        <a href="catalogo.html" class="text-teca4 hoverGenero">CATÁLOGO > </a>
-                        <span>Resultado da pesquisa</span>
-                    </div>
+    <!--Fim navbar -->
+
+    <!-- Início main container -->
+    <div class="container px-4 pb-5" id="main-container" style="padding-top: 65px;">
+        <h4 class="text-teca4 text-center mt-2">A aplicação StreetTeca</h4>
+        <div class="row">
+            <div class="col-lg-8 col-md-20 text-white text-justify mt-5">
+                <p>StreetTeca é uma aplicação web que foi desenvolvida no âmbito da disciplina de Projeto I leccionada no curso
+                    de
+                    <a class="text-teca4" href="https://www.esmad.ipp.pt/cursos/licenciatura/400001419">Tecnologias e Sistemas de Informação para a Web</a> da
+                    <a class="text-teca4" href="https://www.esmad.ipp.pt">Escola Superior de Media Artes e Design</a>.</p>
+                <p>O objetivo foi criar uma plataforma de gestão de bibliotecas de rua, e implementar todas as funcionalidades
+                    que estão presentes nesta aplicação.</p>
+            </div>
+            <div class="col-lg-12 col-md-20">
+                <div class="laptop-wrapper">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/cb7Wai93B60?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media"
+                        allowfullscreen></iframe>
                 </div>
-                <span class="col-lg-5 col-md-12 col-sm-15 col-11 dropdown-el mt-1">
-                    <input type="radio" name="filtro" value="filtroRelevancia" id="filtroRelevancia" checked>
-                    <label for="filtroRelevancia">Relevância</label>
+            </div>
+        </div>
+        <div>
+            <h4 class="text-teca4 text-center mt-5">A nossa equipa</h4>
+            <div class="row justify-content-between text-center text-white mt-4 foto-testemunho">
+                <div class="col-md-6 col-20">
+                    <figure>
+                        <img src="../img/equipa/guilherme.png" class="img-thumbnail">
+                        <figcaption class="mt-1">Guilherme Leonardo Costa</figcaption>
+                    </figure>
+                </div>
 
-                    <input type="radio" name="filtro" value="filtroAZ" id="filtroAZ">
-                    <label for="filtroAZ">A-Z</label>
+                <div class="col-md-6 col-20">
+                    <figure>
+                        <img src="../img/equipa/gustavo.jpg" class="img-thumbnail">
+                        <figcaption class="mt-1">Gustavo Vasconcelos</figcaption>
+                    </figure>
+                </div>
+                <div class="col-md-6 col-20">
+                    <figure>
+                        <img src="../img/equipa/joão.png" class="img-thumbnail">
+                        <figcaption class="mt-1">João Paixão Amorim</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+        <div id="testemunhos"></div>
+    </div>
+    <!-- Fim main container -->
 
-                    <input type="radio" name="filtro" value="filtroZA" id="filtroZA">
-                    <label for="filtroZA">Z-A</label>
-
-                    <input type="radio" name="filtro" value="filtroMaiorPontuacao" id="filtroMaiorPontuacao">
-                    <label for="filtroMaiorPontuacao">&gt; Pontuação</label>
-
-                    <input type="radio" name="filtro" value="filtroMenorPontuacao" id="filtroMenorPontuacao">
-                    <label for="filtroMenorPontuacao">&lt; Pontuação</label>
-                    <input type="radio" name="filtro" value="filtroMaiorDataDoacao" id="filtroMaiorDataDoacao">
-                    <label for="filtroMaiorDataDoacao">&gt; Data de doação</label>
-
-                    <input type="radio" name="filtro" value="filtroMenorDataDoacao" id="filtroMenorDataDoacao">
-                    <label for="filtroMenorDataDoacao">&lt; Data de doação</label>
-                </span>
-                <div class="col-lg-3 col-md-4 col-sm-5 col-9">
-                    <button type="button" class="btn btn-teca2 btnAtivo border border-teca4" style="color: #92CDCF" id="btnGrelha">
-                        <i class="fa fa-th-large" aria-hidden="true"></i>
+    <!-- Início modal login-->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">&nbsp;Adicionar testemunho</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
-                    <button type="button" class="btn btn-teca2 border border-teca4" style="color: #92CDCF" id="btnLista">
-                        <i class="fa fa-list" aria-hidden="true"></i>
-                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <form id="formTestemunho">
+                            <div class="form-group">
+                                <label for="inputTestemunho">Testemunho:</label>
+                                <div class="input-group">
+                                    <textarea id="inputTestemunho" class="form-control" rows="5" placeholder="Deixe uma breve opinião sobre a sua experiência e a aplicação."
+                                        style="resize: vertical; min-height: 48px; max-height: 150px;" required></textarea>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <input type="submit" class="form-control btn btn-teca3 col-10" id="loginBtnSubmit">
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- sub nav -->
-    <!-- Início main container -->
-    <div class="container pb-5" id="main-container">
-        <!-- livros -->
-        <div id="recentes" class="px-2" style="padding-top: 115px;"></div>
-        <!-- /livro -->
-    </div>
-    <!-- Fim main container -->
+    <!-- Fim modal login-->
 
     <!-- Início footer-->
     <footer class="bg-teca1">
@@ -155,9 +189,10 @@
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../js/modules.js"></script>
-    <script src="../js/pesquisa.js"></script>
+    <script src="../js/sobre.js"></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.6/js/swiper.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"

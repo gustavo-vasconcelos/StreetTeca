@@ -1546,19 +1546,22 @@ class Testemunho {
         }
     }
 
-    static getIdTestemunhosAleatorios(quantidade) {
+    static getIdTestemunhosAleatorios() {
         let ids = []
-        if (Testemunho.getIdsByEstado(1).length >= quantidade) {
-            let count = 0
-            do {
-                let id = Math.floor(Math.random() * Testemunho.getIdsByEstado(1).length) + 1
-                if (ids.indexOf(id) === -1) {
-                    ids.push(id)
-                    count++
-                }
-            } while (count < quantidade)
-        }
+        testemunhos.forEach(testemunho => {
+            if(testemunho.estado) ids.push(testemunho.id)
+        })
+        shuffle(ids)
         return ids
+    }
+
+    static getIdByIdUtilizador(idUtilizador) {
+        for(let i in testemunhos) {
+            if(testemunhos[i].idUtilizador === idUtilizador) {
+                return testemunhos[i].id
+            }
+        }
+        return -1
     }
 }
 
@@ -1746,6 +1749,13 @@ function autorClicado() {
         })
     }
 }
+
+
+if (!localStorage.getItem("requisicoes")) {
+    localStorage.setItem("requisicoes", JSON.stringify(requisicoes))
+}
+
+
 
 if (!localStorage.getItem("configuracoes")) {
     localStorage.setItem("configuracoes", JSON.stringify(configuracoes))
@@ -2496,9 +2506,12 @@ function navbar() {
     }
 }
 
-function clicarCatalogo() {
+function clicarCatalogoESobre() {
     let catalogo = document.getElementById("catalogo")
     catalogo.innerHTML = (idUtilizadorLogado === -1) ? '<a class="nav-link js-scroll-trigger menu-icon-trigger" href="" data-toggle="modal" data-target="#modalLogin">Catálogo</a>' : '<a class="nav-link js-scroll-trigger menu-icon-trigger" href="content/catalogo.html">Catálogo</a>'
+
+    let sobre = document.getElementById("sobre")
+    sobre.innerHTML = (idUtilizadorLogado === -1) ? '<a class="nav-link js-scroll-trigger menu-icon-trigger" href="" data-toggle="modal" data-target="#modalLogin">Sobre</a>' : '<a class="nav-link js-scroll-trigger menu-icon-trigger" href="content/sobre.html">Sobre</a>'
 }
 
 /*

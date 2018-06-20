@@ -250,6 +250,7 @@ function gerarCabecalho(idLivro) {
             }
         }
     })
+    autorClicado()
 }
 
 function gerarPontuacaoEstrelas(pontuacaoMedia, idLivro) {

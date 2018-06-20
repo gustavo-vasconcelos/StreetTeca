@@ -52,6 +52,9 @@
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger menu-icon-trigger" href="catalogo.html">Catálogo</a>
                     </li>
+                    <li class="nav-item" id="sobre">
+                        <a class="nav-link js-scroll-trigger menu-icon-trigger" href="sobre.html">Sobre</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav text-uppercase ml-auto">
                     <li class="nav-item">
@@ -88,27 +91,10 @@
                 </div>
                 <div class="mt-3">
                     <h4 class="text-teca4" id="totalComentarios"></h4>
-                    <!--
-                    <form id="formComentar">
-                        <fieldset class="rating">
-                            <input type="radio" id="star5" name="rating" value="5"><label class="full" for="star5"></label>
-                            <input type="radio" id="star4" name="rating" value="4"><label class="full" for="star4"></label>
-                            <input type="radio" id="star3" name="rating" value="3"><label class="full" for="star3"></label>
-                            <input type="radio" id="star2" name="rating" value="2"><label class="full" for="star2"></label>
-                            <input type="radio" id="star1" name="rating" value="1"><label class="full" for="star1"></label>
-                        </fieldset>
-                        <div class="form-group">
-                            <textarea id="" class="form-control" rows="1" placeholder="Escreva aqui o seu comentário..." style="resize: vertical; min-height: 48px; max-height: 150px;"
-                                required></textarea>
-                            <input type="submit" id="btnComentar" class="btn btn-teca3 pull-right mt-2" value="Comentar">
-                            <input type="reset" id="btnCancelar" class="btn pull-right mt-2 mr-2" value="Cancelar">
-                        </div>
-                    </form>
-                    !-->
                     <div class="row" id="comentariosLivro"></div>
                 </div>
                 <div class="mt-3" id="infoLivro"></div>
-                <div class="mt-4" id="relacionados"></div>      
+                <div class="mt-4" id="relacionados"></div>
             </div>
         </div>
         <!-- /livro -->
@@ -116,9 +102,30 @@
     <!-- Fim main container -->
 
     <!-- Início footer-->
-    <footer class="page-footer font-small bg-teca1">
-        <div class="footer-copyright py-3 text-center text-light">
-            Todos os direitos reservados - StreetTeca © 2018
+    <footer class="bg-teca1">
+        <div class="py-2 text-center text-white">
+            <div class="d-flex flex-row flex-wrap">
+                <div class="col-md-6 mt-3">
+                    <span>Links úteis:</span>
+                    <br>
+                    <a class="text-teca4" href="https://streetteca.wordpress.com/">Diário de bordo</a>
+                    <br>
+                    <a class="text-teca4" href="https://github.com/gustavo-vasconcelos/StreetTeca">Código fonte do projeto</a>
+                </div>
+                <div class="col-md-6 mt-3">
+                    <span>Redes sociais:</span>
+                    <br>
+                    <a class="text-teca4" href="https://www.youtube.com/channel/UC5wBi16WHEayL78Nat9ol-g/">
+                        <i class="fa fa-youtube-play" aria-hidden="true"></i> YouTube</a>
+                </div>
+                <div class="col-md-6 mt-3">
+                    <span>Contato:</span>
+                    <br>
+                    <a class="text-teca4" href="mailto:streetteca@gmail.com">streetteca@gmail.com</a>
+                </div>
+            </div>
+            <br>
+            <p>Todos os direitos reservados - StreetTeca © 2018</p>
         </div>
     </footer>
     <!-- Fim footer-->

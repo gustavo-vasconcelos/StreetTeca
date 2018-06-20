@@ -41,11 +41,6 @@ section {
     min-height: 100%;
 }
 
-.page-footer {
-    bottom: 0;
-    width: 100%;
-}
-
 /* imagens responsivas */
 
 /* quando a largura é maior ou igual a 1200 */
@@ -640,4 +635,22 @@ h1 {
 
 .btnAtivo {
     background-color: #445878 !important;
+}
+
+/*sobre (vídeo dentro do pc) https://codepen.io/hugsbrugs/pen/WQdOBe*/
+div.laptop-wrapper {
+    position: relative;
+    padding-bottom: 67.5%;
+    height: 0;
+}
+div.laptop-wrapper iframe {
+    box-sizing: border-box;
+    background: url(../img/laptop.png) center center no-repeat;
+    background-size: contain;
+    padding: 11.9% 15.5% 14.8%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }

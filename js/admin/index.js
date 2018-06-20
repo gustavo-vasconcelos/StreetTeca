@@ -24,6 +24,9 @@ window.onload = function () {
     testemunhos = JSON.parse(localStorage.getItem("testemunhos"))
     transformarEmInstanciaTestemunho(testemunhos)
 
+    requisicoes = JSON.parse(localStorage.getItem("requisicoes"))
+    transformarEmInstanciaTestemunho(requisicoes)
+
     idUtilizadorLogado = parseInt(localStorage.getItem("idUtilizadorLogado"))
 
 
@@ -51,4 +54,5 @@ window.onload = function () {
     quantidadeTags.innerHTML = tags.length
     quantidadeComentarios.innerHTML = comentarios.length
     quantidadeTestemunhos.innerHTML = testemunhos.length
+    quantidadeRequisicoes.innerHTML = requisicoes.length
 }

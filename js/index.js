@@ -97,7 +97,7 @@ window.onload = function () {
 
     navbar()
 
-    clicarCatalogo()
+    clicarCatalogoESobre()
 
     atualizarTodasMultas()
 
@@ -180,7 +180,7 @@ window.onload = function () {
                         timer: 1000,
                     });
                     $("#modalLogin").modal("hide")
-                    clicarCatalogo()
+                    clicarCatalogoESobre()
                     gerarSections()
                 } else {
                     swal("Conta bloqueada.", `A sua conta encontra-se bloqueada, uma vez que ultrapassou o valor limite de (€${configuracoes.valorMultaLimite}). Para continuar a utilizar a nossa plataforma, dirija-se ao Centro de Bibliotecas de Rua mais próximo para pagar a multa.`, "error")
@@ -221,7 +221,7 @@ window.onload = function () {
         areaUtilizador.style.display = "none"
         btnLogin.style.display = "inline"
 
-        clicarCatalogo()
+        clicarCatalogoESobre()
         gerarSections()
     })
 
@@ -252,8 +252,8 @@ function gerarSections() {
                 <!-- testemunhos -->
                 <section id="testemunhos" class="px-2">
                     <h3 class="text-teca4">TESTEMUNHOS</h3>
-                    <div class="container-fluid p-0 d-flex justify-content-between">
-                        <div class="row" id="testemunhosDiv">
+                    <div class="p-0">
+                        <div id="testemunhosDiv">
                             ${gerarTestemunhos()}
                         </div>
                     </div>
@@ -355,46 +355,26 @@ function gerarLivrosMaisPontuados() {
 }
 
 function gerarTestemunhos() {
-    let str = ""
-    let idsAleatorios = Testemunho.getIdTestemunhosAleatorios(4)
+    let str = '<div class="row justify-content-between">'
+    let idsAleatorios = Testemunho.getIdTestemunhosAleatorios()
     let count
-
-    if (idsAleatorios.length >= 4) {
-        for (let i in idsAleatorios) {
-            for (let j in testemunhos) {
-                if (testemunhos[j].id === idsAleatorios[i]) {
-                    str += `<div class="container px-4 testemunho mt-5 col-xl-5 col-lg-10 col-md-10">
-                                <div class="foto-testemunho text-center">
-                                    <img class="img-thumbnail" src="${Utilizador.getUrlFotoById(testemunhos[j].idUtilizador)}">
-                                </div>
-                                <div class="texto-testemunho bg-teca3 py-3 px-5 text-white mt-3">
-                                    <div class="texto-corpo">${testemunhos[j].testemunho}</div>
-                                    <br>
-                                    <div class="text-right">${Utilizador.getNomeById(testemunhos[j].id)}</div>
-                                </div>
-                            </div>`
-                }
-            }
-        }
-    } else {
-        count = 0
-        for (let i in testemunhos) {
-            if (testemunhos[i].estado === 1) {
-                str += `<div class="container px-4 testemunho mt-5 col-xl-5 col-lg-10 col-md-10">
+    for (let i in idsAleatorios) {
+        for (let j in testemunhos) {
+            if (testemunhos[j].id === idsAleatorios[i]) {
+                str += `<div class="px-4 testemunho mt-5 col-xl-5 col-lg-10 col-md-10">
                             <div class="foto-testemunho text-center">
-                                <img class="img-thumbnail" src="${Utilizador.getUrlFotoById(testemunhos[i].idUtilizador)}">
+                                <img class="img-thumbnail" src="${Utilizador.getUrlFotoById(testemunhos[j].idUtilizador)}">
                             </div>
                             <div class="texto-testemunho bg-teca3 py-3 px-5 text-white mt-3">
-                                <div class="texto-corpo">${testemunhos[i].testemunho}</div>
+                                <div class="texto-corpo">${testemunhos[j].testemunho}</div>
                                 <br>
-                                <div class="text-right">${Utilizador.getNomeById(testemunhos[i].id)}</div>
+                                <div class="text-right">${Utilizador.getNomeById(testemunhos[j].id)}</div>
                             </div>
                         </div>`
-                count++
             }
         }
     }
-
+/*
     function encherString(quantidade) {
         for (let i = 0; i < quantidade; i++) {
             str += `<div class="container px-4 testemunho mt-5 col-xl-5 col-lg-10 col-md-10"></div>`
@@ -414,6 +394,8 @@ function gerarTestemunhos() {
         case 3:
             encherString(1)
             break;
-    }
+    }*/
+
+    str += "</div>"
     return str
 }
