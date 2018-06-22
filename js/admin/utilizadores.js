@@ -10,6 +10,8 @@ window.onload = function () {
     requisicoes = JSON.parse(localStorage.getItem("requisicoes"))
     transformarEmInstanciaRequisicao(requisicoes)
 
+    configuracoes = JSON.parse(localStorage.getItem("configuracoes"))
+
     //atualiza as informações do utilizador logado
     atualizarFotoNome()
 
@@ -20,7 +22,7 @@ window.onload = function () {
     atualizarPercentagens()
 
     //atualizar multas
-    atualizarTodasMultas()    
+    atualizarTodasMultas()
 
     //modal
     let modalTitulo = document.getElementById("modalTitulo")
@@ -164,9 +166,43 @@ function gerarTabelaUtilizadores() {
                                                 <p><b>Tipo de acesso:</b> ${Utilizador.tipoAcessoToString(utilizadores[j].tipoAcesso)}</p>                      
                                                 <p><b>Lista de desejos:</b> ${utilizadores[j].listaDesejosToString().join(", ")}</p>                      
                                             </div>`
-                    modalFooter.innerHTML = `<button type="button" class="btn btn-danger remover">Remover utilizador</button>
+                    modalFooter.innerHTML = `<button type="button" class="btn btn-primary desbloquear" disabled>Desbloquear</button>
+                                             <button type="button" class="btn btn-danger remover">Remover utilizador</button>
                                              <button type="button" class="btn btn-warning editar">Editar perfil</button>
                                              <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>`
+                }
+            }
+
+            //btn desbloquear
+            for (let j in utilizadores) {
+                if (utilizadores[j].id === idUtilizador && utilizadores[j].bloqueio) {
+                    let btnDesbloquearUtilizador = document.getElementsByClassName("desbloquear")
+                    for (let k = 0; k < btnDesbloquearUtilizador.length; k++) {
+                        btnDesbloquearUtilizador[k].disabled = false
+                        btnDesbloquearUtilizador[k].addEventListener("click", function () {
+                            swal({
+                                title: "Deseja mesmo desbloquear?",
+                                text: `A conta do utilizador ${Utilizador.getNomeById(idUtilizador)} foi bloqueada por ter excedido os €${configuracoes.valorMultaLimite} (valor limite de multa), tendo assim um saldo devedor de ${utilizadores[j].multa}.\nAo desbloquear este utilizador, a sua multa será liquidada, e o(s) livro(s) em posse (${Requisicao.getListaRequisicoesAtivasByIdUtilizador(idUtilizador).join(", ")}) serão devolvidos.`,
+                                icon: "warning",
+                                buttons: true,
+                                dangerMode: true,
+                            }).then((desbloquear) => {
+                                if (desbloquear) {
+                                    swal(`A conta do utilizador ${Utilizador.getNomeById(idUtilizador)} foi desbloqueada.`, {
+                                        icon: "success",
+                                    });
+                                    $("#modal").modal('hide')
+                                    utilizadores[j].bloqueio = false
+                                    Requisicao.entregarLivroByIdUtilizador(idUtilizador)
+                                    //atualiza keys
+                                    localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
+                                    localStorage.setItem("requisicoes", JSON.stringify(requisicoes))
+
+                                    gerarTabelaUtilizadores()
+                                }
+                            });
+                        })
+                    }
                 }
             }
 
@@ -292,7 +328,7 @@ function gerarTabelaUtilizadores() {
                                                         </div>`
 
                                 let inputAdmUtilizadorEditarFoto = document.getElementById("inputAdmUtilizadorEditarFoto")
-                                inputAdmUtilizadorEditarFoto.addEventListener("change", function() {
+                                inputAdmUtilizadorEditarFoto.addEventListener("change", function () {
                                     document.getElementById("inputAdmUtilizadorFoto").src = inputAdmUtilizadorEditarFoto.value
                                 })
 

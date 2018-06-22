@@ -1033,7 +1033,15 @@ class Requisicao {
 
     static entregarLivroByIdUtilizadorIdLivro(idUtilizador, idLivro) {
         for (let i in requisicoes) {
-            if (requisicoes[i].idUtilizador === idUtilizador && requisicoes[i].idLivro === idLivro) {
+            if (requisicoes[i].idUtilizador === idUtilizador && requisicoes[i].idLivro === idLivro && !requisicoes[i].dataEntrega) {
+                requisicoes[i].entregarLivro()
+            }
+        }
+    }
+
+    static entregarLivroByIdUtilizador(idUtilizador) {
+        for (let i in requisicoes) {
+            if (requisicoes[i].idUtilizador === idUtilizador && !requisicoes[i].dataEntrega) {
                 requisicoes[i].entregarLivro()
             }
         }
