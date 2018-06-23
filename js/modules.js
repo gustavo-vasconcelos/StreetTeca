@@ -1119,13 +1119,21 @@ class Comentario {
 
     static getIdsLivrosMaisPontuados() {
         let ids = []
+        //por pontuação média
+        let pontuacoes = []
+        for (let j in livros) {
+            pontuacoes.push([livros[j].getPontuacaoMedia(), livros[j].id])
+        }
+
+        //por mais estrelas
+        /*
         let pontuacoes = []
         for (let i in comentarios) {
             if (ids.indexOf(comentarios[i].idLivro) === -1) {
                 ids.push(comentarios[i].idLivro)
                 pontuacoes.push([Comentario.getPontuacaoByIdLivro(comentarios[i].idLivro), comentarios[i].idLivro])
             }
-        }
+        }*/
 
         function comparar(a, b) {
             if (a[0] > b[0]) {
@@ -1139,12 +1147,7 @@ class Comentario {
 
         pontuacoes.sort(comparar)
 
-        if (pontuacoes.length > 5) {
-            pontuacoes.length = 5
-        }
-
-        ids = []
-
+        pontuacoes.length = (pontuacoes.length > 5) ? 5 : pontuacoes.length
         for (let i in pontuacoes) {
             ids.push(pontuacoes[i][1])
         }
