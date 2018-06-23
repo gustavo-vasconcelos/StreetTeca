@@ -2537,7 +2537,7 @@ for (let i = 3; i < 11; i++) {
     for (let j in livros) {
         shuffle(frasesComentario)
         comentarios.push(new Comentario(utilizadores[i].id, livros[j].id, frasesComentario[Math.floor(Math.random() * frasesComentario.length)], Math.floor(Math.random() * 6)))
-        requisicoes.push(new Requisicao(utilizadores[i].id, livros[j].id, "2018-07-22T00:00", "2018-07-23T00:00"))
+        requisicoes.push(new Requisicao(utilizadores[i].id, livros[j].id, "2018-06-22T00:00", "2018-06-23T00:00"))
     }
     shuffle(frasesTestemunho)
     //testemunhos predefinidos
