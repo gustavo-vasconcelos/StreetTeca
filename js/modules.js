@@ -1721,19 +1721,19 @@ class Notificacao {
             dataHora: obterData(new Date())
         })
     }
-/*
-    static adicionarNotificacao(idUtilizador, tipo, idTipo, idLivro) {
-        for (let i in notificacoes) {
-            if (notificacoes[i].idUtilizador === idUtilizador) {
-                notificacoes[i].arrayNotificacoes.push({
-                    tipo: tipo,
-                    idTipo: idTipo,
-                    idLivro: idLivro,
-                    dataHora: obterData(new Date())
-                })
+    /*
+        static adicionarNotificacao(idUtilizador, tipo, idTipo, idLivro) {
+            for (let i in notificacoes) {
+                if (notificacoes[i].idUtilizador === idUtilizador) {
+                    notificacoes[i].arrayNotificacoes.push({
+                        tipo: tipo,
+                        idTipo: idTipo,
+                        idLivro: idLivro,
+                        dataHora: obterData(new Date())
+                    })
+                }
             }
-        }
-    }*/
+        }*/
 
     static removerNotificacao(idUtilizador, index) {
         for (let i in notificacoes) {
@@ -1845,8 +1845,8 @@ class Notificacao {
     }
 
     static verificarSeExisteNotificacao(idUtilizador) {
-        for(let i in notificacoes) {
-            if(notificacoes[i].idUtilizador === idUtilizador) {
+        for (let i in notificacoes) {
+            if (notificacoes[i].idUtilizador === idUtilizador) {
                 return true
             }
         }
@@ -2536,7 +2536,7 @@ let frasesTestemunho = ["Esta aplicação ajudou-me muito a melhorar as minhas c
 for (let i = 3; i < 11; i++) {
     for (let j in livros) {
         shuffle(frasesComentario)
-        comentarios.push(new Comentario(utilizadores[i].id, livros[j].id, frasesComentario[Math.floor(Math.random() * frasesComentario.length)], Math.floor(Math.random() * 6)))
+        comentarios.push(new Comentario(utilizadores[i].id, livros[j].id, frasesComentario[Math.floor(Math.random() * frasesComentario.length)], Math.ceil(Math.random() * 5)))
         requisicoes.push(new Requisicao(utilizadores[i].id, livros[j].id, "2018-06-22T00:00", "2018-06-23T00:00"))
     }
     shuffle(frasesTestemunho)
