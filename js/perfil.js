@@ -632,7 +632,7 @@ function gerarRequisicoesAtivas() {
                                                 <br>
                                                 <span style="font-weight: 600;">Data limite de entrega:</span> ${dataToString(obterData(requisicoes[j].calcularDataLimiteEntrega()))}
                                             </div>
-                                            <button type="button" id="btnEntregarLivro" data-toggle="modal" data-target="#modal" class="col-xl-8 col-lg-10 col-md-13 col-sm-20 col-15 btn btn-teca3 mt-2" style="border-radius: 2em;">
+                                            <button type="button" data-toggle="modal" data-target="#modal" class="col-xl-8 col-lg-10 col-md-13 col-sm-20 col-15 btn btn-teca3 mt-2 btnEntregarLivro" style="border-radius: 2em;">
                                                 <i class="fa fa-pencil text-teca4"></i> Entregar
                                             </button>
                                         </div>
@@ -656,15 +656,17 @@ function gerarRequisicoesAtivas() {
     livroClicado()
     autorClicado()
 
-    let btnEntregarLivro = document.getElementById("btnEntregarLivro")
+    let btnEntregarLivro = document.getElementsByClassName("btnEntregarLivro")
     try {
-        btnEntregarLivro.addEventListener("click", function () {
-            idLivro = parseInt(btnEntregarLivro.parentNode.id.replace(/livro/g, ""))
-            modalTitulo.innerHTML = "A entregar " + Livro.getTituloById(idLivro)
-            modalBody.innerHTML = `Escolha uma biblioteca para entregar o livro:
-                                   <div id="mapa"></div>`
-            gerarMapaBibliotecas()
-        })
+        for (let i = 0; i < btnEntregarLivro.length; i++) {
+            btnEntregarLivro[i].addEventListener("click", function () {
+                idLivro = parseInt(btnEntregarLivro[i].parentNode.id.replace(/livro/g, ""))
+                modalTitulo.innerHTML = "A entregar " + Livro.getTituloById(idLivro)
+                modalBody.innerHTML = `Escolha uma biblioteca para entregar o livro:
+                                       <div id="mapa"></div>`
+                gerarMapaBibliotecas()
+            })
+        }
     } catch (err) {
 
     }
@@ -1090,19 +1092,6 @@ function gerarRequisicoesEntregues() {
     }
     livroClicado()
     autorClicado()
-
-    let btnEntregarLivro = document.getElementById("btnEntregarLivro")
-    try {
-        btnEntregarLivro.addEventListener("click", function () {
-            idLivro = parseInt(btnEntregarLivro.parentNode.id.replace(/livro/g, ""))
-            modalTitulo.innerHTML = "A entregar " + Livro.getTituloById(idLivro)
-            modalBody.innerHTML = `Escolha uma biblioteca para entregar o livro:
-                                   <div id="mapa"></div>`
-            gerarMapaBibliotecas()
-        })
-    } catch (err) {
-
-    }
 
     let btnAvaliarLivro = document.getElementsByClassName("btnAvaliarLivro")
     for (let i = 0; i < btnAvaliarLivro.length; i++) {
