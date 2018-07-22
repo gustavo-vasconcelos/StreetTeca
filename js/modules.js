@@ -1713,6 +1713,14 @@ class Notificacao {
         return this.arrayNotificacoes.length
     }
 
+    adicionarNotificacao(tipo, idTipo, idLivro) {
+        this.arrayNotificacoes.push({
+            tipo: tipo,
+            idTipo: idTipo,
+            idLivro: idLivro
+        })
+    }
+
     static adicionarNotificacao(idUtilizador, tipo, idTipo, idLivro) {
         for (let i in notificacoes) {
             if (notificacoes[i].idUtilizador === idUtilizador) {
@@ -1729,6 +1737,18 @@ class Notificacao {
         for (let i in notificacoes) {
             if (notificacoes[i].idUtilizador === idUtilizador) {
                 notificacoes[i].arrayNotificacoes.splice(index, 1)
+            }
+        }
+    }
+
+    static notificarByTags(idTag, idLivro) {
+        for (let i in notificacoes) {
+            for (let j in notificacoes[i].tags) {
+                for (let k in idTag) {
+                    if (notificacoes[i].tags[j] === idTag[k]) {
+                        notificacoes[i].adicionarNotificacao("tag", idTag[k], idLivro)
+                    }
+                }
             }
         }
     }
@@ -2920,10 +2940,6 @@ function atualizarTodasMultas() {
         }
         localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
     }
-}
-
-function enviarNotificacoes() {
-
 }
 
 /*

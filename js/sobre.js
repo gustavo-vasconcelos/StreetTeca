@@ -70,9 +70,9 @@ window.onload = function () {
 
     //testemunhos
     gerarTestemunhos()
-    
+
     let formTestemunho = document.getElementById("formTestemunho")
-    formTestemunho.addEventListener("submit", function(event) {
+    formTestemunho.addEventListener("submit", function (event) {
         let inputTestemunho = document.getElementById("inputTestemunho")
         testemunhos.push(new Testemunho(inputTestemunho.value, idUtilizadorLogado, 0))
         //atualiza a key
@@ -91,7 +91,7 @@ window.onload = function () {
             if (!Requisicao.getIdsRequisicoesEntreguesByIdUtilizador(idUtilizadorLogado).length) {
                 swal("Erro", "Para testemunhar precisa ter lido pelo menos 1 livro.", "error")
             } else {
-                if(Testemunho.getIdByIdUtilizador(idUtilizadorLogado) !== -1) {
+                if (Testemunho.getIdByIdUtilizador(idUtilizadorLogado) !== -1) {
                     swal("Erro", "Já deixou o seu testemunho sobre a aplicação.", "error")
                 } else {
                     formTestemunho.reset()
@@ -105,7 +105,7 @@ window.onload = function () {
 
 function gerarTestemunhos() {
     let str = `<h4 class="text-teca4 text-center mt-5">TESTEMUNHOS 
-                    <button type="button" title="Deixe o seu testemunho sobre a aplicação" id="btnTestemunho" class="btn btn-teca2 border border-teca4" style="color: #92CDCF">
+                    <button type="button" data-toggle="tooltip" data-placement="top" title="Deixe o seu testemunho sobre a aplicação" id="btnTestemunho" class="btn btn-teca2 border border-teca4" style="color: #92CDCF">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </button>
                 </h4>
@@ -156,4 +156,7 @@ function gerarTestemunhos() {
 
     str += "</div>"
     document.getElementById("testemunhos").innerHTML = str
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 }

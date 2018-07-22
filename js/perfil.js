@@ -322,7 +322,7 @@ function gerarNotificacoes() {
                         </button>
                     </h4>
                     <div class="mt-4 container" style="max-height: 350px; overflow-y: scroll; border-radius: 4px;">`
-            for (let j in notificacoes[i].arrayNotificacoes) {
+            for (let j = notificacoes[i].arrayNotificacoes.length - 1; j >= 0; j--) {
                 switch (notificacoes[i].arrayNotificacoes[j].tipo) {
                     case "tag":
                         str += `<div class="row notificacao bg-teca3 px-1 py-2">
@@ -417,10 +417,181 @@ function gerarNotificacoes() {
     btnNotificacao.addEventListener("click", function () {
         if (Utilizador.getTipoAcessoById(idUtilizadorLogado) !== 2) {
             swal("Erro", "Apenas utilizadores podem registar notificações.", "error")
+        } else {
+            modalTitulo.innerHTML = "A gerir notificações"
+            gerarForm()
         }
     })
+}
 
+function gerarForm() {
+    modalBody.innerHTML = `<p>Escolha as suas notificações:</p>
+                            <form id="formNotificacoes">
+                                <div id="accordion">
+                                    <div class="card">
+                                        <div class="card-header" id="headingOne">
+                                            <h5 class="mb-0">
+                                                <button class="text-dark text-left" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="text-decoration:none; background-color: transparent; border: none;">
+                                                    Tags (notifica quando um livro de uma determinada tag é doado)
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                            <div class="card-body" id="tagsEscolhidas"></div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header" id="headingTwo">
+                                            <h5 class="mb-0">
+                                                <button class="text-dark text-left collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="text-decoration:none; background-color: transparent; border: none;">
+                                                    Bibliotecas (notifica quando um livro chega a determinada biblioteca)
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                            <div class="card-body" id="bibliotecasEscolhidas"></div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header" id="headingThree">
+                                            <h5 class="mb-0">
+                                                <button class="text-dark text-left collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="text-decoration:none; background-color: transparent; border: none;">
+                                                    Livros (notifica quando um livro fica disponível)
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                            <div class="card-body" id="livrosEscolhidos"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input class="form-control btn btn-teca3 mt-3" type="submit" id="btnSubmit">
+                            </form>`
+    $('#collapseOne').collapse()
+    $("#modal").modal("show")
+    gerarCheckboxesTags()
+    gerarCheckboxesBibliotecas()
+    gerarCheckboxesLivros()
 
+    document.getElementById("formNotificacoes").addEventListener("submit", function (event) {
+        event.preventDefault()
+    })
+    document.getElementById("btnSubmit").addEventListener("click", function () {
+        //obtém tags selecionadas
+        let inputTags = document.getElementsByClassName("checkboxTag")
+        let tagsEscolhidas = []
+        for (let i in inputTags) {
+            if (inputTags[i].checked) {
+                tagsEscolhidas.push(parseInt(inputTags[i].value))
+            }
+        }
+
+        //obtém bibliotecas selecionadas
+        let inputBibliotecas = document.getElementsByClassName("checkboxBiblioteca")
+        let bibliotecasEscolhidas = []
+        for (let i in inputBibliotecas) {
+            if (inputBibliotecas[i].checked) {
+                bibliotecasEscolhidas.push(parseInt(inputBibliotecas[i].value))
+            }
+        }
+
+        //obtém livros selecionados
+        let inputLivros = document.getElementsByClassName("checkboxLivro")
+        let livrosEscolhidos = []
+        for (let i in inputLivros) {
+            if (inputLivros[i].checked) {
+                livrosEscolhidos.push(parseInt(inputLivros[i].value))
+            }
+        }
+
+        for (let i in notificacoes) {
+            if (notificacoes[i].idUtilizador === idUtilizadorLogado) {
+                notificacoes[i].tags = tagsEscolhidas
+                notificacoes[i].bibliotecas = bibliotecasEscolhidas
+                notificacoes[i].livros = livrosEscolhidos
+                //atualiza key
+                localStorage.setItem("notificacoes", JSON.stringify(notificacoes))
+            }
+        }
+
+        $("#modal").modal("hide")
+        swal("Notificações guardadas", "As opções selecionadas foram guardadas com sucesso.", "success")
+    })
+}
+
+function gerarCheckboxesTags() {
+    let tagsEscolhidas = document.getElementById("tagsEscolhidas")
+    let str = ""
+    for (let i in tags) {
+        str += `<div class="form-check">
+                    <input class="form-check-input checkboxTag" type="checkbox" id="tag${tags[i].id}" value="${tags[i].id}">
+                    <label class="form-check-label" for="tag${tags[i].id}">${tags[i].nome}</label>
+                </div>`
+    }
+    tagsEscolhidas.innerHTML = str
+
+    let checkboxTag = document.getElementsByClassName("checkboxTag")
+    for (let i in checkboxTag) {
+        for (let j in notificacoes) {
+            if (notificacoes[j].idUtilizador === idUtilizadorLogado) {
+                for (let k in notificacoes[j].tags) {
+                    if (parseInt(checkboxTag[i].value) === notificacoes[j].tags[k]) {
+                        checkboxTag[i].checked = true
+                    }
+                }
+            }
+        }
+    }
+}
+
+function gerarCheckboxesBibliotecas() {
+    let bibliotecasEscolhidas = document.getElementById("bibliotecasEscolhidas")
+    let str = ""
+    for (let i in bibliotecas) {
+        str += `<div class="form-check">
+                    <input class="form-check-input checkboxBiblioteca" type="checkbox" id="biblioteca${bibliotecas[i].id}" value="${bibliotecas[i].id}">
+                    <label class="form-check-label" for="biblioteca${bibliotecas[i].id}">${Freguesia.getFreguesiaById(bibliotecas[i].idFreguesia) + ", " + Concelho.getConcelhoById(bibliotecas[i].idConcelho)}</label>
+                </div>`
+    }
+    bibliotecasEscolhidas.innerHTML = str
+
+    let checkboxBiblioteca = document.getElementsByClassName("checkboxBiblioteca")
+    for (let i in checkboxBiblioteca) {
+        for (let j in notificacoes) {
+            if (notificacoes[j].idUtilizador === idUtilizadorLogado) {
+                for (let k in notificacoes[j].bibliotecas) {
+                    if (parseInt(checkboxBiblioteca[i].value) === notificacoes[j].bibliotecas[k]) {
+                        checkboxBiblioteca[i].checked = true
+                    }
+                }
+            }
+        }
+    }
+}
+
+function gerarCheckboxesLivros() {
+    let livrosEscolhidos = document.getElementById("livrosEscolhidos")
+    let str = ""
+    for (let i in livros) {
+        str += `<div class="form-check">
+                    <input class="form-check-input checkboxLivro" type="checkbox" id="livro${livros[i].id}" value="${livros[i].id}">
+                    <label class="form-check-label" for="livro${livros[i].id}">${livros[i].titulo}</label>
+                </div>`
+    }
+    livrosEscolhidos.innerHTML = str
+
+    let checkboxLivro = document.getElementsByClassName("checkboxLivro")
+    for (let i in checkboxLivro) {
+        for (let j in notificacoes) {
+            if (notificacoes[j].idUtilizador === idUtilizadorLogado) {
+                for (let k in notificacoes[j].livros) {
+                    if (parseInt(checkboxLivro[i].value) === notificacoes[j].livros[k]) {
+                        checkboxLivro[i].checked = true
+                    }
+                }
+            }
+        }
+    }
 }
 
 let idLivro

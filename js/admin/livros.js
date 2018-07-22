@@ -21,6 +21,9 @@ window.onload = function () {
     utilizadores = JSON.parse(localStorage.getItem("utilizadores"))
     transformarEmInstanciaUtilizador(utilizadores)
 
+    notificacoes = JSON.parse(localStorage.getItem("notificacoes"))
+    transformarEmInstanciaNotificacao(notificacoes)
+
     idUtilizadorLogado = parseInt(localStorage.getItem("idUtilizadorLogado"))
 
     //atualiza as informações do utilizador logado
@@ -140,6 +143,12 @@ window.onload = function () {
             atualizarPercentagens()
             gerarTabelaLivros()
             swal("Livro adicionado!", `O livro ${inputLivroTitulo.value} foi adicionado com sucesso.`, "success");
+            
+            //envia notificação aos utilizadores que selecionaram a tag do livro que foi doado
+            Notificacao.notificarByTags(Tag.getIdsByNomes(tagsEscolhidas), Livro.getUltimoId())
+            //atualiza key
+            localStorage.setItem("notificacoes", JSON.stringify(notificacoes))
+            
             formLivro.reset()
         }
 
