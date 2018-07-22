@@ -1816,7 +1816,8 @@ class Notificacao {
         } else if (Notification.permission === "granted") {
             for (let i in alertas) {
                 let n = new Notification(alertas[i].titulo, { body: alertas[i].corpo, icon: alertas[i].urlCapa })
-                n.onclick = function () {
+                n.onclick = function (event) {
+                    event.preventDefault()
                     localStorage.setItem("idLivroClicado", alertas[i].idLivro)
                     window.location.href = url
                     n.close()
@@ -1827,7 +1828,8 @@ class Notificacao {
                 if (permission === "granted") {
                     for (let i in alertas) {
                         let n = new Notification(alertas[i].titulo, { body: alertas[i].corpo, icon: alertas[i].urlCapa, vibrate: [200, 100, 200] })
-                        n.onclick = function () {
+                        n.onclick = function (event) {
+                            event.preventDefault()
                             localStorage.setItem("idLivroClicado", alertas[i].idLivro)
                             window.location.href = url
                             n.close()
@@ -1836,11 +1838,10 @@ class Notificacao {
                 } else {
                     swal("Permissão negada", "Negou as permissões para ser notificado. Apenas receberá as notificações na sua área de utilizador.\nPara reverter a sua decisão, apague a memória do navegador.", "error")
                 }
-            });
+            })
         } else {
             swal("Permissão negada", "Negou as permissões para ser notificado. Apenas receberá as notificações na sua área de utilizador.\nPara reverter a sua decisão, apague a memória do navegador.", "error")
         }
-        console.log(alertas)
     }
 
     static verificarSeExisteNotificacao(idUtilizador) {
