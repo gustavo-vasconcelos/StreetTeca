@@ -336,6 +336,7 @@ function gerarNotificacoes() {
                                             Novo livro com a tag ${Tag.getNomeById(notificacoes[i].arrayNotificacoes[j].idTipo)}.</b>
                                         <br>
                                         <p><a href="livro.html" class="livro${notificacoes[i].arrayNotificacoes[j].idLivro} clicarLivro text-teca4">${Livro.getTituloById(notificacoes[i].arrayNotificacoes[j].idLivro)}</a> foi doado.</p>
+                                        <small style="color: gray">${dataToString(notificacoes[i].arrayNotificacoes[j].dataHora)}</small>
                                     </div>
                                     <div class="pull-right">
                                         <a role="button" class="btn btn-teca3 removerNotificacao" id="notificacao${j}"><i class="fa fa-times text-teca4" aria-hidden="true"></i></a>
@@ -355,6 +356,7 @@ function gerarNotificacoes() {
                                             Novo livro na biblioteca ${Biblioteca.getConcelhoFreguesiaById(notificacoes[i].arrayNotificacoes[j].idTipo).join(", ")}.</b>
                                         <br>
                                         <p><a href="livro.html" class="livro${notificacoes[i].arrayNotificacoes[j].idLivro} clicarLivro text-teca4">${Livro.getTituloById(notificacoes[i].arrayNotificacoes[j].idLivro)}</a> chegou à sua biblioteca preferida.</p>
+                                        <small style="color: gray">${dataToString(notificacoes[i].arrayNotificacoes[j].dataHora)}</small>
                                     </div>
                                     <div class="pull-right">
                                         <a role="button" class="btn btn-teca3 removerNotificacao" id="notificacao${j}"><i class="fa fa-times text-teca4" aria-hidden="true"></i></a>
@@ -374,6 +376,7 @@ function gerarNotificacoes() {
                                             <a href="livro.html" class="livro${notificacoes[i].arrayNotificacoes[j].idLivro} clicarLivro text-teca4">${Livro.getTituloById(notificacoes[i].arrayNotificacoes[j].idLivro)}</a> está disponível.</b>
                                         <br>
                                         <p>Foi feita uma devolução na biblioteca ${Biblioteca.getConcelhoFreguesiaById(Livro.getIdBibliotecaById(notificacoes[i].arrayNotificacoes[j].idLivro)).join(", ")}.</p>
+                                        <small style="color: gray">${dataToString(notificacoes[i].arrayNotificacoes[j].dataHora)}</small>
                                     </div>
                                     <div class="pull-right">
                                         <a role="button" class="btn btn-teca3 removerNotificacao" id="notificacao${j}"><i class="fa fa-times text-teca4" aria-hidden="true"></i></a>
@@ -974,6 +977,12 @@ function gerarMapaBibliotecas() {
                                         livros[l].idBiblioteca = idBiblioteca
                                         //atualiza a key
                                         localStorage.setItem("livros", JSON.stringify(livros))
+                                        
+                                        //notifica os utilizadores que querem ser notificados quando algum livro chega àquela biblioteca
+                                        Notificacao.notificarByBiblioteca(idBiblioteca, idLivro)
+
+                                        //notifica os utilizadores que querem ser notificados quando algum livro fica disponível
+                                        Notificacao.notificarByLivro(idLivro)
                                     }
                                 }
                                 gerarRequisicoesAtivas()

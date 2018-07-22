@@ -1727,7 +1727,8 @@ class Notificacao {
                 notificacoes[i].arrayNotificacoes.push({
                     tipo: tipo,
                     idTipo: idTipo,
-                    idLivro: idLivro
+                    idLivro: idLivro,
+                    dataHora: obterData(new Date())
                 })
             }
         }
@@ -1748,6 +1749,26 @@ class Notificacao {
                     if (notificacoes[i].tags[j] === idTag[k]) {
                         notificacoes[i].adicionarNotificacao("tag", idTag[k], idLivro)
                     }
+                }
+            }
+        }
+    }
+
+    static notificarByBiblioteca(idBiblioteca, idLivro) {
+        for (let i in notificacoes) {
+            for (let j in notificacoes[i].bibliotecas) {
+                if (notificacoes[i].bibliotecas[j] === idBiblioteca) {
+                    notificacoes[i].adicionarNotificacao("biblioteca", idBiblioteca, idLivro)
+                }
+            }
+        }
+    }
+
+    static notificarByLivro(idLivro) {
+        for (let i in notificacoes) {
+            for (let j in notificacoes[i].livros) {
+                if (notificacoes[i].livros[j] === idLivro) {
+                    notificacoes[i].adicionarNotificacao("livro", idLivro, idLivro)
                 }
             }
         }
@@ -1811,8 +1832,12 @@ let configuracoes = {
     valorMultaLimite: 25
 }
 
+
 notificacoes.push(new Notificacao(2, [1, 3], [1], [1, 2]))
-notificacoes[0].arrayNotificacoes.push({ tipo: "livro", idTipo: 1, idLivro: 1 })
+notificacoes[0].arrayNotificacoes.push({ tipo: "livro", idTipo: 1, idLivro: 1, dataHora: obterData(new Date()) })
+notificacoes[0].arrayNotificacoes.push({ tipo: "tag", idTipo: 1, idLivro: 2, dataHora: obterData(new Date()) })
+notificacoes[0].arrayNotificacoes.push({ tipo: "biblioteca", idTipo: 1, idLivro: 3, dataHora: obterData(new Date()) })
+notificacoes[0].arrayNotificacoes.push({ tipo: "biblioteca", idTipo: 1, idLivro: 4, dataHora: obterData(new Date()) })
 
 if (!localStorage.getItem("notificacoes")) {
     localStorage.setItem("notificacoes", JSON.stringify(notificacoes))
