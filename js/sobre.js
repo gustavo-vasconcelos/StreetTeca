@@ -79,7 +79,6 @@ window.onload = function () {
         localStorage.setItem("testemunhos", JSON.stringify(testemunhos))
         swal("Testemunho submetido", "Obrigado por deixar a sua opinião! O seu testemunho passará por aprovação de um administrador.", "success")
         $("#modal").modal("hide")
-        gerarTestemunhos()
         event.preventDefault()
     })
 
