@@ -1717,10 +1717,11 @@ class Notificacao {
         this.arrayNotificacoes.push({
             tipo: tipo,
             idTipo: idTipo,
-            idLivro: idLivro
+            idLivro: idLivro,
+            dataHora: obterData(new Date())
         })
     }
-
+/*
     static adicionarNotificacao(idUtilizador, tipo, idTipo, idLivro) {
         for (let i in notificacoes) {
             if (notificacoes[i].idUtilizador === idUtilizador) {
@@ -1732,7 +1733,7 @@ class Notificacao {
                 })
             }
         }
-    }
+    }*/
 
     static removerNotificacao(idUtilizador, index) {
         for (let i in notificacoes) {
@@ -1772,6 +1773,83 @@ class Notificacao {
                 }
             }
         }
+    }
+
+    static notificarByIdUtilizador(idUtilizador) {
+        let alertas = []
+        for (let i in notificacoes) {
+            if (notificacoes[i].idUtilizador === idUtilizador) {
+                for (let j in notificacoes[i].arrayNotificacoes) {
+                    let mensagem = []
+                    switch (notificacoes[i].arrayNotificacoes[j].tipo) {
+                        case "tag":
+                            mensagem[0] = "Novo livro com a tag " + Tag.getNomeById(notificacoes[i].arrayNotificacoes[j].idTipo) + "."
+                            mensagem[1] = Livro.getTituloById(notificacoes[i].arrayNotificacoes[j].idLivro) + " foi doado."
+                            break;
+                        case "biblioteca":
+                            mensagem[0] = "Novo livro na biblioteca de " + Biblioteca.getConcelhoFreguesiaById(notificacoes[i].arrayNotificacoes[j].idTipo).join(", ") + "."
+                            mensagem[1] = Livro.getTituloById(notificacoes[i].arrayNotificacoes[j].idLivro) + " chegou à sua biblioteca preferida."
+                            break;
+                        case "livro":
+                            mensagem[0] = Livro.getTituloById(notificacoes[i].arrayNotificacoes[j].idLivro) + " disponível."
+                            mensagem[1] = "Foi feita uma devolução na biblioteca " + Biblioteca.getConcelhoFreguesiaById(Livro.getIdBibliotecaById(notificacoes[i].arrayNotificacoes[j].idLivro)).join(", ") + "."
+                            break;
+                    }
+                    alertas.push({
+                        urlCapa: Livro.getUrlCapaById(notificacoes[i].arrayNotificacoes[j].idLivro),
+                        titulo: mensagem[0],
+                        corpo: mensagem[1],
+                        idLivro: notificacoes[i].arrayNotificacoes[j].idLivro
+                    })
+                }
+            }
+        }
+
+        let url = window.location.href
+        if (url.indexOf("index.html") !== -1) {
+            url = "content/livro.html"
+        } else if (url.indexOf("content/") !== -1) {
+            url = "livro.html"
+        }
+        if (!("Notification" in window)) {
+            alert("Este browser não suporta notificações.")
+        } else if (Notification.permission === "granted") {
+            for (let i in alertas) {
+                let n = new Notification(alertas[i].titulo, { body: alertas[i].corpo, icon: alertas[i].urlCapa })
+                n.onclick = function () {
+                    localStorage.setItem("idLivroClicado", alertas[i].idLivro)
+                    window.location.href = url
+                    n.close()
+                }
+            }
+        } else if (Notification.permission !== "denied") {
+            Notification.requestPermission(function (permission) {
+                if (permission === "granted") {
+                    for (let i in alertas) {
+                        let n = new Notification(alertas[i].titulo, { body: alertas[i].corpo, icon: alertas[i].urlCapa, vibrate: [200, 100, 200] })
+                        n.onclick = function () {
+                            localStorage.setItem("idLivroClicado", alertas[i].idLivro)
+                            window.location.href = url
+                            n.close()
+                        }
+                    }
+                } else {
+                    swal("Permissão negada", "Negou as permissões para ser notificado. Apenas receberá as notificações na sua área de utilizador.\nPara reverter a sua decisão, apague a memória do navegador.", "error")
+                }
+            });
+        } else {
+            swal("Permissão negada", "Negou as permissões para ser notificado. Apenas receberá as notificações na sua área de utilizador.\nPara reverter a sua decisão, apague a memória do navegador.", "error")
+        }
+        console.log(alertas)
+    }
+
+    static verificarSeExisteNotificacao(idUtilizador) {
+        for(let i in notificacoes) {
+            if(notificacoes[i].idUtilizador === idUtilizador) {
+                return true
+            }
+        }
+        return false
     }
 }
 
@@ -1832,13 +1910,13 @@ let configuracoes = {
     valorMultaLimite: 25
 }
 
-
+/*
 notificacoes.push(new Notificacao(2, [1, 3], [1], [1, 2]))
 notificacoes[0].arrayNotificacoes.push({ tipo: "livro", idTipo: 1, idLivro: 1, dataHora: obterData(new Date()) })
 notificacoes[0].arrayNotificacoes.push({ tipo: "tag", idTipo: 1, idLivro: 2, dataHora: obterData(new Date()) })
 notificacoes[0].arrayNotificacoes.push({ tipo: "biblioteca", idTipo: 1, idLivro: 3, dataHora: obterData(new Date()) })
 notificacoes[0].arrayNotificacoes.push({ tipo: "biblioteca", idTipo: 1, idLivro: 4, dataHora: obterData(new Date()) })
-
+*/
 if (!localStorage.getItem("notificacoes")) {
     localStorage.setItem("notificacoes", JSON.stringify(notificacoes))
 }
@@ -1878,28 +1956,27 @@ function autorClicado() {
     }
 }
 
-
-if (!localStorage.getItem("requisicoes")) {
-    localStorage.setItem("requisicoes", JSON.stringify(requisicoes))
-}
-
-
-
 if (!localStorage.getItem("configuracoes")) {
     localStorage.setItem("configuracoes", JSON.stringify(configuracoes))
-    configuracoes = JSON.parse(localStorage.getItem("configuracoes"))
 }
 
 
 //utilizadores predefinidos
-utilizadores.push(new Utilizador("Teste", "teste@teste.pt", "123", "https://imgix.ranker.com/user_node_img/50025/1000492230/original/brandon-stark-tv-characters-photo-u1?w=650&q=50&fm=jpg&fit=crop&crop=faces", "2018-05-10T02:00:00", 0))
-utilizadores.push(new Utilizador("Gustavo Henrique", "teste2@teste.pt", "123", "", "2018-05-10T02:00:00", 2))
-utilizadores.push(new Utilizador("João Paixão Amorim", "teste3@teste.pt", "123", "", "2018-05-10T02:00:00", 1))
-utilizadores.push(new Utilizador("Guilherme Leonardo Costa", "teste4@teste.pt", "123", "", "2018-05-10T02:00:00", 1))
+utilizadores.push(new Utilizador("Admin", "admin@streetteca.pt", "12345", "https://imgix.ranker.com/user_node_img/50025/1000492230/original/brandon-stark-tv-characters-photo-u1?w=650&q=50&fm=jpg&fit=crop&crop=faces", "2018-05-10T02:00:00", 0)) //1
+utilizadores.push(new Utilizador("Operador", "operador@streetteca.pt", "12345", "", "2018-05-10T02:00:00", 1)) //2
+utilizadores.push(new Utilizador("Teresa Santos", "teresa@gmail.com", "12345", "", "2018-05-10T02:00:00", 2)) //3
+utilizadores.push(new Utilizador("Cristóvão Duarte", "cristovao@gmail.com", "12345", "", "2018-05-10T02:00:00", 2)) //4
+utilizadores.push(new Utilizador("Maria Simões", "maria@gmail.com", "12345", "", "2018-05-10T02:00:00", 2)) //5
+utilizadores.push(new Utilizador("Júlio César", "julio@gmail.com", "12345", "", "2018-05-10T02:00:00", 2)) //6
+utilizadores.push(new Utilizador("Mário Pais", "mario@gmail.com", "12345", "", "2018-05-10T02:00:00", 2)) //7
+utilizadores.push(new Utilizador("José Dias", "jose@gmail.com", "12345", "", "2018-05-10T02:00:00", 2)) //8
+utilizadores.push(new Utilizador("Armando Pereira", "armando@gmail.com", "12345", "", "2018-05-10T02:00:00", 2)) //9
+utilizadores.push(new Utilizador("Nuno Pinto", "nuno@gmail.com", "12345", "", "2018-05-10T02:00:00", 2)) //10
+utilizadores.push(new Utilizador("Daenerys", "daenerys@gmail.com", "12345", "", "2018-05-10T02:00:00", 2)) //11
+utilizadores.push(new Utilizador("Jorge Maria", "jorge@gmail.com", "12345", "", "2018-05-10T02:00:00", 2)) //12
 
 if (!localStorage.getItem("utilizadores")) {
     localStorage.setItem("utilizadores", JSON.stringify(utilizadores))
-    utilizadores = JSON.parse(localStorage.getItem("utilizadores"))
 }
 
 //géneros predefinidos
@@ -1912,7 +1989,6 @@ generos.push(new Genero("Autoajuda")) //6
 
 if (!localStorage.getItem("generos")) {
     localStorage.setItem("generos", JSON.stringify(generos))
-    generos = JSON.parse(localStorage.getItem("generos"))
 }
 
 
@@ -1939,7 +2015,6 @@ tags.push(new Tag("cultura-pop")) //19
 
 if (!localStorage.getItem("tags")) {
     localStorage.setItem("tags", JSON.stringify(tags))
-    tags = JSON.parse(localStorage.getItem("tags"))
 }
 
 //concelhos predefinidos
@@ -1948,7 +2023,6 @@ concelhos.push(new Concelho("Póvoa de Varzim"))
 
 if (!localStorage.getItem("concelhos")) {
     localStorage.setItem("concelhos", JSON.stringify(concelhos))
-    concelhos = JSON.parse(localStorage.getItem("concelhos"))
 }
 
 //freguesias predefinidas
@@ -1987,7 +2061,6 @@ freguesias.push(new Freguesia(2, "Balazar"))
 
 if (!localStorage.getItem("freguesias")) {
     localStorage.setItem("freguesias", JSON.stringify(freguesias))
-    freguesias = JSON.parse(localStorage.getItem("freguesias"))
 }
 
 //bibliotecas predefinidas
@@ -1996,20 +2069,7 @@ bibliotecas.push(new Biblioteca(1, 7, "Praça de Mindelo, 4485-487 Mindelo, Port
 
 if (!localStorage.getItem("bibliotecas")) {
     localStorage.setItem("bibliotecas", JSON.stringify(bibliotecas))
-    bibliotecas = JSON.parse(localStorage.getItem("bibliotecas"))
 }
-
-//requisicoes
-/*
-requisicoes.push(new Requisicao(1, 1, "2018-05-05T15:00:00", "2018-05-06T15:00:00"))
-requisicoes.push(new Requisicao(1, 2, "2018-05-05T15:00:00", "2018-05-06T15:00:00"))
-requisicoes.push(new Requisicao(1, 3, "2018-06-05T15:00:00"))
-
-
-if (!localStorage.getItem("requisicoes")) {
-    localStorage.setItem("requisicoes", JSON.stringify(requisicoes))
-    requisicoes = JSON.parse(localStorage.getItem("requisicoes"))
-}*/
 
 //autores predefinidos
 autores.push(new Autor(
@@ -2085,7 +2145,6 @@ autores.push(new Autor(
 
 if (!localStorage.getItem("autores")) {
     localStorage.setItem("autores", JSON.stringify(autores))
-    autores = JSON.parse(localStorage.getItem("autores"))
 }
 
 //livros predefinidos
@@ -2468,38 +2527,33 @@ livros.push(new Livro(
 
 if (!localStorage.getItem("livros")) {
     localStorage.setItem("livros", JSON.stringify(livros))
-    livros = JSON.parse(localStorage.getItem("livros"))
 }
 
 //comentários predefinidos
-comentarios.push(new Comentario(1, 1, "Top.", 4))
-comentarios.push(new Comentario(1, 2, "Top.", 5))
-comentarios.push(new Comentario(2, 3, "Top.", 2))
-comentarios.push(new Comentario(2, 4, "Top.", 3))
-comentarios.push(new Comentario(3, 1, "Top.", 5))
-comentarios.push(new Comentario(3, 2, "Top.", 2))
-comentarios.push(new Comentario(4, 1, "Top.", 4))
-comentarios.push(new Comentario(4, 2, "Top.", 3))
-comentarios.push(new Comentario(4, 3, "Top.", 3))
-comentarios.push(new Comentario(4, 4, "Top.", 4))
-comentarios.push(new Comentario(4, 5, "Top.", 5))
-comentarios.push(new Comentario(4, 6, "Top.", 4))
+let frasesComentario = ["Muito bom, dos melhores livros que já li.", "Gostei bastante da forma como o autor escreveu o livro.", "Que livro fenomenal!", "Recomendo a leitura.", "Esperava mais deste autor.", "Não foi tão bom como pensei.", "Já li livros melhores."]
+let frasesTestemunho = ["Esta aplicação ajudou-me muito a melhorar as minhas capacidades de leitura.", "Péssima aplicação. Não podia ser pior.", "Pouca variedade de livros, não recomendo.", "Gostei muito desta aplicação, já recomendei a todos os meus amigos.", "A equipa StreetTeca fez um ótimo trabalho. Obrigado!"]
+for (let i = 3; i < 11; i++) {
+    for (let j in livros) {
+        shuffle(frasesComentario)
+        comentarios.push(new Comentario(utilizadores[i].id, livros[j].id, frasesComentario[Math.floor(Math.random() * frasesComentario.length)], Math.floor(Math.random() * 6)))
+        requisicoes.push(new Requisicao(utilizadores[i].id, livros[j].id, "2018-07-22T00:00", "2018-07-23T00:00"))
+    }
+    shuffle(frasesTestemunho)
+    //testemunhos predefinidos
+    testemunhos.push(new Testemunho(frasesTestemunho[Math.floor(Math.random() * frasesTestemunho.length)], utilizadores[i].id, 1))
+}
 
 if (!localStorage.getItem("comentarios")) {
     localStorage.setItem("comentarios", JSON.stringify(comentarios))
-    comentarios = JSON.parse(localStorage.getItem("comentarios"))
 }
 
-//testemunhos predefinidos
-testemunhos.push(new Testemunho("Top.", 1, 0))
-testemunhos.push(new Testemunho("Top.", 2, 0))
-testemunhos.push(new Testemunho("Top.", 3, 0))
-testemunhos.push(new Testemunho(`Quando Eddard Stark, lorde do castelo de Winterfell, recebe a visita do velho amigo, o rei Robert Baratheon,
-está longe de adivinhar que a sua vida,e a da sua família, está prestes a entrar numa espiral de tragédia, conspiração e morte.`, 4, 1))
+//requisicoes
+if (!localStorage.getItem("requisicoes")) {
+    localStorage.setItem("requisicoes", JSON.stringify(requisicoes))
+}
 
 if (!localStorage.getItem("testemunhos")) {
     localStorage.setItem("testemunhos", JSON.stringify(testemunhos))
-    testemunhos = JSON.parse(localStorage.getItem("testemunhos"))
 }
 
 

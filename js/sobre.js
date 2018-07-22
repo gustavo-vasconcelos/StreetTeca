@@ -124,7 +124,7 @@ function gerarTestemunhos() {
                                 <div class="texto-testemunho bg-teca3 py-3 px-5 text-white mt-3">
                                     <div class="texto-corpo">${testemunhos[j].testemunho}</div>
                                     <br>
-                                    <div class="text-right">${Utilizador.getNomeById(testemunhos[j].id)}</div>
+                                    <div class="text-right">${Utilizador.getNomeById(testemunhos[j].idUtilizador)}</div>
                                 </div>
                             </div>`
                     count++

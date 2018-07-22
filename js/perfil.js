@@ -507,15 +507,19 @@ function gerarForm() {
             }
         }
 
-        for (let i in notificacoes) {
-            if (notificacoes[i].idUtilizador === idUtilizadorLogado) {
-                notificacoes[i].tags = tagsEscolhidas
-                notificacoes[i].bibliotecas = bibliotecasEscolhidas
-                notificacoes[i].livros = livrosEscolhidos
-                //atualiza key
-                localStorage.setItem("notificacoes", JSON.stringify(notificacoes))
+        if (Notificacao.verificarSeExisteNotificacao(idUtilizadorLogado)) {
+            for (let i in notificacoes) {
+                if (notificacoes[i].idUtilizador === idUtilizadorLogado) {
+                    notificacoes[i].tags = tagsEscolhidas
+                    notificacoes[i].bibliotecas = bibliotecasEscolhidas
+                    notificacoes[i].livros = livrosEscolhidos
+                }
             }
+        } else {
+            notificacoes.push(new Notificacao(idUtilizadorLogado, tagsEscolhidas, bibliotecasEscolhidas, livrosEscolhidos))
         }
+        //atualiza key
+        localStorage.setItem("notificacoes", JSON.stringify(notificacoes))
 
         $("#modal").modal("hide")
         swal("Notificações guardadas", "As opções selecionadas foram guardadas com sucesso.", "success")
@@ -977,7 +981,7 @@ function gerarMapaBibliotecas() {
                                         livros[l].idBiblioteca = idBiblioteca
                                         //atualiza a key
                                         localStorage.setItem("livros", JSON.stringify(livros))
-                                        
+
                                         //notifica os utilizadores que querem ser notificados quando algum livro chega àquela biblioteca
                                         Notificacao.notificarByBiblioteca(idBiblioteca, idLivro)
 

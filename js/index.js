@@ -87,6 +87,9 @@ window.onload = function () {
     requisicoes = JSON.parse(localStorage.getItem("requisicoes"))
     transformarEmInstanciaRequisicao(requisicoes)
 
+    notificacoes = JSON.parse(localStorage.getItem("notificacoes"))
+    transformarEmInstanciaNotificacao(notificacoes)
+
     comentarios = JSON.parse(localStorage.getItem("comentarios"))
     transformarEmInstanciaComentario(comentarios)
 
@@ -182,6 +185,9 @@ window.onload = function () {
                     $("#modalLogin").modal("hide")
                     clicarCatalogoESobre()
                     gerarSections()
+
+                    //envia as notificações ao utilizador
+                    Notificacao.notificarByIdUtilizador(idUtilizadorLogado)
                 } else {
                     swal("Conta bloqueada.", `A sua conta encontra-se bloqueada, uma vez que ultrapassou o valor limite de (€${configuracoes.valorMultaLimite}). Para continuar a utilizar a nossa plataforma, dirija-se ao Centro de Bibliotecas de Rua mais próximo para pagar a multa.`, "error")
                 }
@@ -357,10 +363,10 @@ function gerarLivrosMaisPontuados() {
 function gerarTestemunhos() {
     let str = '<div class="row justify-content-between">'
     let idsAleatorios = Testemunho.getIdTestemunhosAleatorios()
-    let count
+    let count = 1
     for (let i in idsAleatorios) {
         for (let j in testemunhos) {
-            if (testemunhos[j].id === idsAleatorios[i]) {
+            if (testemunhos[j].id === idsAleatorios[i] && count <= 4) {
                 str += `<div class="px-4 testemunho mt-5 col-xl-5 col-lg-10 col-md-10">
                             <div class="foto-testemunho text-center">
                                 <img class="img-thumbnail" src="${Utilizador.getUrlFotoById(testemunhos[j].idUtilizador)}">
@@ -368,9 +374,10 @@ function gerarTestemunhos() {
                             <div class="texto-testemunho bg-teca3 py-3 px-5 text-white mt-3">
                                 <div class="texto-corpo">${testemunhos[j].testemunho}</div>
                                 <br>
-                                <div class="text-right">${Utilizador.getNomeById(testemunhos[j].id)}</div>
+                                <div class="text-right">${Utilizador.getNomeById(testemunhos[j].idUtilizador)}</div>
                             </div>
                         </div>`
+                count++
             }
         }
     }
