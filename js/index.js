@@ -381,28 +381,6 @@ function gerarTestemunhos() {
             }
         }
     }
-/*
-    function encherString(quantidade) {
-        for (let i = 0; i < quantidade; i++) {
-            str += `<div class="container px-4 testemunho mt-5 col-xl-5 col-lg-10 col-md-10"></div>`
-        }
-    }
-
-    switch (count) {
-        case 0:
-            encherString(4)
-            break;
-        case 1:
-            encherString(3)
-            break;
-        case 2:
-            encherString(2)
-            break;
-        case 3:
-            encherString(1)
-            break;
-    }*/
-
     str += "</div>"
     return str
 }
