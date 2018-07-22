@@ -13,11 +13,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- CSS -->
     <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/bootstrap-notifications.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../css/main.css">
     <!-- Scripts do botão menu animado -->
     <script src="../js/segment.js"></script>
     <script src="../js/ease.min.js"></script>
+    <style>
+    </style>
 </head>
 
 <body class="bg-teca2">
@@ -81,9 +84,203 @@
     <div class="container pb-5 px-2 text-white" id="main-container" style="padding-top: 65px;">
         <div id="cabecalho"></div>
         <div class="mt-5 col-20" id="recentes">
-            <div id="requisicoesAtivas"></div>
-            <div id="listaDesejos"></div>
-            <div id="requisicoesEntregues"></div>
+            <div id="notificacoes">
+                <h4 class="text-teca4">NOTIFICAÇÕES (3)
+                    <button type="button" title="Gerir notificações" id="btnTestemunho" class="btn btn-teca2 border border-teca4"
+                        style="color: #92CDCF">
+                        <i class="fa fa-cog" aria-hidden="true"></i>
+                    </button>
+                </h4>
+                <div class="mt-4 container" style="max-height: 350px; overflow-y: scroll; border-radius: 4px;">
+                    <div class="row notificacao bg-teca3 px-1 py-2">
+                        <div class="col-xl-2 col-lg-3 col-sm-3 col-6">
+                            <a href="livro.html">
+                                <img src="https://img.wook.pt/images/a-guerra-dos-tronos-george-r-r-martin/MXwxOTY1MTF8MjQ3OTIzfDEzODM1MjMyMDAwMDA=/502x"
+                                    style="border: 1px solid white;">
+                            </a>
+                        </div>
+                        <div class="col-xl-17 col-lg-16 col-sm-15 col-10">
+                            <b>
+                                <a href="livro.html" class="text-teca4">A Guerra dos Tronos</a> está disponível.</b>
+                            <br>
+                            <p>Foi feita uma entrega na biblioteca de Vila do Conde, Vila do Conde.</p>
+                        </div>
+                        <div class="pull-right">
+                            <a role="button" class="btn btn-teca3">
+                                <i class="fa fa-times text-teca4" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row notificacao bg-teca3 px-1 py-2">
+                        <div class="col-xl-2 col-lg-3 col-sm-3 col-6">
+                            <a href="livro.html">
+                                <img src="https://img.wook.pt/images/a-guerra-dos-tronos-george-r-r-martin/MXwxOTY1MTF8MjQ3OTIzfDEzODM1MjMyMDAwMDA=/502x"
+                                    style="border: 1px solid white;">
+                            </a>
+                        </div>
+                        <div class="col-xl-17 col-lg-16 col-sm-15 col-10">
+                            <b>
+                                <a href="livro.html" class="text-teca4">A Guerra dos Tronos</a> está disponível.</b>
+                            <br>
+                            <p>Foi feita uma entrega na biblioteca de Vila do Conde, Vila do Conde.</p>
+                        </div>
+                        <div class="pull-right">
+                            <a role="button" class="btn btn-teca3">
+                                <i class="fa fa-times text-teca4" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row notificacao bg-teca3 px-1 py-2">
+                        <div class="col-xl-2 col-lg-3 col-sm-3 col-6">
+                            <a href="livro.html">
+                                <img src="https://img.wook.pt/images/a-guerra-dos-tronos-george-r-r-martin/MXwxOTY1MTF8MjQ3OTIzfDEzODM1MjMyMDAwMDA=/502x"
+                                    style="border: 1px solid white;">
+                            </a>
+                        </div>
+                        <div class="col-xl-17 col-lg-16 col-sm-15 col-10">
+                            <b>
+                                <a href="livro.html" class="text-teca4">A Guerra dos Tronos</a> está disponível.</b>
+                            <br>
+                            <p>Foi feita uma entrega na biblioteca de Vila do Conde, Vila do Conde.</p>
+                        </div>
+                        <div class="pull-right">
+                            <a role="button" class="btn btn-teca3">
+                                <i class="fa fa-times text-teca4" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <!--
+                    <ul class="notifications">
+                        <li class="notification">
+                            <div class="media">
+                                <div class="media-left">
+                                    <div class="media-object mr-2">
+                                        <a href="livro.html">
+                                            <img src="https://img.wook.pt/images/a-guerra-dos-tronos-george-r-r-martin/MXwxOTY1MTF8MjQ3OTIzfDEzODM1MjMyMDAwMDA=/502x"
+                                                style="border: 1px solid white;">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="media-body">
+                                    <strong class="notification-title pull-left">
+                                        <a href="livro.html" class="text-teca4">A Guerra dos Tronos</a> está disponível.</strong>
+                                    <a role="button" class="btn btn-teca3 pull-right">
+                                        <i class="fa fa-times text-teca4" aria-hidden="true"></i>
+                                    </a>
+                                    <br>
+                                    <p class="notification-desc">Foi feita uma entrega na biblioteca de Vila do Conde, Vila do Conde.</p>
+                                    <div class="notification-meta">
+                                        <small class="timestamp ">27. 11. 2015, 15:00</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="notification">
+                            <div class="media">
+                                <div class="media-left">
+                                    <div class="media-object mr-2">
+                                        <a href="livro.html">
+                                            <img src="https://img.wook.pt/images/a-guerra-dos-tronos-george-r-r-martin/MXwxOTY1MTF8MjQ3OTIzfDEzODM1MjMyMDAwMDA=/502x"
+                                                style="border: 1px solid white;">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="media-body">
+                                    <strong class="notification-title pull-left">
+                                        <a href="livro.html" class="text-teca4">A Guerra dos Tronos</a> está disponível.</strong>
+                                    <a role="button" class="btn btn-teca3 pull-right">
+                                        <i class="fa fa-times text-teca4" aria-hidden="true"></i>
+                                    </a>
+                                    <br>
+                                    <p class="notification-desc">Foi feita uma entrega na biblioteca de Vila do Conde, Vila do Conde.</p>
+                                    <div class="notification-meta">
+                                        <small class="timestamp ">27. 11. 2015, 15:00</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="notification">
+                            <div class="media">
+                                <div class="media-left">
+                                    <div class="media-object mr-2">
+                                        <a href="livro.html">
+                                            <img src="https://img.wook.pt/images/a-guerra-dos-tronos-george-r-r-martin/MXwxOTY1MTF8MjQ3OTIzfDEzODM1MjMyMDAwMDA=/502x"
+                                                style="border: 1px solid white;">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="media-body">
+                                    <strong class="notification-title pull-left">
+                                        <a href="livro.html" class="text-teca4">A Guerra dos Tronos</a> está disponível.</strong>
+                                    <a role="button" class="btn btn-teca3 pull-right">
+                                        <i class="fa fa-times text-teca4" aria-hidden="true"></i>
+                                    </a>
+                                    <br>
+                                    <p class="notification-desc">Foi feita uma entrega na biblioteca de Vila do Conde, Vila do Conde.</p>
+                                    <div class="notification-meta">
+                                        <small class="timestamp ">27. 11. 2015, 15:00</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="notification">
+                            <div class="media">
+                                <div class="media-left">
+                                    <div class="media-object mr-2">
+                                        <a href="livro.html">
+                                            <img src="https://img.wook.pt/images/a-guerra-dos-tronos-george-r-r-martin/MXwxOTY1MTF8MjQ3OTIzfDEzODM1MjMyMDAwMDA=/502x"
+                                                style="border: 1px solid white;">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="media-body">
+                                    <strong class="notification-title pull-left">
+                                        <a href="livro.html" class="text-teca4">A Guerra dos Tronos</a> está disponível.</strong>
+                                    <a role="button" class="btn btn-teca3 pull-right">
+                                        <i class="fa fa-times text-teca4" aria-hidden="true"></i>
+                                    </a>
+                                    <br>
+                                    <p class="notification-desc">Foi feita uma entrega na biblioteca de Vila do Conde, Vila do Conde.</p>
+                                    <div class="notification-meta">
+                                        <small class="timestamp ">27. 11. 2015, 15:00</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="notification">
+                            <div class="media">
+                                <div class="media-left">
+                                    <div class="media-object mr-2">
+                                        <a href="livro.html">
+                                            <img src="https://img.wook.pt/images/a-guerra-dos-tronos-george-r-r-martin/MXwxOTY1MTF8MjQ3OTIzfDEzODM1MjMyMDAwMDA=/502x"
+                                                style="border: 1px solid white;">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="media-body">
+                                    <strong class="notification-title pull-left">
+                                        <a href="livro.html" class="text-teca4">A Guerra dos Tronos</a> está disponível.</strong>
+                                    <a role="button" class="btn btn-teca3 pull-right">
+                                        <i class="fa fa-times text-teca4" aria-hidden="true"></i>
+                                    </a>
+                                    <br>
+                                    <p class="notification-desc">Foi feita uma entrega na biblioteca de Vila do Conde, Vila do Conde.</p>
+                                    <div class="notification-meta">
+                                        <small class="timestamp ">27. 11. 2015, 15:00</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>-->
+                </div>
+            </div>
+            <div id="requisicoesAtivas" class="mt-5"></div>
+            <div id="listaDesejos" class="mt-5"></div>
+            <div id="requisicoesEntregues" class="mt-5"></div>
         </div>
     </div>
     </div>

@@ -877,8 +877,6 @@ class Requisicao {
         this.idLivro = idLivro
         this.dataRequisicao = dataRequisicao
         this.dataEntrega = dataEntrega
-        this.multa = false
-        this.valorMulta = 0
     }
 
     get id() {
@@ -1557,15 +1555,15 @@ class Testemunho {
     static getIdTestemunhosAleatorios() {
         let ids = []
         testemunhos.forEach(testemunho => {
-            if(testemunho.estado) ids.push(testemunho.id)
+            if (testemunho.estado) ids.push(testemunho.id)
         })
         shuffle(ids)
         return ids
     }
 
     static getIdByIdUtilizador(idUtilizador) {
-        for(let i in testemunhos) {
-            if(testemunhos[i].idUtilizador === idUtilizador) {
+        for (let i in testemunhos) {
+            if (testemunhos[i].idUtilizador === idUtilizador) {
                 return testemunhos[i].id
             }
         }
@@ -1667,6 +1665,75 @@ class Autor {
     }
 }
 
+class Notificacao {
+    constructor(idUtilizador, tags, bibliotecas, livros) {
+        this.idUtilizador = idUtilizador
+        this.tags = tags
+        this.bibliotecas = bibliotecas
+        this.livros = livros
+        this.arrayNotificacoes = []
+    }
+
+    get idUtilizador() {
+        return this._idUtilizador
+    }
+    set idUtilizador(value) {
+        this._idUtilizador = value
+    }
+
+    get tags() {
+        return this._tags
+    }
+    set tags(value) {
+        this._tags = value
+    }
+
+    get bibliotecas() {
+        return this._bibliotecas
+    }
+    set bibliotecas(value) {
+        this._bibliotecas = value
+    }
+
+    get livros() {
+        return this._livros
+    }
+    set livros(value) {
+        this._livros = value
+    }
+
+    get arrayNotificacoes() {
+        return this._arrayNotificacoes
+    }
+    set arrayNotificacoes(value) {
+        this._arrayNotificacoes = value
+    }
+
+    getQuantidadeNotificacoes() {
+        return this.arrayNotificacoes.length
+    }
+
+    static adicionarNotificacao(idUtilizador, tipo, idTipo, idLivro) {
+        for (let i in notificacoes) {
+            if (notificacoes[i].idUtilizador === idUtilizador) {
+                notificacoes[i].arrayNotificacoes.push({
+                    tipo: tipo,
+                    idTipo: idTipo,
+                    idLivro: idLivro
+                })
+            }
+        }
+    }
+
+    static removerNotificacao(idUtilizador, index) {
+        for (let i in notificacoes) {
+            if (notificacoes[i].idUtilizador === idUtilizador) {
+                notificacoes[i].arrayNotificacoes.splice(index, 1)
+            }
+        }
+    }
+}
+
 //https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 function shuffle(array) {
     let currentIndex = array.length, temporaryValue, randomIndex;
@@ -1716,11 +1783,19 @@ let concelhos = []
 let freguesias = []
 let testemunhos = []
 let autores = []
+let notificacoes = []
 let configuracoes = {
     id: 1,
     diasRequisicao: 14,
     valorMultaDiaria: 3.5,
     valorMultaLimite: 25
+}
+
+notificacoes.push(new Notificacao(2, [1, 3], [1], [1, 2]))
+notificacoes[0].arrayNotificacoes.push({ tipo: "livro", idTipo: 1, idLivro: 1 })
+
+if (!localStorage.getItem("notificacoes")) {
+    localStorage.setItem("notificacoes", JSON.stringify(notificacoes))
 }
 
 let idLivroClicado = -1
@@ -2486,6 +2561,15 @@ function transformarEmInstanciaTestemunho(arrayTestemunhos) {
     testemunhos = testemunhosTemporarios
 }
 
+function transformarEmInstanciaNotificacao(arrayNotificacoes) {
+    let notificacoesTemporarias = []
+    //transformar os objetos em instâncias da classe Notificacao
+    for (let i in arrayNotificacoes) {
+        notificacoesTemporarias.push(Object.assign(new Notificacao(), arrayNotificacoes[i]))
+    }
+    notificacoes = notificacoesTemporarias
+}
+
 
 
 /*
@@ -2815,9 +2899,6 @@ function comboboxFiltros() {
 
 
 function atualizarTodasMultas() {
-    utilizadores = JSON.parse(localStorage.getItem("utilizadores"))
-    transformarEmInstanciaUtilizador(utilizadores)
-
     for (let i in utilizadores) {
         let dataAtual = new Date()
         let ativas = Requisicao.getIdsRequisicoesAtivasByIdUtilizador(utilizadores[i].id)

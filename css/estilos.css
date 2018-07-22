@@ -41,6 +41,32 @@ section {
     min-height: 100%;
 }
 
+/* scrollbar */
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 /* imagens responsivas */
 
 /* quando a largura é maior ou igual a 1200 */
@@ -49,6 +75,10 @@ section {
     #main-container img {
         height: 290px;
         width: 190px;
+    }
+    #main-container #recentes #notificacoes img {
+        height: 145px;
+        width: 95px;
     }
 }
 
@@ -63,6 +93,10 @@ section {
         height: 300px;
         width: 209px;
     }
+    #main-container #recentes #notificacoes img {
+        height: 157px;
+        width: 110px;
+    }
 }
 
 /* quando a largura é menor ou igual a 991 */
@@ -76,6 +110,10 @@ section {
         height: 270px;
         width: 181px;
     }
+    #main-container #recentes #notificacoes img {
+        height: 135px;
+        width: 87px;
+    }
 }
 
 /* quando a largura é menor ou igual a 769 */
@@ -88,6 +126,10 @@ section {
     #main-container #pontuados img {
         height: 263px;
         width: 184px;
+    }
+    #main-container #recentes #notificacoes img {
+        height: 94px;
+        width: 66px;
     }
 }
 
@@ -103,6 +145,10 @@ section {
         height: 260px !important;
         width: 181px !important;
     }
+    #main-container #recentes img, #main-container #recentes img, #main-container #relacionados img {
+        height: 130px !important;
+        width: 90px !important;
+    }
 }
 
 @media only screen and (max-width: 510px) {
@@ -110,12 +156,20 @@ section {
         height: 250px !important;
         width: 175px !important;
     }
+    #main-container #recentes img, #main-container #recentes img, #main-container #relacionados img {
+        height: 125px !important;
+        width: 87px !important;
+    }
 }
 
 @media only screen and (max-width: 376px) {
     #main-container #recentes img, #main-container #relacionados img {
         height: 165px !important;
         width: 115px !important;
+    }
+    #main-container #recentes img, #main-container #recentes img, #main-container #relacionados img {
+        height: 82px !important;
+        width: 57px !important;
     }
 }
 
@@ -313,16 +367,7 @@ a {
     border: 0;
 }
 
-
-
-
 /* notificações*/
-
-
-
-
-
-
 
 /*pontuados*/
 
@@ -638,11 +683,13 @@ h1 {
 }
 
 /*sobre (vídeo dentro do pc) https://codepen.io/hugsbrugs/pen/WQdOBe*/
+
 div.laptop-wrapper {
     position: relative;
     padding-bottom: 67.5%;
     height: 0;
 }
+
 div.laptop-wrapper iframe {
     box-sizing: border-box;
     background: url(../img/laptop.png) center center no-repeat;
@@ -653,4 +700,19 @@ div.laptop-wrapper iframe {
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+/* notificações (área utilizador)*/
+
+.notificacao {
+    border-bottom: 1px solid #92CDCF;
+}
+
+.notificacao:hover {
+    background-color:#364660 !important;
+    box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,1) !important;
+}
+
+.notificacao:last-child {
+    border-bottom: none;
 }

@@ -104,8 +104,8 @@ window.onload = function () {
 } //fim onload
 
 function gerarTestemunhos() {
-    let str = `<h4 class="text-teca4 text-center mt-5">Testemunhos 
-                    <button type="button" title="Deixe o seu testemunho sobre a aplicação." id="btnTestemunho" class="btn btn-teca2 border border-teca4" style="color: #92CDCF">
+    let str = `<h4 class="text-teca4 text-center mt-5">TESTEMUNHOS 
+                    <button type="button" title="Deixe o seu testemunho sobre a aplicação" id="btnTestemunho" class="btn btn-teca2 border border-teca4" style="color: #92CDCF">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </button>
                 </h4>

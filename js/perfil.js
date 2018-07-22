@@ -30,6 +30,9 @@ window.onload = function () {
     utilizadores = JSON.parse(localStorage.getItem("utilizadores"))
     transformarEmInstanciaUtilizador(utilizadores)
 
+    notificacoes = JSON.parse(localStorage.getItem("notificacoes"))
+    transformarEmInstanciaNotificacao(notificacoes)
+
     configuracoes = JSON.parse(localStorage.getItem("configuracoes"))
 
     idUtilizadorLogado = parseInt(localStorage.getItem("idUtilizadorLogado"))
@@ -71,6 +74,7 @@ window.onload = function () {
 
     //gerar info sobre o utilizador, requisicoes ativas, lista de desejos, requisicoes
     gerarInfo()
+    gerarNotificacoes()
     gerarRequisicoesAtivas()
     gerarListaDesejos()
     gerarRequisicoesEntregues()
@@ -92,7 +96,6 @@ function gerarInfo() {
                             <div class="text-center">
                                 Multa: €${utilizadores[i].multa}
                             </div>
-                            
                             <div class="row px-5">
                                 <button type="button" class="col-20 btn btn-teca3 mt-2" style="border-radius: 2em;" id="btnEditarPerfil" data-toggle="modal" data-target="#modal">
                                 <i class="fa fa-pencil text-teca4"></i> Editar o perfil
@@ -306,6 +309,118 @@ function gerarInfo() {
             document.getElementById("fotoEditar").src = (!inputEditarUrlFoto.value) ? "../img/perfil.png" : inputEditarUrlFoto.value
         })
     })
+}
+
+function gerarNotificacoes() {
+    let haverNotificacao = false
+    let str = '<div id="notificacoes">'
+    for (let i in notificacoes) {
+        if (notificacoes[i].idUtilizador === idUtilizadorLogado) {
+            str += `<h4 class="text-teca4">NOTIFICAÇÕES (${notificacoes[i].getQuantidadeNotificacoes()})
+                        <button type="button" title="Gerir notificações" id="btnNotificacao" class="btn btn-teca2 border border-teca4" style="color: #92CDCF">
+                            <i class="fa fa-cog" aria-hidden="true"></i>
+                        </button>
+                    </h4>
+                    <div class="mt-4 container" style="max-height: 350px; overflow-y: scroll; border-radius: 4px;">`
+            for (let j in notificacoes[i].arrayNotificacoes) {
+                switch (notificacoes[i].arrayNotificacoes[j].tipo) {
+                    case "tag":
+                        str += `<div class="row notificacao bg-teca3 px-1 py-2">
+                                    <div class="col-xl-2 col-lg-3 col-sm-3 col-6">
+                                        <a href="livro.html" class="livro${notificacoes[i].arrayNotificacoes[j].idLivro} clicarLivro">
+                                            <img src="${Livro.getUrlCapaById(notificacoes[i].arrayNotificacoes[j].idLivro)}" style="border: 1px solid white;">
+                                        </a>
+                                    </div>
+                                    <div class="col-xl-17 col-lg-16 col-sm-15 col-10">
+                                        <b>
+                                            Novo livro com a tag ${Tag.getNomeById(notificacoes[i].arrayNotificacoes[j].idTipo)}.</b>
+                                        <br>
+                                        <p><a href="livro.html" class="livro${notificacoes[i].arrayNotificacoes[j].idLivro} clicarLivro text-teca4">${Livro.getTituloById(notificacoes[i].arrayNotificacoes[j].idLivro)}</a> foi doado.</p>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a role="button" class="btn btn-teca3 removerNotificacao" id="notificacao${j}"><i class="fa fa-times text-teca4" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>`
+                        haverNotificacao = true
+                        break;
+                    case "biblioteca":
+                        str += `<div class="row notificacao bg-teca3 px-1 py-2">
+                                    <div class="col-xl-2 col-lg-3 col-sm-3 col-6">
+                                        <a href="livro.html" class="livro${notificacoes[i].arrayNotificacoes[j].idLivro} clicarLivro">
+                                            <img src="${Livro.getUrlCapaById(notificacoes[i].arrayNotificacoes[j].idLivro)}" style="border: 1px solid white;">
+                                        </a>
+                                    </div>
+                                    <div class="col-xl-17 col-lg-16 col-sm-15 col-10">
+                                        <b>
+                                            Novo livro na biblioteca ${Biblioteca.getConcelhoFreguesiaById(notificacoes[i].arrayNotificacoes[j].idTipo).join(", ")}.</b>
+                                        <br>
+                                        <p><a href="livro.html" class="livro${notificacoes[i].arrayNotificacoes[j].idLivro} clicarLivro text-teca4">${Livro.getTituloById(notificacoes[i].arrayNotificacoes[j].idLivro)}</a> chegou à sua biblioteca preferida.</p>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a role="button" class="btn btn-teca3 removerNotificacao" id="notificacao${j}"><i class="fa fa-times text-teca4" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>`
+                        haverNotificacao = true
+                        break;
+                    case "livro":
+                        str += `<div class="row notificacao bg-teca3 px-1 py-2">
+                                    <div class="col-xl-2 col-lg-3 col-sm-3 col-6">
+                                        <a href="livro.html" class="livro${notificacoes[i].arrayNotificacoes[j].idLivro} clicarLivro">
+                                            <img src="${Livro.getUrlCapaById(notificacoes[i].arrayNotificacoes[j].idLivro)}" style="border: 1px solid white;">
+                                        </a>
+                                    </div>
+                                    <div class="col-xl-17 col-lg-16 col-sm-15 col-10">
+                                        <b>
+                                            <a href="livro.html" class="livro${notificacoes[i].arrayNotificacoes[j].idLivro} clicarLivro text-teca4">${Livro.getTituloById(notificacoes[i].arrayNotificacoes[j].idLivro)}</a> está disponível.</b>
+                                        <br>
+                                        <p>Foi feita uma devolução na biblioteca ${Biblioteca.getConcelhoFreguesiaById(Livro.getIdBibliotecaById(notificacoes[i].arrayNotificacoes[j].idLivro)).join(", ")}.</p>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a role="button" class="btn btn-teca3 removerNotificacao" id="notificacao${j}"><i class="fa fa-times text-teca4" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>`
+                        haverNotificacao = true
+                        break;
+                }
+            }
+        }
+    }
+
+    if (!haverNotificacao) {
+        str = ` <h4 class="text-teca4">NOTIFICAÇÕES (0)
+                    <button type="button" title="Gerir notificações" id="btnNotificacao" class="btn btn-teca2 border border-teca4" style="color: #92CDCF">
+                        <i class="fa fa-cog" aria-hidden="true"></i>
+                    </button>
+                </h4>
+                <p>Não tem nenhuma notificação. Caso queira gerir as suas notificações, clique no botão acima.</p>`
+    } else {
+        str += "</div></div>"
+    }
+
+    document.getElementById("notificacoes").innerHTML = str
+
+    livroClicado()
+
+    //remover notificação
+    let btnRemoverNotificacao = document.getElementsByClassName("removerNotificacao")
+    for (let i = 0; i < btnRemoverNotificacao.length; i++) {
+        btnRemoverNotificacao[i].addEventListener("click", function () {
+            let idNotificacao = parseInt(btnRemoverNotificacao[i].id.replace(/notificacao/g, ""))
+            Notificacao.removerNotificacao(idUtilizadorLogado, idNotificacao)
+            //atualiza key
+            localStorage.setItem("notificacoes", JSON.stringify(notificacoes))
+            gerarNotificacoes()
+        })
+    }
+
+    let btnNotificacao = document.getElementById("btnNotificacao")
+    btnNotificacao.addEventListener("click", function () {
+        if (Utilizador.getTipoAcessoById(idUtilizadorLogado) !== 2) {
+            swal("Erro", "Apenas utilizadores podem registar notificações.", "error")
+        }
+    })
+
+
 }
 
 let idLivro
@@ -703,8 +818,7 @@ function gerarMapaBibliotecas() {
 
 function gerarListaDesejos() {
     let listaDesejos = Utilizador.getListaDesejosById(idUtilizadorLogado)
-    let str = ` <div class="mt-5">
-                <span class="text-teca4" style="font-size: 1.5em; font-weight: 500">LISTA DE DESEJOS (${listaDesejos.length})</span>
+    let str = ` <span class="text-teca4" style="font-size: 1.5em; font-weight: 500">LISTA DE DESEJOS (${listaDesejos.length})</span>
                 <div class="row mt-1 d-flex justify-content-start text-center">`
     if (listaDesejos.length > 0) {
         for (let i in listaDesejos) {
@@ -729,7 +843,7 @@ function gerarListaDesejos() {
     } else {
         str += '<br><div class="col-20 text-left">A sua lista de desejos está vazia. Esta lista pode ser útil quando um livro que deseja está indisponível, assim, quando voltar a estar disponível, será notificado.<div>'
     }
-    str += "</div></div>"
+    str += "</div>"
     document.getElementById("listaDesejos").innerHTML = str
     livroClicado()
     autorClicado()
@@ -737,8 +851,7 @@ function gerarListaDesejos() {
 
 function gerarRequisicoesEntregues() {
     let requisicoesEntregues = Requisicao.getIdsRequisicoesEntreguesByIdUtilizador(idUtilizadorLogado)
-    let str = ` <div class="mt-5">
-                <span class="text-teca4" style="font-size: 1.5em; font-weight: 500">LIVROS LIDOS (${requisicoesEntregues.length})</span>`
+    let str = `<span class="text-teca4" style="font-size: 1.5em; font-weight: 500">LIVROS LIDOS (${requisicoesEntregues.length})</span>`
     if (requisicoesEntregues.length > 0) {
         for (let i in requisicoesEntregues) {
             for (let j in requisicoes) {
@@ -783,7 +896,6 @@ function gerarRequisicoesEntregues() {
     } else {
         str += '<br>Não possui nenhum livro lido, caso queira visite o nosso <a href="catalogo.html" class="text-teca4">catálogo</a>, que é constantemente atualizado com os últimos lançamentos.'
     }
-    str += "</div>"
     document.getElementById("requisicoesEntregues").innerHTML = str
 
     //remove o último <hr>

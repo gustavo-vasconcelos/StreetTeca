@@ -10,6 +10,9 @@ window.onload = function () {
     requisicoes = JSON.parse(localStorage.getItem("requisicoes"))
     transformarEmInstanciaRequisicao(requisicoes)
 
+    bibliotecas = JSON.parse(localStorage.getItem("bibliotecas"))
+    transformarEmInstanciaBiblioteca(bibliotecas)
+
     configuracoes = JSON.parse(localStorage.getItem("configuracoes"))
 
     //atualiza as informações do utilizador logado
