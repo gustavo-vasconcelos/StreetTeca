@@ -1113,7 +1113,7 @@ function gerarRequisicoesEntregues() {
                                         <span class="pull-left">Pontuação:&nbsp;</span>
                                         <div class="rating"></div>                                        
                                         <div class="form-group">
-                                            <textarea id="inputComentario" class="form-control" rows="1" placeholder="Escreva aqui o seu comentário..." style="resize: vertical; min-height: 48px; max-height: 150px;" required></textarea>
+                                            <textarea id="inputComentario" class="form-control" rows="1" placeholder="Escreva aqui o seu comentário..." style="resize: vertical; min-height: 60px; max-height: 150px;" required></textarea>
                                             <input type="submit" id="btnComentar" class="btn btn-teca3 pull-right mt-2" value="Comentar">
                                         </div>
                                     </form>`
